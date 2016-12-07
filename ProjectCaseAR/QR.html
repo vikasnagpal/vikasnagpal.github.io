@@ -28,7 +28,7 @@ var type = getMobileOperatingSystem();
 
 window.onload = function() {
     if (type == "Windows Phone") {
-         os+= "Windows Phone";
+         os+= "Please scan using supported device";
         document.getElementById("demo").innerHTML = os;}
     else if(type=="Android"){
         document.location.href = "http://vikasnagpal.github.io/ProjectCaseAR/builds/android/SDZ-BC-AR-Alpha-6.apk";  
@@ -40,7 +40,7 @@ window.onload = function() {
     }
     else if(type=="unknown")
     {
-        os+= "Please scan using supported device";
+        os+= 'Please scan using supported device';
         document.getElementById("demo").innerHTML = os;
     } 
 };
