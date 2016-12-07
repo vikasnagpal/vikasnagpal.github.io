@@ -29,15 +29,15 @@ var type = getMobileOperatingSystem();
 window.onload = function() {
     debugger
     if (type == "Windows Phone") {
-         os+= "Windows Phone"
+         os+= "Windows Phone";
         document.getElementById("demo").innerHTML = os;}
     else if(type=="Android"){
-        os+= "Android"
+        os+= "Android";
         os += '<a href="/builds/android/SDZ-BC-AR-Alpha-6.apk">download</>';
         document.getElementById("demo").innerHTML = os;
     }
     else if(type=="iOS"){
-        os += '<a href="/builds/iOS/manifest.plist"> download</>';
+        os += '<a href="/builds/iOS/manifest.plist"> download </>';
         document.getElementById("demo").innerHTML = os;
     }
     else if(type=="unknown")
