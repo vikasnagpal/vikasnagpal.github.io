@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p id="demo"></p>
+
+<script>
+function getMobileOperatingSystem() {
+  var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+      // Windows Phone must come first because its UA also contains "Android"
+    if (/windows phone/i.test(userAgent)) {
+        return "Windows Phone";
+    }
+
+    if (/android/i.test(userAgent)) {
+        return "Android";
+    }
+    if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+        return "iOS";
+    }
+
+    return "unknown";
+}
+    
+var os = '';
+var type = getMobileOperatingSystem();
+
+window.onload = function() {
+    if (type == "Windows Phone") {
+         os+= 'Please open this link on android or ios device. You can also scan the QR code provided below with your device to download the the app directly on device';
+        os+= '<br>';
+        os+= '<img src="images/QR.png" alt="QR Code" height="256" width="256">';
+        document.getElementById("demo").innerHTML = os;}
+    else if(type=="Android"){
+        os += '<a href="https://github.com/vikasnagpal/vikasnagpal.github.io/releases/download/v0.1/SDZ-BC-AR-Alpha.apk">download for Android</>';
+        document.getElementById("demo").innerHTML = os;
+    }
+    else if(type=="iOS"){
+        os += '<a href="itms-services://?action=download-manifest&url=https://github.com/vikasnagpal/vikasnagpal.github.io/raw/master/ProjectCaseAR/builds/iOS/manifest.plist"> download for iOS </>';  
+        document.getElementById("demo").innerHTML = os;
+    }
+    else if(type=="unknown")
+    {
+        os+= 'Please open this link on android or ios device. You can also scan the QR code provided below with your device to download the the app directly on device';
+        os+= '<br>';
+        os+= '<img src="images/QR.png" alt="QR Code" height="256" width="256">';
+        document.getElementById("demo").innerHTML = os;
+    }
+};
+
+</script>
+
+</body>
+</html>
+
