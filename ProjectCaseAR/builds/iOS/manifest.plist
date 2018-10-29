@@ -11,32 +11,222 @@
 					<key>kind</key>
 					<string>software-package</string>
 					<key>url</key>
-					<string>https://github.com/vikasnagpal/vikasnagpal.github.io/releases/download/v0.1/SDZ-BC-AR-Alpha.ipa</string>
+					<string>https://ReplaceThisWithCorrecrtLink/File.ipa</string>
 				</dict>
 				<dict>
 					<key>kind</key>
 					<string>display-image</string>
 					<key>url</key>
-					<string>https://dl.dropboxusercontent.com/s/mvlkip2cxd6e1io/icon-57.png</string>
+					<string>https://ReplaceThisWithCorrecrtLink/image57.png</string>
 				</dict>
 				<dict>
 					<key>kind</key>
 					<string>full-size-image</string>
 					<key>url</key>
-					<string>https://dl.dropboxusercontent.com/s/na82kjfqctkxq79/icon-512.png</string>
+					<string>https://ReplaceThisWithCorrecrtLink/image512.png</string>
 				</dict>
 			</array>
 			<key>metadata</key>
 			<dict>
 				<key>bundle-identifier</key>
-				<string>9D8QM3XP5.com.gravity.SDZProjectCaseAR</string>
+				<string>com.Company.ProductName</string>
 				<key>bundle-version</key>
-				<string>1.0</string>
+				<string>0.1</string>
 				<key>kind</key>
 				<string>software</string>
 				<key>title</key>
-				<string>SDZ ProjectCase AR</string>
+				<string>STEEPLE-AR</string>
 			</dict>
+			<key>thinned-assets</key>
+			<array>
+				<dict>
+					<key>kind</key>
+					<string>software-package</string>
+					<key>url</key>
+					<string>https://ReplaceThisWithCorrecrtLink/File-9CEDD34D-6AED-40DB-9894-0BB9404A0B58.ipa</string>
+					<key>variantDescriptors</key>
+					<array>
+						<dict>
+							<key>device</key>
+							<string>iPad4,8</string>
+							<key>os-version</key>
+							<string>12</string>
+						</dict>
+						<dict>
+							<key>device</key>
+							<string>iPad5,4</string>
+							<key>os-version</key>
+							<string>12</string>
+						</dict>
+						<dict>
+							<key>device</key>
+							<string>iPad6,7</string>
+							<key>os-version</key>
+							<string>12</string>
+						</dict>
+						<dict>
+							<key>device</key>
+							<string>iPad7,6</string>
+							<key>os-version</key>
+							<string>12</string>
+						</dict>
+						<dict>
+							<key>device</key>
+							<string>iPad4,1</string>
+							<key>os-version</key>
+							<string>12</string>
+						</dict>
+						<dict>
+							<key>device</key>
+							<string>iPad7,4</string>
+							<key>os-version</key>
+							<string>12</string>
+						</dict>
+						<dict>
+							<key>device</key>
+							<string>iPad4,3</string>
+							<key>os-version</key>
+							<string>12</string>
+						</dict>
+						<dict>
+							<key>device</key>
+							<string>iPad7,2</string>
+							<key>os-version</key>
+							<string>12</string>
+						</dict>
+						<dict>
+							<key>device</key>
+							<string>iPad4,4</string>
+							<key>os-version</key>
+							<string>12</string>
+						</dict>
+						<dict>
+							<key>device</key>
+							<string>iPad7,5</string>
+							<key>os-version</key>
+							<string>12</string>
+						</dict>
+						<dict>
+							<key>device</key>
+							<string>iPad4,5</string>
+							<key>os-version</key>
+							<string>12</string>
+						</dict>
+						<dict>
+							<key>device</key>
+							<string>iPad6,3</string>
+							<key>os-version</key>
+							<string>12</string>
+						</dict>
+						<dict>
+							<key>device</key>
+							<string>iPad5,2</string>
+							<key>os-version</key>
+							<string>12</string>
+						</dict>
+						<dict>
+							<key>device</key>
+							<string>iPad7,1</string>
+							<key>os-version</key>
+							<string>12</string>
+						</dict>
+						<dict>
+							<key>device</key>
+							<string>iPad6,8</string>
+							<key>os-version</key>
+							<string>12</string>
+						</dict>
+						<dict>
+							<key>device</key>
+							<string>iPad7,3</string>
+							<key>os-version</key>
+							<string>12</string>
+						</dict>
+						<dict>
+							<key>device</key>
+							<string>iPad6,11</string>
+							<key>os-version</key>
+							<string>12</string>
+						</dict>
+						<dict>
+							<key>device</key>
+							<string>iPad5,3</string>
+							<key>os-version</key>
+							<string>12</string>
+						</dict>
+						<dict>
+							<key>device</key>
+							<string>iPad4,7</string>
+							<key>os-version</key>
+							<string>12</string>
+						</dict>
+						<dict>
+							<key>device</key>
+							<string>iPad4,6</string>
+							<key>os-version</key>
+							<string>12</string>
+						</dict>
+						<dict>
+							<key>device</key>
+							<string>iPad5,1</string>
+							<key>os-version</key>
+							<string>12</string>
+						</dict>
+						<dict>
+							<key>device</key>
+							<string>iPad4,9</string>
+							<key>os-version</key>
+							<string>12</string>
+						</dict>
+						<dict>
+							<key>device</key>
+							<string>iPad6,12</string>
+							<key>os-version</key>
+							<string>12</string>
+						</dict>
+						<dict>
+							<key>device</key>
+							<string>iPad6,4</string>
+							<key>os-version</key>
+							<string>12</string>
+						</dict>
+						<dict>
+							<key>device</key>
+							<string>iPad4,2</string>
+							<key>os-version</key>
+							<string>12</string>
+						</dict>
+					</array>
+					<key>variantIds</key>
+					<array>
+						<string>iPad7,4</string>
+						<string>iPad4,5</string>
+						<string>iPad7,5</string>
+						<string>iPad4,6</string>
+						<string>iPad6,3</string>
+						<string>iPad5,1</string>
+						<string>iPad6,11</string>
+						<string>iPad7,6</string>
+						<string>iPad6,4</string>
+						<string>iPad5,2</string>
+						<string>iPad4,7</string>
+						<string>iPad5,3</string>
+						<string>iPad4,1</string>
+						<string>iPad4,8</string>
+						<string>iPad6,12</string>
+						<string>iPad7,1</string>
+						<string>iPad4,2</string>
+						<string>iPad5,4</string>
+						<string>iPad4,9</string>
+						<string>iPad7,2</string>
+						<string>iPad6,7</string>
+						<string>iPad4,3</string>
+						<string>iPad7,3</string>
+						<string>iPad4,4</string>
+						<string>iPad6,8</string>
+					</array>
+				</dict>
+			</array>
 		</dict>
 	</array>
 </dict>
