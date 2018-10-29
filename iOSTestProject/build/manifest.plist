@@ -11,19 +11,19 @@
 					<key>kind</key>
 					<string>software-package</string>
 					<key>url</key>
-					<string>https://ReplaceThis.com/FileName.ipa</string>
+					<string>https://github.com/vikasnagpal/vikasnagpal.github.io/blob/master/iOSTestProject/build/iOSTestApp.ipa?raw=true</string>
 				</dict>
 				<dict>
 					<key>kind</key>
 					<string>display-image</string>
 					<key>url</key>
-					<string>https://ReaplaceThis.com/image57.png</string>
+					<string>https://raw.githubusercontent.com/vikasnagpal/vikasnagpal.github.io/master/iOSTestProject/build/kisspng-future-ico-vector-futuristic-earth-headquarters-5a7c8540a66e19.1718138715181100166817.png</string>
 				</dict>
 				<dict>
 					<key>kind</key>
 					<string>full-size-image</string>
 					<key>url</key>
-					<string>https://ReaplaceThis.com/image512.png</string>
+					<string>https://raw.githubusercontent.com/vikasnagpal/vikasnagpal.github.io/master/iOSTestProject/build/kisspng-future-ico-vector-futuristic-earth-headquarters-5a7c8540a66e19.1718138715181100166817.png</string>
 				</dict>
 			</array>
 			<key>metadata</key>
@@ -43,7 +43,7 @@
 					<key>kind</key>
 					<string>software-package</string>
 					<key>url</key>
-					<string>https://ReplaceThis.com/FileName-850F017B-9ABA-42BC-99E4-1ECE8A85D4B6.ipa</string>
+					<string>https://github.com/vikasnagpal/vikasnagpal.github.io/blob/master/iOSTestProject/build/iOSTestApp.ipa?raw=true</string>
 					<key>variantDescriptors</key>
 					<array>
 						<dict>
