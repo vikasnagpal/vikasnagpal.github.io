@@ -11,7 +11,7 @@
 					<key>kind</key>
 					<string>software-package</string>
 					<key>url</key>
-					<string>https://github.com/vikasnagpal/vikasnagpal.github.io/blob/master/iOSTestProject/build/Unity-iPhone.ipa?raw=true</string>
+					<string>https://www.dropbox.com/s/0zgrgjiews6s5s8/Unity-iPhone.ipa?dl=1</string>
 				</dict>
 				<dict>
 					<key>kind</key>
@@ -29,7 +29,7 @@
 			<key>metadata</key>
 			<dict>
 				<key>bundle-identifier</key>
-				<string>com.gravityilabs.iOSTestApp</string>
+				<string>com.gravityconsulting.steepleAr</string>
 				<key>bundle-version</key>
 				<string>0.1</string>
 				<key>kind</key>
@@ -43,7 +43,7 @@
 					<key>kind</key>
 					<string>software-package</string>
 					<key>url</key>
-					<string>https://github.com/vikasnagpal/vikasnagpal.github.io/blob/master/iOSTestProject/build/Unity-iPhone.ipa?raw=true</string>
+					<string>https://www.dropbox.com/s/0zgrgjiews6s5s8/Unity-iPhone.ipa?dl=1</string>
 					<key>variantDescriptors</key>
 					<array>
 						<dict>
