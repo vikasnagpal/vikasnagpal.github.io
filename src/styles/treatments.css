@@ -1,0 +1,58 @@
+/* Container treatments — atmospheres restyle panels, pills, rules and alignment together.
+   Shared defaults first, then per-mode overrides. Attribute lives on <html>. */
+[data-treatment] {
+  --ps-bg: var(--surface);
+  --ps-border: var(--surface-border);
+  --ps-radius: 22px;
+  --ps-rule: transparent;
+  --ps-pad: 28px 34px 30px;
+  --panel-bg: var(--surface);
+  --panel-border: var(--surface-border);
+  --panel-radius: 30px;
+  --pill-bg: var(--surface);
+  --pill-border: var(--surface-border);
+  --pill-shadow: none;
+  --deck-justify: center;
+  --footer-align: center;
+  --react-on-bg: var(--card-ink);
+  --react-on-fg: #fff3e8;
+}
+
+/* Golden hour: softer warm-maroon reaction pills instead of stark black */
+[data-theme='light'][data-treatment='Unified ground'] {
+  --react-on-bg: #5a2417;
+}
+
+/* Open panels tether the widget to one left axis; filled panels stay centered */
+[data-treatment='Open · proximity'],
+[data-treatment='Unified ground'] {
+  --deck-justify: flex-start;
+  --footer-align: flex-start;
+}
+
+[data-treatment='Open · proximity'] {
+  --ps-bg: transparent;
+  --ps-border: transparent;
+  --ps-radius: 0px;
+  --ps-rule: color-mix(in srgb, var(--ink) 15%, transparent);
+  --ps-pad: 26px 0 0;
+  --panel-bg: transparent;
+  --panel-border: transparent;
+  --panel-radius: 0px;
+}
+
+[data-treatment='Unified ground'] {
+  --bg: var(--surface);
+  --ps-bg: transparent;
+  --ps-border: transparent;
+  --ps-radius: 0px;
+  --ps-rule: color-mix(in srgb, var(--ink) 13%, transparent);
+  --ps-pad: 26px 0 0;
+  --panel-bg: transparent;
+  --panel-border: transparent;
+  --panel-radius: 0px;
+  /* On the cream canvas the pill needs its own deeper tone + a warm lift */
+  --pill-bg: color-mix(in srgb, var(--surface) 88%, var(--ink));
+  --pill-border: color-mix(in srgb, var(--ink) 9%, transparent);
+  --pill-shadow: 0 2px 10px color-mix(in srgb, var(--ink) 8%, transparent);
+}

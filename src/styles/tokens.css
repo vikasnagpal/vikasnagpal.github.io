@@ -1,0 +1,48 @@
+/* Color + type tokens, ported verbatim from the design component.
+   Light values live on :root; Quiet Night overrides via [data-theme="dark"] on <html>. */
+:root {
+  --f-display: 'Nunito', system-ui, sans-serif;
+  --f-body: 'Nunito', system-ui, sans-serif;
+  --f-script: 'Caveat', cursive;
+  --f-quote: 'Newsreader', Georgia, serif;
+  --w-display: 800;
+  --quote-weight: 700;
+  --quote-style: normal;
+  --bg: #fdf8f0;
+  --surface: #fcead4;
+  --surface-border: transparent;
+  --ink: #1c1c1b;
+  --text: #1c1c1b;
+  --panel-title: #4d4a44;
+  --muted: rgba(28, 28, 27, 0.86);
+  --accent: #f0603d;
+  --accent-hover: #d94e2c;
+  --script: #f0603d;
+  --on-accent: #2b1206;
+  --card-front: #f26644;
+  --card-green: #1f5a33;
+  --card-tan: #e3d2ac;
+  --card-ink: #201008;
+  --card-ink-soft: #2b1109;
+  --card-inkmuted: rgba(43, 17, 9, 0.62);
+}
+
+[data-theme='dark'] {
+  --bg: #181615;
+  --surface: #262320;
+  --surface-border: #3a3530;
+  --ink: #f5efe6;
+  --text: #c5beb5;
+  --panel-title: #b8afa4;
+  --muted: rgba(197, 190, 181, 0.72);
+  --accent: #ff7a59;
+  --accent-hover: #ff9174;
+  --script: #ff7a59;
+  --on-accent: #1a0d06;
+  --card-front: #c34a31;
+  --card-green: #27492f;
+  --card-tan: #6f6250;
+  --card-ink: #1a0d06;
+  --card-ink-soft: #2b1109;
+  --card-inkmuted: rgba(26, 13, 6, 0.62);
+}

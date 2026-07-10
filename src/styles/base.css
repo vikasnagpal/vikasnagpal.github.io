@@ -1,0 +1,51 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--f-body);
+  /* Atmosphere switches read as time passing: ground shifts first, text follows last */
+  transition: background-color 0.9s ease, color 0.9s ease 0.3s;
+}
+
+a {
+  color: var(--accent);
+}
+a:hover {
+  color: var(--accent-hover);
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+textarea::placeholder {
+  /* Textarea paper is fixed warm (#F6E7D6) in both themes, so the placeholder ink is too */
+  color: rgba(28, 28, 27, 0.45);
+}
+
+a:focus-visible,
+button:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 5px;
+}
+
+/* The sequenced atmosphere transition: background first (0.9s), borders next (+0.15s),
+   text last (+0.3s). Zero-specificity (:where) so any component transition overrides it. */
+.site :where(div, span, p) {
+  transition: background-color 0.9s ease, border-color 0.9s ease 0.15s, color 0.9s ease 0.3s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body,
+  .site :where(div, span, p) {
+    transition-duration: 0.01s !important;
+    transition-delay: 0s !important;
+  }
+}

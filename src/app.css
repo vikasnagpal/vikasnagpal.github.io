@@ -1,0 +1,29 @@
+.site {
+  min-height: 100vh;
+}
+
+.site-grid {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 44px 48px 80px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 452px;
+  gap: 88px;
+  align-items: stretch;
+}
+
+.site-left {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 960px) {
+  .site-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+    padding: 40px 24px 92px;
+  }
+  .gb-panel {
+    min-height: 620px;
+  }
+}

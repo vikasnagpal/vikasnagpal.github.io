@@ -1,0 +1,69 @@
+.nav-grid {
+  margin-top: 44px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  max-width: 500px;
+}
+
+.nav-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--accent);
+  color: var(--ink);
+}
+.nav-item:hover {
+  text-decoration: underline;
+  color: var(--ink);
+}
+
+.nav-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  transition: transform 0.18s ease;
+}
+
+/* GSAP-owned layer (tell tilt, catch dip) — CSS never transforms this span */
+.nav-icon {
+  display: inline-flex;
+}
+.nav-icon svg {
+  color: var(--accent);
+}
+
+.nav-label {
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: 18px;
+  text-align: center;
+}
+
+.nav-coin {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  pointer-events: none;
+  z-index: 5;
+  visibility: hidden; /* GSAP reveals */
+}
+
+.nav-note {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  white-space: nowrap;
+  font-family: var(--f-script);
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--script);
+  pointer-events: none;
+  z-index: 6;
+  visibility: hidden; /* GSAP reveals */
+}

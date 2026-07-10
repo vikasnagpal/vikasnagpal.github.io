@@ -1,0 +1,132 @@
+import { useRef } from 'react'
+import { useGSAP } from '@gsap/react'
+import gsap from 'gsap'
+import type { GuestbookApi } from './useGuestbook'
+import { LIFT, NOTE_SHADOW, RAISED_SHADOW, nightShadow, slotLayout } from './deckLayout'
+import { QuoteCard } from './QuoteCard'
+import { WriteCard } from './WriteCard'
+import { ReactionBar } from './ReactionBar'
+import { DECK } from '../../motion/tokens'
+import { prefersReducedMotion } from '../../motion/reducedMotion'
+import { useAtmosphere } from '../atmosphere/atmosphere'
+import '../../motion/eases'
+
+/* The deck renders cards in stable DOM order (keyed by thought id) and GSAP moves
+   them between slots. React owns structure, colors and z-index; GSAP owns
+   transform, shadow and opacity — the two never write the same property. */
+
+export function Deck({ gb }: { gb: GuestbookApi }) {
+  const { night, pace } = useAtmosphere()
+  const refs = useRef(new Map<string, HTMLDivElement>())
+  const positioned = useRef(new WeakSet<Element>())
+
+  const { thoughts, order, phase, lastFlown, mode, entered, peek, breath, justAdded } = gb
+
+  useGSAP(
+    () => {
+      const reduced = prefersReducedMotion()
+      thoughts.forEach((th, idx) => {
+        const el = refs.current.get(th.id)
+        if (!el) return
+        const p = order.indexOf(th.id)
+        const isFront = p === 0
+        const lifting = phase === 'lift' && isFront
+
+        let L = lifting ? { ...LIFT } : { ...slotLayout(p) }
+        if (!entered && !lifting && isFront) {
+          L = { ...L, ty: L.ty + DECK.enterRaise.y, rot: L.rot + DECK.enterRaise.rot, sh: RAISED_SHADOW }
+        }
+        if (!lifting && isFront && th.id === justAdded) {
+          L = { ...L, ty: L.ty + DECK.noteRaise.y, rot: L.rot + DECK.noteRaise.rot, sc: DECK.noteRaise.scale, sh: NOTE_SHADOW }
+        }
+        if (night && !lifting) {
+          L = { ...L, sh: nightShadow(p) }
+        }
+
+        let { tx, ty, rot } = L
+        if (entered && peek && phase === 'idle' && mode === 'read' && p >= 1 && L.op > 0) {
+          tx += p === 1 ? -DECK.peek.x : DECK.peek.x
+          ty += DECK.peek.y
+        }
+        if (!lifting && p >= 1) rot += DECK.jitter[idx % DECK.jitter.length]
+        if (!lifting && p >= 1 && breath) {
+          ty += DECK.breath.y
+          rot += DECK.breath.rot
+        }
+
+        // First layout for a card is set, not tweened — entrances then animate out of it.
+        if (!positioned.current.has(el)) {
+          positioned.current.add(el)
+          gsap.set(el, { x: tx, y: ty, rotation: rot, scale: L.sc, autoAlpha: L.op, boxShadow: L.sh })
+          return
+        }
+
+        if (reduced) {
+          gsap.set(el, { x: tx, y: ty, rotation: rot, scale: L.sc, autoAlpha: L.op, boxShadow: L.sh })
+          return
+        }
+
+        const durT = (phase === 'lift' ? DECK.lift : phase === 'settle' ? DECK.settle : DECK.idle) * pace
+        const durSh = (phase === 'lift' ? DECK.shadowLift : phase === 'settle' ? DECK.shadowSettle : DECK.shadowIdle) * pace
+        const durOp = (phase === 'lift' ? DECK.opacityLift : phase === 'settle' ? DECK.opacitySettle : DECK.opacityIdle) * pace
+        const easeName = phase === 'lift' ? 'lift' : phase === 'settle' ? 'settle' : 'idle'
+
+        gsap.to(el, { x: tx, y: ty, rotation: rot, scale: L.sc, duration: durT, ease: easeName, overwrite: 'auto' })
+        // shadow leads the movement — weight first
+        gsap.to(el, { boxShadow: L.sh, duration: durSh, ease: 'power1.inOut', overwrite: 'auto' })
+        gsap.to(el, { autoAlpha: L.op, duration: durOp, ease: 'power1.inOut', overwrite: 'auto' })
+      })
+    },
+    { dependencies: [thoughts, order, phase, lastFlown, mode, entered, peek, breath, justAdded, night, pace] },
+  )
+
+  return (
+    <div className="gb-deckwrap">
+      {thoughts.map((th) => {
+        const p = order.indexOf(th.id)
+        const isFront = p === 0
+        const lifting = phase === 'lift' && isFront
+        const slot = lifting ? LIFT : slotLayout(p)
+        const z = lifting ? 999 : th.id === lastFlown && phase === 'settle' ? 999 : slot.z
+        const bgDur = phase === 'lift' ? DECK.bgLift : phase === 'settle' ? DECK.bgSettle : DECK.bgIdle
+
+        return (
+          <div
+            key={th.id}
+            ref={(el) => {
+              if (el) refs.current.set(th.id, el)
+              else refs.current.delete(th.id)
+            }}
+            className="gb-card"
+            style={{
+              zIndex: z,
+              backgroundColor: slot.bg,
+              transition: `background-color ${bgDur}s ease`,
+              cursor: isFront && mode === 'read' ? 'pointer' : 'default',
+            }}
+            onClick={isFront && mode === 'read' ? gb.shuffle : undefined}
+          >
+            {isFront && mode === 'write' ? (
+              <WriteCard gb={gb} />
+            ) : (
+              <QuoteCard
+                thought={th}
+                isFront={isFront}
+                bar={
+                  <ReactionBar
+                    thought={th}
+                    countFor={gb.countFor}
+                    mineSet={gb.mine[th.id] ?? {}}
+                    pressedId={gb.pressedId}
+                    pressSeq={gb.pressSeq}
+                    onToggle={(key) => gb.toggleReaction(th.id, key)}
+                  />
+                }
+              />
+            )}
+          </div>
+        )
+      })}
+    </div>
+  )
+}

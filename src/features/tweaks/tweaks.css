@@ -1,0 +1,83 @@
+.tw-fab {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 900;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  background: rgba(255, 255, 255, 0.85);
+  cursor: pointer;
+  font-size: 16px;
+  opacity: 0.55;
+}
+.tw-fab:hover {
+  opacity: 1;
+}
+
+.tw-panel {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 900;
+  width: 250px;
+  background: rgba(20, 20, 20, 0.92);
+  color: #eee;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.tw-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.tw-x {
+  background: none;
+  border: none;
+  color: #eee;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.tw-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+.tw-row select,
+.tw-row input[type='range'] {
+  max-width: 130px;
+}
+.tw-row button {
+  background: #333;
+  color: #eee;
+  border: 1px solid #555;
+  border-radius: 6px;
+  padding: 2px 8px;
+  cursor: pointer;
+  font: inherit;
+}
+.tw-row button:hover {
+  background: #444;
+}
+
+.tw-actions {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.tw-resets {
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}

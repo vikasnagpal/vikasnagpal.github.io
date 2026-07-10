@@ -1,0 +1,69 @@
+.hero {
+  margin-top: 24px;
+}
+
+.hero-greet {
+  font-family: var(--f-display);
+  font-weight: var(--w-display);
+  font-size: 52px;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  color: var(--ink);
+}
+
+.hero-script {
+  font-family: var(--f-script);
+  font-weight: 700;
+  font-size: 64px;
+  line-height: 1.05;
+  color: var(--script);
+  margin-top: 8px;
+}
+
+/* First-visit write-on: soft 3-stop gradient edge, oversized so the feather clears the
+   text; repeat-y keeps Caveat's descenders and the underline inside the mask. */
+.hero-script.ink-mask {
+  --inkx: 100%;
+  -webkit-mask-image: linear-gradient(90deg, #000 44%, rgba(0, 0, 0, 0.5) 52%, transparent 59%);
+  mask-image: linear-gradient(90deg, #000 44%, rgba(0, 0, 0, 0.5) 52%, transparent 59%);
+  -webkit-mask-size: 250% 100%;
+  mask-size: 250% 100%;
+  -webkit-mask-repeat: repeat-y;
+  mask-repeat: repeat-y;
+  -webkit-mask-position: var(--inkx) 0;
+  mask-position: var(--inkx) 0;
+}
+
+.hero-ul {
+  position: relative;
+  white-space: nowrap;
+}
+
+.hero-ul svg {
+  position: absolute;
+  left: -1%;
+  bottom: -12px;
+  width: 102%;
+  height: 14px;
+  overflow: visible;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+}
+
+/* hidden until GSAP takes over the pen */
+.hero-path {
+  visibility: hidden;
+  stroke-width: 3.2;
+}
+
+.hero-body {
+  margin: 24px 0 0;
+  font-family: var(--f-body);
+  font-size: 18.5px;
+  line-height: 1.58;
+  max-width: 54ch;
+  color: var(--text);
+  text-wrap: pretty;
+}
