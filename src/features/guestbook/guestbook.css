@@ -62,6 +62,33 @@
   flex-direction: column;
   will-change: transform;
   visibility: hidden; /* GSAP positions and reveals */
+  /* covers the write-mode coral morph and daypart palette shifts */
+  transition: background-color 0.5s ease;
+}
+
+/* --- paper --- */
+/* Each thought keeps its own paper through every slot (paper.ts assigns it).
+   Re-scoping the card ink vars makes text, dates and pills adapt per paper. */
+.gb-card[data-paper='coral'] {
+  background-color: var(--card-front);
+}
+.gb-card[data-paper='green'] {
+  background-color: var(--card-green);
+  --card-ink: var(--card-green-ink);
+  --card-ink-soft: var(--card-green-ink-soft);
+  --card-inkmuted: var(--card-green-inkmuted);
+}
+.gb-card[data-paper='tan'] {
+  background-color: var(--card-tan);
+  --card-ink: var(--card-tan-ink);
+  --card-ink-soft: var(--card-tan-ink-soft);
+  --card-inkmuted: var(--card-tan-inkmuted);
+}
+.gb-card[data-paper='sage'] {
+  background-color: var(--card-sage);
+  --card-ink: var(--card-sage-ink);
+  --card-ink-soft: var(--card-sage-ink-soft);
+  --card-inkmuted: var(--card-sage-inkmuted);
 }
 
 /* --- quote face --- */

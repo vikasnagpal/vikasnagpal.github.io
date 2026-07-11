@@ -3,6 +3,7 @@ import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import type { GuestbookApi } from './useGuestbook'
 import { LIFT, NOTE_SHADOW, RAISED_SHADOW, nightShadow, slotLayout } from './deckLayout'
+import { paperFor } from './paper'
 import { QuoteCard } from './QuoteCard'
 import { WriteCard } from './WriteCard'
 import { ReactionBar } from './ReactionBar'
@@ -88,7 +89,6 @@ export function Deck({ gb }: { gb: GuestbookApi }) {
         const lifting = phase === 'lift' && isFront
         const slot = lifting ? LIFT : slotLayout(p)
         const z = lifting ? 999 : th.id === lastFlown && phase === 'settle' ? 999 : slot.z
-        const bgDur = phase === 'lift' ? DECK.bgLift : phase === 'settle' ? DECK.bgSettle : DECK.bgIdle
 
         return (
           <div
@@ -98,10 +98,9 @@ export function Deck({ gb }: { gb: GuestbookApi }) {
               else refs.current.delete(th.id)
             }}
             className="gb-card"
+            data-paper={isFront && mode === 'write' ? 'coral' : paperFor(th.id)}
             style={{
               zIndex: z,
-              backgroundColor: slot.bg,
-              transition: `background-color ${bgDur}s ease`,
               cursor: isFront && mode === 'read' ? 'pointer' : 'default',
             }}
             onClick={isFront && mode === 'read' ? gb.shuffle : undefined}

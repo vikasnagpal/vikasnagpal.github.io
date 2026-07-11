@@ -22,9 +22,20 @@
   --card-front: #f26644;
   --card-green: #1f5a33;
   --card-tan: #e3d2ac;
+  --card-sage: #b9c79c;
   --card-ink: #201008;
   --card-ink-soft: #2b1109;
   --card-inkmuted: rgba(43, 17, 9, 0.62);
+  /* per-paper ink pairs — coral keeps the default card ink; dark papers write in cream */
+  --card-green-ink: #f6ead2;
+  --card-green-ink-soft: #e9d8b6;
+  --card-green-inkmuted: rgba(246, 234, 210, 0.62);
+  --card-tan-ink: #201008;
+  --card-tan-ink-soft: #2b1109;
+  --card-tan-inkmuted: rgba(43, 17, 9, 0.62);
+  --card-sage-ink: #201008;
+  --card-sage-ink-soft: #2b1109;
+  --card-sage-inkmuted: rgba(43, 17, 9, 0.62);
 }
 
 [data-theme='dark'] {
@@ -42,7 +53,18 @@
   --card-front: #c34a31;
   --card-green: #27492f;
   --card-tan: #6f6250;
+  --card-sage: #5c6a4c;
   --card-ink: #1a0d06;
   --card-ink-soft: #2b1109;
   --card-inkmuted: rgba(26, 13, 6, 0.62);
+  /* lamp-lit papers deepen at night; tan and sage flip to cream ink */
+  --card-green-ink: #e6d9bd;
+  --card-green-ink-soft: #d8c8a6;
+  --card-green-inkmuted: rgba(230, 217, 189, 0.6);
+  --card-tan-ink: #f0e5cf;
+  --card-tan-ink-soft: #e0d2b4;
+  --card-tan-inkmuted: rgba(240, 229, 207, 0.62);
+  --card-sage-ink: #f0e5cf;
+  --card-sage-ink-soft: #e0d2b4;
+  --card-sage-inkmuted: rgba(240, 229, 207, 0.62);
 }

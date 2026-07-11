@@ -43,10 +43,6 @@ export const DECK = {
   opacityLift: 0.25,
   opacitySettle: 0.46,
   opacityIdle: 0.32,
-  /** card background-color transition per phase (CSS-driven, keeps vars live) */
-  bgLift: 0.25,
-  bgSettle: 0.54,
-  bgIdle: 0.9,
   /** front card settles in from above, ~90ms after mount */
   enterDelayMs: 90,
   enterRaise: { y: -22, rot: 3 },
