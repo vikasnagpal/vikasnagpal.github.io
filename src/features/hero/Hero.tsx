@@ -47,15 +47,11 @@ export function Hero() {
     }
 
     gsap.set(path, { visibility: 'visible', drawSVG: '0%', strokeWidth: HERO.strokeSwell.from })
+    // Draw and weight settle in lockstep on the same ease: the ink reaches full
+    // thickness exactly as the pen finishes, monotonically — no thicken-then-thin pulse.
     tl.to(path, { drawSVG: '100%', duration: HERO.drawDur, ease: 'inkDraw' }, HERO.drawDelay).to(
       path,
-      {
-        keyframes: [
-          { strokeWidth: HERO.strokeSwell.mid, duration: HERO.drawDur * 0.55 },
-          { strokeWidth: HERO.strokeSwell.to, duration: HERO.drawDur * 0.45 },
-        ],
-        ease: 'none',
-      },
+      { strokeWidth: HERO.strokeSwell.to, duration: HERO.drawDur, ease: 'inkDraw' },
       HERO.drawDelay,
     )
 

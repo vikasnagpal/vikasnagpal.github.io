@@ -10,6 +10,8 @@ export const CURVES = {
   settle: '0.34,1.35,0.55,1',
   /** Deck: idle nudges (peek, breath, entrance) — soft overshoot */
   idle: '0.3,1.2,0.4,1',
+  /** Page: blocks easing up into place on load — a decisive, unhurried ease-out */
+  enter: '0.22,0.61,0.36,1',
   /** Hero: ink soaking across the handwritten line */
   inkFlow: '0.6,0.08,0.35,1',
   /** Hero: underline pen-stroke draw */
@@ -97,14 +99,27 @@ export const COIN = {
   rareOdds: 0.05,
 } as const
 
+/** Page entrance — the composition settling in once, on first paint */
+export const INTRO = {
+  /** how far each block rises as it fades in */
+  y: 14,
+  dur: 0.72,
+  /** left-column blocks arrive one after another, top to bottom */
+  stagger: 0.08,
+  /** the guestbook panel joins a beat after the column starts */
+  panelDelay: 0.14,
+} as const
+
 /** Hero ink system */
 export const HERO = {
   inkDur: 0.95,
   inkDelay: 0.35,
   drawDur: 0.55,
   drawDelay: 1.2,
-  /** nib pressure: stroke width swells mid-stroke */
-  strokeSwell: { from: 2.5, mid: 3.6, to: 3.2 },
+  /** ink weight settles up to its resting thickness as the pen lands — monotonic, so
+     the finished line never pulses thicker-then-thinner (a temporal swell past `to`
+     crosses the pixel-rounding boundary and reads as a glitchy fatten, not nib pressure) */
+  strokeSwell: { from: 2.6, to: 3.2 },
 } as const
 
 /** Toast timings */

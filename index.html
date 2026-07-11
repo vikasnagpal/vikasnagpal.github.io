@@ -4,7 +4,45 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Vikas designs products that help people focus on their work, not their tools." />
-    <meta name="theme-color" content="#fdf8f0" />
+    <meta name="theme-color" id="theme-color" content="#fdf8f0" />
+    <script>
+      /* Resolve the atmosphere BEFORE first paint. The themed CSS variables that give
+         every panel/pill/card its border, radius and padding live only under
+         [data-treatment]; React sets that attribute in an effect that fires AFTER the
+         first paint, so without this bootstrap each bordered block flashes a sharp,
+         currentColor (dark) outline for one frame on load. This mirrors atmosphere.tsx —
+         keep the daypart → theme/treatment mapping in sync with it. */
+      (function () {
+        try {
+          var DAYPARTS = {
+            morning: { theme: 'light', treatment: 'Open · proximity', bg: '#fdf8f0' },
+            evening: { theme: 'light', treatment: 'Unified ground', bg: '#fcead4' },
+            night: { theme: 'dark', treatment: 'Unified ground', bg: '#262320' },
+          }
+          var auto = true,
+            choice = null
+          try {
+            var p = JSON.parse(localStorage.getItem('vikas-atmosphere-v2') || 'null')
+            if (p) {
+              if (typeof p.auto === 'boolean') auto = p.auto
+              if (p.choice && DAYPARTS[p.choice]) choice = p.choice
+            }
+          } catch (e) {}
+          var daypart
+          if (!auto && choice) {
+            daypart = choice
+          } else {
+            var hr = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' })).getHours()
+            daypart = hr >= 5 && hr < 12 ? 'morning' : hr >= 12 && hr < 19 ? 'evening' : 'night'
+          }
+          var dp = DAYPARTS[daypart]
+          document.documentElement.dataset.theme = dp.theme
+          document.documentElement.dataset.treatment = dp.treatment
+          var meta = document.getElementById('theme-color')
+          if (meta) meta.setAttribute('content', dp.bg)
+        } catch (e) {}
+      })()
+    </script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 72 72'%3E%3Cpath d='M40 62 C40 50 50 40 62 40 C50 40 40 30 40 18 C40 30 30 40 18 40 C30 40 40 50 40 62 Z' fill='%23f0603d'/%3E%3C/svg%3E" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

@@ -3,6 +3,12 @@
 }
 
 .site-grid {
+  /* The design source (DC) container is content-box: max-width caps the 1240px
+     content, and the 48px padding sits outside it (total 1336 when there's room).
+     The global border-box reset would instead cap the border box, shrinking the
+     content to 1144 and shifting it 48px inward — so opt this one container back
+     to content-box to match the original spacing exactly. */
+  box-sizing: content-box;
   max-width: 1240px;
   margin: 0 auto;
   padding: 44px 48px 80px;

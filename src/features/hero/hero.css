@@ -59,7 +59,12 @@
 }
 
 .hero-body {
-  margin: 24px 0 0;
+  /* The DC wraps this intro as div(margin:24px 0 0) > span > p, and never resets the
+     inner <p>'s default 1em top/bottom margins. Flattening it to a single <p> here
+     dropped those, pulling the nav/P.S./button up ~37px. Re-add them (1em = the 18.5px
+     body size) so the vertical rhythm matches the original: 24px design gap + the
+     paragraph's own 1em above, and 1em below. */
+  margin: calc(24px + 1em) 0 1em;
   font-family: var(--f-body);
   font-size: 18.5px;
   line-height: 1.58;

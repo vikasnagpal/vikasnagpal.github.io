@@ -18,7 +18,12 @@
 }
 
 .ps-copy {
-  margin: 12px 0 0;
+  /* Same DC quirk as .hero-body: the source nests this as div(margin:12px 0 0) > span >
+     p with the inner <p>'s default 1em margins intact. Here .ps is normal flow, so the
+     <p>'s top margin collapsed with the 12px gap (→ max, i.e. 1em) while its bottom
+     margin did not collapse with the inline-flex button (→ adds). Reproduce that so the
+     button lands at the original's vertical position. 1em = the 17.5px copy size. */
+  margin: max(12px, 1em) 0 1em;
   font-family: var(--f-body);
   font-size: 17.5px;
   line-height: 1.6;

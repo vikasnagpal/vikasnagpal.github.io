@@ -48,11 +48,17 @@ export function AtmosphereProvider({ children }: { children: ReactNode }) {
     return () => clearInterval(t)
   }, [])
 
-  // The whole page is themed: attributes on <html> so body + tokens respond.
+  // The whole page is themed: attributes on <html> so body + tokens respond. (An inline
+  // script in index.html sets these before first paint too — this keeps them in sync as
+  // the daypart changes.) The browser-chrome color follows the resolved ground.
   useEffect(() => {
+    const root = document.documentElement
     const dp = DAYPARTS[daypart]
-    document.documentElement.dataset.theme = dp.theme
-    document.documentElement.dataset.treatment = dp.treatment
+    root.dataset.theme = dp.theme
+    root.dataset.treatment = dp.treatment
+    const meta = document.getElementById('theme-color')
+    const bg = getComputedStyle(root).getPropertyValue('--bg').trim()
+    if (meta && bg) meta.setAttribute('content', bg)
   }, [daypart])
 
   const value = useMemo<AtmosphereState>(
