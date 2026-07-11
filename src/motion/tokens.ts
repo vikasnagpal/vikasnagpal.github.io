@@ -122,12 +122,9 @@ export const HERO = {
 export const TOAST = {
   in: 0.4,
   out: 0.25,
-  /** the simulated "someone just left a thought" moment */
-  liveAtMs: 24000,
-  liveForMs: 6500,
+  /** default time a toast stays up */
+  showForMs: 6500,
   submitForMs: 5600,
-  /** ~26s after you submit, your note "receives" its first Rock on */
-  firstReactionAtMs: 26000,
 } as const
 
 /** Chime synthesis (triangle waves — marimba ding, not arcade bleep) */

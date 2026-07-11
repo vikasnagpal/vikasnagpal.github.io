@@ -13,3 +13,16 @@ export function paperFor(id: string): PaperKey {
   for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) >>> 0
   return PAPERS[h % PAPERS.length]
 }
+
+/* A fresh deal for every visit: true shuffle, no date order — then a random
+   coral card is cut to the front so the room always opens on its signature paper. */
+export function deckOrder(ids: string[]): string[] {
+  const deck = [...ids]
+  for (let i = deck.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[deck[i], deck[j]] = [deck[j], deck[i]]
+  }
+  const c = deck.findIndex((id) => paperFor(id) === 'coral')
+  if (c > 0) deck.unshift(deck.splice(c, 1)[0])
+  return deck
+}

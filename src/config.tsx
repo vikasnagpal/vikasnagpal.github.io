@@ -9,14 +9,12 @@ export type SeasonOverride = 'auto' | 'spring' | 'monsoon' | 'autumn' | 'winter'
 export interface SiteConfig {
   weatherOverride: WeatherOverride
   seasonOverride: SeasonOverride
-  shuffleOnLoad: boolean
   calendarUrl: string
 }
 
 const DEFAULTS: SiteConfig = {
   weatherOverride: 'auto',
   seasonOverride: 'auto',
-  shuffleOnLoad: false,
   calendarUrl: (import.meta.env.VITE_CALENDAR_URL as string | undefined) || '#',
 }
 

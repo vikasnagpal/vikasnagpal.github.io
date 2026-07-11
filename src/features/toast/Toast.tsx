@@ -31,7 +31,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const show = useCallback<ShowToast>(
-    (text, forMs = TOAST.liveForMs) => {
+    (text, forMs = TOAST.showForMs) => {
       if (hideTimer.current) clearTimeout(hideTimer.current)
       setMsg(text)
       hideTimer.current = setTimeout(hide, forMs)

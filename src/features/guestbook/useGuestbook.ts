@@ -6,7 +6,7 @@ import { KEYS, readJSON, writeJSON } from '../../lib/storage'
 import { getVisitorId } from '../../lib/visitor'
 import { DECK, REACTION, TOAST } from '../../motion/tokens'
 import { useAtmosphere } from '../atmosphere/atmosphere'
-import { useConfig } from '../../config'
+import { deckOrder } from './paper'
 import { useToast } from '../toast/Toast'
 
 export type Phase = 'idle' | 'lift' | 'settle'
@@ -52,15 +52,10 @@ export interface GuestbookApi {
 
 export function useGuestbook(): GuestbookApi {
   const { pace } = useAtmosphere()
-  const { shuffleOnLoad } = useConfig()
   const toast = useToast()
 
   const [thoughts, setThoughts] = useState<Thought[]>(SEEDS)
-  const [order, setOrder] = useState<string[]>(() => {
-    const ids = SEEDS.map((s) => s.id)
-    const start = shuffleOnLoad ? Math.floor(Math.random() * ids.length) : 0
-    return ids.map((_, k) => ids[(start + k) % ids.length])
-  })
+  const [order, setOrder] = useState<string[]>(() => deckOrder(SEEDS.map((s) => s.id)))
   const [phase, setPhase] = useState<Phase>('idle')
   const [lastFlown, setLastFlown] = useState<string | null>(null)
   const [mode, setMode] = useState<Mode>('read')
@@ -103,15 +98,14 @@ export function useGuestbook(): GuestbookApi {
     timers.current.push(setTimeout(fn, ms))
   }, [])
 
-  // Settle-in, ambient breathing, and the one-shot live-wall illusion.
+  // Settle-in and ambient breathing. (The "someone just left a thought" toast is
+  // reserved for the real thing — a Supabase Realtime approval event, never a timer.)
   useEffect(() => {
     const tEnter = setTimeout(() => setEntered(true), DECK.enterDelayMs)
-    const tToast = setTimeout(() => toast('Someone just left a thought in the guestbook.', TOAST.liveForMs), TOAST.liveAtMs)
     const iBreath = setInterval(() => setBreath((b) => !b), DECK.breathEveryMs)
     const pending = timers.current
     return () => {
       clearTimeout(tEnter)
-      clearTimeout(tToast)
       clearInterval(iBreath)
       pending.forEach(clearTimeout)
     }
@@ -127,7 +121,14 @@ export function useGuestbook(): GuestbookApi {
       if (!alive) return
       if (th && th.length && !interacted.current) {
         setThoughts((prev) => [...prev.filter((t) => t.own), ...th])
-        setOrder((prev) => [...prev.filter((id) => id.startsWith('local-')), ...th.map((t) => t.id)])
+        // Keep the on-screen shuffle for ids the seeds already cover (no visible
+        // re-deal a beat after paint); genuinely new server notes join the back.
+        setOrder((prev) => {
+          const server = new Set(th.map((t) => t.id))
+          const kept = prev.filter((id) => id.startsWith('local-') || server.has(id))
+          const seen = new Set(kept)
+          return [...kept, ...deckOrder(th.map((t) => t.id).filter((id) => !seen.has(id)))]
+        })
       }
       if (counts) {
         mineAtSync.current = JSON.parse(JSON.stringify(mineRef.current)) as MineMap
@@ -196,14 +197,6 @@ export function useGuestbook(): GuestbookApi {
     setClosing(false)
     toast("Thanks! Your thought has been added. It'll appear on the wall shortly.", TOAST.submitForMs)
     later(() => setJustAdded(null), DECK.noteFlagClearMs)
-    // ~26s later the note "receives" its first Rock on
-    later(() => {
-      setThoughts((prev) =>
-        prev.map((t) => (t.id === note.id ? { ...t, baseReactions: { ...t.baseReactions, rock_on: (t.baseReactions.rock_on || 0) + 1 } } : t)),
-      )
-      setPressSeq((s) => s + 1)
-      setPressedId(`${note.id}:rock_on`)
-    }, TOAST.firstReactionAtMs)
   }, [later, toast])
 
   const submit = useCallback(() => {

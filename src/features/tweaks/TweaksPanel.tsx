@@ -98,11 +98,6 @@ export default function TweaksPanel() {
         </select>
       </label>
       <label className="tw-row">
-        <span>shuffle on load</span>
-        <input type="checkbox" checked={config.shuffleOnLoad} onChange={(e) => patch({ shuffleOnLoad: e.target.checked })} />
-      </label>
-
-      <label className="tw-row">
         <span>time scale {scale.toFixed(2)}×</span>
         <input
           type="range"
