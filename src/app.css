@@ -63,14 +63,27 @@
   .atmo-menu {
     width: min(328px, calc(100vw - 32px));
   }
+  /* Three nav items share one line: content-sized columns, labels never wrap —
+     a wrapped "Past adventures" reads as a different row and breaks the trio. */
   .nav-grid {
+    max-width: none;
+    display: flex;
+    justify-content: space-between;
     gap: 12px;
+  }
+  .nav-label {
+    font-size: clamp(13.5px, 4vw, 16px);
+    white-space: nowrap;
   }
   .gb-panel {
     padding: 28px 8px 24px;
   }
   .gb-deckrow {
     justify-content: center;
+  }
+  /* the deck centers below 560 — its footer follows */
+  .gb-foot {
+    align-items: center;
   }
   .toast {
     left: 16px;
