@@ -42,6 +42,11 @@
   to { opacity: 1; transform: scale(1); }
 }
 
+@keyframes rbarIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   [data-spin]:hover svg,
   [data-nav]:hover [data-nav-inner] svg {

@@ -65,16 +65,13 @@
 }
 
 /* --- quote face --- */
+/* Every card keeps its writing visible — real paper isn't blank when the card
+   above it lifts away. Only the reaction pills are front-only (see .gb-rbar). */
 .gb-quote {
-  opacity: 0;
-  transition: opacity 380ms ease;
   flex: 1;
   display: flex;
   flex-direction: column;
   height: 100%;
-}
-.gb-quote.is-front {
-  opacity: 1;
 }
 
 .gb-top {
@@ -126,6 +123,7 @@
   align-items: center;
   gap: 8px;
   flex-wrap: wrap;
+  animation: rbarIn 380ms ease;
 }
 
 .gb-pill {
@@ -360,7 +358,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .gb-write {
+  .gb-write,
+  .gb-rbar {
     animation: none;
   }
   .gb-writebtn:hover {
