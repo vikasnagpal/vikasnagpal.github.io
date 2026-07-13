@@ -25,6 +25,18 @@
   margin-top: 36px;
   border-top: 1.5px solid var(--ps-rule);
   padding-top: 28px;
+  display: flex;
+  gap: 20px;
+}
+
+/* The margin doodle — same stroke language and accent ink as the nav trio */
+.wk-ico {
+  flex: 0 0 auto;
+  color: var(--accent);
+  margin-top: 1px;
+}
+.wk-body {
+  min-width: 0;
 }
 
 /* The arrangement's name leads — the same display voice as "Why me?", one
@@ -93,6 +105,13 @@
 @media (max-width: 560px) {
   .wk-title {
     font-size: clamp(33px, 9.5vw, 44px);
+  }
+  .wk-offer {
+    gap: 14px;
+  }
+  .wk-ico svg {
+    width: 36px;
+    height: 36px;
   }
   .wk-role {
     font-size: 21px;
