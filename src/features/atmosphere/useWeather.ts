@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react'
 import { useConfig } from '../../config'
+import { KEYS, readRaw, writeRaw } from '../../lib/storage'
 
 export type WeatherKind = 'clear' | 'partly' | 'cloudy' | 'rain' | 'thunder' | 'fog'
+
+const KINDS: readonly WeatherKind[] = ['clear', 'partly', 'cloudy', 'rain', 'thunder', 'fog']
 
 function weatherFromCode(c: number): WeatherKind {
   if (c === 0) return 'clear'
@@ -14,10 +17,15 @@ function weatherFromCode(c: number): WeatherKind {
 }
 
 /** One fetch to Open-Meteo (Bangalore, no API key) on mount; offline falls back
-    silently to cloudy. The tweaks override wins when set. */
+    silently to the last-known sky, then cloudy. The tweaks override wins when set. */
 export function useWeather(): WeatherKind {
   const { weatherOverride } = useConfig()
-  const [weather, setWeather] = useState<WeatherKind>('cloudy')
+  // First paint shows the last fetch's sky, not a hardcoded cloud — otherwise
+  // every refresh flashes the default icon and swaps when the API answers.
+  const [weather, setWeather] = useState<WeatherKind>(() => {
+    const cached = readRaw(KEYS.weather) as WeatherKind | null
+    return cached && KINDS.includes(cached) ? cached : 'cloudy'
+  })
 
   useEffect(() => {
     let alive = true
@@ -25,7 +33,11 @@ export function useWeather(): WeatherKind {
       .then((r) => r.json())
       .then((d) => {
         const c = d?.current?.weather_code
-        if (alive && typeof c === 'number') setWeather(weatherFromCode(c))
+        if (alive && typeof c === 'number') {
+          const kind = weatherFromCode(c)
+          setWeather(kind)
+          writeRaw(KEYS.weather, kind)
+        }
       })
       .catch(() => {})
     return () => {
