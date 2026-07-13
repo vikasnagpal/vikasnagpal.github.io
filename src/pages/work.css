@@ -27,15 +27,27 @@
   padding-top: 28px;
 }
 
-.wk-sit {
+/* The arrangement's name leads — the same display voice as "Why me?", one
+   step smaller. The situation follows in the guestbook's serif italic (the
+   title + italic-sub pairing the Guestbook head already uses). */
+.wk-role {
   margin: 0;
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-size: 23px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.wk-sit {
+  margin: 8px 0 0;
   font-family: var(--f-quote);
   font-style: italic;
   font-weight: 600;
-  font-size: 21.5px;
-  line-height: 1.4;
+  font-size: 19.5px;
+  line-height: 1.45;
   color: var(--ink);
-  max-width: 46ch;
+  max-width: 50ch;
   text-wrap: pretty;
 }
 
@@ -47,21 +59,6 @@
   max-width: 56ch;
   color: var(--text);
   text-wrap: pretty;
-}
-
-.wk-tag {
-  margin-top: 14px;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-family: var(--f-script);
-  font-weight: 700;
-  font-size: 23px;
-  line-height: 1;
-  color: var(--script);
-}
-.wk-tag svg {
-  margin-top: 2px; /* optical: the arrow sits on the script's baseline weight */
 }
 
 .wk-why {
@@ -97,7 +94,10 @@
   .wk-title {
     font-size: clamp(33px, 9.5vw, 44px);
   }
+  .wk-role {
+    font-size: 21px;
+  }
   .wk-sit {
-    font-size: 20px;
+    font-size: 18.5px;
   }
 }
