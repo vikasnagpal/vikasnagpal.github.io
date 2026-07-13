@@ -86,6 +86,8 @@ export const COIN = {
   noteDelayMs: 820,
   /** trigger: 3 entries on the same item within this window */
   windowMs: 3000,
+  /** touch trigger: each horizontal rub stroke this long counts as one "entry" */
+  rubStrokePx: 12,
   /** Phase 2: soft damping — after this many coins in a session, spawns get probabilistic */
   dampAfter: 8,
   dampChance: 0.45,

@@ -16,6 +16,12 @@
   text-decoration-thickness: 2px;
   text-decoration-color: var(--accent);
   color: var(--ink);
+  /* the coin rub gesture: keep vertical scroll native, but horizontal strokes
+     stay ours; no iOS link callout or text selection mid-rub */
+  touch-action: pan-y;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 .nav-item:hover {
   text-decoration: underline;

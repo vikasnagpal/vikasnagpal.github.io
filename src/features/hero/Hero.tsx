@@ -61,7 +61,10 @@ export function Hero() {
   return (
     <>
       <div className="hero">
-        <div className="hero-greet">{returning ? "Welcome back — it's Vikas, and" : "Hello, I'm Vikas and"}</div>
+        {/* Both greetings must fit the display line at 52px — the earlier
+            "Welcome back — it's Vikas, and" wrapped into a broken two-liner.
+            A returning visitor knows whose room this is; drop the name. */}
+        <div className="hero-greet">{returning ? 'Welcome back, and' : "Hello, I'm Vikas and"}</div>
         <div ref={scriptRef} className={`hero-script${writeOn ? ' ink-mask' : ''}`}>
           I&#39;m glad{' '}
           <span className="hero-ul">

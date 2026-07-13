@@ -27,12 +27,20 @@ const AtmosphereContext = createContext<AtmosphereState | null>(null)
 interface Persisted {
   auto: boolean
   choice: Daypart | null
+  /** when the manual pick was made — it expires back to auto (see MANUAL_TTL_MS) */
+  at?: number
 }
+
+/* Picking an atmosphere is peeking at another mood of the room, not flipping a
+   permanent switch. After 12 hours the room follows the sun again — otherwise a
+   visitor (or Vikas) who tried Quiet Night once would see it at 4pm forever. */
+const MANUAL_TTL_MS = 12 * 3600 * 1000
 
 function readPersisted(): Persisted {
   const p = readJSON<Partial<Persisted> | null>(KEYS.atmosphere, null)
   const auto = typeof p?.auto === 'boolean' ? p.auto : true
   const choice = p?.choice && p.choice in DAYPARTS ? p.choice : null
+  if (!auto && (!p?.at || Date.now() - p.at > MANUAL_TTL_MS)) return { auto: true, choice: null }
   return { auto, choice }
 }
 
@@ -68,14 +76,16 @@ export function AtmosphereProvider({ children }: { children: ReactNode }) {
       night: daypart === 'night',
       pace: DECK.pace[daypart] ?? 1,
       choose: (dp) => {
-        setPref({ auto: false, choice: dp })
-        writeJSON(KEYS.atmosphere, { auto: false, choice: dp })
+        const next: Persisted = { auto: false, choice: dp, at: Date.now() }
+        setPref(next)
+        writeJSON(KEYS.atmosphere, next)
       },
       toggleAuto: () => {
-        const next = !auto
-        setPref({ auto: next, choice: next ? null : daypart })
-        writeJSON(KEYS.atmosphere, { auto: next, choice: next ? null : daypart })
-        if (next) setClockPart(daypartFromClock())
+        const on = !auto
+        const next: Persisted = { auto: on, choice: on ? null : daypart, at: Date.now() }
+        setPref(next)
+        writeJSON(KEYS.atmosphere, next)
+        if (on) setClockPart(daypartFromClock())
       },
     }),
     [daypart, auto],

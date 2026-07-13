@@ -26,10 +26,13 @@ export function istTimeString(): string {
   }
 }
 
-/** 5–12 morning · 12–19 golden hour · 19–5 night */
+/** 5–14 Morning Light · 14–19 Golden Hour · 19–5 Quiet Night.
+    Bangalore sun: first light ~5:30, warm afternoon slant from ~2pm,
+    sunset ~6:30 — so noon stays "fresh and bright", not golden.
+    KEEP IN SYNC with the pre-paint script in index.html. */
 export function daypartFromClock(): Daypart {
   const hr = istNow().getHours()
-  return hr >= 5 && hr < 12 ? 'morning' : hr >= 12 && hr < 19 ? 'evening' : 'night'
+  return hr >= 5 && hr < 14 ? 'morning' : hr >= 14 && hr < 19 ? 'evening' : 'night'
 }
 
 export function istSeason(): Season {

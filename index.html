@@ -35,14 +35,20 @@
             if (p) {
               if (typeof p.auto === 'boolean') auto = p.auto
               if (p.choice && DAYPARTS[p.choice]) choice = p.choice
+              /* a manual pick is a peek, not a setting: after 12h the room follows the sun again */
+              if (!auto && (!p.at || Date.now() - p.at > 12 * 3600 * 1000)) {
+                auto = true
+                choice = null
+              }
             }
           } catch (e) {}
           var daypart
           if (!auto && choice) {
             daypart = choice
           } else {
+            /* 5–14 morning · 14–19 golden hour · 19–5 night — mirror of daypartFromClock in ist.ts */
             var hr = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' })).getHours()
-            daypart = hr >= 5 && hr < 12 ? 'morning' : hr >= 12 && hr < 19 ? 'evening' : 'night'
+            daypart = hr >= 5 && hr < 14 ? 'morning' : hr >= 14 && hr < 19 ? 'evening' : 'night'
           }
           var dp = DAYPARTS[daypart]
           document.documentElement.dataset.theme = dp.theme

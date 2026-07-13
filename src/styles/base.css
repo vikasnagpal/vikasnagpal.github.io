@@ -2,6 +2,19 @@
   box-sizing: border-box;
 }
 
+html {
+  /* The deck's lift animation translates the front card past the viewport edge,
+     which would make the document horizontally scrollable on narrow screens.
+     Clip the axis: nothing visible changes (the overhang was already past the
+     viewport), and transforms stop contributing to scrollable width. */
+  overflow-x: hidden; /* fallback for older engines */
+  overflow-x: clip;
+  /* Android paints a blue flash on every tapped link/handler; our taps and rubs
+     answer with their own motion, so the OS highlight is just noise. Keyboard
+     focus keeps the :focus-visible outlines below. */
+  -webkit-tap-highlight-color: transparent;
+}
+
 body {
   margin: 0;
   background: var(--bg);

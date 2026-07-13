@@ -1,5 +1,6 @@
 import { useRef, type ReactNode } from 'react'
 import { useGSAP } from '@gsap/react'
+import { COIN } from '../../motion/tokens'
 import { useCoin, type CoinSpawn } from './useCoin'
 import { CoinSVG } from './CoinSVG'
 import { coinArc, tellTilt } from '../../motion/choreographies/coin'
@@ -78,6 +79,37 @@ function NavItem({ label, href, icon, spawn, tell, note, onEnter, onCoinDone }: 
   const noteRef = useRef<HTMLSpanElement>(null)
   const { night } = useAtmosphere()
 
+  /* The touch analog of the hover jiggle: rubbing the icon. Each horizontal
+     stroke ≥ rubStrokePx counts as one "re-entry" — back-and-forth makes three
+     fast ones (tell on the 2nd, coin on the 3rd). A plain swipe or scroll is a
+     single stroke at most, so it can never trigger. */
+  const rub = useRef<{ x: number; dir: number; travel: number; fired: boolean } | null>(null)
+  const onTouchStart = (e: React.TouchEvent) => {
+    rub.current = { x: e.touches[0].clientX, dir: 0, travel: 0, fired: false }
+  }
+  const onTouchMove = (e: React.TouchEvent) => {
+    const r = rub.current
+    if (!r) return
+    const x = e.touches[0].clientX
+    const dx = x - r.x
+    r.x = x
+    if (dx === 0) return
+    const dir = dx > 0 ? 1 : -1
+    if (dir !== r.dir) {
+      r.dir = dir
+      r.travel = 0
+      r.fired = false
+    }
+    r.travel += Math.abs(dx)
+    if (!r.fired && r.travel >= COIN.rubStrokePx) {
+      r.fired = true
+      onEnter()
+    }
+  }
+  const onTouchEnd = () => {
+    rub.current = null
+  }
+
   useGSAP(
     () => {
       if (tell && iconRef.current && !spawn) tellTilt(iconRef.current)
@@ -106,7 +138,18 @@ function NavItem({ label, href, icon, spawn, tell, note, onEnter, onCoinDone }: 
   )
 
   return (
-    <a href={href} className="nav-item" data-nav onMouseEnter={onEnter}>
+    <a
+      href={href}
+      className="nav-item"
+      data-nav
+      onMouseEnter={onEnter}
+      onTouchStart={onTouchStart}
+      onTouchMove={onTouchMove}
+      onTouchEnd={onTouchEnd}
+      onTouchCancel={onTouchEnd}
+      // placeholder links must not navigate to "#" — that scrolls the page to the top
+      onClick={href === '#' ? (e) => e.preventDefault() : undefined}
+    >
       {spawn && (
         <span className="nav-coin" ref={coinRef} aria-hidden>
           <CoinSVG variant={spawn.variant} night={night} />

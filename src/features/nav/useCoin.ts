@@ -70,6 +70,12 @@ export function useCoin(count = 3): UseCoin {
         setCoins((arr) => arr.map((c, j) => (j === i ? spawnData : c)))
         setTells(none(count, false))
         chime({ octaveUp: variant === 'coral', night })
+        // a tiny physical tick on devices that can do it (Android; iOS has no API)
+        try {
+          navigator.vibrate?.(10)
+        } catch {
+          /* haptics are a bonus, never a failure */
+        }
         if (firstEver) {
           // First discovery is the whole memory — a handwritten note, once, never again
           setTimeout(() => {

@@ -50,6 +50,16 @@
   height: 442px;
 }
 
+.gb-deckwrap {
+  /* The shuffle's per-frame card tweens leak layout invalidations up the tree,
+     and mobile Chrome's relayout path then teleports the page scroll ~430px on
+     every shuffle (bisected: needs tweens + mobile emulation + the reorder
+     render together; anchoring, overflow, visibility flips and font boosting
+     all ruled out). The wrap is a fixed 320×442 box with absolute children, so
+     layout containment is free — and it walls the invalidation off completely. */
+  contain: layout;
+}
+
 .gb-card {
   position: absolute;
   top: 0;
