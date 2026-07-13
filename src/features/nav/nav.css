@@ -23,9 +23,13 @@
   -webkit-user-select: none;
   user-select: none;
 }
-.nav-item:hover {
-  text-decoration: underline;
-  color: var(--ink);
+/* Hover styles only where hover exists — on touch the last-tapped item stays
+   :hover forever, leaving a stuck underline (seen on Android). */
+@media (hover: hover) {
+  .nav-item:hover {
+    text-decoration: underline;
+    color: var(--ink);
+  }
 }
 
 .nav-inner {

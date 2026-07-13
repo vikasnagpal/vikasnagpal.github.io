@@ -48,12 +48,14 @@
   border-radius: 12px;
   transition: transform 0.18s ease, background 0.18s ease, gap 0.18s ease, box-shadow 0.18s ease;
 }
-.ps-cta:hover {
-  transform: translateY(-3px);
-  background: var(--accent-hover);
-  color: var(--on-accent);
-  gap: 13px;
-  box-shadow: 0 10px 22px color-mix(in srgb, var(--accent) 32%, transparent);
+@media (hover: hover) {
+  .ps-cta:hover {
+    transform: translateY(-3px);
+    background: var(--accent-hover);
+    color: var(--on-accent);
+    gap: 13px;
+    box-shadow: 0 10px 22px color-mix(in srgb, var(--accent) 32%, transparent);
+  }
 }
 
 .ps-arrow {

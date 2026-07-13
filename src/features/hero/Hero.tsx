@@ -76,8 +76,9 @@ export function Hero() {
         </div>
       </div>
       <p className="hero-body">
+        {/* nbsp before the dash: a line must never open with "—" (seen on 390px) */}
         I design products that help people focus on their work, not their tools. For the last decade, I&#39;ve helped teams
-        turn fuzzy ideas into things people genuinely enjoy using — AI tools, learning platforms, and the enterprise
+        turn fuzzy ideas into things people genuinely enjoy using&nbsp;— AI tools, learning platforms, and the enterprise
         software people spend their days in.
       </p>
     </>

@@ -371,8 +371,10 @@
   color: var(--muted);
   transition: color 0.15s ease;
 }
-.gb-again:hover {
-  color: var(--ink);
+@media (hover: hover) {
+  .gb-again:hover {
+    color: var(--ink);
+  }
 }
 
 .gb-writebtn {
@@ -389,9 +391,11 @@
   color: var(--accent);
   transition: color 0.15s ease, transform 0.18s ease;
 }
-.gb-writebtn:hover {
-  color: var(--accent-hover);
-  transform: translateY(-2px);
+@media (hover: hover) {
+  .gb-writebtn:hover {
+    color: var(--accent-hover);
+    transform: translateY(-2px);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

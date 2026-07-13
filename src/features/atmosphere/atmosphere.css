@@ -57,8 +57,10 @@
   font-weight: 700;
   transition: opacity 0.15s ease;
 }
-.atmo-btn:hover {
-  opacity: 0.75;
+@media (hover: hover) {
+  .atmo-btn:hover {
+    opacity: 0.75;
+  }
 }
 
 .atmo-ico {
@@ -100,8 +102,10 @@
   color: var(--ink);
   font-family: var(--f-body);
 }
-.atmo-row:hover {
-  background: color-mix(in srgb, var(--ink) 6%, transparent);
+@media (hover: hover) {
+  .atmo-row:hover {
+    background: color-mix(in srgb, var(--ink) 6%, transparent);
+  }
 }
 
 .atmo-row-main {

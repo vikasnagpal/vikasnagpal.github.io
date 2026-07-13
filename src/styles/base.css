@@ -27,8 +27,10 @@ body {
 a {
   color: var(--accent);
 }
-a:hover {
-  color: var(--accent-hover);
+@media (hover: hover) {
+  a:hover {
+    color: var(--accent-hover);
+  }
 }
 
 ::selection {
