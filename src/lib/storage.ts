@@ -7,6 +7,7 @@ export const KEYS = {
   coins: 'vikas-coins-v1',
   visitor: 'vikas-visitor-v1',
   weather: 'vikas-weather-v1',
+  favicon: 'vikas-favicon-v1',
 } as const
 
 export function readJSON<T>(key: string, fallback: T): T {

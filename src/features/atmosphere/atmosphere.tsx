@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
+import { setFavicon } from '../../lib/favicon'
 import { daypartFromClock, type Daypart } from '../../lib/ist'
 import { KEYS, readJSON, writeJSON } from '../../lib/storage'
 import { DECK } from '../../motion/tokens'
@@ -67,6 +68,7 @@ export function AtmosphereProvider({ children }: { children: ReactNode }) {
     const meta = document.getElementById('theme-color')
     const bg = getComputedStyle(root).getPropertyValue('--bg').trim()
     if (meta && bg) meta.setAttribute('content', bg)
+    setFavicon(daypart)
   }, [daypart])
 
   const value = useMemo<AtmosphereState>(
