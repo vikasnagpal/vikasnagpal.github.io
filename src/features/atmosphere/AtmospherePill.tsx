@@ -1,12 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import { DAYPARTS, useAtmosphere } from './atmosphere'
+import { AtmosphereMenu } from './AtmosphereMenu'
 import { useClock } from './useClock'
 import { useWeather } from './useWeather'
-import { CheckIcon, DaypartIcon, WeatherIcon } from './icons'
-import type { Daypart } from '../../lib/ist'
+import { DaypartIcon, WeatherIcon } from './icons'
 import './atmosphere.css'
-
-const ORDER: Daypart[] = ['morning', 'evening', 'night']
 
 export function AtmospherePill() {
   const atmo = useAtmosphere()
@@ -61,40 +59,7 @@ export function AtmospherePill() {
           </svg>
         </button>
 
-        {menuOpen && (
-          <div className="atmo-menu">
-            {ORDER.map((dp) => (
-              <button
-                key={dp}
-                className="atmo-row"
-                onClick={() => {
-                  atmo.choose(dp)
-                  setMenuOpen(false)
-                }}
-              >
-                <DaypartIcon part={dp} size={18} glow={false} />
-                <span className="atmo-row-main">
-                  <span className="atmo-row-name">{DAYPARTS[dp].name}</span>
-                  <span className="atmo-row-tag">{DAYPARTS[dp].tagline}</span>
-                </span>
-                {atmo.daypart === dp && <CheckIcon />}
-              </button>
-            ))}
-            <div className="atmo-auto">
-              <span className="atmo-auto-label">Auto mode (follows my local time)</span>
-              <button
-                className="atmo-switch"
-                role="switch"
-                aria-checked={atmo.auto}
-                aria-label="Toggle auto atmosphere"
-                onClick={() => atmo.toggleAuto()}
-                style={{ background: atmo.auto ? 'var(--accent)' : 'color-mix(in srgb, var(--ink) 28%, transparent)' }}
-              >
-                <span className="atmo-knob" style={{ transform: `translateX(${atmo.auto ? 18 : 0}px)` }} />
-              </button>
-            </div>
-          </div>
-        )}
+        {menuOpen && <AtmosphereMenu onPick={() => setMenuOpen(false)} />}
       </div>
     </div>
   )

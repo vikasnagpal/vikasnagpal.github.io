@@ -6,15 +6,27 @@
   padding: 44px 48px 110px;
 }
 
+/* Sheet header: the way back on the left, the room's lamp on the right */
+.pf-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .pf-back {
   display: inline-flex;
   align-items: center;
+  gap: 8px;
   font-family: var(--f-body);
   font-weight: 600;
   font-size: 14.5px;
   color: var(--muted);
   text-decoration: none;
   transition: color 0.15s ease;
+}
+.pf-back svg {
+  flex: 0 0 auto;
+  margin-top: 1px; /* optical: the arrow's stroke rides the lowercase x-height */
 }
 
 @media (hover: hover) {
@@ -26,5 +38,9 @@
 @media (max-width: 560px) {
   .pf {
     padding: 28px 16px 88px;
+  }
+  /* mobile type runs larger overall — the back link keeps pace */
+  .pf-back {
+    font-size: 15.5px;
   }
 }
