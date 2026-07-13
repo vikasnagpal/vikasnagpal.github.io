@@ -1,9 +1,11 @@
 import type { WeatherKind } from './useWeather'
 import type { Daypart } from '../../lib/ist'
 
-/* Hand-drawn stroke icons, ported verbatim from the design component. */
+/* Hand-drawn stroke icons, ported verbatim from the design component.
+   Night variants (moon instead of sun) are drawn in the same stroke language —
+   a clear 9pm sky must never show a sun. */
 
-export function WeatherIcon({ kind }: { kind: WeatherKind }) {
+export function WeatherIcon({ kind, night = false }: { kind: WeatherKind; night?: boolean }) {
   const common = {
     width: 20,
     height: 20,
@@ -18,14 +20,24 @@ export function WeatherIcon({ kind }: { kind: WeatherKind }) {
 
   switch (kind) {
     case 'clear':
-      return (
+      return night ? (
+        <svg {...common}>
+          <path d="M19.4 13.9 A7.8 7.8 0 1 1 10.1 4.6 A6.1 6.1 0 0 0 19.4 13.9 Z" />
+          <path d="M18.7 4.2 V7 M17.3 5.6 H20.1" />
+        </svg>
+      ) : (
         <svg {...common}>
           <circle cx="12" cy="12" r="4.2" />
           <path d="M12 3 V5 M12 19 V21 M3 12 H5 M19 12 H21 M5.6 5.6 L7 7 M17 17 L18.4 18.4 M18.4 5.6 L17 7 M7 17 L5.6 18.4" />
         </svg>
       )
     case 'partly':
-      return (
+      return night ? (
+        <svg {...common}>
+          <path d="M11.1 8 A3.6 3.6 0 1 1 6.9 3.8 A2.8 2.8 0 0 0 11.1 8 Z" />
+          <path d="M9 20 C6.5 20 5 18.3 5.2 16.2 C5.4 14.6 6.8 13.6 8.2 13.9 C8.7 11.9 10.5 10.5 12.6 10.5 C15 10.5 16.8 12.3 17 14.5 C18.9 14.4 20.3 15.7 20.3 17.4 C20.3 18.9 19.2 20 17.7 20 Z" />
+        </svg>
+      ) : (
         <svg {...common}>
           <circle cx="8.5" cy="7.5" r="3" />
           <path d="M8.5 2.2 V3.4 M3.2 7.5 H4.4 M4.8 3.8 L5.6 4.6 M13 4 L12.2 4.8" />
