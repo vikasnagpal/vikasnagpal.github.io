@@ -1,5 +1,6 @@
 import { useRef, type ReactNode } from 'react'
 import { useGSAP } from '@gsap/react'
+import { useLocation } from 'wouter'
 import { COIN } from '../../motion/tokens'
 import { useCoin, type CoinSpawn } from './useCoin'
 import { CoinSVG } from './CoinSVG'
@@ -29,7 +30,7 @@ const ICON_PROPS = {
 const ITEMS: { label: string; href: string; icon: ReactNode }[] = [
   {
     label: 'Work together',
-    href: '#',
+    href: '/work',
     icon: (
       <svg {...ICON_PROPS}>
         <path d="M40 62 C40 50 50 40 62 40 C50 40 40 30 40 18 C40 30 30 40 18 40 C30 40 40 50 40 62 Z" />
@@ -78,6 +79,19 @@ function NavItem({ label, href, icon, spawn, tell, note, onEnter, onCoinDone }: 
   const coinRef = useRef<HTMLSpanElement>(null)
   const noteRef = useRef<HTMLSpanElement>(null)
   const { night } = useAtmosphere()
+  const [, navigate] = useLocation()
+
+  /* Real anchors, SPA navigation: routes push state instead of reloading (a
+     reload would replay the arrival and re-deal the deck), but modified
+     clicks (new tab, etc.) keep native behavior. '#' placeholders do nothing —
+     navigating to '#' scrolls the page to the top. */
+  const onClick = (e: React.MouseEvent) => {
+    if (href === '#') return e.preventDefault()
+    if (!href.startsWith('/')) return
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return
+    e.preventDefault()
+    navigate(href)
+  }
 
   /* The touch analog of the hover jiggle: rubbing the icon. Each horizontal
      stroke ≥ rubStrokePx counts as one "re-entry" — back-and-forth makes three
@@ -147,8 +161,7 @@ function NavItem({ label, href, icon, spawn, tell, note, onEnter, onCoinDone }: 
       onTouchMove={onTouchMove}
       onTouchEnd={onTouchEnd}
       onTouchCancel={onTouchEnd}
-      // placeholder links must not navigate to "#" — that scrolls the page to the top
-      onClick={href === '#' ? (e) => e.preventDefault() : undefined}
+      onClick={onClick}
     >
       {spawn && (
         <span className="nav-coin" ref={coinRef} aria-hidden>

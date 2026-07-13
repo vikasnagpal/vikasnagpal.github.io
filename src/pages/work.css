@@ -1,0 +1,103 @@
+.wk-title {
+  margin: 30px 0 0;
+  font-family: var(--f-display);
+  font-weight: var(--w-display);
+  font-size: 44px;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.wk-intro {
+  margin: 18px 0 0;
+  font-family: var(--f-body);
+  font-size: 18.5px;
+  line-height: 1.6;
+  max-width: 54ch;
+  color: var(--text);
+  text-wrap: pretty;
+}
+
+/* Each offer: the visitor's situation (serif — the same voice as the guestbook
+   tagline), the answer, and a handwritten margin note naming the arrangement.
+   The hairline is the P.S. rule, so it adapts to every atmosphere. */
+.wk-offer {
+  margin-top: 36px;
+  border-top: 1.5px solid var(--ps-rule);
+  padding-top: 28px;
+}
+
+.wk-sit {
+  margin: 0;
+  font-family: var(--f-quote);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 21.5px;
+  line-height: 1.4;
+  color: var(--ink);
+  max-width: 46ch;
+  text-wrap: pretty;
+}
+
+.wk-ans {
+  margin: 12px 0 0;
+  font-family: var(--f-body);
+  font-size: 17.5px;
+  line-height: 1.6;
+  max-width: 56ch;
+  color: var(--text);
+  text-wrap: pretty;
+}
+
+.wk-tag {
+  margin-top: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--f-script);
+  font-weight: 700;
+  font-size: 23px;
+  line-height: 1;
+  color: var(--script);
+}
+.wk-tag svg {
+  margin-top: 2px; /* optical: the arrow sits on the script's baseline weight */
+}
+
+.wk-why {
+  margin-top: 48px;
+  border-top: 1.5px solid var(--ps-rule);
+  padding-top: 28px;
+}
+
+.wk-why-title {
+  margin: 0;
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-size: 30px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.wk-why .wk-ans {
+  margin-top: 14px;
+}
+
+.wk-cta {
+  margin-top: 48px;
+}
+
+.wk-script {
+  font-family: var(--f-script);
+  font-weight: 700;
+  font-size: 27px;
+  color: var(--script);
+}
+
+@media (max-width: 560px) {
+  .wk-title {
+    font-size: clamp(33px, 9.5vw, 44px);
+  }
+  .wk-sit {
+    font-size: 20px;
+  }
+}

@@ -1,0 +1,30 @@
+/* Inner pages read as a single sheet: one centered column at reading measure.
+   Never .site-grid — that container's content-box quirk belongs to home only. */
+.pf {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 44px 48px 110px;
+}
+
+.pf-back {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--f-body);
+  font-weight: 600;
+  font-size: 14.5px;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+@media (hover: hover) {
+  .pf-back:hover {
+    color: var(--accent);
+  }
+}
+
+@media (max-width: 560px) {
+  .pf {
+    padding: 28px 16px 88px;
+  }
+}

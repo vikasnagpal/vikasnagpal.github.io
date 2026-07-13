@@ -108,6 +108,14 @@ export const INTRO = {
   panelDelay: 0.14,
 } as const
 
+/** Inner pages — a lighter arrival than the home INTRO: the page was already
+    on the desk, you just picked it up */
+export const PAGE = {
+  y: 12,
+  dur: 0.6,
+  stagger: 0.06,
+} as const
+
 /** Hero ink system */
 export const HERO = {
   inkDur: 0.95,
