@@ -29,7 +29,7 @@ export function AtmospherePill() {
     <div className="atmo-wrap">
       <div className="atmo-pill" ref={wrapRef}>
         <span className="atmo-loc">
-          <WeatherIcon kind={weather.kind} night={weather.night} />
+          <WeatherIcon kind={weather} />
           <span className="atmo-loc-label">Bangalore, {time}</span>
         </span>
         <span className="atmo-div" />
