@@ -184,7 +184,7 @@ export function useGuestbook(): GuestbookApi {
       baseReactions: {},
       own: true,
     }
-    submitThought(note.text, note.emoji)
+    const sent = submitThought(note.text, note.emoji)
     setThoughts((prev) => [note, ...prev])
     setOrder((prev) => [note.id, ...prev])
     setJustAdded(note.id)
@@ -194,7 +194,17 @@ export function useGuestbook(): GuestbookApi {
     setGuard(false)
     setSubmitting(false)
     setClosing(false)
-    toast("Thanks! Your thought has been added. It'll appear on the wall shortly.", TOAST.submitForMs)
+    // The deck answers instantly either way; the toast only promises the wall
+    // once the note actually got there. Without Supabase (or when the POST
+    // fails) the note lives on this deck alone — say so, don't pretend.
+    if (isConfigured) {
+      toast("Thanks! Your thought has been added. It'll appear on the wall shortly.", TOAST.submitForMs)
+      void sent.then((ok) => {
+        if (!ok) toast("Hmm — your note couldn't reach the guestbook, so it'll only stay on this deck for now.", TOAST.submitForMs)
+      })
+    } else {
+      toast('Thanks! Your thought joins the deck for this visit.', TOAST.submitForMs)
+    }
     later(() => setJustAdded(null), DECK.noteFlagClearMs)
   }, [later, toast])
 

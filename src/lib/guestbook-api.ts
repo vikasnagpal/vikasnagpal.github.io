@@ -72,14 +72,19 @@ export async function fetchReactionCounts(): Promise<Record<string, ReactionCoun
   }
 }
 
-/** New thoughts land as pending — read by Vikas before they go up. Fire-and-forget. */
-export function submitThought(text: string, emoji: string): void {
-  if (!isConfigured) return
-  void rest('/rest/v1/thoughts', {
+/** New thoughts land as pending — read by Vikas before they go up.
+    Resolves true when the note reached the server, false when it couldn't
+    (the caller stays optimistic either way; only the toast copy changes). */
+export function submitThought(text: string, emoji: string): Promise<boolean> {
+  if (!isConfigured) return Promise.resolve(false)
+  return rest('/rest/v1/thoughts', {
     method: 'POST',
     headers: { Prefer: 'return=minimal' },
     body: JSON.stringify({ text, emoji }),
-  }).catch(() => {})
+  }).then(
+    () => true,
+    () => false,
+  )
 }
 
 /** One reaction per type per visitor, toggled atomically server-side. Fire-and-forget. */
