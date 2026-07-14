@@ -28,6 +28,12 @@
   flex: 0 0 auto;
   margin-top: 1px; /* optical: the arrow's stroke rides the lowercase x-height */
 }
+/* The label needs the link's own color timing — without this, the base.css
+   atmosphere sequence gives the span a slow, delayed ease and the text
+   trails the arrow on hover */
+.pf-back span {
+  transition: color 0.15s ease;
+}
 
 @media (hover: hover) {
   .pf-back:hover {

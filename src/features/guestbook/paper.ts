@@ -1,10 +1,11 @@
 /* Each thought owns its paper color for life — a card never changes color as it
    moves through the deck (paper doesn't repaint itself). The palette is warm
-   Scandinavian card stock: coral, deep green, tan, sage. */
+   Scandinavian card stock: coral, deep green, tan, sage, terracotta, peach,
+   moss, walnut. */
 
-export type PaperKey = 'coral' | 'green' | 'tan' | 'sage'
+export type PaperKey = 'coral' | 'green' | 'tan' | 'sage' | 'terracotta' | 'peach' | 'moss' | 'walnut'
 
-const PAPERS: PaperKey[] = ['coral', 'green', 'tan', 'sage']
+const PAPERS: PaperKey[] = ['coral', 'green', 'tan', 'sage', 'terracotta', 'peach', 'moss', 'walnut']
 
 /* Notes you write yourself stay on the coral card you wrote them on. */
 export function paperFor(id: string): PaperKey {

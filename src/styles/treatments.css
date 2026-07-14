@@ -18,9 +18,14 @@
   --react-on-fg: #fff3e8;
 }
 
-/* Golden hour: softer warm-maroon reaction pills instead of stark black */
+/* Golden hour: softer warm-maroon reaction pills instead of stark black,
+   and the papers follow the light — tan grounds itself against the deeper
+   cream canvas, peach and terracotta ripen toward apricot and caramel. */
 [data-theme='light'][data-treatment='Unified ground'] {
   --react-on-bg: #5a2417;
+  --card-tan: #d8c89e;
+  --card-peach: #eda376;
+  --card-terracotta: #c97c4d;
 }
 
 /* Open panels tether the widget to one left axis; filled panels stay centered */

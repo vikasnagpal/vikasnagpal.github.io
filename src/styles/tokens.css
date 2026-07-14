@@ -36,6 +36,23 @@
   --card-sage-ink: #201008;
   --card-sage-ink-soft: #2b1109;
   --card-sage-inkmuted: rgba(43, 17, 9, 0.62);
+  --card-terracotta: #d18d5e;
+  --card-terracotta-ink: #201008;
+  --card-terracotta-ink-soft: #2b1109;
+  --card-terracotta-inkmuted: rgba(43, 17, 9, 0.62);
+  --card-peach: #deac8d;
+  --card-peach-ink: #201008;
+  --card-peach-ink-soft: #2b1109;
+  --card-peach-inkmuted: rgba(43, 17, 9, 0.62);
+  --card-moss: #979e88;
+  --card-moss-ink: #201008;
+  --card-moss-ink-soft: #2b1109;
+  --card-moss-inkmuted: rgba(43, 17, 9, 0.62);
+  /* walnut is dark stock like the green — it writes in cream */
+  --card-walnut: #795a3b;
+  --card-walnut-ink: #f6ead2;
+  --card-walnut-ink-soft: #e9d8b6;
+  --card-walnut-inkmuted: rgba(246, 234, 210, 0.62);
 }
 
 [data-theme='dark'] {
@@ -67,4 +84,21 @@
   --card-sage-ink: #f0e5cf;
   --card-sage-ink-soft: #e0d2b4;
   --card-sage-inkmuted: rgba(240, 229, 207, 0.62);
+  --card-terracotta: #92522b;
+  --card-terracotta-ink: #f0e5cf;
+  --card-terracotta-ink-soft: #e0d2b4;
+  --card-terracotta-inkmuted: rgba(240, 229, 207, 0.62);
+  /* peach is the one paper that stays lifted at night — dusty, lamp-caught, dark ink */
+  --card-peach: #a5927d;
+  --card-peach-ink: #1a0d06;
+  --card-peach-ink-soft: #2b1109;
+  --card-peach-inkmuted: rgba(26, 13, 6, 0.62);
+  --card-moss: #4a5044;
+  --card-moss-ink: #f0e5cf;
+  --card-moss-ink-soft: #e0d2b4;
+  --card-moss-inkmuted: rgba(240, 229, 207, 0.62);
+  --card-walnut: #503d29;
+  --card-walnut-ink: #f0e5cf;
+  --card-walnut-ink-soft: #e0d2b4;
+  --card-walnut-inkmuted: rgba(240, 229, 207, 0.62);
 }

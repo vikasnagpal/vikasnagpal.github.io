@@ -100,6 +100,30 @@
   --card-ink-soft: var(--card-sage-ink-soft);
   --card-inkmuted: var(--card-sage-inkmuted);
 }
+.gb-card[data-paper='terracotta'] {
+  background-color: var(--card-terracotta);
+  --card-ink: var(--card-terracotta-ink);
+  --card-ink-soft: var(--card-terracotta-ink-soft);
+  --card-inkmuted: var(--card-terracotta-inkmuted);
+}
+.gb-card[data-paper='peach'] {
+  background-color: var(--card-peach);
+  --card-ink: var(--card-peach-ink);
+  --card-ink-soft: var(--card-peach-ink-soft);
+  --card-inkmuted: var(--card-peach-inkmuted);
+}
+.gb-card[data-paper='moss'] {
+  background-color: var(--card-moss);
+  --card-ink: var(--card-moss-ink);
+  --card-ink-soft: var(--card-moss-ink-soft);
+  --card-inkmuted: var(--card-moss-inkmuted);
+}
+.gb-card[data-paper='walnut'] {
+  background-color: var(--card-walnut);
+  --card-ink: var(--card-walnut-ink);
+  --card-ink-soft: var(--card-walnut-ink-soft);
+  --card-inkmuted: var(--card-walnut-inkmuted);
+}
 
 /* --- quote face --- */
 /* Every card keeps its writing visible — real paper isn't blank when the card
@@ -375,6 +399,13 @@
   .gb-again:hover {
     color: var(--ink);
   }
+}
+/* Labels need their button's color timing — without this, the base.css
+   atmosphere sequence gives the span a slow, delayed ease and the text
+   trails the icon on hover */
+.gb-again span,
+.gb-writebtn span {
+  transition: color 0.15s ease;
 }
 
 .gb-writebtn {
