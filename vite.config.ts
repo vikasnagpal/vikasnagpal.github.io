@@ -1,4 +1,4 @@
-import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { readFileSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { defineConfig, loadEnv, type Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
@@ -22,10 +22,12 @@ const escapeHtml = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;')
 
 /* GitHub Pages has no rewrites: unknown paths fall back to 404.html, which
    renders the SPA but answers with a 404 status — so crawlers skip inner routes
-   and link previews show home's meta. Emitting a real dist/<path>/index.html
-   per route (home's shell with that route's title/description/OG stamped in,
-   from the same routeMeta the pages use at runtime) gives every route a 200
-   and its own preview. 404.html stays for genuinely unknown paths. */
+   and link previews show home's meta. Emitting a real dist/<path>.html per
+   route (home's shell with that route's title/description/OG stamped in, from
+   the same routeMeta the pages use at runtime) gives every route a 200 and its
+   own preview — Pages serves /work from work.html directly, no trailing-slash
+   301 (a <path>/index.html would redirect /work → /work/ first). A
+   trailing-slash visit still lands via the 404.html SPA fallback. */
 function routeHtml(): Plugin {
   let outDir = ''
   return {
@@ -48,9 +50,7 @@ function routeHtml(): Plugin {
           .replace(/(<meta property="og:description" content=")[^"]*(")/, (_, a, b) => a + desc + b)
           .replace(/(<meta property="og:url" content=")[^"]*(")/, (_, a, b) => a + url + b)
           .replace(/(<link rel="canonical" href=")[^"]*(")/, (_, a, b) => a + url + b)
-        const dir = resolve(outDir, route.path.replace(/^\//, ''))
-        mkdirSync(dir, { recursive: true })
-        writeFileSync(resolve(dir, 'index.html'), html)
+        writeFileSync(resolve(outDir, `${route.path.replace(/^\//, '')}.html`), html)
       }
     },
   }
