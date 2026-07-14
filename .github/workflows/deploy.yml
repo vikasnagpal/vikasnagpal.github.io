@@ -30,8 +30,8 @@ jobs:
           VITE_CALENDAR_URL: ${{ vars.VITE_CALENDAR_URL }}
           VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ vars.VITE_SUPABASE_ANON_KEY }}
-      # SPA fallback: GitHub Pages has no rewrites, so client routes deep-link via 404.html
-      - run: cp dist/index.html dist/404.html
+      # (404.html + per-route HTML with stamped meta are emitted by the
+      #  routeHtml plugin in vite.config.ts during the build.)
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

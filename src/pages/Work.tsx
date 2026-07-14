@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import { useConfig } from '../config'
 import { PageFrame } from '../features/pages/PageFrame'
+import { WORK } from '../lib/routeMeta'
 import './work.css'
 
 /* Work together — three ways in, each told the way Vikas would across a
@@ -73,10 +74,7 @@ export default function Work() {
   const { calendarUrl } = useConfig()
 
   return (
-    <PageFrame
-      title="Work together — Vikas"
-      description="Founding designer, design advisory, or a fractional head of design — three ways to work with Vikas."
-    >
+    <PageFrame title={WORK.title} description={WORK.description}>
       <header className="wk-head">
         <h1 className="wk-title">How can I help?</h1>
         <p className="wk-intro">
