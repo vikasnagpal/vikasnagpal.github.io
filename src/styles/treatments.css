@@ -15,7 +15,7 @@
   --deck-justify: center;
   --footer-align: center;
   --react-on-bg: var(--card-ink);
-  --react-on-fg: #fff3e8;
+  --react-on-fg: var(--card-cream);
 }
 
 /* Golden hour: softer warm-maroon reaction pills instead of stark black,

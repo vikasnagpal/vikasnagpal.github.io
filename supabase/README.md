@@ -38,14 +38,27 @@ Approved thoughts appear on the wall on the next page load, newest first.
   aggregate view; writes through the `toggle_reaction` RPC, which validates the
   kind and that the thought is approved, then atomically inserts/deletes.
 - The client (`src/lib/guestbook-api.ts`) talks to PostgREST with plain `fetch` —
-  no supabase-js dependency. All writes are fire-and-forget so the UI never waits
-  on network.
+  no supabase-js dependency. The UI never waits on network: the deck updates
+  optimistically, and only the confirmation toast follows the write's result.
 
 ## Later (optional)
 
-- **Realtime live-wall**: the "someone just left a thought" toast is currently a
-  once-per-load simulation. Subscribing to inserts on `thoughts` via Supabase
-  Realtime can make it real without touching the UI — swap the timer in
-  `useGuestbook` for a subscription.
-- **Rate limiting**: if pending spam ever becomes a thing, add a per-IP insert
-  throttle via a `before insert` trigger or move inserts behind an Edge Function.
+- **Realtime live-wall**: the "someone just left a thought" toast is reserved
+  for a real approval event. Subscribing to `thoughts` via Supabase Realtime
+  would light it up without touching the UI.
+
+## If the guestbook is ever abused
+
+Moderation already contains the damage — nothing appears on the wall without
+approval, and reactions only attach to approved thoughts. If it becomes a
+nuisance anyway, the levers (in escalating order):
+
+1. **Pending-queue spam**: a small `submission_log(ip, at)` table written by a
+   `before insert` trigger on `thoughts`, rejecting more than N inserts per IP
+   per hour — no client changes.
+2. **Reaction-count inflation** (the RPC trusts a client-generated visitor
+   uuid): same throttle idea on `toggle_reaction`, or cap distinct visitors
+   counted per thought per day.
+3. **Both, properly**: move writes behind a Supabase Edge Function that
+   rate-limits and (if it ever comes to that) adds a CAPTCHA. The client's
+   `rest()` helper only needs a different path.

@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
+import { useDismiss } from '../../lib/useDismiss'
 import { DAYPARTS, useAtmosphere } from './atmosphere'
 import { AtmosphereMenu } from './AtmosphereMenu'
 import { useClock } from './useClock'
@@ -13,15 +14,8 @@ export function AtmospherePill() {
   const [menuOpen, setMenuOpen] = useState(false)
   const wrapRef = useRef<HTMLDivElement>(null)
 
-  // The dropdown closes on any outside click.
-  useEffect(() => {
-    if (!menuOpen) return
-    const close = (e: MouseEvent) => {
-      if (!wrapRef.current?.contains(e.target as Node)) setMenuOpen(false)
-    }
-    document.addEventListener('click', close)
-    return () => document.removeEventListener('click', close)
-  }, [menuOpen])
+  // The dropdown closes on any outside click, or Escape.
+  useDismiss(menuOpen, () => setMenuOpen(false), wrapRef)
 
   return (
     <div className="atmo-wrap">

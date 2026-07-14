@@ -34,12 +34,12 @@ interface ThoughtRow {
 }
 
 function rowToThought(row: ThoughtRow): Thought {
-  const ist = new Date(new Date(row.created_at).toLocaleString('en-US', { timeZone: 'Asia/Kolkata' }))
   return {
     id: row.id,
     text: row.text,
     emoji: row.emoji || '💭',
-    ...istDateParts(ist),
+    // istDateParts converts the timestamptz to the IST calendar date itself
+    ...istDateParts(new Date(row.created_at)),
     baseReactions: row.base_reactions ?? {},
   }
 }

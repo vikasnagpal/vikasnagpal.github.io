@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
+import { useDismiss } from '../../lib/useDismiss'
 import { useAtmosphere } from './atmosphere'
 import { AtmosphereMenu } from './AtmosphereMenu'
 import { DaypartIcon } from './icons'
@@ -13,15 +14,8 @@ export function AtmosphereLamp() {
   const [open, setOpen] = useState(false)
   const wrapRef = useRef<HTMLDivElement>(null)
 
-  // The dropdown closes on any outside click.
-  useEffect(() => {
-    if (!open) return
-    const close = (e: MouseEvent) => {
-      if (!wrapRef.current?.contains(e.target as Node)) setOpen(false)
-    }
-    document.addEventListener('click', close)
-    return () => document.removeEventListener('click', close)
-  }, [open])
+  // The dropdown closes on any outside click, or Escape.
+  useDismiss(open, () => setOpen(false), wrapRef)
 
   return (
     <div className="atmo-lamp" ref={wrapRef}>

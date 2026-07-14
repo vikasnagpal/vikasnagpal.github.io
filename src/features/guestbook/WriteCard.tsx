@@ -1,7 +1,7 @@
-import { useEffect } from 'react'
 import type { GuestbookApi } from './useGuestbook'
 import { emojiSet } from './emojiSet'
 import { useConfig } from '../../config'
+import { useDismiss } from '../../lib/useDismiss'
 
 /* The front card becomes the form — writing on paper, not filling a field.
    Empty submits get a gentle italic nudge: no red, no shake. */
@@ -11,13 +11,9 @@ export function WriteCard({ gb }: { gb: GuestbookApi }) {
   const { set, names } = emojiSet(seasonOverride)
   const sel = gb.noteEmoji
 
-  // popover closes on outside click
-  useEffect(() => {
-    if (!gb.emojiOpen) return
-    const close = () => gb.setEmojiOpen(false)
-    document.addEventListener('click', close)
-    return () => document.removeEventListener('click', close)
-  }, [gb.emojiOpen, gb])
+  // The popover closes on outside click or Escape. (Escape never cancels the
+  // write card itself — that would throw away a draft; "Not now" is the door.)
+  useDismiss(gb.emojiOpen, () => gb.setEmojiOpen(false))
 
   return (
     <div className="gb-write" style={{ opacity: gb.closing ? 0 : 1 }}>
@@ -29,11 +25,13 @@ export function WriteCard({ gb }: { gb: GuestbookApi }) {
         maxLength={200}
         placeholder="Share a thought, an observation, or something you're chewing on…"
         aria-label="Your thought"
+        // The visitor just chose "Leave a note" — the pen should already be in hand.
+        autoFocus
       />
       <div className="gb-hintrow">
         <span className="gb-anon">You&#39;ll be anonymous. Thoughts are read by everyone before they go up.</span>
         {gb.draft.length >= 160 && (
-          <span className="gb-count" style={{ color: gb.draft.length >= 200 ? '#FFF3E8' : undefined }}>
+          <span className="gb-count" style={{ color: gb.draft.length >= 200 ? 'var(--card-cream)' : undefined }}>
             {200 - gb.draft.length} left
           </span>
         )}
@@ -47,7 +45,7 @@ export function WriteCard({ gb }: { gb: GuestbookApi }) {
             title="Pick an emoji that shows on your card"
             aria-label="Pick an emoji that shows on your card"
             aria-expanded={gb.emojiOpen}
-            style={{ background: sel ? '#FFF9F0' : 'transparent' }}
+            style={{ background: sel ? 'var(--card-cream)' : 'transparent' }}
           >
             {sel ?? (
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" aria-hidden>
@@ -66,7 +64,7 @@ export function WriteCard({ gb }: { gb: GuestbookApi }) {
                   role="menuitem"
                   aria-label={names[i]}
                   title={names[i]}
-                  style={{ background: sel === em ? 'rgba(242,102,68,0.16)' : 'transparent' }}
+                  style={{ background: sel === em ? 'color-mix(in srgb, var(--card-front) 16%, transparent)' : 'transparent' }}
                   onClick={() => {
                     gb.setNoteEmoji(em)
                     gb.setEmojiOpen(false)
