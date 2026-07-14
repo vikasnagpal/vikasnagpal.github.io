@@ -13,27 +13,29 @@ type ShowToast = (msg: string, forMs?: number) => void
 const ToastContext = createContext<ShowToast>(() => {})
 
 export function ToastProvider({ children }: { children: ReactNode }) {
-  const [msg, setMsg] = useState<string | null>(null)
+  // Each show() gets a fresh seq — re-showing the same text mid-fade still
+  // re-runs the entrance (which overwrites the fade). On the bare text, React
+  // bailed out of the no-op set, the old fade completed, and the "new" toast
+  // vanished with it.
+  const [note, setNote] = useState<{ text: string; seq: number } | null>(null)
   const hostRef = useRef<HTMLDivElement>(null)
   const hideTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const seq = useRef(0)
 
   const hide = useCallback(() => {
     const el = hostRef.current
-    if (!el) {
-      setMsg(null)
+    if (!el || prefersReducedMotion()) {
+      setNote(null)
       return
     }
-    if (prefersReducedMotion()) {
-      setMsg(null)
-      return
-    }
-    gsap.to(el, { autoAlpha: 0, y: 8, duration: TOAST.out, ease: 'power2.in', onComplete: () => setMsg(null) })
+    gsap.to(el, { autoAlpha: 0, y: 8, duration: TOAST.out, ease: 'power2.in', onComplete: () => setNote(null) })
   }, [])
 
   const show = useCallback<ShowToast>(
     (text, forMs = TOAST.showForMs) => {
       if (hideTimer.current) clearTimeout(hideTimer.current)
-      setMsg(text)
+      seq.current += 1
+      setNote({ text, seq: seq.current })
       hideTimer.current = setTimeout(hide, forMs)
     },
     [hide],
@@ -42,7 +44,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   useGSAP(
     () => {
       const el = hostRef.current
-      if (!el || !msg) return
+      if (!el || !note) return
       if (prefersReducedMotion()) {
         gsap.set(el, { autoAlpha: 1, y: 0, rotation: -1 })
         return
@@ -53,18 +55,18 @@ export function ToastProvider({ children }: { children: ReactNode }) {
         { autoAlpha: 1, y: 0, rotation: -1, duration: TOAST.in, ease: 'power2.out', overwrite: 'auto' },
       )
     },
-    { dependencies: [msg] },
+    { dependencies: [note?.seq] },
   )
 
   return (
     <ToastContext.Provider value={show}>
       {children}
-      {msg && (
+      {note && (
         <div className="toast" ref={hostRef} role="status">
           <span className="toast-pencil" aria-hidden>
             ✎
           </span>
-          <span>{msg}</span>
+          <span>{note.text}</span>
         </div>
       )}
     </ToastContext.Provider>
