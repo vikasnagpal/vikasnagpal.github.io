@@ -17,6 +17,8 @@ type MineMap = Record<string, Partial<Record<StampKey, boolean>>>
 export interface GuestbookApi {
   thoughts: Thought[]
   order: string[]
+  /** id of the card the opening deal put at the front — it wears coral for the visit */
+  coralId: string
   phase: Phase
   lastFlown: string | null
   mode: Mode
@@ -56,6 +58,9 @@ export function useGuestbook(): GuestbookApi {
 
   const [thoughts, setThoughts] = useState<Thought[]>(SEEDS)
   const [order, setOrder] = useState<string[]>(() => deckOrder(SEEDS.map((s) => s.id)))
+  // The opening card is repainted coral rather than chosen for being coral —
+  // captured once so the color stays put as the card cycles through the deck.
+  const [coralId] = useState<string>(() => order[0])
   const [phase, setPhase] = useState<Phase>('idle')
   const [lastFlown, setLastFlown] = useState<string | null>(null)
   const [mode, setMode] = useState<Mode>('read')
@@ -260,6 +265,7 @@ export function useGuestbook(): GuestbookApi {
   return {
     thoughts,
     order,
+    coralId,
     phase,
     lastFlown,
     mode,

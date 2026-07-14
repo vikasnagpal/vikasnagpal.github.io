@@ -113,7 +113,7 @@ export function Deck({ gb }: { gb: GuestbookApi }) {
               else refs.current.delete(th.id)
             }}
             className="gb-card"
-            data-paper={isFront && mode === 'write' ? 'coral' : paperFor(th.id)}
+            data-paper={(isFront && mode === 'write') || th.id === gb.coralId ? 'coral' : paperFor(th.id)}
             style={{
               zIndex: z,
               cursor: isFront && mode === 'read' ? 'pointer' : 'default',
