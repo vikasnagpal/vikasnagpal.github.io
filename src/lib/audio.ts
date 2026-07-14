@@ -6,6 +6,23 @@ import { CHIME } from '../motion/tokens'
 
 let ctx: AudioContext | null = null
 
+/* Browsers keep audio locked until a real user gesture, and the coin's hover-jiggle
+   isn't one. Arm the context on any gesture anywhere — the click that opens an inner
+   page counts — and keep listening so a browser that re-suspends the context
+   (Safari does) gets healed by the next tap or keypress. */
+function arm(): void {
+  try {
+    if (!ctx) ctx = new AudioContext()
+    if (ctx.state !== 'running') void ctx.resume()
+  } catch {
+    /* silent */
+  }
+}
+
+for (const gesture of ['pointerdown', 'click', 'keydown']) {
+  window.addEventListener(gesture, arm, { capture: true, passive: true })
+}
+
 export interface ChimeOpts {
   /** coral milestone coin rings an octave up */
   octaveUp?: boolean
@@ -16,7 +33,11 @@ export interface ChimeOpts {
 export function chime(opts: ChimeOpts = {}): void {
   try {
     if (!ctx) ctx = new AudioContext()
-    if (ctx.state === 'suspended') void ctx.resume()
+    if (ctx.state !== 'running') {
+      // notes queued on a suspended clock would all burst out at the next click
+      void ctx.resume()
+      return
+    }
     const t0 = ctx.currentTime
     const mult = opts.octaveUp ? CHIME.octaveUp : 1
     const gain = opts.night ? CHIME.nightGain : CHIME.gain
