@@ -29,7 +29,7 @@ export function WriteCard({ gb }: { gb: GuestbookApi }) {
         autoFocus
       />
       <div className="gb-hintrow">
-        <span className="gb-anon">You&#39;ll be anonymous. Thoughts are read by everyone before they go up.</span>
+        <span className="gb-anon">You&#39;ll be anonymous. Notes are read by me before they go up.</span>
         {gb.draft.length >= 160 && (
           <span className="gb-count" style={{ color: gb.draft.length >= 200 ? 'var(--card-cream)' : undefined }}>
             {200 - gb.draft.length} left
