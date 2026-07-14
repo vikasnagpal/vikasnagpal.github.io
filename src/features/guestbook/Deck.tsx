@@ -20,6 +20,11 @@ export function Deck({ gb }: { gb: GuestbookApi }) {
   const { night, pace } = useAtmosphere()
   const refs = useRef(new Map<string, HTMLDivElement>())
   const positioned = useRef(new WeakSet<Element>())
+  // Last layout actually handed to GSAP, per card — cards whose target hasn't
+  // moved are skipped entirely. With the live guestbook at 40 thoughts, a
+  // breath tick would otherwise queue ~120 tweens for cards sitting invisible
+  // at opacity 0.
+  const lastApplied = useRef(new Map<string, string>())
 
   const { thoughts, order, phase, lastFlown, mode, entered, peek, breath, justAdded } = gb
 
@@ -50,17 +55,27 @@ export function Deck({ gb }: { gb: GuestbookApi }) {
           ty += DECK.peek.y
         }
         if (!lifting && p >= 1) rot += DECK.jitter[idx % DECK.jitter.length]
-        if (!lifting && p >= 1 && breath) {
+        // Hidden cards don't breathe (nobody can see it) — their layout then
+        // never changes between shuffles, so the memo below skips them.
+        if (!lifting && p >= 1 && breath && L.op > 0) {
           ty += DECK.breath.y
           rot += DECK.breath.rot
         }
 
+        const layoutKey = `${tx}|${ty}|${rot}|${L.sc}|${L.op}|${L.sh}`
+
         // First layout for a card is set, not tweened — entrances then animate out of it.
         if (!positioned.current.has(el)) {
           positioned.current.add(el)
+          lastApplied.current.set(th.id, layoutKey)
           gsap.set(el, { x: tx, y: ty, rotation: rot, scale: L.sc, autoAlpha: L.op, boxShadow: L.sh })
           return
         }
+
+        // Same target as last time → nothing to animate (any in-flight tween is
+        // already headed there); skip the three gsap calls for this card.
+        if (lastApplied.current.get(th.id) === layoutKey) return
+        lastApplied.current.set(th.id, layoutKey)
 
         if (reduced) {
           gsap.set(el, { x: tx, y: ty, rotation: rot, scale: L.sc, autoAlpha: L.op, boxShadow: L.sh })
