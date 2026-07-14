@@ -20,8 +20,12 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--f-body);
-  /* Atmosphere switches read as time passing: ground shifts first, text follows last */
-  transition: background-color 0.9s ease, color 0.9s ease 0.3s;
+  /* Atmosphere-switch FALLBACK for browsers without the View Transitions API
+     (the primary path crossfades whole frames — see atmosphere.tsx). Quick and
+     synchronized: a slow fg+bg crossfade must pass through a near-zero-contrast
+     midpoint (the old 0.9s staggered fade held text unreadable for ~half a
+     second); at 0.35s the dip is gone before the eye registers it. */
+  transition: background-color 0.35s ease, color 0.35s ease;
 }
 
 a {
@@ -51,10 +55,28 @@ textarea:focus-visible {
   border-radius: 5px;
 }
 
-/* The sequenced atmosphere transition: background first (0.9s), borders next (+0.15s),
-   text last (+0.3s). Zero-specificity (:where) so any component transition overrides it. */
+/* Atmosphere-switch fallback, synchronized with body (see comment there).
+   Zero-specificity (:where) so any component transition overrides it. */
 .site :where(div, span, p) {
-  transition: background-color 0.9s ease, border-color 0.9s ease 0.15s, color 0.9s ease 0.3s;
+  transition: background-color 0.35s ease, border-color 0.35s ease, color 0.35s ease;
+}
+
+/* While the View Transitions API drives an atmosphere switch (html.atmo-vt),
+   the underlying page snaps to its new colors instantly — the visible fade
+   happens between two full-contrast snapshots, so text stays legible all the
+   way through. Browsers without the API never get the class and keep the
+   quick fallback above. */
+html.atmo-vt body,
+html.atmo-vt .site :where(div, span, p) {
+  transition: none;
+}
+
+/* The room's light changes unhurried — each layer of the crossfade is a
+   fully-rendered frame, so the pace costs no readability. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.65s;
+  animation-timing-function: ease;
 }
 
 @media (prefers-reduced-motion: reduce) {

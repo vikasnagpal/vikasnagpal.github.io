@@ -3,7 +3,18 @@ import { BOOT_DAYPARTS, MANUAL_TTL_HOURS } from '../../lib/atmosphereBoot'
 import { setFavicon } from '../../lib/favicon'
 import { daypartFromClock, type Daypart } from '../../lib/ist'
 import { KEYS, readJSON, writeJSON } from '../../lib/storage'
+import { prefersReducedMotion } from '../../motion/reducedMotion'
 import { DECK } from '../../motion/tokens'
+
+/* Atmosphere switches crossfade via the View Transitions API where available:
+   the browser fades between two fully-rendered frames, each full-contrast, so
+   the text never blends through the unreadable mid-tone that a slow fg+bg
+   color transition must cross. While a crossfade runs, the CSS color
+   transitions are silenced (html.atmo-vt) so the new frame lands instantly
+   beneath the fade; browsers without the API get the quick synchronized CSS
+   fallback in base.css. Rapid toggles overlap (the browser skips the older
+   transition) — the counter keeps the class on until the last one settles. */
+let vtCount = 0
 
 /* Atmospheres are moods of the workspace, not themes. Each carries a theme
    (ink set) and a container treatment; both land as attributes on <html>.
@@ -66,12 +77,28 @@ export function AtmosphereProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const root = document.documentElement
     const dp = DAYPARTS[daypart]
-    root.dataset.theme = dp.theme
-    root.dataset.treatment = dp.treatment
-    const meta = document.getElementById('theme-color')
-    const bg = getComputedStyle(root).getPropertyValue('--bg').trim()
-    if (meta && bg) meta.setAttribute('content', bg)
-    setFavicon(daypart)
+    const apply = () => {
+      root.dataset.theme = dp.theme
+      root.dataset.treatment = dp.treatment
+      const meta = document.getElementById('theme-color')
+      const bg = getComputedStyle(root).getPropertyValue('--bg').trim()
+      if (meta && bg) meta.setAttribute('content', bg)
+      setFavicon(daypart)
+    }
+    const changing = root.dataset.theme !== dp.theme || root.dataset.treatment !== dp.treatment
+    if (changing && !prefersReducedMotion() && document.startViewTransition) {
+      vtCount += 1
+      root.classList.add('atmo-vt')
+      const vt = document.startViewTransition(apply)
+      void vt.finished.finally(() => {
+        vtCount -= 1
+        if (vtCount === 0) root.classList.remove('atmo-vt')
+      })
+    } else {
+      // first paint (the boot script already set the attributes), reduced
+      // motion, or no View Transitions support — the CSS fallback applies
+      apply()
+    }
   }, [daypart])
 
   const value = useMemo<AtmosphereState>(
