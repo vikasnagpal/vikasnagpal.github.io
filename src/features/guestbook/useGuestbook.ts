@@ -109,7 +109,6 @@ export function useGuestbook(): GuestbookApi {
       clearInterval(iBreath)
       pending.forEach(clearTimeout)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // Quiet upgrade to the real guestbook. Skipped if the visitor already started
