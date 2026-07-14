@@ -1,0 +1,33 @@
+/* Self-hosted variable fonts (latin subsets, from Google Fonts' woff2 builds) —
+   no third-party round trip on the critical path. The three files are preloaded
+   in index.html; keep those hrefs in sync with the src urls here.
+   Weights cover actual usage: Nunito 400–800 (900 was loaded, never used),
+   Newsreader 500–700 (opsz axis intact — optical sizing stays automatic),
+   Caveat 700 only. */
+
+@font-face {
+  font-family: 'Nunito';
+  src: url('/fonts/nunito-latin.woff2') format('woff2');
+  font-weight: 400 800;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Newsreader';
+  src: url('/fonts/newsreader-latin.woff2') format('woff2');
+  font-weight: 500 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Caveat';
+  src: url('/fonts/caveat-latin.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
