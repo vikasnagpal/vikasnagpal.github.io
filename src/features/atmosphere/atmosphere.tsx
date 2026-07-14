@@ -1,16 +1,19 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
+import { BOOT_DAYPARTS, MANUAL_TTL_HOURS } from '../../lib/atmosphereBoot'
 import { setFavicon } from '../../lib/favicon'
 import { daypartFromClock, type Daypart } from '../../lib/ist'
 import { KEYS, readJSON, writeJSON } from '../../lib/storage'
 import { DECK } from '../../motion/tokens'
 
 /* Atmospheres are moods of the workspace, not themes. Each carries a theme
-   (ink set) and a container treatment; both land as attributes on <html>. */
+   (ink set) and a container treatment; both land as attributes on <html>.
+   theme/treatment come from the boot contract (atmosphereBoot.ts) — the same
+   values the generated pre-paint script applies before React exists. */
 
 export const DAYPARTS: Record<Daypart, { theme: 'light' | 'dark'; treatment: string; name: string; tagline: string }> = {
-  morning: { theme: 'light', treatment: 'Open · proximity', name: 'Morning Light', tagline: 'Fresh and bright, like a new day.' },
-  evening: { theme: 'light', treatment: 'Unified ground', name: 'Golden Hour', tagline: 'Warm afternoons and softer shadows.' },
-  night: { theme: 'dark', treatment: 'Unified ground', name: 'Quiet Night', tagline: 'For late nights and deep work.' },
+  morning: { ...BOOT_DAYPARTS.morning, name: 'Morning Light', tagline: 'Fresh and bright, like a new day.' },
+  evening: { ...BOOT_DAYPARTS.evening, name: 'Golden Hour', tagline: 'Warm afternoons and softer shadows.' },
+  night: { ...BOOT_DAYPARTS.night, name: 'Quiet Night', tagline: 'For late nights and deep work.' },
 }
 
 interface AtmosphereState {
@@ -35,7 +38,7 @@ interface Persisted {
 /* Picking an atmosphere is peeking at another mood of the room, not flipping a
    permanent switch. After 12 hours the room follows the sun again — otherwise a
    visitor (or Vikas) who tried Quiet Night once would see it at 4pm forever. */
-const MANUAL_TTL_MS = 12 * 3600 * 1000
+const MANUAL_TTL_MS = MANUAL_TTL_HOURS * 3600 * 1000
 
 function readPersisted(): Persisted {
   const p = readJSON<Partial<Persisted> | null>(KEYS.atmosphere, null)

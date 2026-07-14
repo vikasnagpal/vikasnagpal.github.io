@@ -14,50 +14,10 @@
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" id="theme-color" content="#fdf8f0" />
-    <script>
-      /* Resolve the atmosphere BEFORE first paint. The themed CSS variables that give
-         every panel/pill/card its border, radius and padding live only under
-         [data-treatment]; React sets that attribute in an effect that fires AFTER the
-         first paint, so without this bootstrap each bordered block flashes a sharp,
-         currentColor (dark) outline for one frame on load. This mirrors atmosphere.tsx —
-         keep the daypart → theme/treatment mapping in sync with it. */
-      (function () {
-        try {
-          var DAYPARTS = {
-            morning: { theme: 'light', treatment: 'Open · proximity', bg: '#fdf8f0' },
-            evening: { theme: 'light', treatment: 'Unified ground', bg: '#fcead4' },
-            night: { theme: 'dark', treatment: 'Unified ground', bg: '#262320' },
-          }
-          var auto = true,
-            choice = null
-          try {
-            var p = JSON.parse(localStorage.getItem('vikas-atmosphere-v2') || 'null')
-            if (p) {
-              if (typeof p.auto === 'boolean') auto = p.auto
-              if (p.choice && DAYPARTS[p.choice]) choice = p.choice
-              /* a manual pick is a peek, not a setting: after 12h the room follows the sun again */
-              if (!auto && (!p.at || Date.now() - p.at > 12 * 3600 * 1000)) {
-                auto = true
-                choice = null
-              }
-            }
-          } catch (e) {}
-          var daypart
-          if (!auto && choice) {
-            daypart = choice
-          } else {
-            /* 5–14 morning · 14–19 golden hour · 19–5 night — mirror of daypartFromClock in ist.ts */
-            var hr = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' })).getHours()
-            daypart = hr >= 5 && hr < 14 ? 'morning' : hr >= 14 && hr < 19 ? 'evening' : 'night'
-          }
-          var dp = DAYPARTS[daypart]
-          document.documentElement.dataset.theme = dp.theme
-          document.documentElement.dataset.treatment = dp.treatment
-          var meta = document.getElementById('theme-color')
-          if (meta) meta.setAttribute('content', dp.bg)
-        } catch (e) {}
-      })()
-    </script>
+    <!-- Pre-paint atmosphere boot: injected here by the atmosphereBoot plugin in
+         vite.config.ts, generated from src/lib/atmosphereBoot.ts — the same
+         constants atmosphere.tsx and ist.ts run on, so it cannot drift. -->
+    <!-- @atmosphere-boot -->
     <!-- Static fallback face (dot eyes, easy grin) on the guestbook's coral card.
          After mount, favicon.ts deals a random face from the seven and re-tints the
          card with the atmosphere; this one is for crawlers and the first breath

@@ -1,3 +1,5 @@
+import { BOOT_HOURS } from './atmosphereBoot'
+
 /* Time, season and weather all follow Bangalore (IST) — deliberately.
    It's Vikas' room, not the visitor's. */
 
@@ -29,10 +31,11 @@ export function istTimeString(): string {
 /** 5–14 Morning Light · 14–19 Golden Hour · 19–5 Quiet Night.
     Bangalore sun: first light ~5:30, warm afternoon slant from ~2pm,
     sunset ~6:30 — so noon stays "fresh and bright", not golden.
-    KEEP IN SYNC with the pre-paint script in index.html. */
+    (The pre-paint script is generated from these same BOOT_HOURS.) */
 export function daypartFromClock(): Daypart {
   const hr = istNow().getHours()
-  return hr >= 5 && hr < 14 ? 'morning' : hr >= 14 && hr < 19 ? 'evening' : 'night'
+  const { morningStart, eveningStart, nightStart } = BOOT_HOURS
+  return hr >= morningStart && hr < eveningStart ? 'morning' : hr >= eveningStart && hr < nightStart ? 'evening' : 'night'
 }
 
 export function istSeason(): Season {

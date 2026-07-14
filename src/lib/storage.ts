@@ -1,7 +1,9 @@
+import { ATMO_KEY } from './atmosphereBoot'
+
 /* Typed, throw-safe localStorage access for every vikas-* key. */
 
 export const KEYS = {
-  atmosphere: 'vikas-atmosphere-v2',
+  atmosphere: ATMO_KEY,
   reactions: 'vikas-reactions-v1',
   lastVisit: 'vikas-last-visit',
   coins: 'vikas-coins-v1',

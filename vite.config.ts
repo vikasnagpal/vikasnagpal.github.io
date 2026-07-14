@@ -3,6 +3,20 @@ import { resolve } from 'node:path'
 import { defineConfig, loadEnv, type Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
 import { ROUTES, SITE_ORIGIN } from './src/lib/routeMeta'
+import { bootScript } from './src/lib/atmosphereBoot'
+
+/* The pre-paint atmosphere script (theme/treatment on <html> before first
+   paint, so themed borders never flash) is generated from the same module the
+   app reads its daypart map, hour windows and TTL from — one source, no
+   hand-synced copy in index.html to drift. Runs in dev and build alike. */
+function atmosphereBoot(): Plugin {
+  return {
+    name: 'atmosphere-boot',
+    transformIndexHtml(html) {
+      return html.replace('<!-- @atmosphere-boot -->', () => `<script>\n      ${bootScript()}\n    </script>`)
+    },
+  }
+}
 
 const escapeHtml = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 
@@ -54,6 +68,6 @@ export default defineConfig(({ mode }) => {
   }
 
   return {
-    plugins: [react(), routeHtml()],
+    plugins: [react(), atmosphereBoot(), routeHtml()],
   }
 })
