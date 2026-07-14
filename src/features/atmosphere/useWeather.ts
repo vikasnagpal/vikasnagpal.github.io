@@ -20,6 +20,11 @@ function classify(code: number, cover: number | undefined): WeatherKind {
   return code === 0 ? 'clear' : code === 1 || code === 2 ? 'partly' : 'cloudy'
 }
 
+/* One successful fetch per session — the pill unmounts on every trip to an
+   inner page, and the Bangalore sky doesn't change that fast. A failed fetch
+   leaves this unset so a later remount retries. */
+let fetchedThisSession = false
+
 /** One fetch to Open-Meteo (Bangalore, no API key) on mount; offline falls back
     silently to the last-known sky, then cloudy. The tweaks override wins when set. */
 export function useWeather(): WeatherKind {
@@ -32,15 +37,17 @@ export function useWeather(): WeatherKind {
   })
 
   useEffect(() => {
+    if (fetchedThisSession) return
     let alive = true
     fetch('https://api.open-meteo.com/v1/forecast?latitude=12.97&longitude=77.59&current=weather_code,cloud_cover')
       .then((r) => r.json())
       .then((d) => {
         const c = d?.current?.weather_code
-        if (alive && typeof c === 'number') {
+        if (typeof c === 'number') {
+          fetchedThisSession = true
           const kind = classify(c, d?.current?.cloud_cover)
-          setWeather(kind)
           writeRaw(KEYS.weather, kind)
+          if (alive) setWeather(kind)
         }
       })
       .catch(() => {})
