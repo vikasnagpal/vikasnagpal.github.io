@@ -1,4 +1,4 @@
-import { useEffect, useRef, type ReactNode } from 'react'
+import { useRef, type ReactNode } from 'react'
 import { useGSAP } from '@gsap/react'
 import { Link } from 'wouter'
 import { AtmosphereLamp } from '../atmosphere/AtmosphereLamp'
@@ -22,10 +22,7 @@ export function PageFrame({ title, description, children }: PageFrameProps) {
   usePageMeta(title, description)
   const ref = useRef<HTMLDivElement>(null)
 
-  // Route changes land at the top of the new page, always.
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
+  // (Scroll reset lives in App's ScrollReset — every route change lands at the top.)
 
   useGSAP(
     () => {
