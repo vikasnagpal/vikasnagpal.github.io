@@ -30,7 +30,7 @@ const OFFERS: { title: string; situation: string; answer: string; icon: ReactNod
     title: 'Founding designer',
     situation: 'Building the first version of a product is mostly about making good decisions quickly.',
     answer:
-      "Whether you're starting with an idea, an MVP, or an early prototype, I work closely with founders and early teams to shape the product, design the experience, and iterate quickly based on what we learn — to build a product people actually want to use.",
+      "Whether you're starting with an idea, an MVP, or an early prototype, I work closely with founders and early teams to shape the product, design the experience, and iterate quickly based on what we learn to build a product people actually want to use.",
     // a sprout: the thing that grows before there's a garden
     icon: (
       <svg {...ICON_PROPS}>
@@ -43,7 +43,7 @@ const OFFERS: { title: string; situation: string; answer: string; icon: ReactNod
   },
   {
     title: 'Design advisory',
-    situation: "You don't need another designer — you need someone who's been through similar decisions before.",
+    situation: "You don't need another designer, you need someone who's been through similar decisions before.",
     answer:
       "Whether you're exploring a new product direction, reviewing a design, hiring designers, or figuring out what comes next, I'll be your thinking partner. We can keep it to a one-off session or work together on a simple monthly cadence.",
     // two voices: a conversation, one answering the other
@@ -106,7 +106,7 @@ export default function Work() {
         <p className="wk-ans">
           Over the last 12+ years, I&#39;ve designed digital products and spent the past eight building teams and design
           practices from the ground up. Working across different stages of growth has given me a front-row seat to how
-          design evolves — from finding product-market fit to building teams, processes, and products that can scale.
+          design evolves from finding product-market fit to building teams, processes, and products that can scale.
         </p>
         <p className="wk-ans">
           That experience helps me recognise patterns quickly, ask the right questions, and bring clarity to problems
