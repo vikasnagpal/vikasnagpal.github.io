@@ -30,7 +30,7 @@ const OFFERS: { title: string; situation: string; answer: string; icon: ReactNod
     title: 'Founding designer',
     situation: 'Building the first version of a product is mostly about making good decisions quickly.',
     answer:
-      "Whether you're starting with an idea, an MVP, or an early prototype, I work closely with founders and early teams to shape the product, design the experience, and iterate quickly based on what we learn to build a product people actually want to use.",
+      "Whether you're starting with an idea, an MVP, or an early prototype, I work closely with founders and early teams to shape the product, design the experience, and iterate quickly on what we learn, until it's a product people actually want to use.",
     // a sprout: the thing that grows before there's a garden
     icon: (
       <svg {...ICON_PROPS}>
@@ -43,9 +43,9 @@ const OFFERS: { title: string; situation: string; answer: string; icon: ReactNod
   },
   {
     title: 'Design advisory',
-    situation: "You don't need another designer, you need someone who's been through similar decisions before.",
+    situation: "You don't need another designer. You need someone who's been through similar decisions before.",
     answer:
-      "Whether you're exploring a new product direction, reviewing a design, hiring designers, or figuring out what comes next, I'll be your thinking partner. We can keep it to a one-off session or work together on a simple monthly cadence.",
+      "Whether you're exploring a new product direction, reviewing a design, hiring designers, or figuring out what comes next, I'll be your thinking partner. We can keep it to a one-off session or set up a simple monthly cadence.",
     // two voices: a conversation, one answering the other
     icon: (
       <svg {...ICON_PROPS}>
@@ -59,7 +59,7 @@ const OFFERS: { title: string; situation: string; answer: string; icon: ReactNod
     situation:
       'As products and teams grow, design challenges become less about screens and more about people, decisions, and how teams work together.',
     answer:
-      "I join your team for a few months to provide experienced design leadership while you continue to grow. I'll work with your team to establish healthy design practices, improve how design works across product and engineering, support hiring, and put the right foundations in place. The goal is to leave behind a design function that can keep growing without me.",
+      "I join your team for a few months to provide experienced design leadership while you continue to grow. I'll work with the team to establish healthy design practices, improve how design works across product and engineering, and support hiring. The goal is to leave behind a design function that can keep growing without me.",
     // a compass: direction you keep after the hand holding it leaves
     icon: (
       <svg {...ICON_PROPS}>
@@ -84,10 +84,10 @@ export default function Work() {
           company grows.
         </p>
         <p className="wk-intro">
-          The challenge is usually the same: creating enough clarity and structure for the team to move with confidence
-          without turning process into another thing to manage. That&#39;s where I come in.
+          The challenge is usually the same: creating enough clarity and structure for the team to move with
+          confidence, without turning process into another thing to manage. That&#39;s where I come in.
         </p>
-        <p className="wk-intro">Depending on where you are today, there are a few ways we can work together.</p>
+        <p className="wk-intro">Depending on where you are today, there are a few ways I can help.</p>
       </header>
 
       {OFFERS.map((o) => (
@@ -104,18 +104,17 @@ export default function Work() {
       <section className="wk-why">
         <h2 className="wk-why-title">Why work with me?</h2>
         <p className="wk-ans">
-          Over the last 12+ years, I&#39;ve designed digital products and spent the past eight building teams and design
-          practices from the ground up. Working across different stages of growth has given me a front-row seat to how
+          Over the last 12+ years, I&#39;ve designed digital products and spent the past eight leading teams and
+          building design practices from the ground up. Working across different stages of growth has given me a front-row seat to how
           design evolves from finding product-market fit to building teams, processes, and products that can scale.
         </p>
         <p className="wk-ans">
-          That experience helps me recognise patterns quickly, ask the right questions, and bring clarity to problems
-          that often feel bigger than they are. Sometimes, an outside perspective is all it takes to move things
+          That experience helps me recognise patterns early, ask the right questions, and bring clarity to problems
+          that often feel bigger than they are. Sometimes an outside perspective is all it takes to move things
           forward.
         </p>
         <p className="wk-ans">
-          If it sounds like I could be useful, I&#39;d love to hear what you&#39;re building and see if there&#39;s a
-          fit.
+          If any of this sounds useful, I&#39;d love to hear what you&#39;re building and see if there&#39;s a fit.
         </p>
       </section>
 
