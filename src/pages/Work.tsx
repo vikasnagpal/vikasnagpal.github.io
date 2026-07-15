@@ -28,9 +28,9 @@ const ICON_PROPS = {
 const OFFERS: { title: string; situation: string; answer: string; icon: ReactNode }[] = [
   {
     title: 'Founding designer',
-    situation: 'You have an idea, or a rough prototype, and you need a real version 1.0.',
+    situation: 'Building the first version of a product is mostly about making good decisions quickly.',
     answer:
-      "I work alongside you to build it — the founding designer who comes in before there's a team to hire one.",
+      "Whether you're starting with an idea, an MVP, or an early prototype, I work closely with founders and early teams to shape the product, design the experience, and iterate quickly based on what we learn — to build a product people actually want to use.",
     // a sprout: the thing that grows before there's a garden
     icon: (
       <svg {...ICON_PROPS}>
@@ -43,9 +43,9 @@ const OFFERS: { title: string; situation: string; answer: string; icon: ReactNod
   },
   {
     title: 'Design advisory',
-    situation: 'You mostly need a thinking partner — someone to talk a decision through now and then.',
+    situation: "You don't need another designer — you need someone who's been through similar decisions before.",
     answer:
-      "A lighter touch. I'm on call for the product and design questions that are easier to work out with someone who's seen them before. One-off sessions, or a simple monthly retainer.",
+      "Whether you're exploring a new product direction, reviewing a design, hiring designers, or figuring out what comes next, I'll be your thinking partner. We can keep it to a one-off session or work together on a simple monthly cadence.",
     // two voices: a conversation, one answering the other
     icon: (
       <svg {...ICON_PROPS}>
@@ -55,10 +55,11 @@ const OFFERS: { title: string; situation: string; answer: string; icon: ReactNod
     ),
   },
   {
-    title: 'Fractional head of design',
-    situation: "You need senior design leadership, but you're not ready to hire for it full-time.",
+    title: 'Fractional design head',
+    situation:
+      'As products and teams grow, design challenges become less about screens and more about people, decisions, and how teams work together.',
     answer:
-      'I embed with your team part-time, usually one to four months — setting direction, supporting hiring, and being the leadership presence in the room without the permanent seat. The aim is to leave behind a design function that runs well after I step out.',
+      "I join your team for a few months to provide experienced design leadership while you continue to grow. I'll work with your team to establish healthy design practices, improve how design works across product and engineering, support hiring, and put the right foundations in place. The goal is to leave behind a design function that can keep growing without me.",
     // a compass: direction you keep after the hand holding it leaves
     icon: (
       <svg {...ICON_PROPS}>
@@ -76,13 +77,17 @@ export default function Work() {
   return (
     <PageFrame title={WORK.title} description={WORK.description}>
       <header className="wk-head">
-        <h1 className="wk-title">How can I help?</h1>
+        <h1 className="wk-title">How we can work together</h1>
         <p className="wk-intro">
-          Most of the people I work with are somewhere between an idea and a team. Either they&#39;re trying to get a
-          product into real hands for the first time, or they&#39;re scaling something that&#39;s started to strain at the
-          edges. Wherever you are, the job is the same: enough design and structure that the work keeps moving — without
-          the process becoming another thing to manage.
+          Most of the people I work with are somewhere between an idea and a full design team. They&#39;re building
+          their first product, searching for product-market fit, or figuring out how design needs to evolve as the
+          company grows.
         </p>
+        <p className="wk-intro">
+          The challenge is usually the same: creating enough clarity and structure for the team to move with confidence
+          without turning process into another thing to manage. That&#39;s where I come in.
+        </p>
+        <p className="wk-intro">Depending on where you are today, there are a few ways we can work together.</p>
       </header>
 
       {OFFERS.map((o) => (
@@ -97,13 +102,20 @@ export default function Work() {
       ))}
 
       <section className="wk-why">
-        <h2 className="wk-why-title">Why me?</h2>
+        <h2 className="wk-why-title">Why work with me?</h2>
         <p className="wk-ans">
-          I&#39;ve spent 12+ years in design, the last eight leading teams and building products and design functions
-          from scratch. I know what design needs look like at different stages of growth because I&#39;ve done it at most
-          of them. I do this fractionally because a focused outside perspective, with no internal agenda, often moves
-          things faster than waiting for the right full-time hire. And I&#39;ve made enough mistakes along the way to
-          know what actually works versus what just sounds good in a deck.
+          Over the last 12+ years, I&#39;ve designed digital products and spent the past eight building teams and design
+          practices from the ground up. Working across different stages of growth has given me a front-row seat to how
+          design evolves — from finding product-market fit to building teams, processes, and products that can scale.
+        </p>
+        <p className="wk-ans">
+          That experience helps me recognise patterns quickly, ask the right questions, and bring clarity to problems
+          that often feel bigger than they are. Sometimes, an outside perspective is all it takes to move things
+          forward.
+        </p>
+        <p className="wk-ans">
+          If it sounds like I could be useful, I&#39;d love to hear what you&#39;re building and see if there&#39;s a
+          fit.
         </p>
       </section>
 

@@ -16,7 +16,7 @@ export interface RouteMeta {
 export const WORK: RouteMeta = {
   path: '/work',
   title: 'Work together — Vikas',
-  description: 'Founding designer, design advisory, or a fractional head of design — three ways to work with Vikas.',
+  description: 'Founding designer, design advisory, or a fractional design head — three ways to work with Vikas.',
 }
 
 /** Every client route beyond home — each gets its own HTML shell at build. */

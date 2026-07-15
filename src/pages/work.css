@@ -17,6 +17,9 @@
   color: var(--text);
   text-wrap: pretty;
 }
+.wk-intro + .wk-intro {
+  margin-top: 12px;
+}
 
 /* Each offer: the visitor's situation (serif — the same voice as the guestbook
    tagline), the answer, and a handwritten margin note naming the arrangement.
