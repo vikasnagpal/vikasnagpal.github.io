@@ -87,6 +87,17 @@ export function submitThought(text: string, emoji: string): Promise<boolean> {
   )
 }
 
+/** The discovery ledger's single anonymous ping: someone found their first coin.
+    Fire-and-forget; dev sessions never report (tweaks-panel resets would inflate it). */
+export function reportFirstCoin(): void {
+  if (!isConfigured || import.meta.env.DEV) return
+  void rest('/rest/v1/coin_events', {
+    method: 'POST',
+    headers: { Prefer: 'return=minimal' },
+    body: JSON.stringify({ event: 'first_coin' }),
+  }).catch(() => {})
+}
+
 /** One reaction per type per visitor, toggled atomically server-side. Fire-and-forget. */
 export function toggleReactionRemote(thoughtId: string, kind: StampKey, visitorId: string): void {
   if (!isConfigured) return

@@ -3,6 +3,7 @@ import { COIN, DISCOVERY } from '../../motion/tokens'
 import { prefersReducedMotion } from '../../motion/reducedMotion'
 import type { CoinRare } from '../../motion/choreographies/coin'
 import { KEYS, readJSON, writeJSON } from '../../lib/storage'
+import { reportFirstCoin } from '../../lib/guestbook-api'
 import { chime } from '../../lib/audio'
 import { useAtmosphere } from '../atmosphere/atmosphere'
 import { useConfig } from '../../config'
@@ -67,6 +68,7 @@ export function useCoin(count = 3): UseCoin {
       const firstEver = !ledger.total
       ledger.total = (ledger.total || 0) + 1
       writeJSON(KEYS.coins, ledger)
+      if (firstEver) reportFirstCoin()
       window.dispatchEvent(new CustomEvent(COINS_EVENT, { detail: ledger.total }))
       session.current += 1
 
