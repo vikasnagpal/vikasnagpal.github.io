@@ -13,11 +13,9 @@ export interface DiscoveryFlags {
   whisper: boolean
   /** desktop on-icon wiggle counts as entries + widened trigger window */
   wiggle: boolean
-  /** one icon stirs after long stillness (once per session, pre-discovery only) */
-  idleStir: boolean
   /** a coin edge peeks from behind an icon (once per session, pre-discovery only) */
   glint: boolean
-  /** ambient baits (stir/glint) only for returning visitors */
+  /** the glint only for returning visitors */
   returningOnly: boolean
   /** oblique devtools console line, pre-discovery only */
   consoleHint: boolean
@@ -37,7 +35,6 @@ const DEFAULTS: SiteConfig = {
   discovery: {
     whisper: true,
     wiggle: true,
-    idleStir: true,
     glint: true,
     returningOnly: true,
     consoleHint: true,

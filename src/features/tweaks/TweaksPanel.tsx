@@ -25,9 +25,8 @@ const SEASONS: SeasonOverride[] = ['auto', 'spring', 'monsoon', 'autumn', 'winte
 const DISCOVERY_LABELS: Record<keyof DiscoveryFlags, string> = {
   whisper: 'whisper (slow re-entry)',
   wiggle: 'wiggle counts + wider window',
-  idleStir: 'idle stir',
   glint: 'glint',
-  returningOnly: 'baits: returning visitors only',
+  returningOnly: 'glint: returning visitors only',
   consoleHint: 'console hint',
 }
 
@@ -152,7 +151,6 @@ export default function TweaksPanel() {
         </label>
       ))}
       <div className="tw-row tw-resets">
-        <button onClick={() => window.dispatchEvent(new CustomEvent(BAIT_EVENT, { detail: 'stir' }))}>stir now</button>
         <button onClick={() => window.dispatchEvent(new CustomEvent(BAIT_EVENT, { detail: 'glint' }))}>glint now</button>
       </div>
 

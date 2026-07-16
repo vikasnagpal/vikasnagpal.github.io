@@ -71,17 +71,6 @@ export function tellTilt(icon: Element, deg: number = COIN.tellDeg): gsap.core.T
   return tl
 }
 
-/** Idle stir: after long stillness one icon shifts in its sleep — a small tilt,
-    a tinier counter-tilt, settle. Deniable ("did that just move?"), unprompted. */
-export function idleStir(icon: Element): gsap.core.Timeline {
-  const D = DISCOVERY.stirDur
-  const tl = gsap.timeline()
-  tl.to(icon, { rotation: DISCOVERY.stirDeg, y: -1, duration: D * 0.35, ease: 'power1.out' })
-    .to(icon, { rotation: -DISCOVERY.stirDeg * 0.4, y: 0, duration: D * 0.3, ease: 'power1.inOut' })
-    .to(icon, { rotation: 0, duration: D * 0.35, ease: 'power1.out' })
-  return tl
-}
-
 /** Glint: a coin edge surfaces from behind the icon, hangs half a beat, and
     ducks back down. Shows WHAT is hidden, never HOW — the slip that starts a hunt.
     `coin` sits inside an overflow-hidden window (.nav-glint); it starts fully

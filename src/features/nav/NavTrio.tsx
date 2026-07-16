@@ -5,7 +5,7 @@ import { COIN, DISCOVERY } from '../../motion/tokens'
 import { useCoin, type CoinSpawn, type CoinTell } from './useCoin'
 import { useBaits, type Bait } from './useBaits'
 import { CoinSVG } from './CoinSVG'
-import { coinArc, tellTilt, idleStir, glintPeek } from '../../motion/choreographies/coin'
+import { coinArc, tellTilt, glintPeek } from '../../motion/choreographies/coin'
 import { floatBurst } from '../../motion/choreographies/floats'
 import { prefersReducedMotion } from '../../motion/reducedMotion'
 import { registerTimeline } from '../../motion/registry'
@@ -172,12 +172,7 @@ function NavItem({ label, href, icon, spawn, tell, note, bait, onEnter, onCoinDo
 
   useGSAP(
     () => {
-      if (!bait) return
-      if (bait === 'stir' && iconRef.current) {
-        const tl = idleStir(iconRef.current)
-        tl.eventCallback('onComplete', onBaitDone)
-        registerTimeline('coin-stir', tl)
-      } else if (bait === 'glint' && glintRef.current) {
+      if (bait === 'glint' && glintRef.current) {
         registerTimeline('coin-glint', glintPeek(glintRef.current, { onComplete: onBaitDone }))
       }
     },

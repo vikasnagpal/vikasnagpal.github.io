@@ -110,10 +110,6 @@ export const DISCOVERY = {
   wiggleStrokePx: 24,
   /** forgiveness: widened fast-trigger window while wiggle is on (base 3000) */
   windowMs: 4500,
-  /** idle stir: after this much page stillness, one icon stirs — once per session */
-  idleMs: 22000,
-  stirDeg: 2.4,
-  stirDur: 0.6,
   /** glint: a gold edge peeks from behind an icon and hides — once per session,
       and only maybe (a slip, not a loop) */
   glintDelayMsMin: 15000,
