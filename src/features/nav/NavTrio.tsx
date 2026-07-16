@@ -137,9 +137,9 @@ function NavItem({ label, href, icon, spawn, tell, note, bait, onEnter, onCoinDo
   const wig = useRef<{ x: number; dir: number; travel: number; fired: boolean; reversed: boolean } | null>(null)
   const onMouseMove = (e: React.MouseEvent) => {
     if (!discovery.wiggle) return
-    let w = wig.current
+    const w = wig.current
     if (!w) {
-      w = wig.current = { x: e.clientX, dir: 0, travel: 0, fired: false, reversed: false }
+      wig.current = { x: e.clientX, dir: 0, travel: 0, fired: false, reversed: false }
       return
     }
     const dx = e.clientX - w.x
