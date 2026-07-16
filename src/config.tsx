@@ -6,16 +6,42 @@ import { createContext, useCallback, useContext, useState, type ReactNode } from
 export type WeatherOverride = 'auto' | 'clear' | 'partly' | 'cloudy' | 'rain' | 'thunder' | 'fog'
 export type SeasonOverride = 'auto' | 'spring' | 'monsoon' | 'autumn' | 'winter'
 
+/** Coin discovery aids — the scent trail (see DISCOVERY in motion/tokens.ts).
+    All flags ship-ready defaults; the dev tweaks panel flips them for review. */
+export interface DiscoveryFlags {
+  /** slow re-entry gets a fainter tell — opens the top of the funnel */
+  whisper: boolean
+  /** desktop on-icon wiggle counts as entries + widened trigger window */
+  wiggle: boolean
+  /** one icon stirs after long stillness (once per session, pre-discovery only) */
+  idleStir: boolean
+  /** a coin edge peeks from behind an icon (once per session, pre-discovery only) */
+  glint: boolean
+  /** ambient baits (stir/glint) only for returning visitors */
+  returningOnly: boolean
+  /** oblique devtools console line, pre-discovery only */
+  consoleHint: boolean
+}
+
 export interface SiteConfig {
   weatherOverride: WeatherOverride
   seasonOverride: SeasonOverride
   calendarUrl: string
+  discovery: DiscoveryFlags
 }
 
 const DEFAULTS: SiteConfig = {
   weatherOverride: 'auto',
   seasonOverride: 'auto',
   calendarUrl: (import.meta.env.VITE_CALENDAR_URL as string | undefined) || '#',
+  discovery: {
+    whisper: true,
+    wiggle: true,
+    idleStir: true,
+    glint: true,
+    returningOnly: true,
+    consoleHint: true,
+  },
 }
 
 const ConfigContext = createContext<SiteConfig>(DEFAULTS)

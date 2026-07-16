@@ -1,5 +1,5 @@
 import gsap from 'gsap'
-import { COIN } from '../tokens'
+import { COIN, DISCOVERY } from '../tokens'
 import '../eases'
 
 /* The coin has real gravity: squash → launch → apex hang → begin to fall → fade
@@ -58,14 +58,43 @@ export function coinArc(coin: Element, icon: Element | null, opts: CoinArcOpts =
 }
 
 /** The subliminal tell: on the 2nd rapid re-entry the icon tilts 5° for a beat —
-    the room creaking, not an instruction. */
-export function tellTilt(icon: Element): gsap.core.Timeline {
+    the room creaking, not an instruction. A slower second look gets the fainter
+    whisper degree instead (pass deg). */
+export function tellTilt(icon: Element, deg: number = COIN.tellDeg): gsap.core.Timeline {
   const tl = gsap.timeline()
-  tl.to(icon, { rotation: COIN.tellDeg, y: -1, duration: COIN.tell * 0.4, ease: 'power1.out' }).to(icon, {
+  tl.to(icon, { rotation: deg, y: -1, duration: COIN.tell * 0.4, ease: 'power1.out' }).to(icon, {
     rotation: 0,
     y: 0,
     duration: COIN.tell * 0.6,
     ease: 'power1.inOut',
   })
+  return tl
+}
+
+/** Idle stir: after long stillness one icon shifts in its sleep — a small tilt,
+    a tinier counter-tilt, settle. Deniable ("did that just move?"), unprompted. */
+export function idleStir(icon: Element): gsap.core.Timeline {
+  const D = DISCOVERY.stirDur
+  const tl = gsap.timeline()
+  tl.to(icon, { rotation: DISCOVERY.stirDeg, y: -1, duration: D * 0.35, ease: 'power1.out' })
+    .to(icon, { rotation: -DISCOVERY.stirDeg * 0.4, y: 0, duration: D * 0.3, ease: 'power1.inOut' })
+    .to(icon, { rotation: 0, duration: D * 0.35, ease: 'power1.out' })
+  return tl
+}
+
+/** Glint: a coin edge surfaces from behind the icon, hangs half a beat, and
+    ducks back down. Shows WHAT is hidden, never HOW — the slip that starts a hunt.
+    `coin` sits inside an overflow-hidden window (.nav-glint); it starts fully
+    below the window's bottom edge and rises `glintRise` px into view. */
+export function glintPeek(coin: Element, opts: { onComplete?: () => void } = {}): gsap.core.Timeline {
+  const D = DISCOVERY.glintDur
+  const tl = gsap.timeline({ onComplete: opts.onComplete })
+  tl.fromTo(
+    coin,
+    { y: 0, autoAlpha: DISCOVERY.glintAlpha },
+    { y: -DISCOVERY.glintRise, duration: D * 0.32, ease: 'power2.out' },
+  )
+    .to(coin, { y: -DISCOVERY.glintRise, duration: D * 0.28, ease: 'none' })
+    .to(coin, { y: 0, duration: D * 0.4, ease: 'power2.in' })
   return tl
 }

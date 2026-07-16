@@ -1,6 +1,7 @@
-import { Suspense, lazy, useLayoutEffect } from 'react'
+import { Suspense, lazy, useEffect, useLayoutEffect } from 'react'
 import { Redirect, Route, Switch, useLocation } from 'wouter'
-import { ConfigProvider } from './config'
+import { ConfigProvider, useConfig } from './config'
+import { consoleHint } from './lib/consoleHint'
 import { AtmosphereProvider } from './features/atmosphere/atmosphere'
 import { ToastProvider } from './features/toast/Toast'
 import Home from './pages/Home'
@@ -25,6 +26,16 @@ function ScrollReset() {
   return null
 }
 
+// The devtools breadcrumb for the coin (see lib/consoleHint.ts) — lives under
+// the ConfigProvider so the dev tweaks toggle governs it.
+function ConsoleHint() {
+  const { discovery } = useConfig()
+  useEffect(() => {
+    if (discovery.consoleHint) consoleHint()
+  }, [discovery.consoleHint])
+  return null
+}
+
 const Work = lazy(() => import('./pages/Work'))
 
 // Dev-only fine-tuning workbench — tree-shaken out of production builds.
@@ -36,6 +47,7 @@ export default function App() {
       <AtmosphereProvider>
         <ToastProvider>
           <ScrollReset />
+          <ConsoleHint />
           <div className="site">
             <Suspense fallback={null}>
               <Switch>

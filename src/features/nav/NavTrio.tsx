@@ -1,14 +1,16 @@
 import { useRef, type ReactNode } from 'react'
 import { useGSAP } from '@gsap/react'
 import { useLocation } from 'wouter'
-import { COIN } from '../../motion/tokens'
-import { useCoin, type CoinSpawn } from './useCoin'
+import { COIN, DISCOVERY } from '../../motion/tokens'
+import { useCoin, type CoinSpawn, type CoinTell } from './useCoin'
+import { useBaits, type Bait } from './useBaits'
 import { CoinSVG } from './CoinSVG'
-import { coinArc, tellTilt } from '../../motion/choreographies/coin'
+import { coinArc, tellTilt, idleStir, glintPeek } from '../../motion/choreographies/coin'
 import { floatBurst } from '../../motion/choreographies/floats'
 import { prefersReducedMotion } from '../../motion/reducedMotion'
 import { registerTimeline } from '../../motion/registry'
 import { useAtmosphere } from '../atmosphere/atmosphere'
+import { useConfig } from '../../config'
 import './nav.css'
 
 /* Three hand-drawn icon links. The anchor (hit-area) never moves — only the inner
@@ -68,17 +70,21 @@ interface NavItemProps {
   href: string
   icon: ReactNode
   spawn: CoinSpawn | null
-  tell: boolean
+  tell: CoinTell
   note: boolean
+  bait: Bait
   onEnter: () => void
   onCoinDone: () => void
+  onBaitDone: () => void
 }
 
-function NavItem({ label, href, icon, spawn, tell, note, onEnter, onCoinDone }: NavItemProps) {
+function NavItem({ label, href, icon, spawn, tell, note, bait, onEnter, onCoinDone, onBaitDone }: NavItemProps) {
   const iconRef = useRef<HTMLSpanElement>(null)
   const coinRef = useRef<HTMLSpanElement>(null)
   const noteRef = useRef<HTMLSpanElement>(null)
+  const glintRef = useRef<HTMLSpanElement>(null)
   const { night } = useAtmosphere()
+  const { discovery } = useConfig()
   const [, navigate] = useLocation()
 
   /* Real anchors, SPA navigation: routes push state instead of reloading (a
@@ -124,11 +130,58 @@ function NavItem({ label, href, icon, spawn, tell, note, onEnter, onCoinDone }: 
     rub.current = null
   }
 
+  /* The desktop analog of the rub: wiggling the cursor ON the icon. Unlike touch,
+     strokes only count after a direction reversal — a straight pass through the
+     hit area is one direction and can never fire; only deliberate back-and-forth
+     does. Entering (1) + two reversal strokes (2, 3) completes the trigger. */
+  const wig = useRef<{ x: number; dir: number; travel: number; fired: boolean; reversed: boolean } | null>(null)
+  const onMouseMove = (e: React.MouseEvent) => {
+    if (!discovery.wiggle) return
+    let w = wig.current
+    if (!w) {
+      w = wig.current = { x: e.clientX, dir: 0, travel: 0, fired: false, reversed: false }
+      return
+    }
+    const dx = e.clientX - w.x
+    w.x = e.clientX
+    if (dx === 0) return
+    const dir = dx > 0 ? 1 : -1
+    if (dir !== w.dir) {
+      if (w.dir !== 0) w.reversed = true
+      w.dir = dir
+      w.travel = 0
+      w.fired = false
+    }
+    w.travel += Math.abs(dx)
+    if (w.reversed && !w.fired && w.travel >= DISCOVERY.wiggleStrokePx) {
+      w.fired = true
+      onEnter()
+    }
+  }
+  const onMouseLeave = () => {
+    wig.current = null
+  }
+
   useGSAP(
     () => {
-      if (tell && iconRef.current && !spawn) tellTilt(iconRef.current)
+      if (tell && iconRef.current && !spawn)
+        tellTilt(iconRef.current, tell === 'whisper' ? DISCOVERY.whisperDeg : COIN.tellDeg)
     },
     { dependencies: [tell] },
+  )
+
+  useGSAP(
+    () => {
+      if (!bait) return
+      if (bait === 'stir' && iconRef.current) {
+        const tl = idleStir(iconRef.current)
+        tl.eventCallback('onComplete', onBaitDone)
+        registerTimeline('coin-stir', tl)
+      } else if (bait === 'glint' && glintRef.current) {
+        registerTimeline('coin-glint', glintPeek(glintRef.current, { onComplete: onBaitDone }))
+      }
+    },
+    { dependencies: [bait] },
   )
 
   useGSAP(
@@ -157,6 +210,8 @@ function NavItem({ label, href, icon, spawn, tell, note, onEnter, onCoinDone }: 
       className="nav-item"
       data-nav
       onMouseEnter={onEnter}
+      onMouseMove={onMouseMove}
+      onMouseLeave={onMouseLeave}
       onTouchStart={onTouchStart}
       onTouchMove={onTouchMove}
       onTouchEnd={onTouchEnd}
@@ -166,6 +221,13 @@ function NavItem({ label, href, icon, spawn, tell, note, onEnter, onCoinDone }: 
       {spawn && (
         <span className="nav-coin" ref={coinRef} aria-hidden>
           <CoinSVG variant={spawn.variant} night={night} />
+        </span>
+      )}
+      {bait === 'glint' && (
+        <span className="nav-glint" aria-hidden>
+          <span className="nav-glint-coin" ref={glintRef}>
+            <CoinSVG variant="gold" night={night} />
+          </span>
         </span>
       )}
       {note && (
@@ -185,6 +247,7 @@ function NavItem({ label, href, icon, spawn, tell, note, onEnter, onCoinDone }: 
 
 export function NavTrio() {
   const { coins, tells, notes, navHover, clearCoin } = useCoin(ITEMS.length)
+  const { baits, clearBait } = useBaits(ITEMS.length)
 
   return (
     <nav className="nav-grid" aria-label="Sections">
@@ -195,8 +258,10 @@ export function NavTrio() {
           spawn={coins[i]}
           tell={tells[i]}
           note={notes[i]}
+          bait={baits[i]}
           onEnter={() => navHover(i)}
           onCoinDone={() => clearCoin(i)}
+          onBaitDone={() => clearBait(i)}
         />
       ))}
     </nav>

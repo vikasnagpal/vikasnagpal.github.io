@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import gsap from 'gsap'
-import { useConfig, useConfigPatch, type SeasonOverride, type WeatherOverride } from '../../config'
+import { useConfig, useConfigPatch, type DiscoveryFlags, type SeasonOverride, type WeatherOverride } from '../../config'
+import { BAIT_EVENT } from '../nav/useBaits'
 import { DAYPARTS, useAtmosphere } from '../atmosphere/atmosphere'
 import { timelineNames, getTimeline } from '../../motion/registry'
 import { KEYS, remove } from '../../lib/storage'
@@ -19,6 +20,16 @@ declare global {
 
 const WEATHERS: WeatherOverride[] = ['auto', 'clear', 'partly', 'cloudy', 'rain', 'thunder', 'fog']
 const SEASONS: SeasonOverride[] = ['auto', 'spring', 'monsoon', 'autumn', 'winter']
+
+/** Coin discovery aids, one checkbox each — flip any off to review its absence */
+const DISCOVERY_LABELS: Record<keyof DiscoveryFlags, string> = {
+  whisper: 'whisper (slow re-entry)',
+  wiggle: 'wiggle counts + wider window',
+  idleStir: 'idle stir',
+  glint: 'glint',
+  returningOnly: 'baits: returning visitors only',
+  consoleHint: 'console hint',
+}
 
 export default function TweaksPanel() {
   const [open, setOpen] = useState(false)
@@ -127,6 +138,22 @@ export default function TweaksPanel() {
           <button onClick={() => void attach((document.getElementById('tw-tl') as HTMLSelectElement).value)}>attach</button>
           {devtools && <button onClick={detach}>kill</button>}
         </span>
+      </div>
+
+      <div className="tw-sub">coin discovery</div>
+      {(Object.keys(DISCOVERY_LABELS) as (keyof DiscoveryFlags)[]).map((k) => (
+        <label className="tw-row" key={k}>
+          <span>{DISCOVERY_LABELS[k]}</span>
+          <input
+            type="checkbox"
+            checked={config.discovery[k]}
+            onChange={(e) => patch({ discovery: { ...config.discovery, [k]: e.target.checked } })}
+          />
+        </label>
+      ))}
+      <div className="tw-row tw-resets">
+        <button onClick={() => window.dispatchEvent(new CustomEvent(BAIT_EVENT, { detail: 'stir' }))}>stir now</button>
+        <button onClick={() => window.dispatchEvent(new CustomEvent(BAIT_EVENT, { detail: 'glint' }))}>glint now</button>
       </div>
 
       <div className="tw-row tw-resets">

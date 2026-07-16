@@ -1,17 +1,25 @@
 import { useCallback, useRef, useState } from 'react'
-import { COIN } from '../../motion/tokens'
+import { COIN, DISCOVERY } from '../../motion/tokens'
 import { prefersReducedMotion } from '../../motion/reducedMotion'
 import type { CoinRare } from '../../motion/choreographies/coin'
 import { KEYS, readJSON, writeJSON } from '../../lib/storage'
 import { chime } from '../../lib/audio'
 import { useAtmosphere } from '../atmosphere/atmosphere'
+import { useConfig } from '../../config'
 
 /* The easter egg, born from a hover-flicker bug. Trigger: entering the same nav
-   item 3 times within 3s (leaving and returning counts). Phase 2 on top: coral
-   every 10th lifetime coin, soft probabilistic damping after ~8 per session,
-   rare unexplained variations. Lifetime ledger feeds the 50-coin P.S. secret. */
+   item 3 times within the fast window (leaving and returning counts; on-icon
+   wiggle strokes and touch rub strokes count too). Phase 2 on top: coral every
+   10th lifetime coin, soft probabilistic damping after ~8 per session, rare
+   unexplained variations. Lifetime ledger feeds the 50-coin P.S. secret.
+
+   Discovery ladder (see DISCOVERY tokens): a slow second look whispers (2°),
+   a fast re-entry tells (5°), the third fast entry pays out. */
 
 export type CoinVariant = 'gold' | 'coral'
+
+/** Escalating pre-coin signals: faint whisper → the 5° tell */
+export type CoinTell = null | 'whisper' | 'tell'
 
 export interface CoinSpawn {
   variant: CoinVariant
@@ -27,19 +35,20 @@ export const COINS_EVENT = 'vikas:coins'
 
 interface UseCoin {
   coins: (CoinSpawn | null)[]
-  tells: boolean[]
+  tells: CoinTell[]
   notes: boolean[]
   navHover: (i: number) => void
   clearCoin: (i: number) => void
 }
 
 const none = <T,>(n: number, v: T): T[] => Array(n).fill(v)
-const only = (n: number, i: number): boolean[] => none(n, false).map((_, j) => j === i)
+const only = <T,>(n: number, i: number, v: T, off: T): T[] => none(n, off).map((_, j) => (j === i ? v : off))
 
 export function useCoin(count = 3): UseCoin {
   const { night } = useAtmosphere()
+  const { discovery } = useConfig()
   const [coins, setCoins] = useState<(CoinSpawn | null)[]>(none(count, null))
-  const [tells, setTells] = useState<boolean[]>(none(count, false))
+  const [tells, setTells] = useState<CoinTell[]>(none<CoinTell>(count, null))
   const [notes, setNotes] = useState<boolean[]>(none(count, false))
   const hoverLog = useRef<Record<number, number[]>>({})
   const session = useRef(0)
@@ -68,7 +77,7 @@ export function useCoin(count = 3): UseCoin {
         seq.current += 1
         const spawnData: CoinSpawn = { variant, rare, key: seq.current }
         setCoins((arr) => arr.map((c, j) => (j === i ? spawnData : c)))
-        setTells(none(count, false))
+        setTells(none<CoinTell>(count, null))
         chime({ octaveUp: variant === 'coral', night })
         // a tiny physical tick on devices that can do it (Android; iOS has no API)
         try {
@@ -79,7 +88,7 @@ export function useCoin(count = 3): UseCoin {
         if (firstEver) {
           // First discovery is the whole memory — a handwritten note, once, never again
           setTimeout(() => {
-            setNotes(only(count, i))
+            setNotes(only(count, i, true, false))
             setTimeout(() => setNotes(none(count, false)), 1950)
           }, COIN.noteDelayMs)
         }
@@ -87,7 +96,7 @@ export function useCoin(count = 3): UseCoin {
 
       if (firstEver && !prefersReducedMotion()) {
         // slowed slightly: the icon reacts, a beat, then the coin
-        setTells(only(count, i))
+        setTells(only<CoinTell>(count, i, 'tell', null))
         setTimeout(spawn, COIN.firstCatchBeatMs)
       } else {
         spawn()
@@ -99,20 +108,28 @@ export function useCoin(count = 3): UseCoin {
   const navHover = useCallback(
     (i: number) => {
       const now = Date.now()
-      const log = (hoverLog.current[i] ?? []).filter((ts) => now - ts < COIN.windowMs)
+      // Two windows: fast entries arm the trigger; slower ones (whisper window)
+      // only feed the faint first rung of the ladder.
+      const fastMs = discovery.wiggle ? DISCOVERY.windowMs : COIN.windowMs
+      const keepMs = discovery.whisper ? Math.max(fastMs, DISCOVERY.whisperWindowMs) : fastMs
+      const log = (hoverLog.current[i] ?? []).filter((ts) => now - ts < keepMs)
       log.push(now)
       hoverLog.current[i] = log
+      const fast = log.filter((ts) => now - ts < fastMs).length
 
-      if (log.length === 2 && !coinsRef.current[i] && !prefersReducedMotion()) {
-        setTells(only(count, i))
-        setTimeout(() => setTells(none(count, false)), 420)
-      }
-      if (log.length >= 3) {
+      if (fast >= 3) {
         hoverLog.current[i] = []
         popCoin(i)
+        return
+      }
+      if (coinsRef.current[i] || prefersReducedMotion()) return
+      const tell: CoinTell = fast === 2 ? 'tell' : discovery.whisper && log.length >= 2 ? 'whisper' : null
+      if (tell) {
+        setTells(only<CoinTell>(count, i, tell, null))
+        setTimeout(() => setTells(none<CoinTell>(count, null)), 420)
       }
     },
-    [count, popCoin],
+    [count, popCoin, discovery.whisper, discovery.wiggle],
   )
 
   const clearCoin = useCallback((i: number) => {

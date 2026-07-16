@@ -64,6 +64,26 @@
   visibility: hidden; /* GSAP reveals */
 }
 
+/* Glint bait: a thin clipped slot just above the icon's head. The coin sits
+   fully below the slot's bottom edge (margin-top = slot height); glintPeek
+   raises its top edge into view and ducks it back — a slip, not an arrival. */
+.nav-glint {
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 10px;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 4; /* under the real coin's 5 — they never coexist, but keep the order honest */
+}
+.nav-glint-coin {
+  display: block;
+  margin-top: 10px;
+  visibility: hidden; /* GSAP reveals */
+}
+
 .nav-note {
   position: absolute;
   top: -30px;

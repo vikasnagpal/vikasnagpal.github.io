@@ -97,6 +97,33 @@ export const COIN = {
   rareOdds: 0.05,
 } as const
 
+/** Coin discovery aids — the scent trail. Never an instruction: escalating,
+    deniable whispers that widen the top of the funnel. Each aid is independently
+    toggleable (dev tweaks → discovery) so it can be reviewed in isolation. */
+export const DISCOVERY = {
+  /** whisper: a second look at the same icon within this window (slower than the
+      fast trigger window) gets a fainter tilt — the room noticing you noticing */
+  whisperWindowMs: 8000,
+  whisperDeg: 2,
+  /** desktop wiggle: after one direction reversal inside the hit area, each
+      horizontal stroke this long counts as an "entry" (mirrors the touch rub) */
+  wiggleStrokePx: 24,
+  /** forgiveness: widened fast-trigger window while wiggle is on (base 3000) */
+  windowMs: 4500,
+  /** idle stir: after this much page stillness, one icon stirs — once per session */
+  idleMs: 22000,
+  stirDeg: 2.4,
+  stirDur: 0.6,
+  /** glint: a gold edge peeks from behind an icon and hides — once per session,
+      and only maybe (a slip, not a loop) */
+  glintDelayMsMin: 15000,
+  glintDelayMsMax: 40000,
+  glintChance: 0.55,
+  glintRise: 9, // px of coin edge that surfaces
+  glintDur: 1.1,
+  glintAlpha: 0.9,
+} as const
+
 /** Page entrance — the composition settling in once, on first paint */
 export const INTRO = {
   /** how far each block rises as it fades in */
