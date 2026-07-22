@@ -77,7 +77,7 @@ export default function Work() {
   return (
     <PageFrame title={WORK.title} description={WORK.description}>
       <header className="wk-head">
-        <h1 className="wk-title">How we can work together</h1>
+        <h1 className="pf-title">How we can work together</h1>
         <p className="wk-intro">
           Most of the people I work with are somewhere between an idea and a full design team. They&#39;re building
           their first product, searching for product-market fit, or figuring out how design needs to evolve as the
@@ -104,17 +104,19 @@ export default function Work() {
       <section className="wk-why">
         <h2 className="wk-why-title">Why work with me?</h2>
         <p className="wk-ans">
-          Over the last 12+ years, I&#39;ve designed digital products and spent the past eight leading teams and
-          building design practices from the ground up. Working across different stages of growth has given me a front-row seat to how
-          design evolves from finding product-market fit to building teams, processes, and products that can scale.
+          Over the last 12+ years, I&#39;ve designed digital products and spent the past eight building teams and
+          design practices from the ground up. Working across different stages of growth has given me the opportunity
+          to learn how design needs evolve from finding product-market fit to building teams, processes, and products
+          that can scale.
         </p>
         <p className="wk-ans">
-          That experience helps me recognise patterns early, ask the right questions, and bring clarity to problems
-          that often feel bigger than they are. Sometimes an outside perspective is all it takes to move things
+          That experience helps me recognise patterns quickly, ask the right questions, and bring clarity to problems
+          that often feel bigger than they are. Sometimes, an outside perspective is all it takes to move things
           forward.
         </p>
         <p className="wk-ans">
-          If any of this sounds useful, I&#39;d love to hear what you&#39;re building and see if there&#39;s a fit.
+          If it sounds like I could be useful, I&#39;d love to hear what you&#39;re building and see if there&#39;s a
+          fit.
         </p>
       </section>
 

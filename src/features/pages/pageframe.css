@@ -6,17 +6,50 @@
   padding: 44px 48px 110px;
 }
 
-/* Sheet header: the way back on the left, the room's lamp on the right */
+/* A page with its own multi-column layout (index rail + centered column) goes
+   full width so the page can center its reading column on the viewport and
+   float the rail into the margin. The back-link/lamp row stays centered over
+   that reading column (720px, matching the single-column pages) so the whole
+   page reads on one axis. */
+.pf[data-wide='true'] {
+  max-width: none;
+}
+.pf[data-wide='true'] .pf-top {
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Sheet header: the way back on the left, the room's lamp on the right.
+   Owns the gap down to the page's <h1> so every inner page lands the heading
+   at the same height (pages set margin:0 on their title via .pf-title). */
 .pf-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+/* One heading treatment for every inner page — same size, leading and gap, so
+   /work and /adventures (and whatever comes next) read as one hand. */
+.pf-title {
+  margin: 0;
+  font-family: var(--f-display);
+  font-weight: var(--w-display);
+  font-size: 44px;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  color: var(--ink);
 }
 
 .pf-back {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  /* padding + equal negative margin: a comfortable ~44px-tall touch target
+     without moving the label off its designed position in the header row */
+  padding: 11px 8px;
+  margin: -11px -8px;
   font-family: var(--f-body);
   font-weight: 600;
   font-size: 14.5px;
@@ -48,5 +81,8 @@
   /* mobile type runs larger overall — the back link keeps pace */
   .pf-back {
     font-size: 15.5px;
+  }
+  .pf-title {
+    font-size: clamp(33px, 9.5vw, 44px);
   }
 }

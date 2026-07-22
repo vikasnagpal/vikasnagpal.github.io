@@ -17,6 +17,8 @@
   --text: #1c1c1b;
   --panel-title: #4d4a44;
   --muted: rgba(28, 28, 27, 0.86);
+  /* one step quieter than --muted — eyebrow labels, sublines, inactive nav states */
+  --faint: rgba(28, 28, 27, 0.6);
   --accent: #f0603d;
   --accent-hover: #d94e2c;
   --script: #f0603d;
@@ -69,6 +71,7 @@
   --text: #c5beb5;
   --panel-title: #b8afa4;
   --muted: rgba(197, 190, 181, 0.72);
+  --faint: rgba(197, 190, 181, 0.55);
   --accent: #ff7a59;
   --accent-hover: #ff9174;
   --script: #ff7a59;

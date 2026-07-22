@@ -37,6 +37,7 @@ function ConsoleHint() {
 }
 
 const Work = lazy(() => import('./pages/Work'))
+const Adventures = lazy(() => import('./pages/Adventures'))
 
 // Dev-only fine-tuning workbench — tree-shaken out of production builds.
 const TweaksPanel = import.meta.env.DEV ? lazy(() => import('./features/tweaks/TweaksPanel')) : null
@@ -53,6 +54,7 @@ export default function App() {
               <Switch>
                 <Route path="/" component={Home} />
                 <Route path="/work" component={Work} />
+                <Route path="/adventures" component={Adventures} />
                 <Route>
                   <Redirect to="/" />
                 </Route>

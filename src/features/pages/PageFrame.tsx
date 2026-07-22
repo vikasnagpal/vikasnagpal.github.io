@@ -15,10 +15,13 @@ import './pageframe.css'
 interface PageFrameProps {
   title: string
   description?: string
+  /** Pages with their own multi-column layout (e.g. an index rail) need more
+      than the reading measure — set this instead of overriding .pf directly. */
+  wide?: boolean
   children: ReactNode
 }
 
-export function PageFrame({ title, description, children }: PageFrameProps) {
+export function PageFrame({ title, description, wide, children }: PageFrameProps) {
   usePageMeta(title, description)
   const ref = useRef<HTMLDivElement>(null)
 
@@ -33,7 +36,7 @@ export function PageFrame({ title, description, children }: PageFrameProps) {
   )
 
   return (
-    <div className="pf" ref={ref}>
+    <div className="pf" data-wide={wide || undefined} ref={ref}>
       <div className="pf-top">
         {/* Hand-drawn arrow, not the "←" glyph: Nunito's subset lacks U+2190, so
             phones substitute a system font — misaligned and off-voice (seen on

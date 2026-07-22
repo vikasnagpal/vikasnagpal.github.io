@@ -1,0 +1,428 @@
+/* Past adventures — an index of stops rather than a reading column, so it
+   opts into PageFrame's wide variant. Direct children of .pf below (header,
+   the mobile jump bar, the rail+content grid) are the entrance-stagger units. */
+
+/* Heading treatment is shared across inner pages — see .pf-title in pageframe.css */
+
+.adv-script {
+  margin-top: 6px;
+  font-family: var(--f-script);
+  font-weight: 700;
+  font-size: clamp(28px, 4.6vw, 38px);
+  line-height: 1.1;
+  color: var(--script);
+}
+
+/* Same ink-soak mask as the home Hero (hero.css) — kept local since this is
+   the only other place on the site that writes a line on first visit. */
+.adv-script.ink-mask {
+  --inkx: 100%;
+  -webkit-mask-image: linear-gradient(90deg, #000 44%, rgba(0, 0, 0, 0.5) 52%, transparent 59%);
+  mask-image: linear-gradient(90deg, #000 44%, rgba(0, 0, 0, 0.5) 52%, transparent 59%);
+  -webkit-mask-size: 250% 100%;
+  mask-size: 250% 100%;
+  -webkit-mask-repeat: repeat-y;
+  mask-repeat: repeat-y;
+  -webkit-mask-position: var(--inkx) 0;
+  mask-position: var(--inkx) 0;
+}
+
+.adv-ul {
+  position: relative;
+  display: inline-block;
+}
+.adv-ul-svg {
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  width: 100%;
+  height: 12px;
+  overflow: visible;
+  fill: none;
+  stroke: var(--script);
+  stroke-linecap: round;
+}
+.adv-path {
+  visibility: hidden;
+  stroke-width: 3.2;
+}
+
+.adv-intro {
+  margin: 22px 0 0;
+  font-family: var(--f-body);
+  font-size: 17px;
+  line-height: 1.58;
+  max-width: 56ch;
+  color: var(--muted);
+  text-wrap: pretty;
+}
+
+/* Mobile-only sticky filter bar — kept inside the reading column (not bled to
+   the viewport edge) so it reads as part of the page rather than app chrome. */
+.adv-jumpbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  margin-top: 24px;
+  background: var(--bg);
+  border-bottom: 1.5px solid var(--ps-rule);
+  padding: 10px 0;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.adv-pill {
+  flex: none;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1.5px solid color-mix(in srgb, var(--ink) 22%, transparent);
+  background: none;
+  color: var(--faint);
+  font-family: var(--f-body);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+.adv-pill[data-active] {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--bg);
+  font-weight: 800;
+}
+
+/* The reading column is centered on the viewport exactly like /work (middle
+   720px track, equal 1fr gutters), and the index rail floats sticky into the
+   left gutter. The gutter only fits the rail above ~1240px; below that the
+   rail becomes the sticky jump bar and the column simply centers. */
+.adv-grid {
+  display: grid;
+  grid-template-columns: 1fr minmax(0, 720px) 1fr;
+  align-items: start;
+}
+
+/* The centered reading column: heading + (mobile jump bar) + content. */
+.adv-main {
+  grid-column: 2;
+  min-width: 0;
+}
+.adv-main .adv-content {
+  margin-top: 30px;
+}
+
+@media (max-width: 1240px) {
+  .adv-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .adv-main {
+    grid-column: auto;
+    /* width:100% + min-width:0 make the column track the viewport (capped at
+       720, centered by the auto margins when there's room). Without width:100%,
+       the auto margins let the grid item size to its content — and the sticky
+       jump bar's nowrap pills blow it past the viewport, forcing a horizontal
+       scroll on phones. */
+    width: 100%;
+    min-width: 0;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  /* mobile stacks header → sticky jump bar → content, so the content gap tucks
+     under the jump bar rather than the heading */
+  .adv-main .adv-content {
+    margin-top: 20px;
+  }
+}
+
+.adv-rail {
+  grid-column: 1;
+  justify-self: end;
+  margin-right: 40px;
+  /* nudge so the "ADVENTURES" cap height lines up with the H1's cap height
+     across the columns (measured against true glyph caps, not the font's
+     ascent box, so it sits level with the "P" rather than floating above it) */
+  margin-top: -1px;
+  position: sticky;
+  top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  border-right: 1.5px solid var(--ps-rule);
+  padding-right: 18px;
+}
+.adv-rail-label {
+  font-family: var(--f-body);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  color: var(--faint);
+  padding: 0 0 8px;
+}
+.adv-rail-link {
+  display: block;
+  width: fit-content;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 6px 0 3px;
+  cursor: pointer;
+  font-family: var(--f-body);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--faint);
+  text-align: left;
+  white-space: nowrap;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+@media (hover: hover) {
+  .adv-rail-link:hover {
+    color: var(--accent);
+  }
+}
+/* Active state stays the same weight as inactive (both 700) — bumping to 800
+   widened the longest label ("Rhythm & Hues"), and since the rail is anchored
+   on its right edge in the margin, that shifted the whole rail sideways as the
+   active item changed. Accent colour + the drawn underline mark it clearly. */
+.adv-rail-link[data-active] {
+  border-bottom-color: color-mix(in srgb, var(--accent) 50%, transparent);
+  color: var(--accent);
+}
+.adv-content {
+  /* the org cards' inner padding and the case-studies section inset share this
+     value, so every section's content lines up on one left edge */
+  --adv-pad-x: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-width: 0;
+}
+
+/* Each stop is its own filled surface card, framed in every atmosphere (same
+   treatment as the case-study card) so the padding always reads as a card, not
+   a stray indent. In the unified-ground moods --bg equals --surface, so the
+   card is nudged a step off the ground to stay legible as a box. */
+.adv-card {
+  scroll-margin-top: 90px;
+  background: var(--surface);
+  border: 1px solid var(--ps-rule);
+  border-radius: 22px;
+  padding: 24px var(--adv-pad-x) 26px;
+  transition: background-color 0.85s ease, border-color 0.85s ease;
+}
+[data-treatment='Unified ground'] .adv-card {
+  background: color-mix(in srgb, var(--surface) 92%, var(--ink));
+}
+/* Cards with a "visit" link carry extra weight below the paragraph; the ones
+   without (Strategy.Zero, Rhythm & Hues) end flush with the last line and read
+   as cut short next to their siblings. A little more floor evens the rhythm. */
+.adv-card:not([data-linked]) {
+  padding-bottom: 34px;
+}
+.adv-card-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.adv-card-name {
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-size: 24px;
+  /* tight leading so the name + role/date read as one metadata unit */
+  line-height: 1.15;
+  color: var(--ink);
+}
+.adv-card-tagline {
+  font-family: var(--f-script);
+  font-weight: 700;
+  /* a touch larger than the section taglines: these carry the longest script
+     phrases ("Finding product-market fit from scratch.") and need the extra
+     size to stay quick to read at a glance */
+  font-size: 22px;
+  /* eased back from full accent so the eye lands on the name first — the
+     handwritten line is a supporting voice, not a competing headline */
+  color: color-mix(in srgb, var(--script) 82%, transparent);
+  text-align: right;
+}
+.adv-card-sub {
+  margin-top: 4px;
+  font-family: var(--f-body);
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--faint);
+}
+.adv-card-brief {
+  /* tightened from the metadata above so name + role/date group before the
+     body, then the brief follows as one block */
+  margin: 8px 0 0;
+  font-family: var(--f-body);
+  font-size: 15.5px;
+  line-height: 1.58;
+  color: var(--muted);
+  max-width: 62ch;
+  text-wrap: pretty;
+}
+/* one or more "visit" links; a stop can span two products (Titan + Neo) */
+.adv-visits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+  margin-top: 14px;
+}
+.adv-visit {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--f-body);
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 2px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  padding-bottom: 1px;
+  transition: border-color 0.15s ease;
+}
+@media (hover: hover) {
+  .adv-visit:hover {
+    border-bottom-color: var(--accent);
+  }
+}
+
+.adv-section {
+  margin-top: 8px;
+  scroll-margin-top: 90px;
+}
+/* Flush with the card edges: the heading, the case-study card below it, and
+   every org card box share one left edge (the org titles sit padded inside
+   their boxes, a level down). */
+.adv-section-head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.adv-section-title {
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-size: 24px;
+  color: var(--ink);
+}
+.adv-section-tag {
+  font-family: var(--f-script);
+  font-weight: 700;
+  font-size: 21px;
+  color: var(--script);
+}
+
+.adv-eyebrow {
+  font-family: var(--f-body);
+  font-size: 10.5px;
+  font-weight: 900;
+  letter-spacing: 0.09em;
+  color: var(--faint);
+}
+
+/* auto-fill with a max track keeps a lone card card-sized (left-aligned)
+   instead of stretching across the whole content column; more cards flow into
+   a tidy row as they're added */
+.adv-cs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 360px));
+  gap: 16px;
+  margin-top: 16px;
+}
+/* Unlike the org bios (pure text that dissolves into the ground in the unified
+   atmospheres), this is a media card: its cover is a fixed light screenshot, so
+   it needs a frame to stay one object in every mood. A hairline plus a surface
+   that keeps a step off the ground in the unified-ground treatments — where
+   --bg would otherwise equal --surface — hold it together, and read as "an
+   object you can pick up" against the ambient bios. */
+.adv-cs-card {
+  background: var(--surface);
+  border: 1px solid var(--ps-rule);
+  border-radius: 18px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.85s ease, border-color 0.85s ease;
+}
+[data-treatment='Unified ground'] .adv-cs-card {
+  background: color-mix(in srgb, var(--surface) 92%, var(--ink));
+}
+@media (hover: hover) {
+  .adv-cs-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 22px color-mix(in srgb, var(--ink) 14%, transparent);
+  }
+}
+.adv-cs-cover {
+  display: block;
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  object-position: left top;
+}
+.adv-cs-body {
+  padding: 14px 18px 16px;
+}
+.adv-cs-title {
+  margin-top: 4px;
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-size: 17px;
+  color: var(--ink);
+}
+.adv-cs-dek {
+  margin-top: 4px;
+  font-family: var(--f-body);
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--muted);
+  text-wrap: pretty;
+}
+.adv-cs-read {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  font-family: var(--f-body);
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--accent);
+}
+
+/* Below the tablet edge the card header stops being a left/right split: the
+   right-aligned script tagline would otherwise collide with the company name
+   (short phrases hug the far edge, long ones compress into a ragged block).
+   Stack it directly under the name, left-aligned, so it reads as one unit. */
+@media (max-width: 720px) {
+  .adv-card-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  .adv-card-tagline {
+    text-align: left;
+  }
+}
+
+@media (max-width: 560px) {
+  .adv-content {
+    --adv-pad-x: 20px;
+  }
+  .adv-card {
+    padding: 20px var(--adv-pad-x) 22px;
+  }
+  .adv-card-name {
+    font-size: 21px;
+  }
+  .adv-card-tagline {
+    font-size: 19px;
+  }
+}

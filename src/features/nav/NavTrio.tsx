@@ -42,7 +42,7 @@ const ITEMS: { label: string; href: string; icon: ReactNode }[] = [
   },
   {
     label: 'Past adventures',
-    href: '#',
+    href: '/adventures',
     icon: (
       <svg {...ICON_PROPS}>
         <path d="M12 37 C21 25 28 50 37 37 C46 25 53 50 62 37" strokeWidth={3.5} />

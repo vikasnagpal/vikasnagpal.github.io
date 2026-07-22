@@ -75,7 +75,10 @@
   justify-content: center;
   background: none;
   border: none;
-  padding: 7px;
+  /* 20px glyph + 12px padding each side = a 44px touch target; the equal
+     negative margin keeps the visible glyph exactly where it was designed */
+  padding: 12px;
+  margin: -5px;
   border-radius: 10px;
   cursor: pointer;
   opacity: 0.8;

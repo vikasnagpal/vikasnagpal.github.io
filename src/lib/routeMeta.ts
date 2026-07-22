@@ -19,5 +19,11 @@ export const WORK: RouteMeta = {
   description: 'Three ways to work with Vikas: founding designer, design advisory, or a fractional design head.',
 }
 
+export const ADVENTURES: RouteMeta = {
+  path: '/adventures',
+  title: 'Past adventures — Vikas',
+  description: 'A field guide to where Vikas has worked: Membean, Titan.Email, Strategy.Zero, and Rhythm & Hues.',
+}
+
 /** Every client route beyond home — each gets its own HTML shell at build. */
-export const ROUTES: RouteMeta[] = [WORK]
+export const ROUTES: RouteMeta[] = [WORK, ADVENTURES]

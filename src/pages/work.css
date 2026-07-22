@@ -1,12 +1,4 @@
-.wk-title {
-  margin: 30px 0 0;
-  font-family: var(--f-display);
-  font-weight: var(--w-display);
-  font-size: 44px;
-  line-height: 1.08;
-  letter-spacing: -0.01em;
-  color: var(--ink);
-}
+/* Heading treatment is shared across inner pages — see .pf-title in pageframe.css */
 
 .wk-intro {
   margin: 18px 0 0;
@@ -106,9 +98,6 @@
 }
 
 @media (max-width: 560px) {
-  .wk-title {
-    font-size: clamp(33px, 9.5vw, 44px);
-  }
   .wk-offer {
     gap: 14px;
   }

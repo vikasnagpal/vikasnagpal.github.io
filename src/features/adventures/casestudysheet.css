@@ -1,0 +1,270 @@
+/* A scrim always reads as "dim the room", regardless of theme — unlike text,
+   it must stay dark-neutral rather than following --ink (which goes pale in
+   Quiet Night and would brighten the page it's meant to dim). */
+.css-dim {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: rgba(0, 0, 0, 0.45);
+  animation: cssDimIn 0.28s ease both;
+}
+.css-dim[data-closing] {
+  animation: cssDimOut 0.2s ease both;
+}
+
+.css-sheet {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: clamp(48px, 14dvh, 140px);
+  z-index: 95;
+  background: var(--bg);
+  border-radius: 26px 26px 0 0;
+  box-shadow: 0 -18px 50px rgba(0, 0, 0, 0.28);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: top 0.38s cubic-bezier(0.32, 0.72, 0.25, 1), border-radius 0.38s ease;
+  animation: cssSheetIn 0.34s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.css-sheet[data-docked] {
+  top: 0;
+  border-radius: 0;
+}
+.css-sheet[data-closing] {
+  animation: cssSheetOut 0.2s cubic-bezier(0.4, 0, 0.7, 0.4) both;
+}
+
+.css-grab {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 10px 16px 6px;
+}
+.css-handle {
+  width: 44px;
+  height: 5px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ink) 18%, transparent);
+}
+.css-hint {
+  font-family: var(--f-script);
+  font-weight: 700;
+  font-size: 17px;
+  color: color-mix(in srgb, var(--ink) 50%, transparent);
+}
+
+.css-bar {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px clamp(18px, 4.5vw, 44px);
+  border-bottom: 1.5px solid var(--ps-rule);
+}
+.css-bar-text {
+  min-width: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.css-bar-title {
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-size: 16px;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.css-close {
+  flex: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1.5px solid var(--ps-rule);
+  background: none;
+  color: var(--ink);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+@media (hover: hover) {
+  .css-close:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+}
+
+.css-body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.css-content {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 26px clamp(18px, 5vw, 40px) 90px;
+}
+
+.css-eyebrow {
+  font-family: var(--f-body);
+  font-size: 10.5px;
+  font-weight: 900;
+  letter-spacing: 0.09em;
+  color: var(--faint);
+}
+.css-title {
+  margin: 10px 0 0;
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-size: clamp(28px, 4.5vw, 40px);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.css-dek {
+  margin-top: 8px;
+  font-family: var(--f-script);
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--script);
+}
+.css-meta {
+  margin-top: 14px;
+  font-family: var(--f-body);
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--faint);
+}
+.css-hero-img {
+  display: block;
+  margin-top: 24px;
+  width: 100%;
+  border-radius: 16px;
+  /* the cover is a wide desk shot; a soft hairline keeps it from bleeding into
+     the page when the surface tone is close to the image's own ground */
+  border: 1px solid var(--ps-rule);
+}
+
+.css-h3 {
+  margin: 34px 0 0;
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-size: 22px;
+  color: var(--ink);
+}
+.css-p {
+  margin: 12px 0 0;
+  font-family: var(--f-body);
+  font-size: 16.5px;
+  line-height: 1.65;
+  color: var(--muted);
+  text-wrap: pretty;
+}
+.css-quote {
+  margin: 30px 0 0;
+  padding: 0 0 0 22px;
+  border-left: 3px solid var(--accent);
+  font-family: var(--f-quote);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 23px;
+  line-height: 1.4;
+  color: var(--ink);
+}
+/* Article figures — image + optional handwritten caption. */
+.cs-fig {
+  margin: 26px 0 0;
+}
+.cs-fig img {
+  display: block;
+  width: 100%;
+  border-radius: 14px;
+  border: 1px solid var(--ps-rule);
+}
+.cs-cap {
+  margin-top: 10px;
+  font-family: var(--f-script);
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.25;
+  color: var(--faint);
+  text-wrap: pretty;
+}
+
+/* Side-by-side figures: two mobile shots, or the three-mood triptych. Each
+   cell's own <figure> margin is zeroed so the row controls the spacing. */
+.cs-fig-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  align-items: start;
+}
+.cs-fig-row.cs-fig-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+.cs-fig-row .cs-fig {
+  margin: 0;
+}
+
+.css-fin {
+  margin-top: 40px;
+  font-family: var(--f-script);
+  font-weight: 700;
+  font-size: 26px;
+  color: var(--script);
+  text-align: center;
+}
+
+@keyframes cssDimIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes cssDimOut {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes cssSheetIn {
+  from {
+    transform: translateY(64px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes cssSheetOut {
+  to {
+    transform: translateY(80px);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .css-dim,
+  .css-sheet {
+    animation: none !important;
+  }
+}
+
+@media (max-width: 560px) {
+  /* the generic two-up stacks on a phone; the three-mood triptych stays a row
+     (it only reads as a comparison side by side, and the shots are small) */
+  .cs-fig-row:not(.cs-fig-3) {
+    grid-template-columns: 1fr;
+  }
+}
