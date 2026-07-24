@@ -111,7 +111,9 @@ export function ReactionBar({ thought, countFor, mineSet, pressedId, pressSeq, o
               background: on ? 'var(--react-on-bg)' : 'transparent',
               color: on ? 'var(--react-on-fg)' : 'var(--card-ink)',
               opacity: ghost ? 0.72 : 1,
-              transform: on ? 'rotate(-3deg)' : 'none',
+              // Resting tilt is the per-pill stamp angle from CSS (nth-child); a
+              // pressed pill overrides it with a firmer −3° so it reads freshly stamped.
+              transform: on ? 'rotate(-3deg)' : undefined,
             }}
           >
             <span className="gb-pill-ico" data-stamp-ico={s.key}>

@@ -23,7 +23,7 @@ export function WriteCard({ gb }: { gb: GuestbookApi }) {
         value={gb.draft}
         onChange={(e) => gb.setDraft(e.target.value)}
         maxLength={200}
-        placeholder="Share a thought, an observation, or something you're chewing on…"
+        placeholder="What's on your mind? A thought, an observation, something you're chewing on…"
         aria-label="Your thought"
         // The visitor just chose "Leave a note" — the pen should already be in hand.
         autoFocus

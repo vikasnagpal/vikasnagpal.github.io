@@ -143,6 +143,12 @@
 .gb-emoji {
   font-size: 30px;
   line-height: 1;
+  /* Pressed into the paper, not stuck on top of it: a thin shadow hugs the top
+     contour (the shaded upper wall of the impression) and a light lip catches
+     the bottom (the wall facing the light). drop-shadow follows the emoji's
+     silhouette, so it debosses the shape itself rather than boxing it. */
+  filter:
+    drop-shadow(0 -1px 0.5px rgba(45, 17, 9, 0.28)) drop-shadow(0 1px 0.6px rgba(255, 247, 235, 0.45));
 }
 .gb-date {
   text-align: right;
@@ -200,6 +206,21 @@
   position: relative;
   transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
 }
+/* Stamped by hand, not laid out by a machine: each pill sits at its own slight
+   angle so the row reads like ink pressed onto paper. The active pill's inline
+   -3deg tilt (ReactionBar) overrides these, snapping it flat-then-stamped. */
+.gb-rbar .gb-pill:nth-child(1) {
+  transform: rotate(-1.5deg);
+}
+.gb-rbar .gb-pill:nth-child(2) {
+  transform: rotate(1.2deg);
+}
+.gb-rbar .gb-pill:nth-child(3) {
+  transform: rotate(-0.8deg);
+}
+.gb-rbar .gb-pill:nth-child(4) {
+  transform: rotate(1.6deg);
+}
 .gb-pill-ico {
   font-size: 14px;
   line-height: 1;
@@ -254,6 +275,9 @@
   font-size: 15px;
   line-height: 1.5;
   outline: none;
+  /* A real notepad layer set into the coral card: a soft top-inset shadow reads
+     as recessed, a faint bottom highlight as the lit lower lip of the well. */
+  box-shadow: inset 0 2px 5px rgba(74, 38, 14, 0.16), inset 0 1px 1px rgba(74, 38, 14, 0.12), inset 0 -1px 0 rgba(255, 255, 255, 0.5);
 }
 
 .gb-hintrow {
@@ -311,8 +335,10 @@
 .gb-emojibtn {
   width: 43px;
   height: 43px;
-  border-radius: 12px;
-  border: 1.5px solid var(--card-ink-soft);
+  /* A hand-drawn circle, not a rigid square: the radii wobble a touch off a true
+     circle so the outline reads as drawn, echoing the smiley it holds. */
+  border-radius: 47% 53% 50% 50% / 50% 50% 52% 48%;
+  border: 1.5px solid color-mix(in srgb, var(--card-ink) 40%, transparent);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -333,7 +359,8 @@
   display: grid;
   grid-template-columns: repeat(3, 46px);
   gap: 2px;
-  box-shadow: 0 16px 38px rgba(60, 25, 10, 0.28);
+  /* Same light as the deck — the popover casts down and to the right. */
+  box-shadow: 10px 18px 38px rgba(60, 25, 10, 0.26);
   animation: emojiIn 150ms ease;
   z-index: 20;
 }

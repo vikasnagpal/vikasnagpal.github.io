@@ -51,6 +51,8 @@ export const DECK = {
   noteFlagClearMs: 60,
   /** hover peek: back cards slide out a few px */
   peek: { x: 6, y: 4 },
+  /** desktop hover: the top card peels up a hair and tilts off the stack */
+  frontPeek: { y: -6, rot: 1.6, scale: 1.012 },
   /** ambient breathing: back cards settle by a pixel and a third of a degree */
   breathEveryMs: 45000,
   breath: { y: 1, rot: 0.3 },

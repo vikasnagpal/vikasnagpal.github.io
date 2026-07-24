@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import type { GuestbookApi } from './useGuestbook'
-import { LIFT, NOTE_SHADOW, RAISED_SHADOW, nightShadow, slotLayout } from './deckLayout'
+import { LIFT, NOTE_SHADOW, RAISED_SHADOW, deckShadow, slotLayout } from './deckLayout'
 import { paperFor } from './paper'
 import { QuoteCard } from './QuoteCard'
 import { WriteCard } from './WriteCard'
@@ -18,7 +18,7 @@ import '../../motion/eases'
    transform, shadow and opacity — the two never write the same property. */
 
 export function Deck({ gb }: { gb: GuestbookApi }) {
-  const { night, pace } = useAtmosphere()
+  const { daypart, night, pace } = useAtmosphere()
   const refs = useRef(new Map<string, HTMLDivElement>())
   const positioned = useRef(new WeakSet<Element>())
   // Last layout actually handed to GSAP, per card — cards whose target hasn't
@@ -41,20 +41,29 @@ export function Deck({ gb }: { gb: GuestbookApi }) {
         const lifting = phase === 'lift' && isFront
 
         let L = lifting ? { ...LIFT } : { ...slotLayout(p) }
+        // Resting cards catch the room's light: morning short and crisp, golden
+        // hour long and warm, night a dark lamp-lit pool — all cast down-right.
+        if (!lifting) L = { ...L, sh: deckShadow(daypart, p) }
         if (!entered && !lifting && isFront) {
-          L = { ...L, ty: L.ty + DECK.enterRaise.y, rot: L.rot + DECK.enterRaise.rot, sh: RAISED_SHADOW }
+          L = { ...L, ty: L.ty + DECK.enterRaise.y, rot: L.rot + DECK.enterRaise.rot, sh: night ? deckShadow('night', 0) : RAISED_SHADOW }
         }
         if (!lifting && isFront && th.id === justAdded) {
-          L = { ...L, ty: L.ty + DECK.noteRaise.y, rot: L.rot + DECK.noteRaise.rot, sc: DECK.noteRaise.scale, sh: NOTE_SHADOW }
-        }
-        if (night && !lifting) {
-          L = { ...L, sh: nightShadow(p) }
+          L = { ...L, ty: L.ty + DECK.noteRaise.y, rot: L.rot + DECK.noteRaise.rot, sc: DECK.noteRaise.scale, sh: night ? deckShadow('night', 0) : NOTE_SHADOW }
         }
 
         let { tx, ty, rot } = L
-        if (entered && peek && phase === 'idle' && mode === 'read' && p >= 1 && L.op > 0) {
-          tx += p === 1 ? -DECK.peek.x : DECK.peek.x
-          ty += DECK.peek.y
+        let sc = L.sc
+        if (entered && peek && phase === 'idle' && mode === 'read' && L.op > 0) {
+          if (p >= 1) {
+            tx += p === 1 ? -DECK.peek.x : DECK.peek.x
+            ty += DECK.peek.y
+          } else if (!touch) {
+            // Desktop hover: the top card peels up a hair and tilts, separating
+            // it a millimeter from the paper underneath.
+            ty += DECK.frontPeek.y
+            rot += DECK.frontPeek.rot
+            sc *= DECK.frontPeek.scale
+          }
         }
         if (!lifting && p >= 1) rot += DECK.jitter[idx % DECK.jitter.length]
         // Hidden cards don't breathe (nobody can see it) — their layout then
@@ -64,13 +73,13 @@ export function Deck({ gb }: { gb: GuestbookApi }) {
           rot += DECK.breath.rot
         }
 
-        const layoutKey = `${tx}|${ty}|${rot}|${L.sc}|${L.op}|${L.sh}`
+        const layoutKey = `${tx}|${ty}|${rot}|${sc}|${L.op}|${L.sh}`
 
         // First layout for a card is set, not tweened — entrances then animate out of it.
         if (!positioned.current.has(el)) {
           positioned.current.add(el)
           lastApplied.current.set(th.id, layoutKey)
-          gsap.set(el, { x: tx, y: ty, rotation: rot, scale: L.sc, autoAlpha: L.op, boxShadow: L.sh })
+          gsap.set(el, { x: tx, y: ty, rotation: rot, scale: sc, autoAlpha: L.op, boxShadow: L.sh })
           return
         }
 
@@ -80,7 +89,7 @@ export function Deck({ gb }: { gb: GuestbookApi }) {
         lastApplied.current.set(th.id, layoutKey)
 
         if (reduced) {
-          gsap.set(el, { x: tx, y: ty, rotation: rot, scale: L.sc, autoAlpha: L.op, boxShadow: L.sh })
+          gsap.set(el, { x: tx, y: ty, rotation: rot, scale: sc, autoAlpha: L.op, boxShadow: L.sh })
           return
         }
 
@@ -89,7 +98,7 @@ export function Deck({ gb }: { gb: GuestbookApi }) {
         const durOp = (phase === 'lift' ? DECK.opacityLift : phase === 'settle' ? DECK.opacitySettle : DECK.opacityIdle) * pace
         const easeName = phase === 'lift' ? 'lift' : phase === 'settle' ? 'settle' : 'idle'
 
-        gsap.to(el, { x: tx, y: ty, rotation: rot, scale: L.sc, duration: durT, ease: easeName, overwrite: 'auto' })
+        gsap.to(el, { x: tx, y: ty, rotation: rot, scale: sc, duration: durT, ease: easeName, overwrite: 'auto' })
         // Shadow leads the movement — weight first. But box-shadow is a paint
         // property: tweening its blur re-rasterizes the whole card layer every
         // frame. Desktop GPUs absorb it; phones drop frames, worst on the card
@@ -105,7 +114,7 @@ export function Deck({ gb }: { gb: GuestbookApi }) {
         gsap.to(el, { autoAlpha: L.op, duration: durOp, ease: 'power1.inOut', overwrite: 'auto' })
       })
     },
-    { dependencies: [thoughts, order, phase, lastFlown, mode, entered, peek, breath, justAdded, night, pace] },
+    { dependencies: [thoughts, order, phase, lastFlown, mode, entered, peek, breath, justAdded, daypart, night, pace] },
   )
 
   return (
