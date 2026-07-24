@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 /* Per-route title/description. The home values live in index.html; inner pages
    set their own on mount and hand the originals back on unmount. */
 
-const HOME_TITLE = "Vikas — I'm glad you are here"
+const HOME_TITLE = "Vikas Nagpal · Glad you're here"
 
 export function usePageMeta(title: string, description?: string) {
   useEffect(() => {
