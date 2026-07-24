@@ -215,12 +215,11 @@
 [data-treatment='Unified ground'] .adv-card {
   background: color-mix(in srgb, var(--surface) 92%, var(--ink));
 }
-/* Cards with a "visit" link carry extra weight below the paragraph; the ones
-   without (Strategy.Zero, Rhythm & Hues) end flush with the last line and read
-   as cut short next to their siblings. A little more floor evens the rhythm. */
-.adv-card:not([data-linked]) {
-  padding-bottom: 34px;
-}
+/* Every card shares one bottom padding so the grid locks to a single floor: a
+   linked card's visit row and a non-linked card's last paragraph line come to
+   rest the same distance off the border. (No per-type override — that split
+   left the two kinds ending at different heights and also leaked past the
+   mobile padding below on specificity.) */
 .adv-card-head {
   display: flex;
   align-items: baseline;
