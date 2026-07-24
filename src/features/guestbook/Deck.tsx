@@ -9,6 +9,7 @@ import { WriteCard } from './WriteCard'
 import { ReactionBar } from './ReactionBar'
 import { DECK } from '../../motion/tokens'
 import { prefersReducedMotion } from '../../motion/reducedMotion'
+import { isTouchDevice } from '../../motion/touchDevice'
 import { useAtmosphere } from '../atmosphere/atmosphere'
 import '../../motion/eases'
 
@@ -31,6 +32,7 @@ export function Deck({ gb }: { gb: GuestbookApi }) {
   useGSAP(
     () => {
       const reduced = prefersReducedMotion()
+      const touch = isTouchDevice()
       thoughts.forEach((th, idx) => {
         const el = refs.current.get(th.id)
         if (!el) return
@@ -88,8 +90,18 @@ export function Deck({ gb }: { gb: GuestbookApi }) {
         const easeName = phase === 'lift' ? 'lift' : phase === 'settle' ? 'settle' : 'idle'
 
         gsap.to(el, { x: tx, y: ty, rotation: rot, scale: L.sc, duration: durT, ease: easeName, overwrite: 'auto' })
-        // shadow leads the movement — weight first
-        gsap.to(el, { boxShadow: L.sh, duration: durSh, ease: 'power1.inOut', overwrite: 'auto' })
+        // Shadow leads the movement — weight first. But box-shadow is a paint
+        // property: tweening its blur re-rasterizes the whole card layer every
+        // frame. Desktop GPUs absorb it; phones drop frames, worst on the card
+        // flying behind (widest blur, longest phase — the one that stuttered).
+        // On touch, keep shadow off the per-frame path: a card fading out keeps
+        // its lifted shadow and lets the opacity fade carry it away, and cards
+        // staying visible take their new shadow instantly, masked by the move.
+        if (touch) {
+          if (L.op > 0) gsap.set(el, { boxShadow: L.sh })
+        } else {
+          gsap.to(el, { boxShadow: L.sh, duration: durSh, ease: 'power1.inOut', overwrite: 'auto' })
+        }
         gsap.to(el, { autoAlpha: L.op, duration: durOp, ease: 'power1.inOut', overwrite: 'auto' })
       })
     },
