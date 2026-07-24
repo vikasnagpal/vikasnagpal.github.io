@@ -76,7 +76,7 @@ export function Hero() {
         </div>
       </div>
       <p className="hero-body">
-        I design products that help people focus on their work, not their tools. For the last decade, I&#39;ve helped teams
+        I design products that help people focus on their work, not their tools. For over a decade, I&#39;ve helped teams
         turn fuzzy ideas into things people enjoy using: learning platforms, communication tools, and the enterprise
         software people spend their days in.
       </p>
