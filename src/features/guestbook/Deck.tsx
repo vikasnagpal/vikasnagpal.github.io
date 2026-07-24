@@ -53,17 +53,24 @@ export function Deck({ gb }: { gb: GuestbookApi }) {
 
         let { tx, ty, rot } = L
         let sc = L.sc
-        if (entered && peek && phase === 'idle' && mode === 'read' && L.op > 0) {
-          if (p >= 1) {
-            tx += p === 1 ? -DECK.peek.x : DECK.peek.x
-            ty += DECK.peek.y
-          } else if (!touch) {
-            // Desktop hover: the top card peels up a hair and tilts, separating
-            // it a millimeter from the paper underneath.
-            ty += DECK.frontPeek.y
-            rot += DECK.frontPeek.rot
-            sc *= DECK.frontPeek.scale
-          }
+        const peeking = entered && peek && mode === 'read' && L.op > 0
+        // Peer cards fan out while the pointer rests on the deck. They hold the
+        // fan through a shuffle too (every phase, not just idle), so the hand
+        // glides slot-to-slot as one spread unit instead of tucking in and
+        // re-fanning once it settles.
+        if (peeking && p >= 1) {
+          tx += p === 1 ? -DECK.peek.x : DECK.peek.x
+          ty += DECK.peek.y
+        }
+        // Desktop hover: the top card peels up a hair and tilts, separating it a
+        // millimeter from the paper underneath. It keeps the lifted pose through
+        // the shuffle's settle too — a freshly dealt card lands straight into the
+        // peel instead of resting flat and then hopping up a beat later. Excluded
+        // during lift, where the front card is the one flying away.
+        if (peeking && !touch && isFront && !lifting && (phase === 'idle' || phase === 'settle')) {
+          ty += DECK.frontPeek.y
+          rot += DECK.frontPeek.rot
+          sc *= DECK.frontPeek.scale
         }
         if (!lifting && p >= 1) rot += DECK.jitter[idx % DECK.jitter.length]
         // Hidden cards don't breathe (nobody can see it) — their layout then
