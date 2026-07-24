@@ -188,7 +188,7 @@
    active item changed. Accent colour + the drawn underline mark it clearly. */
 .adv-rail-link[data-active] {
   border-bottom-color: color-mix(in srgb, var(--accent) 50%, transparent);
-  color: var(--accent);
+  color: var(--accent-ink);
 }
 .adv-content {
   /* the org cards' inner padding and the case-studies section inset share this
@@ -280,7 +280,7 @@
   font-family: var(--f-body);
   font-size: 14px;
   font-weight: 800;
-  color: var(--accent);
+  color: var(--accent-ink);
   text-decoration: none;
   border-bottom: 2px solid color-mix(in srgb, var(--accent) 40%, transparent);
   padding-bottom: 1px;
@@ -394,7 +394,7 @@
   font-family: var(--f-body);
   font-size: 13px;
   font-weight: 800;
-  color: var(--accent);
+  color: var(--accent-ink);
 }
 
 /* Below the tablet edge the card header stops being a left/right split: the

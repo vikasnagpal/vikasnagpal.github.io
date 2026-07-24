@@ -29,7 +29,7 @@ body {
 }
 
 a {
-  color: var(--accent);
+  color: var(--accent-ink);
 }
 @media (hover: hover) {
   a:hover {

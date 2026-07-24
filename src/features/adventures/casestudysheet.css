@@ -37,12 +37,19 @@
 }
 
 .css-grab {
+  position: relative;
   flex: none;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 3px;
   padding: 10px 16px 6px;
+}
+/* the always-present close, tucked into the sheet's top-right corner */
+.css-close-float {
+  position: absolute;
+  top: 8px;
+  right: clamp(12px, 4vw, 20px);
 }
 .css-handle {
   width: 44px;

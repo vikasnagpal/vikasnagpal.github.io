@@ -286,11 +286,20 @@
   margin-top: 8px;
 }
 
+/* Two visual rows on the 320px card so nothing has to wrap mid-word: the emoji
+   picker and "Not now" share the top line (space-between), and the primary
+   button spans the full width beneath them (order: 2). The old single row
+   crammed three items into ~260px and broke "Add to the guestbook" and
+   "Not now" across two lines each. */
 .gb-btnrow {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 12px;
   margin-top: 14px;
+}
+.gb-notnow {
+  margin-left: auto;
 }
 
 .gb-emojiwrap {
@@ -342,8 +351,11 @@
   padding: 0;
 }
 
-/* fixed min-width so the label→check swap never resizes the button */
+/* Full-width bottom row: the button no longer competes for horizontal space, so
+   the label stays on one line and the label→check swap can't resize it. */
 .gb-add {
+  order: 2;
+  flex: 1 1 100%;
   font-family: var(--f-body);
   font-weight: 600;
   font-size: 14.5px;
@@ -356,7 +368,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 166px;
+  min-width: 0;
   min-height: 43px;
 }
 
@@ -419,7 +431,7 @@
   font-family: var(--f-body);
   font-weight: 600;
   font-size: 17px;
-  color: var(--accent);
+  color: var(--accent-ink);
   transition: color 0.15s ease, transform 0.18s ease;
 }
 @media (hover: hover) {

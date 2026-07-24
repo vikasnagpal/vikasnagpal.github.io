@@ -59,9 +59,10 @@
 }
 
 .ps-arrow {
-  font-size: 17px;
-  line-height: 1;
-  transform: translateY(1px);
+  display: inline-flex;
+  align-items: center;
+  /* optical: seat the stroke on the label's visual center */
+  transform: translateY(0.5px);
 }
 
 @media (prefers-reduced-motion: reduce) {

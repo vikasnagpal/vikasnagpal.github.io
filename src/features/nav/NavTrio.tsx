@@ -10,6 +10,7 @@ import { floatBurst } from '../../motion/choreographies/floats'
 import { prefersReducedMotion } from '../../motion/reducedMotion'
 import { registerTimeline } from '../../motion/registry'
 import { useAtmosphere } from '../atmosphere/atmosphere'
+import { useToast } from '../toast/Toast'
 import { useConfig } from '../../config'
 import './nav.css'
 
@@ -85,14 +86,19 @@ function NavItem({ label, href, icon, spawn, tell, note, bait, onEnter, onCoinDo
   const glintRef = useRef<HTMLSpanElement>(null)
   const { night } = useAtmosphere()
   const { discovery } = useConfig()
+  const toast = useToast()
   const [, navigate] = useLocation()
 
   /* Real anchors, SPA navigation: routes push state instead of reloading (a
      reload would replay the arrival and re-deal the deck), but modified
-     clicks (new tab, etc.) keep native behavior. '#' placeholders do nothing —
-     navigating to '#' scrolls the page to the top. */
+     clicks (new tab, etc.) keep native behavior. A '#' placeholder isn't built
+     yet — say so in my own voice rather than dead-ending on a silent no-op. */
   const onClick = (e: React.MouseEvent) => {
-    if (href === '#') return e.preventDefault()
+    if (href === '#') {
+      e.preventDefault()
+      toast(`${label} is still being written. Check back soon.`)
+      return
+    }
     if (!href.startsWith('/')) return
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return
     e.preventDefault()

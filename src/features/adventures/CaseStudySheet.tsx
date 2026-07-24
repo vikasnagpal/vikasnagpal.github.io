@@ -134,6 +134,11 @@ export function CaseStudySheet({ study }: { study: CaseStudy }) {
           </div>
         ) : (
           <div className="css-grab">
+            {/* A visible way out from the first frame — the pull-to-close gesture,
+                Escape and the dim are all there too, but a plain ✕ removes any doubt. */}
+            <button className="css-close css-close-float" onClick={close} aria-label="Close case study">
+              <CloseX />
+            </button>
             <div className="css-handle" />
             <div className="css-hint">keep scrolling to read the whole story</div>
           </div>

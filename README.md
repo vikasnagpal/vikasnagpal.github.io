@@ -28,7 +28,7 @@ npm run build     # typecheck + production bundle in dist/
   multiplier on the site. One file, tune anything.
 - **`src/motion/choreographies/`** — parameterized GSAP timeline factories for the
   signature moments (coin arc, ink write-on, bursts).
-- **Dev tweaks panel** (⚙ bottom-left, dev builds only) — atmosphere/weather/season
+- **Dev tweaks panel** (⚙ bottom-right, dev builds only) — atmosphere/weather/season
   overrides, global time-scale slider, GSDevTools scrubber for the last-run coin /
   shuffle / reaction / hero-ink timelines, and state resets (first visit, coins,
   reactions).
@@ -49,5 +49,6 @@ npm run build     # typecheck + production bundle in dist/
   background → border → text) — it should read as time passing, not a theme swap.
 - Visitor memory is localStorage only: `vikas-last-visit`, `vikas-atmosphere-v2`,
   `vikas-reactions-v1`, `vikas-coins-v1`, `vikas-visitor-v1`.
-- The three nav destinations are unbuilt (`#`) — when they exist, add a tiny router
-  (`wouter`) and code-split the sections.
+- Two of the three nav destinations are built as code-split routes (`wouter`):
+  `/work` and `/adventures`. Field Notes is still a placeholder (`#`) — clicking it
+  shows a "still being written" toast (see `NavTrio`) until the section exists.

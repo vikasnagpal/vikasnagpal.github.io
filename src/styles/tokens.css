@@ -17,10 +17,17 @@
   --text: #1c1c1b;
   --panel-title: #4d4a44;
   --muted: rgba(28, 28, 27, 0.86);
-  /* one step quieter than --muted — eyebrow labels, sublines, inactive nav states */
-  --faint: rgba(28, 28, 27, 0.6);
+  /* one step quieter than --muted — eyebrow labels, sublines, inactive nav states.
+     Held at 0.7 so these small secondary labels clear WCAG AA (4.5:1) on the
+     cream grounds; --muted (0.86) stays the louder step above it. */
+  --faint: rgba(28, 28, 27, 0.7);
   --accent: #f0603d;
   --accent-hover: #d94e2c;
+  /* Small accent TEXT (rail/visit/read links, "Leave a note") on the light
+     grounds: --accent at 14px is only ~3:1, so small copy uses this deeper
+     cousin (≥4.5:1 morning + golden). The vibrant --accent still owns large
+     script, the CTA fill, underlines and icons. Dark reuses --accent (already 6:1). */
+  --accent-ink: #bd3b1f;
   --script: #f0603d;
   --on-accent: #2b1206;
   --card-front: #f26644;
@@ -71,9 +78,11 @@
   --text: #c5beb5;
   --panel-title: #b8afa4;
   --muted: rgba(197, 190, 181, 0.72);
-  --faint: rgba(197, 190, 181, 0.55);
+  --faint: rgba(197, 190, 181, 0.7);
   --accent: #ff7a59;
   --accent-hover: #ff9174;
+  /* the lamp-lit accent already clears AA on the dark ground — no deeper cousin needed */
+  --accent-ink: var(--accent);
   --script: #ff7a59;
   --on-accent: #1a0d06;
   --card-front: #c34a31;

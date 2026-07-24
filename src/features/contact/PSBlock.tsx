@@ -27,8 +27,13 @@ export function PSBlock() {
       </p>
       <a className="ps-cta" href={calendarUrl}>
         <span>Grab some time</span>
+        {/* A drawn stroke, not the "→" glyph: Nunito's subset lacks U+2192, so
+            phones substitute a mismatched system font (see adventures/icons.tsx). */}
         <span className="ps-arrow" aria-hidden>
-          →
+          <svg width="17" height="13" viewBox="0 0 17 13" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M1.5 6.5 H14.5" />
+            <path d="M9.5 2 L14.5 6.5 L9.5 11" />
+          </svg>
         </span>
       </a>
     </div>
