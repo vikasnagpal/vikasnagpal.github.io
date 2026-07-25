@@ -413,12 +413,15 @@
   right: 0;
   height: 150px; /* = .adv-cs-cover height */
   pointer-events: none;
-  border-bottom: 1px solid color-mix(in srgb, var(--ink) 8%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
   z-index: 1;
 }
 [data-theme='dark'] .adv-cs-card::before {
-  background: rgba(0, 0, 0, 0.12);
+  background: rgba(0, 0, 0, 0.15);
   box-shadow: inset 0 0 22px rgba(0, 0, 0, 0.3);
+  /* dark already has the veil + inset doing the separating, so the seam crease
+     can stay a hair softer here than on the light grounds */
+  border-bottom-color: color-mix(in srgb, var(--ink) 8%, transparent);
 }
 [data-treatment='Unified ground'] .adv-cs-card {
   background: color-mix(in srgb, var(--surface) 92%, var(--ink));
