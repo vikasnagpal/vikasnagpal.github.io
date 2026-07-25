@@ -20,23 +20,28 @@ export interface CardLayout {
    short, crisp shadows. Golden hour rakes low: long, soft, warm ones. Quiet
    Night is a lamp pooling dark on the paper with a faint warm rim. */
 
+/* The front (slot 0) resting shadow is kept soft — more blur, less opacity, a
+   shorter offset — so it reads as premium cardstock catching diffuse light
+   rather than a hard digital drop. The peers (slots 1-2) are already faint, and
+   the lift/note/raised casts are motion moments, so both are left as tuned. */
+
 /** Morning Light: high sun, short and crisp, a gentle lean right. */
 export function morningShadow(p: number): string {
-  if (p <= 0) return '9px 20px 44px rgba(120,54,22,0.26)'
+  if (p <= 0) return '6px 22px 52px rgba(120,54,22,0.17)'
   if (p === 1) return '6px 12px 28px rgba(96,58,26,0.20)'
   return '4px 9px 20px rgba(120,74,32,0.15)'
 }
 
 /** Golden Hour: low sun, long soft shadows raked to the lower-right, warmer. */
 export function eveningShadow(p: number): string {
-  if (p <= 0) return '20px 30px 62px rgba(122,52,18,0.30)'
+  if (p <= 0) return '15px 30px 74px rgba(122,52,18,0.20)'
   if (p === 1) return '13px 20px 44px rgba(100,56,24,0.23)'
   return '9px 14px 30px rgba(120,74,32,0.17)'
 }
 
 /** Quiet Night: lamp-lit paper — a dark pool with a faint warm rim. */
 export function nightShadow(p: number): string {
-  if (p <= 0) return '8px 18px 44px rgba(0,0,0,0.42), 0 0 0 1px rgba(255,133,96,0.06)'
+  if (p <= 0) return '6px 18px 54px rgba(0,0,0,0.32), 0 0 0 1px rgba(255,133,96,0.06)'
   if (p === 1) return '6px 12px 26px rgba(0,0,0,0.30)'
   return '5px 9px 18px rgba(0,0,0,0.24)'
 }

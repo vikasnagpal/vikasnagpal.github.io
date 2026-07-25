@@ -23,7 +23,7 @@ export const ORGS: Adventure[] = [
     links: [{ label: 'Membean', href: 'https://membean.com' }],
     role: 'Lead Product Designer',
     tagline: 'A team of one, owning the whole product.',
-    years: '2024 – now',
+    years: '2024 – 2026',
     brief:
       "A one-person design team, which meant I owned the whole product: separate modules for teachers, admins, and students, each with different needs. I built a design system that could serve all three without pulling in three directions, and brought in a product roadmap to replace ad hoc decisions with something visible everyone could plan around. I also set up surveys and interview sessions so users' voices actually reached the people building the product, and led several of the higher-stakes features end to end.",
   },

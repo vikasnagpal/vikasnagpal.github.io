@@ -50,6 +50,9 @@
   fill: none;
   stroke: currentColor;
   stroke-linecap: round;
+  /* feather the ends so the stroke tapers into the paper (a pen lifting) */
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 93%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 93%, transparent 100%);
 }
 
 /* hidden until GSAP takes over the pen */
@@ -67,7 +70,7 @@
   margin: calc(24px + 1em) 0 1em;
   font-family: var(--f-body);
   font-size: 18.5px;
-  line-height: 1.58;
+  line-height: 1.64;
   max-width: 54ch;
   color: var(--text);
   text-wrap: pretty;

@@ -41,6 +41,10 @@
   fill: none;
   stroke: var(--script);
   stroke-linecap: round;
+  /* feather the ends so the stroke tapers into the paper, matching the home
+     hero's underline — the two signature lines are the same pen */
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 93%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 93%, transparent 100%);
 }
 .adv-path {
   visibility: hidden;
@@ -51,7 +55,8 @@
   margin: 22px 0 0;
   font-family: var(--f-body);
   font-size: 17px;
-  line-height: 1.58;
+  /* the home body's leading, so the reading rhythm holds across pages */
+  line-height: 1.64;
   max-width: 56ch;
   color: var(--muted);
   text-wrap: pretty;
@@ -149,9 +154,26 @@
   top: 32px;
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  border-right: 1.5px solid var(--ps-rule);
+  /* air between items so the nav reads as intentional, not utilitarian */
+  gap: 8px;
   padding-right: 18px;
+}
+/* Divider: a 1px line that fades to nothing at the top and bottom instead of a
+   hard rule from edge to edge. */
+.adv-rail::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    color-mix(in srgb, var(--ink) 15%, transparent) 16%,
+    color-mix(in srgb, var(--ink) 15%, transparent) 84%,
+    transparent
+  );
 }
 .adv-rail-label {
   font-family: var(--f-body);
@@ -166,29 +188,38 @@
   width: fit-content;
   background: none;
   border: none;
-  border-bottom: 2px solid transparent;
-  padding: 6px 0 3px;
+  padding: 6px 0 5px;
   cursor: pointer;
   font-family: var(--f-body);
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--faint);
   text-align: left;
   white-space: nowrap;
-  transition: color 0.15s ease, border-color 0.15s ease;
+  transition: color 0.2s ease;
+}
+/* Reserve the active (bold) width up front with a hidden ghost, so the
+   right-anchored rail never shifts sideways as the active item changes. */
+.adv-rail-link::after {
+  content: '\2022\00A0\00A0' attr(data-label);
+  display: block;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  font-weight: 700;
+  pointer-events: none;
 }
 @media (hover: hover) {
   .adv-rail-link:hover {
     color: var(--accent);
   }
 }
-/* Active state stays the same weight as inactive (both 700) — bumping to 800
-   widened the longest label ("Rhythm & Hues"), and since the rail is anchored
-   on its right edge in the margin, that shifted the whole rail sideways as the
-   active item changed. Accent colour + the drawn underline mark it clearly. */
+/* Active item: coral text + bullet and a small weight step — no underline
+   (those are reserved for the real inline "visit …" links inside the cards).
+   The ghost above keeps the weight bump from shifting the rail. */
 .adv-rail-link[data-active] {
-  border-bottom-color: color-mix(in srgb, var(--accent) 50%, transparent);
   color: var(--accent-ink);
+  font-weight: 700;
 }
 .adv-content {
   /* the org cards' inner padding and the case-studies section inset share this
@@ -203,23 +234,22 @@
 /* Each stop is its own filled surface card, framed in every atmosphere (same
    treatment as the case-study card) so the padding always reads as a card, not
    a stray indent. In the unified-ground moods --bg equals --surface, so the
-   card is nudged a step off the ground to stay legible as a box. */
+   card is nudged a step off the ground to stay legible as a box. The hairline is
+   a translucent ink (light on dark grounds, dark on light) so the ground bleeds
+   through — glass catching light, not a flat vector outline — with a 1px lit top
+   edge and room to breathe top and bottom. */
 .adv-card {
   scroll-margin-top: 90px;
   background: var(--surface);
-  border: 1px solid var(--ps-rule);
+  border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
   border-radius: 22px;
-  padding: 24px var(--adv-pad-x) 26px;
+  padding: 34px var(--adv-pad-x) 36px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
   transition: background-color 0.85s ease, border-color 0.85s ease;
 }
 [data-treatment='Unified ground'] .adv-card {
   background: color-mix(in srgb, var(--surface) 92%, var(--ink));
 }
-/* Every card shares one bottom padding so the grid locks to a single floor: a
-   linked card's visit row and a non-linked card's last paragraph line come to
-   rest the same distance off the border. (No per-type override — that split
-   left the two kinds ending at different heights and also leaked past the
-   mobile padding below on specificity.) */
 .adv-card-head {
   display: flex;
   align-items: baseline;
@@ -245,14 +275,20 @@
   /* eased back from full accent so the eye lands on the name first — the
      handwritten line is a supporting voice, not a competing headline */
   color: color-mix(in srgb, var(--script) 82%, transparent);
-  text-align: right;
+  /* sits under the role/date, left-anchored, as a caption to the metadata
+     rather than floating off on the right */
+  display: block;
+  margin-top: 6px;
+  text-align: left;
 }
 .adv-card-sub {
   margin-top: 4px;
   font-family: var(--f-body);
   font-size: 14px;
   font-weight: 800;
-  color: var(--faint);
+  /* a clear step dimmer than the body so the order reads Title → Metadata →
+     Body; lifted toward opaque --text so it still clears AA on dark grounds */
+  color: color-mix(in srgb, var(--text) 80%, transparent);
 }
 .adv-card-brief {
   /* tightened from the metadata above so name + role/date group before the
@@ -261,16 +297,20 @@
   font-family: var(--f-body);
   font-size: 15.5px;
   line-height: 1.58;
-  color: var(--muted);
+  /* the primary reading tone, lifted to clear AA on the dark grounds */
+  color: color-mix(in srgb, var(--text) 88%, transparent);
   max-width: 62ch;
   text-wrap: pretty;
 }
-/* one or more "visit" links; a stop can span two products (Titan + Neo) */
+/* one or more "visit" links; a stop can span two products (Titan + Neo). The
+   line sits well off the baseline and thin, a drawn underline under the words
+   rather than a rule through their feet. */
 .adv-visits {
   display: flex;
   flex-wrap: wrap;
   gap: 8px 22px;
-  margin-top: 14px;
+  /* isolate the CTA as its own action area, not another line of copy */
+  margin-top: 24px;
 }
 .adv-visit {
   display: inline-flex;
@@ -281,9 +321,13 @@
   font-weight: 800;
   color: var(--accent-ink);
   text-decoration: none;
-  border-bottom: 2px solid color-mix(in srgb, var(--accent) 40%, transparent);
-  padding-bottom: 1px;
+  border-bottom: 1.5px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  padding-bottom: 4px;
   transition: border-color 0.15s ease;
+}
+/* lift the ↗ off its low seat onto the cap line */
+.adv-visit svg {
+  transform: translateY(-1.5px);
 }
 @media (hover: hover) {
   .adv-visit:hover {
@@ -301,7 +345,8 @@
 .adv-section-head {
   display: flex;
   align-items: baseline;
-  gap: 12px;
+  /* room between the sans title and the handwritten tag */
+  gap: 20px;
   flex-wrap: wrap;
 }
 .adv-section-title {
@@ -315,6 +360,9 @@
   font-weight: 700;
   font-size: 21px;
   color: var(--script);
+  /* seat on the sans title's baseline — Caveat rides a touch high under plain
+     baseline-align */
+  transform: translateY(2px);
 }
 
 .adv-eyebrow {
@@ -336,13 +384,14 @@
 }
 /* Unlike the org bios (pure text that dissolves into the ground in the unified
    atmospheres), this is a media card: its cover is a fixed light screenshot, so
-   it needs a frame to stay one object in every mood. A hairline plus a surface
-   that keeps a step off the ground in the unified-ground treatments — where
-   --bg would otherwise equal --surface — hold it together, and read as "an
+   it needs a frame to stay one object in every mood. A translucent hairline plus
+   a surface that keeps a step off the ground in the unified-ground treatments —
+   where --bg would otherwise equal --surface — hold it together, and read as "an
    object you can pick up" against the ambient bios. */
 .adv-cs-card {
+  position: relative;
   background: var(--surface);
-  border: 1px solid var(--ps-rule);
+  border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
   border-radius: 18px;
   overflow: hidden;
   display: flex;
@@ -350,6 +399,26 @@
   text-decoration: none;
   color: inherit;
   transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.85s ease, border-color 0.85s ease;
+}
+/* Seat the bright cover into the card. The crease at the image/text seam is
+   adaptive: a faint light line on dark grounds, a faint dark line on light. The
+   veil + inset edge only exist to settle a bright image into a dark UI, so they
+   apply in dark treatments only — on light grounds the image already belongs to
+   the room, and a dark vignette would read as grime rather than depth. */
+.adv-cs-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 150px; /* = .adv-cs-cover height */
+  pointer-events: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--ink) 8%, transparent);
+  z-index: 1;
+}
+[data-theme='dark'] .adv-cs-card::before {
+  background: rgba(0, 0, 0, 0.12);
+  box-shadow: inset 0 0 22px rgba(0, 0, 0, 0.3);
 }
 [data-treatment='Unified ground'] .adv-cs-card {
   background: color-mix(in srgb, var(--surface) 92%, var(--ink));
@@ -368,7 +437,9 @@
   object-position: left top;
 }
 .adv-cs-body {
-  padding: 14px 18px 16px;
+  /* left padding matches the org cards (--adv-pad-x) so the title's left edge
+     lines up on the same axis as the bios above */
+  padding: 14px var(--adv-pad-x) 16px;
 }
 .adv-cs-title {
   margin-top: 4px;
@@ -395,20 +466,9 @@
   font-weight: 800;
   color: var(--accent-ink);
 }
-
-/* Below the tablet edge the card header stops being a left/right split: the
-   right-aligned script tagline would otherwise collide with the company name
-   (short phrases hug the far edge, long ones compress into a ragged block).
-   Stack it directly under the name, left-aligned, so it reads as one unit. */
-@media (max-width: 720px) {
-  .adv-card-head {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 4px;
-  }
-  .adv-card-tagline {
-    text-align: left;
-  }
+/* nudge the arrow onto the lowercase x-height of "read the story" */
+.adv-cs-read svg {
+  transform: translateY(-1px);
 }
 
 @media (max-width: 560px) {
@@ -416,7 +476,7 @@
     --adv-pad-x: 20px;
   }
   .adv-card {
-    padding: 20px var(--adv-pad-x) 22px;
+    padding: 26px var(--adv-pad-x) 28px;
   }
   .adv-card-name {
     font-size: 21px;

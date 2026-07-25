@@ -107,7 +107,7 @@ export function ReactionBar({ thought, countFor, mineSet, pressedId, pressSeq, o
             style={{
               border: ghost
                 ? '1.5px dashed color-mix(in srgb, var(--card-ink) 45%, transparent)'
-                : `1.5px solid ${on ? 'var(--react-on-bg)' : 'var(--card-ink-soft)'}`,
+                : `1.5px solid ${on ? 'var(--react-on-bg)' : 'var(--react-rest-border, var(--card-ink-soft))'}`,
               background: on ? 'var(--react-on-bg)' : 'transparent',
               color: on ? 'var(--react-on-fg)' : 'var(--card-ink)',
               opacity: ghost ? 0.72 : 1,

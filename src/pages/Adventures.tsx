@@ -182,6 +182,7 @@ export default function Adventures() {
                   key={item.id}
                   type="button"
                   className="adv-rail-link"
+                  data-label={item.label}
                   data-active={active === item.id || undefined}
                   onClick={() => {
                     lockTo(item.id)
@@ -205,7 +206,7 @@ export default function Adventures() {
                 <span className="adv-ul">
                   where I&#39;ve been
                   <svg className="adv-ul-svg" viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden>
-                    <path ref={pathRef} className="adv-path" d="M5 8 C45 3 85 10 125 6 C160 3 185 7 196 5" />
+                    <path ref={pathRef} className="adv-path" d="M4 7.6 C42 3 82 10.4 122 6.2 C156 2.6 184 8 197 5.4" />
                   </svg>
                 </span>
               </div>
@@ -244,11 +245,12 @@ export default function Adventures() {
                 >
                   <div className="adv-card-head">
                     <span className="adv-card-name">{org.name}</span>
-                    <span className="adv-card-tagline">{org.tagline}</span>
                   </div>
                   <div className="adv-card-sub">
                     {org.role} &middot; {org.years}
                   </div>
+                  {/* the handwritten tag sits under the role/date, left-anchored */}
+                  <span className="adv-card-tagline">{org.tagline}</span>
                   <p className="adv-card-brief">{org.brief}</p>
                   {org.links && org.links.length > 0 && (
                     <div className="adv-visits">

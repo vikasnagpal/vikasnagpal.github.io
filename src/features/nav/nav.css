@@ -36,7 +36,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 14px;
+  /* label sits close to its icon so the two read as one interactive unit */
+  gap: 10px;
   transition: transform 0.18s ease;
 }
 

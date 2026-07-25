@@ -1,10 +1,14 @@
 /* Heading treatment is shared across inner pages — see .pf-title in pageframe.css */
 
+/* The editorial body copy carries the same 1.64 leading as the home hero/P.S.,
+   so the reading rhythm doesn't shift as a visitor moves between pages. (Dense
+   repeated card blurbs elsewhere stay tighter on purpose — leading tracks role
+   and density, not one global number.) */
 .wk-intro {
   margin: 18px 0 0;
   font-family: var(--f-body);
   font-size: 18.5px;
-  line-height: 1.6;
+  line-height: 1.64;
   max-width: 54ch;
   color: var(--text);
   text-wrap: pretty;
@@ -62,7 +66,7 @@
   margin: 12px 0 0;
   font-family: var(--f-body);
   font-size: 17.5px;
-  line-height: 1.6;
+  line-height: 1.64;
   max-width: 56ch;
   color: var(--text);
   text-wrap: pretty;

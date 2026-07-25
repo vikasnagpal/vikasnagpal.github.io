@@ -26,7 +26,7 @@
   margin: max(12px, 1em) 0 1em;
   font-family: var(--f-body);
   font-size: 17.5px;
-  line-height: 1.6;
+  line-height: 1.64;
   max-width: 56ch;
   color: var(--text);
   text-wrap: pretty;

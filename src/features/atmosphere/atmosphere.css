@@ -32,6 +32,14 @@
   min-width: 154px;
 }
 
+/* The weather glyph and daypart glyph have taller-than-text bounding boxes, so
+   centre-alignment seats them a hair low against the label's optical baseline.
+   A half-pixel lift puts them back on the line. */
+.atmo-loc > svg,
+.atmo-ico {
+  transform: translateY(-0.75px);
+}
+
 .atmo-div {
   width: 1px;
   align-self: stretch;

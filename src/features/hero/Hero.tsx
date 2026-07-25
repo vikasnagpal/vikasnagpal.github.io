@@ -70,7 +70,10 @@ export function Hero() {
           <span className="hero-ul">
             you are here!
             <svg viewBox="0 0 200 14" preserveAspectRatio="none" aria-hidden>
-              <path ref={pathRef} className="hero-path" d="M4 9 C 52 3, 92 12, 140 6 C 166 3, 186 8, 197 6" />
+              {/* the ends feather to nothing (CSS mask) and the line wavers a
+                  touch off-level, so it reads as a pen stroke lifting off the
+                  paper rather than a drawn rule */}
+              <path ref={pathRef} className="hero-path" d="M3 8.6 C 42 3.6, 80 12.8, 116 7 C 148 2.2, 176 9.8, 198 6.4" />
             </svg>
           </span>
         </div>
