@@ -187,6 +187,20 @@
   line-height: 1.4;
   color: var(--ink);
 }
+/* A single line pulled out of the paragraph it belongs to, for a beat of air
+   before the turn lands. Unlike .css-quote it isn't a quotation and carries no
+   rule — it's the same voice as the body, just given the room to be heard. */
+.css-beat {
+  margin: 22px 0 0;
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-size: clamp(20px, 3.2vw, 25px);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
 /* Article figures — image + optional handwritten caption. */
 .cs-fig {
   margin: 26px 0 0;
@@ -220,6 +234,222 @@
 }
 .cs-fig-row .cs-fig {
   margin: 0;
+}
+
+/* ── The mood cross-fade ─────────────────────────────────────────────────────
+   One portrait shot of the home page, three light settings stacked in the same
+   frame. Capped narrow: at full column width a 780x1440 screenshot would run
+   past a phone's whole viewport. */
+.cs-mood-frame {
+  position: relative;
+  width: min(320px, 100%);
+  margin: 0 auto;
+  aspect-ratio: 780 / 1440;
+  border-radius: 14px;
+  border: 1px solid var(--ps-rule);
+  overflow: hidden;
+}
+.cs-moods img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 0;
+  border-radius: 0;
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
+.cs-moods img[data-on] {
+  opacity: 1;
+}
+.cs-mood-picks {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+.cs-mood-pick {
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1.5px solid var(--ps-rule);
+  background: none;
+  font-family: var(--f-body);
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--faint);
+  cursor: pointer;
+  transition: color 0.18s ease, border-color 0.18s ease;
+}
+.cs-mood-pick[data-on] {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+@media (hover: hover) {
+  .cs-mood-pick:hover {
+    color: var(--ink);
+    border-color: color-mix(in srgb, var(--ink) 35%, transparent);
+  }
+  .cs-mood-pick[data-on]:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+}
+
+/* ── The guestbook's "before" ────────────────────────────────────────────────
+   A recreation of v1, and it has to look like v1: no site type, no warmth, no
+   rounded card. Everything is mixed from --ink so the plainness survives all
+   three atmospheres without ever picking up the room's colour. */
+.cs-before {
+  position: relative;
+}
+.cs-before-tag {
+  font-family: var(--f-script);
+  font-weight: 700;
+  font-size: 19px;
+  color: var(--faint);
+  margin-bottom: 6px;
+}
+.cs-before-box {
+  padding: 16px 16px 14px;
+  border: 1px solid color-mix(in srgb, var(--ink) 22%, transparent);
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--ink) 3%, transparent);
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  color: color-mix(in srgb, var(--ink) 72%, transparent);
+}
+.cs-before-h {
+  font-size: 15px;
+  font-weight: 600;
+  color: color-mix(in srgb, var(--ink) 85%, transparent);
+}
+.cs-before-field {
+  margin-top: 10px;
+  padding: 10px 10px 34px;
+  border: 1px solid color-mix(in srgb, var(--ink) 25%, transparent);
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--ink) 4%, transparent);
+  font-size: 13.5px;
+  color: color-mix(in srgb, var(--ink) 42%, transparent);
+}
+.cs-before-row {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.cs-before-count,
+.cs-before-more {
+  font-size: 12px;
+  color: color-mix(in srgb, var(--ink) 45%, transparent);
+}
+.cs-before-btn {
+  padding: 6px 14px;
+  border-radius: 2px;
+  border: 1px solid color-mix(in srgb, var(--ink) 28%, transparent);
+  background: color-mix(in srgb, var(--ink) 10%, transparent);
+  font-size: 13px;
+  font-weight: 600;
+}
+.cs-before-rule {
+  height: 1px;
+  margin: 16px 0 0;
+  background: color-mix(in srgb, var(--ink) 15%, transparent);
+}
+.cs-before-h2 {
+  margin-top: 12px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: color-mix(in srgb, var(--ink) 55%, transparent);
+}
+.cs-before-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.cs-before-list li {
+  padding: 11px 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--ink) 11%, transparent);
+}
+.cs-before-meta {
+  font-size: 11.5px;
+  color: color-mix(in srgb, var(--ink) 45%, transparent);
+}
+.cs-before-text {
+  margin: 4px 0 0;
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+.cs-before-more {
+  margin-top: 12px;
+  text-decoration: underline;
+}
+
+/* ── The catchable coin ──────────────────────────────────────────────────────
+   Geometry mirrors .nav-coin / .nav-note so the arc reads identically to the
+   one in the nav; only the surround changes. */
+.cs-bump {
+  margin: 26px 0 0;
+  /* hairline + faint fill, same radius as the figures: this reads as one more
+     figure on the page, except you can touch it. The tall top padding is the
+     coin's headroom: the arc apexes ~68px above the icon, so it clears the
+     frame by a dozen pixels (nice — it looks like it escaped) while still
+     staying inside the 26px gutter above, clear of the copy. */
+  padding: 56px 20px 26px;
+  border: 1px solid var(--ps-rule);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--ink) 2.5%, transparent);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.cs-bump-hit {
+  position: relative;
+  display: inline-flex;
+  padding: 10px 16px;
+  border: 0;
+  background: none;
+  color: var(--accent);
+  cursor: pointer;
+  /* a rub is a horizontal drag on glass; don't let it start a text selection
+     or flash the tap highlight mid-gesture */
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  touch-action: pan-y;
+}
+/* GSAP-owned layer (the catch dip) — CSS never transforms this span */
+.cs-bump-icon {
+  display: inline-flex;
+}
+.cs-bump-coin {
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  pointer-events: none;
+  z-index: 5;
+  visibility: hidden; /* GSAP reveals */
+}
+.cs-bump-note {
+  position: absolute;
+  top: -22px;
+  left: 50%;
+  white-space: nowrap;
+  font-family: var(--f-script);
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--script);
+  pointer-events: none;
+  z-index: 6;
+  visibility: hidden; /* GSAP reveals */
+}
+.cs-bump-cap {
+  font-family: var(--f-script);
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--faint);
 }
 
 .css-fin {
@@ -265,6 +495,11 @@
   .css-dim,
   .css-sheet {
     animation: none !important;
+  }
+  /* the moods still switch, they just cut instead of dissolving (the auto-drift
+     is off too — see MoodViewer) */
+  .cs-moods img {
+    transition: none;
   }
 }
 
