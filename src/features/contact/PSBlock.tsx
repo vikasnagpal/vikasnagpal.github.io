@@ -23,7 +23,6 @@ export function PSBlock() {
       <p className="ps-copy">
         If you are building something, stuck on a problem, or just want another brain to bounce things off
         {coins >= 50 ? ', or just want to talk about how you found all fifty hidden coins' : ''}, I&#39;d love to chat.
-        Those conversations usually leave me with something new to think about too.
       </p>
       <a className="ps-cta" href={calendarUrl}>
         <span>Grab some time</span>
