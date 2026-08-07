@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Mukta:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  :root, [data-brand="zepto"] { --brand:#950EDB; --brand-text:#8A0CCB; --brand-deep:#5C0A8A; --brand-ink:#2E0645; --brand-tint:#F6EDFD; }
+  [data-brand="neutral"] { --brand:#3F3D56; --brand-text:#35334A; --brand-deep:#26243A; --brand-ink:#17162B; --brand-tint:#F1F0F6; }
+  html, body { margin: 0; padding: 0; background: #FAF8FC; }
+  body { font-family: 'DM Sans', 'Mukta', system-ui, sans-serif; font-variant-numeric: tabular-nums; color: #1C1721; -webkit-font-smoothing: antialiased; }
+  :focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+  * { box-sizing: border-box; }
+  a { color: var(--brand-text); text-decoration: none; }
+  a:hover { color: var(--brand); }
+  input, button, textarea, select { font-family: inherit; }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-thumb { background: #C9C2D4; border-radius: 100px; border: 3px solid transparent; background-clip: content-box; }
+</style>
+</helmet>
+
+<div data-brand="{{ brand }}" style="min-height:100vh;min-width:1320px;display:flex;flex-direction:column;background:#FAF8FC">
+
+  <div style="display:flex;align-items:center;gap:26px;padding:0 22px;height:54px;background:var(--brand-ink);color:#FFFFFF;flex:none;position:sticky;top:0;z-index:60">
+    <div style="display:flex;align-items:center;gap:9px;flex:none">
+      <div style="width:20px;height:20px;border-radius:6px;background:var(--brand)"></div>
+      <div style="font-size:13.5px;font-weight:500;letter-spacing:0.01em;white-space:nowrap">Partner Verification</div>
+    </div>
+    <div style="display:flex;align-items:stretch;height:54px">
+      <div onClick="{{ goCoverage }}" style="{{ tabCoverage }}">Coverage</div>
+      <div onClick="{{ goPartners }}" style="{{ tabPartners }}">Partners</div>
+      <div onClick="{{ goStore }}" style="{{ tabStore }}">Store view</div>
+      <div onClick="{{ goOps }}" style="{{ tabOps }}">Ops console</div>
+    </div>
+    <div style="margin-left:auto;display:flex;align-items:center;gap:16px;flex:none">
+      <div style="letter-spacing:0.01em;font-size:12px;color:rgba(255,255,255,0.44);letter-spacing:0.05em">Maharashtra ruleset v3 · effective 1 Jul 2026</div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <div style="width:26px;height:26px;border-radius:100px;background:#3A3A3A;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500">VN</div>
+        <div style="font-size:12.5px;color:rgba(255,255,255,0.55)">HQ Admin</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;align-items:center;gap:10px;padding:10px 22px;background:#FFFFFF;border-bottom:1px solid #E7E2ED;flex:none;position:sticky;top:54px;z-index:50;flex-wrap:wrap">
+    <div style="font-size:11px;font-weight:500;letter-spacing:0.07em;color:#6B6577;text-transform:uppercase;margin-right:2px">Scope</div>
+    <sc-for list="{{ scopeChips }}" as="c" hint-placeholder-count="4">
+      <div style="display:flex;align-items:center;gap:7px;height:32px;padding:0 12px;border-radius:100px;border:1px solid #E7E2ED;background:#FFFFFF;cursor:pointer;font-size:13px">
+        <span style="color:#6B6577">{{ c.k }}</span>
+        <span style="font-weight:500">{{ c.v }}</span>
+        <span style="color:#6B6577;font-size:9px">▾</span>
+      </div>
+    </sc-for>
+    <div style="width:1px;height:22px;background:#E7E2ED;margin:0 4px"></div>
+    <div style="display:flex;align-items:center;gap:8px;height:32px;padding:0 12px;border-radius:100px;background:#F1EFF4;font-size:13px;color:#6B6577">Mandated states only</div>
+    <div style="margin-left:auto;display:flex;align-items:center;gap:8px">
+      <div style="font-size:12.5px;color:#6B6577">Data as of 7 Aug 2026, 06:00 IST</div>
+      <div style="height:32px;padding:0 14px;border-radius:100px;border:1px solid #E7E2ED;display:flex;align-items:center;font-size:13px;font-weight:500;cursor:pointer">Export CSV</div>
+    </div>
+  </div>
+
+  <sc-if value="{{ isCoverage }}" hint-placeholder-val="{{ true }}">
+    <div style="flex:1;padding:24px 22px 64px;display:flex;flex-direction:column;gap:16px;max-width:1560px;width:100%;margin:0 auto">
+
+      <div style="display:grid;grid-template-columns:1.35fr 1fr 1fr 1fr 1fr 1fr;gap:12px">
+        <div style="background:var(--brand-ink);color:#FFFFFF;border-radius:12px;padding:18px 20px;display:flex;flex-direction:column;justify-content:space-between">
+          <div style="font-size:12px;letter-spacing:0.04em;color:rgba(255,255,255,0.55);text-transform:uppercase">Coverage · mandated states</div>
+          <div style="display:flex;align-items:baseline;gap:10px;margin-top:14px">
+            <div style="font-size:52px;line-height:52px;font-weight:500;letter-spacing:-0.02em">83.4%</div>
+            <div style="font-size:13px;color:#3DD68C">▲ 6.1 pts vs last week</div>
+          </div>
+          <div style="display:flex;height:6px;border-radius:100px;overflow:hidden;margin-top:14px;background:rgba(255,255,255,0.14);gap:2px">
+            <div style="width:83.4%;background:#3DD68C"></div>
+            <div style="width:8.2%;background:#7AA2F7"></div>
+            <div style="width:6.1%;background:#F0B429"></div>
+            <div style="width:2.3%;background:#FF7A93"></div>
+          </div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.44);margin-top:9px">Target ≥95% · 1,432 partners short</div>
+        </div>
+        <sc-for list="{{ kpis }}" as="k" hint-placeholder-count="5">
+          <div onClick="{{ k.drill }}" style="background:#FFFFFF;border-radius:12px;padding:16px 18px;cursor:pointer;display:flex;flex-direction:column;justify-content:space-between;border:1px solid #E7E2ED">
+            <div style="font-size:12.5px;color:#6B6577;line-height:17px">{{ k.label }}</div>
+            <div>
+              <div style="font-size:30px;line-height:36px;font-weight:500;letter-spacing:-0.01em;margin-top:10px;color:{{ k.color }}">{{ k.value }}</div>
+              <div style="font-size:12px;color:#6B6577;line-height:16px">{{ k.sub }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1.15fr 1fr;gap:16px">
+
+        <div style="background:#FFFFFF;border-radius:12px;padding:20px 22px;border:1px solid #E7E2ED">
+          <div style="display:flex;align-items:baseline;justify-content:space-between">
+            <div style="font-size:16px;font-weight:500">Pipeline</div>
+            <div style="font-size:12.5px;color:#6B6577">8,640 active partners in mandated states</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:2px;margin-top:16px">
+            <sc-for list="{{ funnel }}" as="f" hint-placeholder-count="6">
+              <div onClick="{{ f.drill }}" style="display:grid;grid-template-columns:168px 1fr 92px;align-items:center;gap:14px;padding:7px 8px;border-radius:8px;cursor:pointer">
+                <div style="display:flex;align-items:center;gap:8px;min-width:0">
+                  <div style="width:8px;height:8px;border-radius:2px;flex:none;background:{{ f.color }}"></div>
+                  <div style="font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ f.label }}</div>
+                </div>
+                <div style="height:26px;background:#EFEBF4;border-radius:6px;overflow:hidden">
+                  <div style="height:26px;border-radius:6px;width:{{ f.pct }};background:{{ f.color }}"></div>
+                </div>
+                <div style="text-align:right">
+                  <div style="letter-spacing:0.01em;font-size:14px;font-weight:500">{{ f.count }}</div>
+                  <div style="font-size:11px;color:#6B6577;line-height:14px">{{ f.note }}</div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="margin-top:14px;padding:12px 14px;border-radius:8px;background:#FDF1DC;border:1px solid #EDD3A3;font-size:13px;line-height:19px;color:#7A4800">
+            <span style="font-weight:500">198 partners have sat in Submitted for over 12 days</span> — past the portal's expected turnaround. They are on the ops chase list.
+          </div>
+        </div>
+
+        <div style="background:#FFFFFF;border-radius:12px;padding:20px 22px;border:1px solid #E7E2ED;display:flex;flex-direction:column">
+          <div style="display:flex;align-items:baseline;justify-content:space-between">
+            <div style="font-size:16px;font-weight:500">Coverage trend</div>
+            <div style="font-size:12.5px;color:#6B6577">Weekly · since mandate</div>
+          </div>
+          <div style="flex:1;display:flex;align-items:flex-end;gap:10px;margin-top:20px;min-height:170px">
+            <sc-for list="{{ trend }}" as="t" hint-placeholder-count="8">
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px">
+                <div style="letter-spacing:0.01em;font-size:11px;color:#6B6577">{{ t.label }}</div>
+                <div style="width:100%;border-radius:6px 6px 0 0;height:{{ t.h }};background:{{ t.color }}"></div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:flex;gap:10px;margin-top:8px;padding-top:10px;border-top:1px solid #E7E2ED">
+            <sc-for list="{{ trendLabels }}" as="l" hint-placeholder-count="8">
+              <div style="flex:1;text-align:center;font-size:11px;color:#6B6577">{{ l }}</div>
+            </sc-for>
+          </div>
+          <div style="margin-top:12px;font-size:12.5px;line-height:18px;color:#6B6577">At the current rate of 412 verifications a week, 95% coverage lands on <span style="font-weight:500;color:#1C1721">18 Sep 2026</span>.</div>
+        </div>
+      </div>
+
+      <div style="background:#FFFFFF;border-radius:12px;border:1px solid #E7E2ED;overflow:hidden">
+        <div style="display:flex;align-items:center;gap:14px;padding:18px 22px 14px">
+          <div style="font-size:16px;font-weight:500">Geography</div>
+          <div style="font-size:12.5px;color:#6B6577">Sorted worst coverage first</div>
+          <div style="margin-left:auto;display:flex;gap:6px">
+            <sc-for list="{{ geoLevels }}" as="g" hint-placeholder-count="4">
+              <div onClick="{{ g.pick }}" style="{{ g.style }}">{{ g.label }}</div>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr 1fr 1.5fr 1fr 1fr;column-gap:16px;padding:0 22px 8px;border-bottom:1px solid #E7E2ED">
+          <div style="font-size:11px;font-weight:500;letter-spacing:0.06em;color:#6B6577;text-transform:uppercase">Location</div>
+          <div style="font-size:11px;font-weight:500;letter-spacing:0.06em;color:#6B6577;text-transform:uppercase;text-align:right">Partners</div>
+          <div style="font-size:11px;font-weight:500;letter-spacing:0.06em;color:#6B6577;text-transform:uppercase;text-align:right">Verified</div>
+          <div style="font-size:11px;font-weight:500;letter-spacing:0.06em;color:#6B6577;text-transform:uppercase;text-align:right">In progress</div>
+          <div style="font-size:11px;font-weight:500;letter-spacing:0.06em;color:#6B6577;text-transform:uppercase;text-align:right">Action needed</div>
+          <div style="font-size:11px;font-weight:500;letter-spacing:0.06em;color:#6B6577;text-transform:uppercase;padding-left:24px">Coverage</div>
+          <div style="font-size:11px;font-weight:500;letter-spacing:0.06em;color:#6B6577;text-transform:uppercase;text-align:right">Past SLA</div>
+          <div style="font-size:11px;font-weight:500;letter-spacing:0.06em;color:#6B6577;text-transform:uppercase;text-align:right">Avg days</div>
+        </div>
+        <sc-for list="{{ geoRows }}" as="r" hint-placeholder-count="8">
+          <div onClick="{{ r.toggle }}" style="display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr 1fr 1.5fr 1fr 1fr;column-gap:16px;align-items:center;padding:11px 22px;border-bottom:1px solid #E7E2ED;cursor:pointer;background:{{ r.bg }}">
+            <div style="display:flex;align-items:center;gap:9px;padding-left:{{ r.indent }}">
+              <div style="font-size:9px;color:#6B6577;width:10px">{{ r.caret }}</div>
+              <div style="font-size:13.5px;font-weight:{{ r.weight }}">{{ r.name }}</div>
+              <div style="letter-spacing:0.01em;font-size:12px;color:#6B6577">{{ r.code }}</div>
+            </div>
+            <div style="text-align:right;letter-spacing:0.01em;font-size:13px">{{ r.total }}</div>
+            <div style="text-align:right;letter-spacing:0.01em;font-size:13px">{{ r.verified }}</div>
+            <div style="text-align:right;letter-spacing:0.01em;font-size:13px;color:#6B6577">{{ r.progress }}</div>
+            <div style="text-align:right;letter-spacing:0.01em;font-size:13px;font-weight:500;color:{{ r.actionColor }}">{{ r.action }}</div>
+            <div style="display:flex;align-items:center;gap:10px;padding-left:24px">
+              <div style="flex:1;height:6px;border-radius:100px;background:#EFEBF4;overflow:hidden">
+                <div style="height:6px;border-radius:100px;width:{{ r.pct }};background:{{ r.barColor }}"></div>
+              </div>
+              <div style="letter-spacing:0.01em;font-size:12.5px;width:44px;text-align:right;font-weight:500">{{ r.pct }}</div>
+            </div>
+            <div style="text-align:right;letter-spacing:0.01em;font-size:13px;color:{{ r.slaColor }}">{{ r.sla }}</div>
+            <div style="text-align:right;letter-spacing:0.01em;font-size:13px;color:#6B6577">{{ r.avg }}</div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div style="background:#FFFFFF;border-radius:12px;padding:20px 22px;border:1px solid #E7E2ED">
+          <div style="display:flex;align-items:baseline;justify-content:space-between">
+            <div style="font-size:16px;font-weight:500">Fees</div>
+            <div style="font-size:12.5px;color:#6B6577">₹150 per partner · Maharashtra ruleset</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:16px">
+            <sc-for list="{{ cost }}" as="c" hint-placeholder-count="3">
+              <div>
+                <div style="font-size:12.5px;color:#6B6577;line-height:17px">{{ c.label }}</div>
+                <div style="font-size:26px;line-height:34px;font-weight:500;letter-spacing:-0.01em;margin-top:4px">{{ c.value }}</div>
+                <div style="font-size:12px;color:#6B6577;line-height:16px">{{ c.sub }}</div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="margin-top:16px;padding-top:14px;border-top:1px solid #E7E2ED;font-size:13px;line-height:19px;color:#6B6577">₹8,400 of fees paid sit against partners who offboarded mid-submission. Recorded as sunk cost, excluded from coverage.</div>
+        </div>
+
+        <div style="background:#FFFFFF;border-radius:12px;padding:20px 22px;border:1px solid #E7E2ED">
+          <div style="display:flex;align-items:baseline;justify-content:space-between">
+            <div style="font-size:16px;font-weight:500">Rejections</div>
+            <div style="font-size:12.5px;color:#6B6577">6.4% of submissions · last 30 days</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:9px;margin-top:16px">
+            <sc-for list="{{ rejections }}" as="r" hint-placeholder-count="4">
+              <div onClick="{{ r.drill }}" style="display:grid;grid-template-columns:1fr 76px 44px;align-items:center;gap:12px;cursor:pointer">
+                <div style="font-size:13.5px">{{ r.label }}</div>
+                <div style="height:8px;border-radius:100px;background:#EFEBF4;overflow:hidden">
+                  <div style="height:8px;border-radius:100px;width:{{ r.pct }};background:var(--brand-text)"></div>
+                </div>
+                <div style="text-align:right;letter-spacing:0.01em;font-size:13px;font-weight:500">{{ r.count }}</div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="margin-top:16px;padding:12px 14px;border-radius:8px;background:#F1EFF4;font-size:13px;line-height:19px;color:#6B6577">Address-proof mismatch is 41% of all rejections and concentrated in Pune. Worth a field-format check at capture rather than at submission.</div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isPartners }}" hint-placeholder-val="{{ false }}">
+    <div style="flex:1;display:flex;align-items:stretch;min-height:0">
+
+      <div style="width:236px;flex:none;background:#FFFFFF;border-right:1px solid #E7E2ED;padding:20px 18px;display:flex;flex-direction:column;gap:22px">
+        <div>
+          <div style="font-size:11px;font-weight:500;letter-spacing:0.07em;color:#6B6577;text-transform:uppercase;margin-bottom:10px">Saved views</div>
+          <div style="display:flex;flex-direction:column;gap:1px">
+            <sc-for list="{{ savedViews }}" as="v" hint-placeholder-count="4">
+              <div onClick="{{ v.pick }}" style="{{ v.style }}">
+                <span>{{ v.label }}</span>
+                <span style="margin-left:auto;letter-spacing:0.01em;font-size:12px;opacity:0.55">{{ v.count }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:500;letter-spacing:0.07em;color:#6B6577;text-transform:uppercase;margin-bottom:10px">Status</div>
+          <div style="display:flex;flex-direction:column;gap:7px">
+            <sc-for list="{{ statusFilters }}" as="s" hint-placeholder-count="7">
+              <div style="display:flex;align-items:center;gap:9px;cursor:pointer">
+                <div style="{{ s.box }}"></div>
+                <div style="font-size:13px;flex:1">{{ s.label }}</div>
+                <div style="letter-spacing:0.01em;font-size:12px;color:#6B6577">{{ s.count }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:500;letter-spacing:0.07em;color:#6B6577;text-transform:uppercase;margin-bottom:10px">Risk</div>
+          <div style="display:flex;flex-direction:column;gap:7px">
+            <sc-for list="{{ riskFilters }}" as="s" hint-placeholder-count="3">
+              <div style="display:flex;align-items:center;gap:9px;cursor:pointer">
+                <div style="{{ s.box }}"></div>
+                <div style="font-size:13px;flex:1">{{ s.label }}</div>
+                <div style="letter-spacing:0.01em;font-size:12px;color:#6B6577">{{ s.count }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+
+      <div style="flex:1;min-width:0;display:flex;flex-direction:column">
+        <div style="padding:16px 22px 12px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+          <div style="display:flex;align-items:center;gap:9px;height:38px;padding:0 14px;border-radius:8px;background:#FFFFFF;border:1px solid #E7E2ED;min-width:320px">
+            <div style="font-size:14px;color:#6B6577">⌕</div>
+            <input placeholder="Name, partner ID, phone or acknowledgement no." style="border:0;outline:0;background:transparent;font-size:13.5px;flex:1;color:#1C1721" />
+          </div>
+          <div style="font-size:13px;color:#6B6577">8,640 partners · <span style="font-weight:500;color:#1C1721">526</span> matching</div>
+          <div style="margin-left:auto;display:flex;gap:8px">
+            <div style="height:36px;padding:0 14px;border-radius:8px;border:1px solid #E7E2ED;background:#fff;display:flex;align-items:center;font-size:13px;font-weight:500;cursor:pointer">Download evidence pack</div>
+            <div style="height:36px;padding:0 14px;border-radius:8px;border:1px solid #E7E2ED;background:#fff;display:flex;align-items:center;font-size:13px;font-weight:500;cursor:pointer">Assign to ops batch</div>
+            <div style="height:36px;padding:0 14px;border-radius:8px;background:var(--brand);color:#fff;display:flex;align-items:center;font-size:13px;font-weight:500;cursor:pointer">Add partners</div>
+          </div>
+        </div>
+
+        <div style="flex:1;overflow:auto;padding:0 22px 40px">
+          <div style="background:#FFFFFF;border-radius:12px;border:1px solid #E7E2ED;overflow:hidden;min-width:max-content">
+            <div style="display:grid;grid-template-columns:34px minmax(200px,2.2fr) minmax(120px,1.3fr) minmax(140px,1.5fr) minmax(150px,1.4fr) minmax(110px,1fr) minmax(112px,1.1fr) minmax(100px,1.1fr);column-gap:16px;align-items:center;padding:11px 18px;border-bottom:1px solid #E7E2ED;background:#FAF8FC">
+              <div style="width:15px;height:15px;border-radius:4px;border:1.5px solid #C9C2D4"></div>
+              <div style="font-size:11px;font-weight:500;letter-spacing:0.06em;color:#6B6577;text-transform:uppercase">Partner</div>
+              <div style="font-size:11px;font-weight:500;letter-spacing:0.06em;color:#6B6577;text-transform:uppercase">Store</div>
+              <div style="font-size:11px;font-weight:500;letter-spacing:0.06em;color:#6B6577;text-transform:uppercase">Status</div>
+              <div style="font-size:11px;font-weight:500;letter-spacing:0.06em;color:#6B6577;text-transform:uppercase">Blocker</div>
+              <div style="font-size:11px;font-weight:500;letter-spacing:0.06em;color:#6B6577;text-transform:uppercase;text-align:right;white-space:nowrap">Days in status</div>
+              <div style="font-size:11px;font-weight:500;letter-spacing:0.06em;color:#6B6577;text-transform:uppercase">Ack no.</div>
+              <div style="font-size:11px;font-weight:500;letter-spacing:0.06em;color:#6B6577;text-transform:uppercase">Expires</div>
+            </div>
+            <sc-for list="{{ partnerRows }}" as="p" hint-placeholder-count="12">
+              <div onClick="{{ p.open }}" style="display:grid;grid-template-columns:34px minmax(200px,2.2fr) minmax(120px,1.3fr) minmax(140px,1.5fr) minmax(150px,1.4fr) minmax(110px,1fr) minmax(112px,1.1fr) minmax(100px,1.1fr);column-gap:16px;align-items:center;padding:9px 18px;border-bottom:1px solid #E7E2ED;cursor:pointer;background:{{ p.bg }}">
+                <div style="width:15px;height:15px;border-radius:4px;border:1.5px solid #C9C2D4"></div>
+                <div style="display:flex;align-items:center;gap:11px;min-width:0">
+                  <div style="width:32px;height:32px;border-radius:8px;flex:none;background-color:#EFEBF4;background-image:repeating-linear-gradient(135deg,rgba(46,6,69,0.07) 0 4px,transparent 4px 8px)"></div>
+                  <div style="min-width:0">
+                    <div style="font-size:13.5px;font-weight:500;line-height:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ p.name }}</div>
+                    <div style="letter-spacing:0.01em;font-size:12px;color:#6B6577">{{ p.code }} · {{ p.phone }}</div>
+                  </div>
+                </div>
+                <div>
+                  <div style="font-size:13px;line-height:17px">{{ p.store }}</div>
+                  <div style="font-size:11px;color:#6B6577;line-height:15px">{{ p.city }}</div>
+                </div>
+                <div>
+                  <div style="display:inline-flex;align-items:center;gap:6px;padding:3px 10px 3px 8px;border-radius:100px;background:{{ p.chipBg }};color:{{ p.chipFg }}">
+                    <span style="font-size:10px;font-weight:700">{{ p.chipIcon }}</span>
+                    <span style="font-size:12px;font-weight:500;white-space:nowrap">{{ p.chipLabel }}</span>
+                  </div>
+                </div>
+                <div style="font-size:12.5px;color:#6B6577;line-height:17px">{{ p.blocker }}</div>
+                <div style="text-align:right;letter-spacing:0.01em;font-size:13px;color:{{ p.daysColor }}">{{ p.days }}</div>
+                <div style="letter-spacing:0.01em;font-size:12px;color:#6B6577">{{ p.ack }}</div>
+                <div style="font-size:12.5px;color:{{ p.expiryColor }}">{{ p.expiry }}</div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;padding:14px 4px;font-size:13px;color:#6B6577;min-width:max-content">
+            <div>Showing 1–12 of 526</div>
+            <div style="margin-left:auto;display:flex;gap:6px">
+              <div style="height:32px;padding:0 12px;border-radius:8px;border:1px solid #E7E2ED;background:#fff;display:flex;align-items:center;font-size:13px;cursor:pointer">Previous</div>
+              <div style="height:32px;padding:0 12px;border-radius:8px;border:1px solid #E7E2ED;background:#fff;display:flex;align-items:center;font-size:13px;cursor:pointer">Next</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <sc-if value="{{ detailOpen }}" hint-placeholder-val="{{ false }}">
+        <div style="width:430px;flex:none;background:#FFFFFF;border-left:1px solid #E7E2ED;display:flex;flex-direction:column;position:sticky;top:105px;height:calc(100vh - 105px);overflow-y:auto">
+          <div style="padding:18px 22px 0;display:flex;align-items:flex-start;gap:14px">
+            <div style="width:72px;height:88px;border-radius:8px;flex:none;background-color:#EFEBF4;background-image:repeating-linear-gradient(135deg,rgba(46,6,69,0.07) 0 5px,transparent 5px 10px);display:flex;align-items:flex-end;justify-content:center;padding-bottom:6px">
+              <div style="letter-spacing:0.01em;font-size:9px;letter-spacing:0.06em;color:#6B6577">Photo</div>
+            </div>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:19px;font-weight:500;line-height:25px">{{ detailName }}</div>
+              <div style="letter-spacing:0.01em;font-size:12px;color:#6B6577;margin-top:2px">{{ detailCode }} · {{ detailPhone }}</div>
+              <div style="display:inline-flex;align-items:center;gap:6px;padding:3px 10px 3px 8px;border-radius:100px;margin-top:8px;background:{{ detailChipBg }};color:{{ detailChipFg }}">
+                <span style="font-size:10px;font-weight:700">{{ detailChipIcon }}</span>
+                <span style="font-size:12px;font-weight:500">{{ detailChipLabel }}</span>
+              </div>
+            </div>
+            <div onClick="{{ closeDetail }}" style="font-size:17px;color:#6B6577;cursor:pointer;line-height:17px">✕</div>
+          </div>
+
+          <div style="padding:16px 22px 0">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px 16px;padding:14px 16px;border-radius:8px;background:#FAF8FC">
+              <sc-for list="{{ detailFacts }}" as="f" hint-placeholder-count="6">
+                <div>
+                  <div style="font-size:11px;color:#6B6577;line-height:15px">{{ f.k }}</div>
+                  <div style="font-size:13px;font-weight:500;line-height:18px">{{ f.v }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="padding:18px 22px 0">
+            <div style="font-size:11px;font-weight:500;letter-spacing:0.07em;color:#6B6577;text-transform:uppercase">Data completeness</div>
+            <div style="font-size:12.5px;color:#6B6577;margin-top:4px;line-height:18px">Against Maharashtra ruleset v3 · 6 of 8 complete</div>
+            <div style="display:flex;flex-direction:column;gap:1px;margin-top:10px">
+              <sc-for list="{{ checklist }}" as="c" hint-placeholder-count="8">
+                <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #E7E2ED">
+                  <div style="width:18px;height:18px;border-radius:100px;flex:none;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;background:{{ c.bg }};color:{{ c.fg }}">{{ c.icon }}</div>
+                  <div style="flex:1;font-size:13px;color:{{ c.labelColor }}">{{ c.label }}</div>
+                  <div style="font-size:12.5px;font-weight:500;color:{{ c.actionColor }};cursor:pointer">{{ c.action }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="padding:18px 22px 0">
+            <div style="font-size:11px;font-weight:500;letter-spacing:0.07em;color:#6B6577;text-transform:uppercase">Application timeline</div>
+            <div style="display:flex;flex-direction:column;margin-top:12px">
+              <sc-for list="{{ timeline }}" as="t" hint-placeholder-count="6">
+                <div style="display:grid;grid-template-columns:14px 1fr;gap:12px">
+                  <div style="display:flex;flex-direction:column;align-items:center">
+                    <div style="width:9px;height:9px;border-radius:100px;margin-top:5px;flex:none;background:{{ t.dot }}"></div>
+                    <div style="width:1px;flex:1;background:#E7E2ED"></div>
+                  </div>
+                  <div style="padding-bottom:14px">
+                    <div style="font-size:13.5px;font-weight:500;line-height:18px">{{ t.title }}</div>
+                    <div style="font-size:12px;color:#6B6577;line-height:17px">{{ t.meta }}</div>
+                    <div style="font-size:12.5px;color:#6B6577;line-height:18px">{{ t.note }}</div>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="padding:4px 22px 24px">
+            <div style="font-size:11px;font-weight:500;letter-spacing:0.07em;color:#6B6577;text-transform:uppercase;margin-bottom:10px">Documents</div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <sc-for list="{{ detailDocs }}" as="d" hint-placeholder-count="3">
+                <div style="display:flex;align-items:center;gap:11px;padding:10px 13px;border-radius:8px;border:1px solid #E7E2ED;cursor:pointer">
+                  <div style="width:26px;height:32px;border-radius:4px;background:#F1EFF4;flex:none;display:flex;align-items:center;justify-content:center;letter-spacing:0.01em;font-size:9px;color:#6B6577">{{ d.ext }}</div>
+                  <div style="flex:1;min-width:0">
+                    <div style="font-size:13px;font-weight:500;line-height:17px">{{ d.name }}</div>
+                    <div style="font-size:11px;color:#6B6577;line-height:15px">{{ d.meta }}</div>
+                  </div>
+                  <div style="font-size:12.5px;color:var(--brand-text);font-weight:500">View</div>
+                </div>
+              </sc-for>
+            </div>
+            <div style="margin-top:12px;font-size:12px;line-height:16px;color:#6B6577">Documents are immutable. A correction creates a new version; nothing is overwritten. Every view is written to the audit log.</div>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isOps }}" hint-placeholder-val="{{ false }}">
+    <div style="flex:1;display:flex;flex-direction:column;min-height:0">
+      <div style="display:flex;align-items:center;gap:4px;padding:14px 22px 0">
+        <sc-for list="{{ opsTabs }}" as="t" hint-placeholder-count="3">
+          <div onClick="{{ t.pick }}" style="{{ t.style }}">{{ t.label }}</div>
+        </sc-for>
+        <div style="margin-left:auto;display:flex;align-items:center;gap:10px">
+          <div style="font-size:12.5px;color:#6B6577">Operator: R. Deshmukh · Maharashtra portal</div>
+        </div>
+      </div>
+
+      <sc-if value="{{ opsQueue }}" hint-placeholder-val="{{ true }}">
+        <div style="flex:1;padding:16px 22px 48px;display:flex;gap:16px;align-items:flex-start;min-height:0">
+          <div style="flex:1;min-width:0;background:#FFFFFF;border-radius:12px;border:1px solid #E7E2ED;overflow:hidden">
+            <div style="display:flex;align-items:center;gap:14px;padding:16px 20px 13px;border-bottom:1px solid #E7E2ED">
+              <div style="font-size:15.5px;font-weight:500">Ready for submission</div>
+              <div style="letter-spacing:0.01em;font-size:12.5px;color:#6B6577">1,204 partners</div>
+              <div style="margin-left:auto;font-size:12.5px;color:#6B6577">Sorted by SLA urgency</div>
+            </div>
+            <div style="display:grid;grid-template-columns:34px 2fr 1.4fr 1.1fr 1.2fr 1fr;column-gap:16px;align-items:center;padding:10px 20px;border-bottom:1px solid #E7E2ED;background:#FAF8FC">
+              <div style="width:15px;height:15px;border-radius:4px;border:1.5px solid #C9C2D4;background:var(--brand-ink)"></div>
+              <div style="font-size:11px;font-weight:500;letter-spacing:0.06em;color:#6B6577;text-transform:uppercase">Partner</div>
+              <div style="font-size:11px;font-weight:500;letter-spacing:0.06em;color:#6B6577;text-transform:uppercase">Store</div>
+              <div style="font-size:11px;font-weight:500;letter-spacing:0.06em;color:#6B6577;text-transform:uppercase;text-align:right">Day of 14</div>
+              <div style="font-size:11px;font-weight:500;letter-spacing:0.06em;color:#6B6577;text-transform:uppercase">SLA</div>
+              <div style="font-size:11px;font-weight:500;letter-spacing:0.06em;color:#6B6577;text-transform:uppercase;text-align:right">Ready since</div>
+            </div>
+            <sc-for list="{{ queueRows }}" as="q" hint-placeholder-count="10">
+              <div style="display:grid;grid-template-columns:34px 2fr 1.4fr 1.1fr 1.2fr 1fr;column-gap:16px;align-items:center;padding:9px 20px;border-bottom:1px solid #E7E2ED;cursor:pointer;background:{{ q.bg }}">
+                <div style="{{ q.check }}">✓</div>
+                <div style="display:flex;align-items:center;gap:11px;min-width:0">
+                  <div style="width:30px;height:30px;border-radius:8px;flex:none;background-color:#EFEBF4;background-image:repeating-linear-gradient(135deg,rgba(46,6,69,0.07) 0 4px,transparent 4px 8px)"></div>
+                  <div style="min-width:0">
+                    <div style="font-size:13.5px;font-weight:500;line-height:18px">{{ q.name }}</div>
+                    <div style="letter-spacing:0.01em;font-size:12px;color:#6B6577">{{ q.code }}</div>
+                  </div>
+                </div>
+                <div style="font-size:13px">{{ q.store }}</div>
+                <div style="text-align:right;letter-spacing:0.01em;font-size:13px;font-weight:500;color:{{ q.dayColor }}">{{ q.day }}</div>
+                <div>
+                  <div style="display:inline-flex;padding:2px 9px;border-radius:100px;font-size:12px;font-weight:500;background:{{ q.slaBg }};color:{{ q.slaFg }}">{{ q.sla }}</div>
+                </div>
+                <div style="text-align:right;font-size:12.5px;color:#6B6577">{{ q.since }}</div>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="width:320px;flex:none;display:flex;flex-direction:column;gap:14px;position:sticky;top:120px">
+            <div style="background:var(--brand-ink);color:#fff;border-radius:12px;padding:18px 20px">
+              <div style="font-size:12px;letter-spacing:0.04em;color:rgba(255,255,255,0.55);text-transform:uppercase">Selection</div>
+              <div style="display:flex;align-items:baseline;gap:8px;margin-top:8px">
+                <div style="font-size:40px;line-height:44px;font-weight:500">50</div>
+                <div style="font-size:14px;color:rgba(255,255,255,0.55)">partners · ₹7,500 fee</div>
+              </div>
+              <div style="font-size:12.5px;color:rgba(255,255,255,0.44);line-height:18px;margin-top:6px">All Maharashtra. An operator works one portal at a time, so mixed-state batches are blocked.</div>
+              <div style="height:44px;border-radius:8px;background:var(--brand);display:flex;align-items:center;justify-content:center;font-size:14.5px;font-weight:500;margin-top:14px;cursor:pointer">Create batch &amp; export pack</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.44);line-height:16px;margin-top:10px">XLSX in the portal's exact field order + a ZIP of photos named by partner ID.</div>
+            </div>
+
+            <div style="background:#FFFFFF;border-radius:12px;border:1px solid #E7E2ED;padding:18px 20px">
+              <div style="font-size:14.5px;font-weight:500">Open batches</div>
+              <div style="display:flex;flex-direction:column;gap:1px;margin-top:12px">
+                <sc-for list="{{ batches }}" as="b" hint-placeholder-count="4">
+                  <div onClick="{{ b.open }}" style="padding:10px 0;border-bottom:1px solid #E7E2ED;cursor:pointer">
+                    <div style="display:flex;align-items:center;gap:8px">
+                      <div style="letter-spacing:0.01em;font-size:12px;font-weight:500">{{ b.id }}</div>
+                      <div style="margin-left:auto;font-size:12px;font-weight:500;padding:2px 9px;border-radius:100px;background:{{ b.bg }};color:{{ b.fg }}">{{ b.status }}</div>
+                    </div>
+                    <div style="display:flex;height:5px;border-radius:100px;overflow:hidden;background:#EFEBF4;margin-top:8px;gap:1px">
+                      <div style="width:{{ b.doneW }};background:#0E7C4A"></div>
+                      <div style="width:{{ b.openW }};background:#D8D3E0"></div>
+                    </div>
+                    <div style="font-size:12px;color:#6B6577;margin-top:6px">{{ b.note }}</div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ opsMatch }}" hint-placeholder-val="{{ false }}">
+        <div style="flex:1;padding:16px 22px 48px;display:flex;flex-direction:column;gap:14px">
+
+          <div style="background:#FFFFFF;border-radius:12px;border:1px solid #E7E2ED;padding:18px 22px;display:flex;align-items:center;gap:22px">
+            <div style="flex:1;min-width:420px">
+              <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                <div style="font-size:16px;font-weight:500;white-space:nowrap">Match review</div>
+                <div style="letter-spacing:0.01em;font-size:12px;color:#6B6577;white-space:nowrap">BATCH-2026-0812 · 50 partners</div>
+              </div>
+              <div style="font-size:13px;color:#6B6577;line-height:19px;margin-top:4px">47 files dropped in. Nothing is attached to a partner until you commit — and anything ambiguous stays on this screen until you resolve it by hand.</div>
+            </div>
+            <div style="display:flex;gap:22px;flex:none;white-space:nowrap">
+              <sc-for list="{{ matchStats }}" as="m" hint-placeholder-count="4">
+                <div style="text-align:right">
+                  <div style="font-size:26px;line-height:32px;font-weight:500;color:{{ m.color }}">{{ m.value }}</div>
+                  <div style="font-size:12px;color:#6B6577">{{ m.label }}</div>
+                </div>
+              </sc-for>
+            </div>
+            <div style="flex:none;display:flex;flex-direction:column;gap:8px;align-items:stretch;min-width:190px">
+              <div style="{{ commitStyle }}">Commit 44 matched</div>
+              <div style="font-size:12px;color:#6B6577;line-height:16px;text-align:center">{{ commitNote }}</div>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+            <div style="background:#FDF1DC;border:1px solid #EDD3A3;border-radius:12px;padding:16px 20px">
+              <div style="font-size:14.5px;font-weight:500;color:#7A4800">3 files need a decision</div>
+              <div style="font-size:13px;line-height:19px;color:#9A5B00;margin-top:3px">Two filenames don't follow the <span style="letter-spacing:0.01em;font-size:12px">{partner_id}_payslip.pdf</span> convention and one acknowledgement number matches two partners.</div>
+            </div>
+            <div style="background:#FFFFFF;border:1px solid #E7E2ED;border-radius:12px;padding:16px 20px;display:flex;align-items:center;gap:16px">
+              <div style="flex:1">
+                <div style="font-size:14.5px;font-weight:500">6 partners still outstanding</div>
+                <div style="font-size:13px;line-height:19px;color:#6B6577;margin-top:3px">In this batch, submitted but no payslip received. They stay Submitted and move to the chase list.</div>
+              </div>
+              <div style="height:36px;padding:0 14px;border-radius:8px;border:1px solid #E7E2ED;display:flex;align-items:center;font-size:13px;font-weight:500;cursor:pointer;flex:none">View list</div>
+            </div>
+          </div>
+
+          <div style="background:#FFFFFF;border-radius:12px;border:1px solid #E7E2ED;overflow:hidden">
+            <div style="display:flex;align-items:center;gap:6px;padding:12px 20px;border-bottom:1px solid #E7E2ED">
+              <sc-for list="{{ matchFilters }}" as="f" hint-placeholder-count="4">
+                <div onClick="{{ f.pick }}" style="{{ f.style }}">{{ f.label }}</div>
+              </sc-for>
+              <div style="margin-left:auto;font-size:12.5px;color:#6B6577">Drop more files anywhere on this table</div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:26px 2.1fr 1.5fr 2.2fr 1.5fr 1.2fr;column-gap:16px;align-items:center;padding:10px 20px;border-bottom:1px solid #E7E2ED;background:#FAF8FC">
+              <div></div>
+              <div style="font-size:11px;font-weight:500;letter-spacing:0.06em;color:#6B6577;text-transform:uppercase">File</div>
+              <div style="font-size:11px;font-weight:500;letter-spacing:0.06em;color:#6B6577;text-transform:uppercase">Read as</div>
+              <div style="font-size:11px;font-weight:500;letter-spacing:0.06em;color:#6B6577;text-transform:uppercase">Matched partner</div>
+              <div style="font-size:11px;font-weight:500;letter-spacing:0.06em;color:#6B6577;text-transform:uppercase">Outcome</div>
+              <div style="font-size:11px;font-weight:500;letter-spacing:0.06em;color:#6B6577;text-transform:uppercase;text-align:right">Confidence</div>
+            </div>
+
+            <sc-for list="{{ matchRows }}" as="m" hint-placeholder-count="8">
+              <div style="border-bottom:1px solid #E7E2ED;background:{{ m.rowBg }}">
+                <div style="display:grid;grid-template-columns:26px 2.1fr 1.5fr 2.2fr 1.5fr 1.2fr;column-gap:16px;align-items:center;padding:11px 20px">
+                  <div style="width:16px;height:16px;border-radius:100px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;background:{{ m.dotBg }};color:{{ m.dotFg }}">{{ m.dotIcon }}</div>
+                  <div style="min-width:0;padding-right:12px">
+                    <div style="letter-spacing:0.01em;font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ m.file }}</div>
+                    <div style="font-size:11px;color:#6B6577;line-height:15px">{{ m.size }}</div>
+                  </div>
+                  <div style="font-size:12.5px;color:#6B6577;padding-right:12px">{{ m.readAs }}</div>
+                  <div style="min-width:0;padding-right:12px">
+                    <div style="font-size:13px;font-weight:500;line-height:18px;color:{{ m.partnerColor }}">{{ m.partner }}</div>
+                    <div style="letter-spacing:0.01em;font-size:12px;color:#6B6577">{{ m.partnerMeta }}</div>
+                  </div>
+                  <div>
+                    <div style="display:inline-flex;align-items:center;gap:6px;padding:3px 10px 3px 8px;border-radius:100px;background:{{ m.outBg }};color:{{ m.outFg }}">
+                      <span style="font-size:10px;font-weight:700">{{ m.outIcon }}</span>
+                      <span style="font-size:12px;font-weight:500;white-space:nowrap">{{ m.outcome }}</span>
+                    </div>
+                  </div>
+                  <div style="text-align:right;letter-spacing:0.01em;font-size:12.5px;font-weight:500;color:{{ m.confColor }}">{{ m.conf }}</div>
+                </div>
+
+                <sc-if value="{{ m.needsWork }}" hint-placeholder-val="{{ false }}">
+                  <div style="padding:0 20px 14px 46px">
+                    <div style="border-radius:8px;background:#FFFFFF;border:1px solid #EDD3A3;padding:14px 16px">
+                      <div style="font-size:13px;font-weight:500;color:#7A4800">{{ m.problem }}</div>
+                      <div style="font-size:12.5px;line-height:18px;color:#6B6577;margin-top:2px">{{ m.problemDetail }}</div>
+                      <div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap">
+                        <sc-for list="{{ m.candidates }}" as="c" hint-placeholder-count="2">
+                          <div onClick="{{ c.pick }}" style="{{ c.style }}">
+                            <div style="width:28px;height:34px;border-radius:6px;flex:none;background-color:#EFEBF4;background-image:repeating-linear-gradient(135deg,rgba(46,6,69,0.07) 0 4px,transparent 4px 8px)"></div>
+                            <div style="min-width:0">
+                              <div style="font-size:13px;font-weight:500;line-height:17px">{{ c.name }}</div>
+                              <div style="letter-spacing:0.01em;font-size:12px;color:#6B6577">{{ c.meta }}</div>
+                            </div>
+                          </div>
+                        </sc-for>
+                        <div style="display:flex;align-items:center;gap:8px;margin-left:auto">
+                          <div style="height:34px;padding:0 14px;border-radius:8px;border:1px solid #E7E2ED;display:flex;align-items:center;font-size:12.5px;font-weight:500;cursor:pointer">Open file</div>
+                          <div style="height:34px;padding:0 14px;border-radius:8px;border:1px solid #E7E2ED;display:flex;align-items:center;font-size:12.5px;font-weight:500;cursor:pointer">Search all partners</div>
+                          <div style="height:34px;padding:0 14px;border-radius:8px;background:#F1EFF4;display:flex;align-items:center;font-size:12.5px;font-weight:500;cursor:pointer;color:#6B6577">Skip</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ opsRecord }}" hint-placeholder-val="{{ false }}">
+        <div style="flex:1;padding:16px 22px 48px;display:flex;gap:16px;align-items:flex-start">
+          <div style="flex:1;min-width:0;background:#FFFFFF;border-radius:12px;border:1px solid #E7E2ED;overflow:hidden">
+            <div style="padding:16px 20px 13px;border-bottom:1px solid #E7E2ED">
+              <div style="display:flex;align-items:center;gap:10px">
+                <div style="font-size:15.5px;font-weight:500">Record submission</div>
+                <div style="letter-spacing:0.01em;font-size:12px;color:#6B6577">BATCH-2026-0814 · 32 partners</div>
+              </div>
+              <div style="font-size:13px;color:#6B6577;line-height:19px;margin-top:3px">Key acknowledgement numbers as you go, or re-upload the exported sheet with the ack column filled in. Both write the same record.</div>
+            </div>
+            <div style="display:grid;grid-template-columns:2fr 1.5fr 1.2fr 1fr 1.1fr;column-gap:16px;align-items:center;padding:10px 20px;border-bottom:1px solid #E7E2ED;background:#FAF8FC">
+              <div style="font-size:11px;font-weight:500;letter-spacing:0.06em;color:#6B6577;text-transform:uppercase">Partner</div>
+              <div style="font-size:11px;font-weight:500;letter-spacing:0.06em;color:#6B6577;text-transform:uppercase">Acknowledgement no.</div>
+              <div style="font-size:11px;font-weight:500;letter-spacing:0.06em;color:#6B6577;text-transform:uppercase">Submitted on</div>
+              <div style="font-size:11px;font-weight:500;letter-spacing:0.06em;color:#6B6577;text-transform:uppercase;text-align:right">Fee</div>
+              <div style="font-size:11px;font-weight:500;letter-spacing:0.06em;color:#6B6577;text-transform:uppercase">Form PDF</div>
+            </div>
+            <sc-for list="{{ recordRows }}" as="r" hint-placeholder-count="7">
+              <div style="display:grid;grid-template-columns:2fr 1.5fr 1.2fr 1fr 1.1fr;column-gap:16px;align-items:center;padding:9px 20px;border-bottom:1px solid #E7E2ED">
+                <div style="display:flex;align-items:center;gap:11px;min-width:0">
+                  <div style="width:28px;height:28px;border-radius:7px;flex:none;background-color:#EFEBF4;background-image:repeating-linear-gradient(135deg,rgba(46,6,69,0.07) 0 4px,transparent 4px 8px)"></div>
+                  <div style="min-width:0">
+                    <div style="font-size:13.5px;font-weight:500;line-height:18px">{{ r.name }}</div>
+                    <div style="letter-spacing:0.01em;font-size:12px;color:#6B6577">{{ r.code }}</div>
+                  </div>
+                </div>
+                <div style="{{ r.ackStyle }}">{{ r.ack }}</div>
+                <div style="font-size:12.5px;color:#6B6577">{{ r.date }}</div>
+                <div style="text-align:right;letter-spacing:0.01em;font-size:12.5px">{{ r.fee }}</div>
+                <div style="font-size:12.5px;font-weight:500;color:{{ r.docColor }}">{{ r.doc }}</div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="width:300px;flex:none;background:#FFFFFF;border-radius:12px;border:1px solid #E7E2ED;padding:18px 20px">
+            <div style="font-size:14.5px;font-weight:500">Or re-upload the sheet</div>
+            <div style="margin-top:12px;border:1.5px dashed #C9C2D4;border-radius:8px;padding:26px 16px;text-align:center;background:#FAF8FC">
+              <div style="font-size:13px;font-weight:500">Drop BATCH-2026-0814.xlsx</div>
+              <div style="font-size:12px;color:#6B6577;line-height:17px;margin-top:4px">Validated against the batch, then previewed row by row before anything is written.</div>
+            </div>
+            <div style="margin-top:16px;padding-top:14px;border-top:1px solid #E7E2ED;font-size:12.5px;line-height:18px;color:#6B6577">A partial import is never committed silently. You get a validation report first and either accept all of it or none.</div>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isStore }}" hint-placeholder-val="{{ false }}">
+    <div style="flex:1;padding:24px 22px 64px;max-width:1180px;width:100%;margin:0 auto;display:flex;flex-direction:column;gap:16px">
+
+      <div style="display:flex;align-items:stretch;gap:16px">
+        <div style="flex:1;background:var(--brand-ink);color:#fff;border-radius:12px;padding:20px 24px;display:flex;align-items:center;gap:28px">
+          <div>
+            <div style="font-size:20px;font-weight:500;line-height:26px">Andheri East</div>
+            <div style="letter-spacing:0.01em;font-size:11px;color:rgba(255,255,255,0.44);letter-spacing:0.04em;margin-top:2px">DS-114 · Mumbai Suburban</div>
+          </div>
+          <div style="width:1px;align-self:stretch;background:rgba(255,255,255,0.14)"></div>
+          <div style="flex:1">
+            <div style="display:flex;align-items:baseline;gap:8px">
+              <div style="font-size:40px;line-height:44px;font-weight:500">44</div>
+              <div style="font-size:16px;color:rgba(255,255,255,0.55)">of 52 verified</div>
+            </div>
+            <div style="display:flex;height:6px;border-radius:100px;overflow:hidden;margin-top:10px;background:rgba(255,255,255,0.14);gap:2px;max-width:460px">
+              <div style="width:84.6%;background:#3DD68C"></div>
+              <div style="width:5.8%;background:#7AA2F7"></div>
+              <div style="width:7.7%;background:#F0B429"></div>
+              <div style="width:1.9%;background:#FF7A93"></div>
+            </div>
+          </div>
+          <div style="text-align:right;flex:none">
+            <div style="font-size:12.5px;color:rgba(255,255,255,0.55)">Last synced</div>
+            <div style="font-size:14px;font-weight:500">9:41 AM · just now</div>
+          </div>
+        </div>
+        <div style="width:220px;flex:none;background:var(--brand);color:#fff;border-radius:12px;padding:18px 20px;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer">
+          <div style="font-size:16px;font-weight:500;line-height:22px">Log a police visit</div>
+          <div style="font-size:12.5px;line-height:18px;color:rgba(255,255,255,0.85)">Last logged 22 Jul · Andheri Police Stn · evidence produced for 6 partners</div>
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <div style="display:flex;align-items:center;gap:10px;height:46px;padding:0 16px;border-radius:8px;background:#FFFFFF;border:1.5px solid #E7E2ED;min-width:420px">
+          <div style="font-size:16px;color:#6B6577">⌕</div>
+          <input placeholder="Search a partner by name, ID or phone" style="border:0;outline:0;background:transparent;font-size:15px;flex:1;color:#1C1721" />
+        </div>
+        <div style="display:flex;gap:8px">
+          <div style="padding:9px 16px;border-radius:100px;background:var(--brand-ink);color:#fff;font-size:13.5px;font-weight:500;cursor:pointer">All 52</div>
+          <div style="padding:9px 16px;border-radius:100px;background:#FDF1DC;color:#9A5B00;font-size:13.5px;font-weight:500;cursor:pointer">Action needed 4</div>
+          <div style="padding:9px 16px;border-radius:100px;background:#FFFFFF;border:1px solid #E7E2ED;color:#6B6577;font-size:13.5px;font-weight:500;cursor:pointer">Expiring 1</div>
+        </div>
+        <div style="margin-left:auto;display:flex;gap:8px">
+          <div style="height:40px;padding:0 16px;border-radius:8px;border:1px solid #E7E2ED;background:#fff;display:flex;align-items:center;font-size:13.5px;font-weight:500;cursor:pointer">Select partners</div>
+          <div style="height:40px;padding:0 16px;border-radius:8px;background:var(--brand-ink);color:#fff;display:flex;align-items:center;font-size:13.5px;font-weight:500;cursor:pointer">Download evidence pack</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 420px;gap:16px;align-items:start">
+        <div style="background:#FFFFFF;border-radius:12px;border:1px solid #E7E2ED;overflow:hidden">
+          <sc-for list="{{ storeRows }}" as="s" hint-placeholder-count="9">
+            <div onClick="{{ s.open }}" style="display:grid;grid-template-columns:44px 2fr 1.4fr 1.2fr;align-items:center;column-gap:16px;padding:11px 18px;border-bottom:1px solid #E7E2ED;cursor:pointer;background:{{ s.bg }}">
+              <div style="width:44px;height:44px;border-radius:8px;background-color:#EFEBF4;background-image:repeating-linear-gradient(135deg,rgba(46,6,69,0.07) 0 5px,transparent 5px 10px)"></div>
+              <div style="min-width:0">
+                <div style="font-size:15px;font-weight:500;line-height:20px">{{ s.name }}</div>
+                <div style="letter-spacing:0.01em;font-size:11px;color:#6B6577">{{ s.code }}</div>
+              </div>
+              <div>
+                <div style="display:inline-flex;align-items:center;gap:6px;padding:4px 11px 4px 9px;border-radius:100px;background:{{ s.chipBg }};color:{{ s.chipFg }}">
+                  <span style="font-size:11px;font-weight:700">{{ s.chipIcon }}</span>
+                  <span style="font-size:12.5px;font-weight:500;white-space:nowrap">{{ s.chipLabel }}</span>
+                </div>
+              </div>
+              <div style="text-align:right;font-size:12.5px;color:#6B6577">{{ s.note }}</div>
+            </div>
+          </sc-for>
+          <div style="padding:14px;text-align:center;font-size:13px;color:#6B6577">43 more partners</div>
+        </div>
+
+        <div style="background:#FFFFFF;border-radius:12px;border:1px solid #E7E2ED;padding:20px 22px;position:sticky;top:120px">
+          <div style="display:flex;gap:16px;align-items:flex-start">
+            <div style="width:92px;height:112px;border-radius:8px;flex:none;background-color:#EFEBF4;background-image:repeating-linear-gradient(135deg,rgba(46,6,69,0.07) 0 6px,transparent 6px 12px);display:flex;align-items:flex-end;justify-content:center;padding-bottom:8px">
+              <div style="letter-spacing:0.01em;font-size:10px;letter-spacing:0.06em;color:#6B6577">Partner photo</div>
+            </div>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:21px;font-weight:500;line-height:27px">Aarti Kamble</div>
+              <div style="letter-spacing:0.01em;font-size:12px;color:#6B6577;margin-top:2px">DP-10422</div>
+              <div style="font-size:13.5px;color:#6B6577;margin-top:6px">+91 98••• ••412</div>
+              <div style="font-size:12.5px;color:#6B6577;margin-top:6px;line-height:18px">Andheri East DS-114 · primary<br />Also at Vile Parle DS-131</div>
+            </div>
+          </div>
+
+          <div style="margin-top:16px;padding:14px 16px;border-radius:12px;background:#E7F6EE;border:1px solid #A9DCC0;display:flex;align-items:center;gap:12px">
+            <div style="width:32px;height:32px;border-radius:100px;background:#0E7C4A;color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;flex:none">✓</div>
+            <div>
+              <div style="font-size:16px;font-weight:500;color:#0B5E38;line-height:21px">Verified</div>
+              <div style="font-size:12.5px;color:#0E7C4A;line-height:18px">Valid until 14 Mar 2027</div>
+            </div>
+          </div>
+
+          <div style="margin-top:14px;border:1px solid #E7E2ED;border-radius:12px;overflow:hidden">
+            <sc-for list="{{ evidenceFacts }}" as="f" hint-placeholder-count="5">
+              <div style="display:flex;justify-content:space-between;gap:16px;padding:10px 14px;border-bottom:1px solid #E7E2ED">
+                <div style="font-size:12.5px;color:#6B6577;flex:none">{{ f.k }}</div>
+                <div style="font-size:12.5px;font-weight:500;text-align:right">{{ f.v }}</div>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:9px;margin-top:14px">
+            <sc-for list="{{ evidenceDocs }}" as="d" hint-placeholder-count="3">
+              <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:8px;border:1.5px solid #E7E2ED;cursor:pointer">
+                <div style="width:30px;height:38px;border-radius:5px;background:#F1EFF4;flex:none;display:flex;align-items:center;justify-content:center;letter-spacing:0.01em;font-size:10px;color:#6B6577">{{ d.ext }}</div>
+                <div style="flex:1;min-width:0">
+                  <div style="font-size:14px;font-weight:500;line-height:19px">{{ d.name }}</div>
+                  <div style="font-size:12px;color:#6B6577;line-height:16px">{{ d.meta }}</div>
+                </div>
+                <div style="font-size:13px;color:var(--brand-text);font-weight:500;flex:none">View</div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="margin-top:12px;font-size:12px;line-height:16px;color:#6B6577">Opens in a viewer, no download needed. Every view is logged with your name, store and time.</div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;brand&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;zepto&quot;,&quot;neutral&quot;],&quot;default&quot;:&quot;zepto&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Brand&quot;,&quot;label&quot;:&quot;Client theme&quot;},&quot;density&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Comfortable&quot;,&quot;Compact&quot;],&quot;default&quot;:&quot;Comfortable&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Display&quot;},&quot;maskGovtIds&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Display&quot;}}">
+const C = {
+  ink: '#1C1721', mute: '#6B6577', faint: '#6B6577',
+  green: '#0E7C4A', greenBg: '#E7F6EE',
+  blue: '#1D4ED8', blueBg: '#E8EEFD',
+  amber: '#9A5B00', amberBg: '#FDF1DC',
+  red: '#C2183C', redBg: '#FCE9ED',
+  greyBg: '#F1EFF4'
+};
+
+const CHIP = {
+  verified:  { bg: C.greenBg, fg: C.green, icon: '✓', label: 'Verified' },
+  submitted: { bg: C.blueBg,  fg: C.blue,  icon: '◐', label: 'Submitted' },
+  ready:     { bg: C.blueBg,  fg: C.blue,  icon: '◑', label: 'Ready to submit' },
+  incomplete:{ bg: C.amberBg, fg: C.amber, icon: '!', label: 'Data incomplete' },
+  rejected:  { bg: C.redBg,   fg: C.red,   icon: '✕', label: 'Rejected' },
+  expiring:  { bg: C.amberBg, fg: C.amber, icon: '◷', label: 'Expiring soon' },
+  expired:   { bg: C.redBg,   fg: C.red,   icon: '◷', label: 'Expired' },
+  na:        { bg: C.greyBg,  fg: C.faint, icon: '–', label: 'Not applicable' }
+};
+
+class Component extends DCLogic {
+  state = { screen: 'coverage', geoLevel: 'City', expanded: {}, detail: 1, view: 0, opsTab: 'match', matchFilter: 1, resolved: {} };
+
+  tab(id, label) {
+    const on = this.state.screen === id;
+    return 'display:flex;align-items:center;padding:0 16px;font-size:13.5px;font-weight:500;cursor:pointer;white-space:nowrap;'
+      + (on ? 'color:#FFFFFF;box-shadow:inset 0 -2px 0 var(--brand);' : 'color:rgba(255,255,255,0.55);');
+  }
+  pill(on) {
+    return 'height:30px;padding:0 14px;border-radius:100px;display:flex;align-items:center;font-size:12.5px;font-weight:500;cursor:pointer;'
+      + (on ? 'background:var(--brand-ink);color:#FFFFFF;' : 'background:#F1EFF4;color:#6B6577;');
+  }
+  opsTabStyle(on) {
+    return 'height:38px;padding:0 18px;border-radius:8px 8px 0 0;display:flex;align-items:center;font-size:13.5px;font-weight:500;cursor:pointer;'
+      + (on ? 'background:#FFFFFF;color:#1C1721;border:1px solid #E7E2ED;border-bottom-color:#FFFFFF;' : 'color:#6B6577;border:1px solid transparent;');
+  }
+  navItem(on) {
+    return 'display:flex;align-items:center;gap:8px;padding:8px 11px;border-radius:8px;font-size:13px;cursor:pointer;'
+      + (on ? 'background:var(--brand-ink);color:#FFFFFF;font-weight:500;' : 'color:#1C1721;');
+  }
+  checkbox(on) {
+    return 'width:15px;height:15px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;'
+      + (on ? 'background:var(--brand-ink);border:1.5px solid var(--brand-ink);' : 'background:transparent;border:1.5px solid #C9C2D4;color:transparent;');
+  }
+
+  renderVals() {
+    const s = this.state;
+    const set = (o) => this.setState(o);
+
+    const geoData = [
+      { name: 'Maharashtra', code: 'MH', level: 0, total: 8640, verified: 7206, progress: 708, action: 526, sla: 173, avg: 11.4 },
+      { name: 'Pune', code: 'PN', level: 1, total: 1980, verified: 1402, progress: 244, action: 288, sla: 96, avg: 16.2 },
+      { name: 'Nashik', code: 'NS', level: 1, total: 620, verified: 468, progress: 74, action: 61, sla: 24, avg: 13.8 },
+      { name: 'Thane', code: 'TH', level: 1, total: 1440, verified: 1210, progress: 128, action: 82, sla: 27, avg: 10.6 },
+      { name: 'Nagpur', code: 'NG', level: 1, total: 740, verified: 638, progress: 62, action: 33, sla: 9, avg: 9.9 },
+      { name: 'Mumbai Suburban', code: 'MS', level: 1, total: 2560, verified: 2288, progress: 148, action: 48, sla: 12, avg: 8.1 },
+      { name: 'Mumbai City', code: 'MC', level: 1, total: 1300, verified: 1200, progress: 52, action: 14, sla: 5, avg: 7.4 }
+    ];
+    const head = geoData[0];
+    const cities = geoData.slice(1).map(g => ({ ...g, pctNum: g.verified / g.total * 100 }))
+      .sort((a, b) => a.pctNum - b.pctNum);
+    const puneStores = [
+      { name: 'Kothrud', code: 'DS-402', total: 210, verified: 118, progress: 34, action: 58, sla: 26, avg: 19.8 },
+      { name: 'Hadapsar', code: 'DS-417', total: 188, verified: 121, progress: 27, action: 40, sla: 18, avg: 17.1 },
+      { name: 'Baner', code: 'DS-409', total: 164, verified: 122, progress: 21, action: 21, sla: 9, avg: 14.2 }
+    ];
+
+    const rowOf = (g, indent, expandable, open) => {
+      const pct = g.verified / g.total * 100;
+      return {
+        name: g.name, code: g.code || '',
+        total: g.total.toLocaleString('en-IN'),
+        verified: g.verified.toLocaleString('en-IN'),
+        progress: g.progress, action: g.action,
+        actionColor: g.action > 200 ? C.amber : C.ink,
+        pct: pct.toFixed(1) + '%',
+        barColor: pct < 75 ? '#C2183C' : pct < 90 ? '#9A5B00' : '#0E7C4A',
+        sla: g.sla, slaColor: g.sla > 50 ? C.red : C.mute,
+        avg: g.avg.toFixed(1),
+        indent: indent + 'px',
+        weight: g.level === 0 ? 500 : 400,
+        bg: g.level === 0 ? '#FAF8FC' : '#FFFFFF',
+        caret: expandable ? (open ? '▾' : '▸') : '',
+        toggle: expandable ? () => set({ expanded: { ...s.expanded, [g.name]: !open } }) : () => {}
+      };
+    };
+
+    const geoRows = [rowOf(head, 0, true, true)];
+    cities.forEach(c => {
+      const open = !!s.expanded[c.name];
+      geoRows.push(rowOf(c, 18, c.name === 'Pune', open));
+      if (c.name === 'Pune' && open) {
+        puneStores.forEach(st => geoRows.push(rowOf({ ...st, level: 2 }, 40, false, false)));
+      }
+    });
+
+    const trendVals = [41, 48, 54, 61, 66, 72, 77.3, 83.4];
+    const trend = trendVals.map((v, i) => ({
+      label: v.toFixed(0) + '%',
+      h: (v / 100 * 170).toFixed(0) + 'px',
+      color: i === trendVals.length - 1 ? 'var(--brand-ink)' : '#D8D3E0'
+    }));
+
+    const partnerData = [
+      { name: 'Sunil Waghmare', code: 'DP-10281', phone: '98•••412', store: 'Kothrud', city: 'Pune', chip: 'rejected', blocker: 'Address proof mismatch', days: 6, ack: 'MH/2026/44811', expiry: '—' },
+      { name: 'Aarti Kamble', code: 'DP-10422', phone: '98•••318', store: 'Andheri East', city: 'Mumbai Sub.', chip: 'verified', blocker: '—', days: 146, ack: 'MH/2026/31204', expiry: '14 Mar 2027' },
+      { name: 'Imran Shaikh', code: 'DP-10577', phone: '90•••771', store: 'Hadapsar', city: 'Pune', chip: 'incomplete', blocker: 'No photo, no address proof', days: 19, ack: '—', expiry: '—' },
+      { name: 'Rekha Pawar', code: 'DP-10604', phone: '77•••209', store: 'Baner', city: 'Pune', chip: 'submitted', blocker: 'Awaiting payslip · day 14', days: 14, ack: 'MH/2026/45120', expiry: '—' },
+      { name: 'Ganesh Jadhav', code: 'DP-10688', phone: '89•••640', store: 'Kothrud', city: 'Pune', chip: 'incomplete', blocker: 'Govt ID number missing', days: 22, ack: '—', expiry: '—' },
+      { name: 'Priya Sonawane', code: 'DP-10711', phone: '96•••155', store: 'Wagle Estate', city: 'Thane', chip: 'expiring', blocker: 'Renewal window opens today', days: 3, ack: 'MH/2025/18877', expiry: '4 Sep 2026' },
+      { name: 'Vikram Bhosale', code: 'DP-10745', phone: '70•••882', store: 'Vile Parle', city: 'Mumbai Sub.', chip: 'verified', blocker: '—', days: 91, ack: 'MH/2026/33940', expiry: '2 May 2027' },
+      { name: 'Nilesh Gaikwad', code: 'DP-10802', phone: '81•••430', store: 'Nashik Road', city: 'Nashik', chip: 'ready', blocker: 'In batch BATCH-2026-0814', days: 2, ack: '—', expiry: '—' },
+      { name: 'Shabana Qureshi', code: 'DP-10850', phone: '99•••067', store: 'Hadapsar', city: 'Pune', chip: 'expired', blocker: 'Lapsed 11 days ago', days: 11, ack: 'MH/2025/09912', expiry: '27 Jul 2026' },
+      { name: 'Rahul Deshpande', code: 'DP-10913', phone: '73•••514', store: 'Kharadi', city: 'Pune', chip: 'rejected', blocker: 'Photo below spec', days: 4, ack: 'MH/2026/44902', expiry: '—' },
+      { name: 'Meena Salunke', code: 'DP-10977', phone: '82•••398', store: 'Dharampeth', city: 'Nagpur', chip: 'verified', blocker: '—', days: 58, ack: 'MH/2026/38221', expiry: '9 Jun 2027' },
+      { name: 'Anil Chavan', code: 'DP-11020', phone: '94•••726', store: 'Baner', city: 'Pune', chip: 'submitted', blocker: 'Awaiting payslip · day 5', days: 5, ack: 'MH/2026/45188', expiry: '—' }
+    ];
+
+    const partnerRows = partnerData.map((p, i) => {
+      const c = CHIP[p.chip];
+      return {
+        ...p, chipBg: c.bg, chipFg: c.fg, chipIcon: c.icon, chipLabel: c.label,
+        daysColor: (p.chip === 'incomplete' && p.days > 14) || p.chip === 'submitted' && p.days >= 14 ? C.red : C.ink,
+        expiryColor: p.chip === 'expired' ? C.red : p.chip === 'expiring' ? C.amber : C.mute,
+        bg: s.detail === i ? 'var(--brand-tint)' : '#FFFFFF',
+        open: () => set({ detail: i })
+      };
+    });
+
+    const d = partnerData[s.detail] || partnerData[1];
+    const dc = CHIP[d.chip];
+
+    const queueData = [
+      { name: 'Sadiq Ansari', code: 'DP-11104', store: 'Kothrud', day: 16, since: '2 days' },
+      { name: 'Poonam Dhole', code: 'DP-11132', store: 'Hadapsar', day: 15, since: '1 day' },
+      { name: 'Kiran More', code: 'DP-11158', store: 'Kothrud', day: 14, since: '4 hours' },
+      { name: 'Tejas Kulkarni', code: 'DP-11190', store: 'Baner', day: 12, since: '1 day' },
+      { name: 'Farida Khan', code: 'DP-11204', store: 'Kharadi', day: 11, since: '3 days' },
+      { name: 'Om Patil', code: 'DP-11233', store: 'Wagle Estate', day: 9, since: '2 days' },
+      { name: 'Snehal Rane', code: 'DP-11266', store: 'Nashik Road', day: 7, since: '5 hours' },
+      { name: 'Arif Mulla', code: 'DP-11291', store: 'Dharampeth', day: 6, since: '1 day' },
+      { name: 'Deepa Nair', code: 'DP-11310', store: 'Vile Parle', day: 4, since: '6 hours' },
+      { name: 'Yash Thorat', code: 'DP-11344', store: 'Andheri East', day: 3, since: '2 hours' }
+    ];
+    const queueRows = queueData.map((q, i) => {
+      const over = q.day > 14, near = q.day >= 12 && q.day <= 14;
+      return {
+        ...q,
+        day: q.day + ' / 14',
+        dayColor: over ? C.red : near ? C.amber : C.ink,
+        sla: over ? 'Breached' : near ? 'Due now' : 'On track',
+        slaBg: over ? C.redBg : near ? C.amberBg : C.greenBg,
+        slaFg: over ? C.red : near ? C.amber : C.green,
+        check: this.checkbox(i < 6),
+        bg: i < 6 ? 'var(--brand-tint)' : '#FFFFFF'
+      };
+    });
+
+    const matchData = [
+      { file: 'DP-11104_payslip.pdf', size: '184 KB', readAs: 'Partner ID from filename', partner: 'Sadiq Ansari', partnerMeta: 'DP-11104 · MH/2026/45210', outcome: 'verified', conf: 'Exact' },
+      { file: 'DP-11132_payslip.pdf', size: '191 KB', readAs: 'Partner ID from filename', partner: 'Poonam Dhole', partnerMeta: 'DP-11132 · MH/2026/45211', outcome: 'verified', conf: 'Exact' },
+      { file: 'scan_0043.pdf', size: '2.1 MB', readAs: 'No ID in filename', partner: 'Not matched', partnerMeta: 'Ack no. read from page 1: MH/2026/452••', outcome: 'unresolved', conf: '—',
+        needsWork: true, problem: 'Filename gives us nothing usable',
+        problemDetail: 'OCR read a partial acknowledgement number off the scan. Two partners in this batch fit it.',
+        candidates: [{ name: 'Kiran More', meta: 'DP-11158 · MH/2026/45212' }, { name: 'Tejas Kulkarni', meta: 'DP-11190 · MH/2026/45219' }] },
+      { file: 'DP-11204_payslip.pdf', size: '176 KB', readAs: 'Partner ID from filename', partner: 'Farida Khan', partnerMeta: 'DP-11204 · MH/2026/45214', outcome: 'verified', conf: 'Exact' },
+      { file: 'MH-2026-45216_reject.pdf', size: '98 KB', readAs: 'Ack no. from filename', partner: 'Om Patil', partnerMeta: 'DP-11233 · MH/2026/45216', outcome: 'rejected', conf: 'Exact' },
+      { file: 'DP-1266_payslip.pdf', size: '188 KB', readAs: 'Partner ID from filename', partner: 'No partner DP-1266', partnerMeta: 'Closest in batch: DP-11266, Snehal Rane', outcome: 'unresolved', conf: 'Low',
+        needsWork: true, problem: 'Partner ID in the filename does not exist',
+        problemDetail: 'One digit short. DP-1266 belongs to nobody; DP-11266 is in this batch and has no payslip yet. We will not assume.',
+        candidates: [{ name: 'Snehal Rane', meta: 'DP-11266 · MH/2026/45217' }] },
+      { file: 'DP-11291_payslip.pdf', size: '203 KB', readAs: 'Partner ID from filename', partner: 'Arif Mulla', partnerMeta: 'DP-11291 · MH/2026/45218', outcome: 'verified', conf: 'Exact' },
+      { file: 'batch_payment_receipt.pdf', size: '412 KB', readAs: 'No partner reference', partner: 'Batch-level document', partnerMeta: 'Not a per-partner payslip', outcome: 'unresolved', conf: '—',
+        needsWork: true, problem: 'This looks like a batch payment receipt, not a payslip',
+        problemDetail: 'Attach it to the batch instead of a partner, or discard it.',
+        candidates: [{ name: 'Attach to BATCH-2026-0812', meta: 'Links to all 50 applications' }] }
+    ];
+
+    const OUT = {
+      verified:   { bg: C.greenBg, fg: C.green, icon: '✓', label: 'Verified' },
+      rejected:   { bg: C.redBg,   fg: C.red,   icon: '✕', label: 'Rejected · doc mismatch' },
+      unresolved: { bg: C.amberBg, fg: C.amber, icon: '?', label: 'Needs a decision' }
+    };
+    const filtered = matchData.filter(m => {
+      if (s.matchFilter === 1) return true;
+      if (s.matchFilter === 2) return !m.needsWork;
+      if (s.matchFilter === 3) return !!m.needsWork;
+      return m.outcome === 'rejected';
+    });
+    const matchRows = filtered.map((m, i) => {
+      const o = OUT[m.outcome];
+      const done = !!s.resolved[m.file];
+      const eff = done ? OUT.verified : o;
+      return {
+        ...m,
+        needsWork: m.needsWork && !done,
+        rowBg: m.needsWork && !done ? '#FEF8EC' : '#FFFFFF',
+        dotBg: m.needsWork && !done ? C.amberBg : C.greenBg,
+        dotFg: m.needsWork && !done ? C.amber : C.green,
+        dotIcon: m.needsWork && !done ? '?' : '✓',
+        partnerColor: m.needsWork && !done ? C.amber : C.ink,
+        outBg: eff.bg, outFg: eff.fg, outIcon: eff.icon, outcome: done ? 'Verified · resolved by you' : eff.label,
+        conf: done ? 'Manual' : m.conf,
+        confColor: m.conf === 'Exact' ? C.mute : C.amber,
+        candidates: (m.candidates || []).map(c => ({
+          ...c,
+          pick: () => set({ resolved: { ...s.resolved, [m.file]: c.name } }),
+          style: 'display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;border:1.5px solid #E7E2ED;background:#FFFFFF;cursor:pointer;min-width:210px;'
+        }))
+      };
+    });
+    const unresolvedCount = matchData.filter(m => m.needsWork && !s.resolved[m.file]).length;
+
+    const recordData = [
+      { name: 'Sadiq Ansari', code: 'DP-11104', ack: 'MH/2026/45210', date: '6 Aug 2026', fee: '₹150', doc: 'Attached', ok: true },
+      { name: 'Poonam Dhole', code: 'DP-11132', ack: 'MH/2026/45211', date: '6 Aug 2026', fee: '₹150', doc: 'Attached', ok: true },
+      { name: 'Kiran More', code: 'DP-11158', ack: 'MH/2026/45212', date: '6 Aug 2026', fee: '₹150', doc: 'Attached', ok: true },
+      { name: 'Tejas Kulkarni', code: 'DP-11190', ack: '', date: '—', fee: '—', doc: 'Upload', ok: false },
+      { name: 'Farida Khan', code: 'DP-11204', ack: 'MH/2026/45214', date: '7 Aug 2026', fee: '₹150', doc: 'Attached', ok: true },
+      { name: 'Om Patil', code: 'DP-11233', ack: '', date: '—', fee: '—', doc: 'Upload', ok: false },
+      { name: 'Snehal Rane', code: 'DP-11266', ack: 'MH/2026/45217', date: '7 Aug 2026', fee: '₹150', doc: 'Attached', ok: true }
+    ];
+
+    const storeData = [
+      { name: 'Aarti Kamble', code: 'DP-10422', chip: 'verified', note: 'Verified 14 Mar 2026' },
+      { name: 'Anil Chavan', code: 'DP-11020', chip: 'submitted', note: 'Submitted 2 Aug' },
+      { name: 'Deepa Nair', code: 'DP-11310', chip: 'ready', note: 'In ops queue' },
+      { name: 'Imran Shaikh', code: 'DP-10577', chip: 'incomplete', note: 'Photo, address proof' },
+      { name: 'Meena Salunke', code: 'DP-10977', chip: 'verified', note: 'Verified 9 Jun 2026' },
+      { name: 'Priya Sonawane', code: 'DP-10711', chip: 'expiring', note: 'Expires 4 Sep 2026' },
+      { name: 'Rahul Deshpande', code: 'DP-10913', chip: 'rejected', note: 'Photo below spec' },
+      { name: 'Vikram Bhosale', code: 'DP-10745', chip: 'verified', note: 'Verified 2 May 2026' },
+      { name: 'Yash Thorat', code: 'DP-11344', chip: 'ready', note: 'In ops queue' }
+    ];
+
+    return {
+      brand: this.props.brand ?? 'zepto',
+      isCoverage: s.screen === 'coverage', isPartners: s.screen === 'partners',
+      isOps: s.screen === 'ops', isStore: s.screen === 'store',
+      goCoverage: () => set({ screen: 'coverage' }), goPartners: () => set({ screen: 'partners' }),
+      goOps: () => set({ screen: 'ops' }), goStore: () => set({ screen: 'store' }),
+      tabCoverage: this.tab('coverage'), tabPartners: this.tab('partners'),
+      tabOps: this.tab('ops'), tabStore: this.tab('store'),
+
+      scopeChips: [
+        { k: 'State', v: 'Maharashtra' }, { k: 'City', v: 'All 6' },
+        { k: 'Cluster', v: 'All' }, { k: 'Store', v: 'All 218' }, { k: 'Status', v: 'All' }
+      ],
+
+      kpis: [
+        { label: 'Active partners in scope', value: '8,640', sub: '218 stores', color: C.ink, drill: () => set({ screen: 'partners' }) },
+        { label: 'Verified', value: '7,206', sub: 'valid documents on file', color: C.green, drill: () => set({ screen: 'partners' }) },
+        { label: 'In progress', value: '708', sub: '504 submitted, 204 ready', color: C.blue, drill: () => set({ screen: 'ops' }) },
+        { label: 'Action needed', value: '526', sub: '412 incomplete, 114 rejected', color: C.amber, drill: () => set({ screen: 'partners' }) },
+        { label: 'Past 14-day SLA', value: '173', sub: '2.0% of base · target <2%', color: C.red, drill: () => set({ screen: 'ops' }) }
+      ],
+
+      funnel: [
+        { label: 'Active partners', count: '8,640', pct: '100%', note: 'in mandated states', color: 'var(--brand-ink)', drill: () => set({ screen: 'partners' }) },
+        { label: 'Data complete', count: '8,228', pct: '95.2%', note: '412 incomplete', color: '#6B6577', drill: () => set({ screen: 'partners' }) },
+        { label: 'Submitted to portal', count: '7,824', pct: '90.6%', note: '404 awaiting batch', color: '#1D4ED8', drill: () => set({ screen: 'ops' }) },
+        { label: 'Outcome received', count: '7,320', pct: '84.7%', note: '504 outstanding', color: '#1D4ED8', drill: () => set({ screen: 'ops' }) },
+        { label: 'Verified', count: '7,206', pct: '83.4%', note: '114 rejected', color: '#0E7C4A', drill: () => set({ screen: 'partners' }) },
+        { label: 'Currently valid', count: '7,058', pct: '81.7%', note: '148 expired or expiring', color: '#C2183C', drill: () => set({ screen: 'partners' }) }
+      ],
+
+      trend, trendLabels: ['Jun 15', 'Jun 22', 'Jun 29', 'Jul 6', 'Jul 13', 'Jul 20', 'Jul 27', 'Aug 3'],
+
+      geoLevels: ['State', 'City', 'Cluster', 'Store'].map(l => ({
+        label: l, style: this.pill(s.geoLevel === l), pick: () => set({ geoLevel: l })
+      })),
+      geoRows,
+
+      cost: [
+        { label: 'Paid to date', value: '₹11.7L', sub: '7,824 submissions at ₹150' },
+        { label: 'Committed', value: '₹1.8L', sub: '1,204 ready to submit' },
+        { label: 'Forecast to 95%', value: '₹2.4L', sub: 'through 18 Sep 2026' }
+      ],
+
+      rejections: [
+        { label: 'Address proof mismatch', pct: '100%', count: 47, drill: () => set({ screen: 'partners' }) },
+        { label: 'Photo below spec', pct: '62%', count: 29, drill: () => set({ screen: 'partners' }) },
+        { label: 'Govt ID number invalid', pct: '45%', count: 21, drill: () => set({ screen: 'partners' }) },
+        { label: 'Name mismatch with ID', pct: '36%', count: 17, drill: () => set({ screen: 'partners' }) }
+      ],
+
+      savedViews: [
+        { label: 'Maharashtra — action needed', count: 526 },
+        { label: 'Expiring in 30 days', count: 148 },
+        { label: 'Past SLA, no application', count: 173 },
+        { label: 'Rejected, awaiting rework', count: 114 }
+      ].map((v, i) => ({ ...v, style: this.navItem(s.view === i), pick: () => set({ view: i }) })),
+
+      statusFilters: [
+        { label: 'Verified', count: '7,206', on: false }, { label: 'Submitted', count: 504, on: false },
+        { label: 'Ready to submit', count: 204, on: false }, { label: 'Data incomplete', count: 412, on: true },
+        { label: 'Rejected', count: 114, on: true }, { label: 'Expiring soon', count: 148, on: false },
+        { label: 'Expired', count: 52, on: false }
+      ].map(f => ({ ...f, box: this.checkbox(f.on) })),
+
+      riskFilters: [
+        { label: 'Past 14-day SLA', count: 173, on: true },
+        { label: 'Submitted over 12 days', count: 198, on: false },
+        { label: 'No photo on file', count: 287, on: false }
+      ].map(f => ({ ...f, box: this.checkbox(f.on) })),
+
+      partnerRows,
+      detailOpen: s.detail !== null,
+      closeDetail: () => set({ detail: null }),
+      detailName: d.name, detailCode: d.code, detailPhone: '+91 ' + d.phone,
+      detailChipBg: dc.bg, detailChipFg: dc.fg, detailChipIcon: dc.icon, detailChipLabel: dc.label,
+      detailFacts: [
+        { k: 'Primary store', v: d.store + ' · ' + d.city },
+        { k: 'Applicable ruleset', v: 'Maharashtra v3' },
+        { k: 'Onboarded', v: '12 Feb 2026' },
+        { k: 'Govt ID', v: 'Aadhaar ••••  ' + (d.code.slice(-4)) },
+        { k: 'Acknowledgement', v: d.ack },
+        { k: 'Consent recorded', v: '12 Feb 2026, in app' }
+      ],
+      checklist: [
+        { label: 'Full name', ok: true }, { label: 'Date of birth', ok: true },
+        { label: 'Phone', ok: true }, { label: 'Permanent address', ok: true },
+        { label: 'Current address', ok: true }, { label: 'Govt ID type and number', ok: true },
+        { label: 'Passport photo', ok: false, action: 'Request upload' },
+        { label: 'Address proof scan', ok: false, action: 'Request upload' }
+      ].map(c => ({
+        label: c.label,
+        icon: c.ok ? '✓' : '!',
+        bg: c.ok ? C.greenBg : C.amberBg,
+        fg: c.ok ? C.green : C.amber,
+        labelColor: c.ok ? C.mute : C.ink,
+        action: c.ok ? '' : c.action,
+        actionColor: 'var(--brand-text)'
+      })),
+      timeline: [
+        { title: 'Rejected — address proof mismatch', meta: '2 Aug 2026, 4:12 PM · Maharashtra portal', note: 'Utility bill address does not match the declared current address.', dot: C.red },
+        { title: 'Submitted', meta: '28 Jul 2026, 11:04 AM · R. Deshmukh · BATCH-2026-0791', note: 'Ack MH/2026/44811 · ₹150 paid', dot: C.blue },
+        { title: 'Ready for submission', meta: '26 Jul 2026, 9:31 AM · system', note: 'All ruleset v3 requirements met', dot: '#6B6577' },
+        { title: 'Photo uploaded', meta: '26 Jul 2026, 9:28 AM · S. Pawar, store manager', note: 'Captured on device at Kothrud DS-402', dot: '#6B6577' },
+        { title: 'Data incomplete', meta: '12 Feb 2026, 6:40 PM · system', note: 'Missing photo, address proof', dot: C.amber },
+        { title: 'Partner created', meta: '12 Feb 2026, 6:38 PM · bulk import', note: 'Row 84 of onboarding_feb.csv', dot: '#D8D3E0' }
+      ],
+      detailDocs: [
+        { ext: 'PDF', name: 'Submitted form', meta: 'v2 · 28 Jul 2026 · 240 KB' },
+        { ext: 'PDF', name: 'Payment payslip', meta: '28 Jul 2026 · 96 KB' },
+        { ext: 'JPG', name: 'Address proof', meta: 'Superseded 2 Aug · retained' }
+      ],
+
+      opsTabs: [
+        { id: 'queue', label: 'Work queue' }, { id: 'record', label: 'Record submission' },
+        { id: 'match', label: 'Match review · ' + unresolvedCount }
+      ].map(t => ({ label: t.label, style: this.opsTabStyle(s.opsTab === t.id), pick: () => set({ opsTab: t.id }) })),
+      opsQueue: s.opsTab === 'queue', opsRecord: s.opsTab === 'record', opsMatch: s.opsTab === 'match',
+
+      queueRows,
+      batches: [
+        { id: 'BATCH-2026-0812', status: 'Results in', bg: C.blueBg, fg: C.blue, doneW: '88%', openW: '12%', note: '44 of 50 resolved · ₹7,500 paid' },
+        { id: 'BATCH-2026-0814', status: 'Submitting', bg: C.amberBg, fg: C.amber, doneW: '16%', openW: '84%', note: '5 of 32 ack numbers keyed' },
+        { id: 'BATCH-2026-0809', status: 'Closed', bg: C.greenBg, fg: C.green, doneW: '100%', openW: '0%', note: '60 of 60 resolved · ₹9,000 paid' },
+        { id: 'BATCH-2026-0803', status: 'Chase', bg: C.redBg, fg: C.red, doneW: '72%', openW: '28%', note: '14 outstanding past 12 days' }
+      ].map(b => ({ ...b, open: () => set({ opsTab: 'match' }) })),
+
+      matchStats: [
+        { value: 47, label: 'Files dropped', color: C.ink },
+        { value: 44, label: 'Matched', color: C.green },
+        { value: unresolvedCount, label: 'Need a decision', color: unresolvedCount ? C.amber : C.green },
+        { value: 6, label: 'Still outstanding', color: C.mute }
+      ],
+      commitStyle: 'height:42px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:500;cursor:pointer;'
+        + (unresolvedCount ? 'background:#F1EFF4;color:#6B6577;' : 'background:var(--brand);color:#FFFFFF;'),
+      commitNote: unresolvedCount
+        ? 'Resolve the ' + unresolvedCount + ' flagged files first, or commit the matched ones and come back.'
+        : 'Everything is resolved. Committing writes 47 documents and 47 outcomes.',
+      matchFilters: [
+        { n: 1, label: 'All 47' }, { n: 2, label: 'Matched 44' },
+        { n: 3, label: 'Needs a decision ' + unresolvedCount }, { n: 4, label: 'Rejections 3' }
+      ].map(f => ({ label: f.label, style: this.pill(s.matchFilter === f.n), pick: () => set({ matchFilter: f.n }) })),
+      matchRows,
+
+      recordRows: recordData.map(r => ({
+        ...r,
+        ack: r.ack || 'Enter ack no.',
+        ackStyle: 'height:32px;display:flex;align-items:center;padding:0 11px;border-radius:8px;letter-spacing:0.01em;font-size:12px;margin-right:12px;'
+          + (r.ok ? 'background:transparent;color:#1C1721;' : 'background:#FFFFFF;border:1.5px solid #EDD3A3;color:#6B6577;'),
+        docColor: r.ok ? C.mute : 'var(--brand-text)'
+      })),
+
+      storeRows: storeData.map((r, i) => {
+        const c = CHIP[r.chip];
+        return { ...r, chipBg: c.bg, chipFg: c.fg, chipIcon: c.icon, chipLabel: c.label, bg: i === 0 ? 'var(--brand-tint)' : '#FFFFFF', open: () => {} };
+      }),
+      evidenceFacts: [
+        { k: 'Application no.', v: 'MH/2026/31204' },
+        { k: 'Submitted', v: '9 Mar 2026' },
+        { k: 'Verified', v: '14 Mar 2026' },
+        { k: 'Valid until', v: '14 Mar 2027' },
+        { k: 'Portal', v: 'Maharashtra Police Citizen Portal' }
+      ],
+      evidenceDocs: [
+        { ext: 'PDF', name: 'Submitted form', meta: '9 Mar 2026 · 2 pages · 240 KB' },
+        { ext: 'PDF', name: 'Payment payslip', meta: '9 Mar 2026 · ₹150 · 96 KB' },
+        { ext: 'PDF', name: 'Verification certificate', meta: '14 Mar 2026 · 1 page · 180 KB' }
+      ]
+    };
+  }
+}
+
+</script>
+</body>
+</html>
