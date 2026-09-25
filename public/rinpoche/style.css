@@ -882,11 +882,11 @@ h1 {
     filter: drop-shadow(0 26px 40px rgba(0, 0, 0, 0.72));
 }
 
-/* Floating Instagram Interaction Badge */
+/* Floating Instagram Interaction Badge - Always Visible */
 .team-ig-pill {
     position: absolute;
-    top: 14px;
-    right: 14px;
+    top: 16px;
+    right: 16px;
     background: rgba(22, 26, 27, 0.88);
     color: #FAF5EE;
     backdrop-filter: blur(8px);
@@ -901,22 +901,28 @@ h1 {
     display: inline-flex;
     align-items: center;
     gap: 7px;
-    opacity: 0;
-    transform: translateY(-6px);
-    transition: opacity 0.3s ease, transform 0.3s ease, background 0.2s ease;
+    opacity: 1; /* Always visible */
+    transform: translateY(0);
+    transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
-    pointer-events: none;
     z-index: 10;
 }
 
 .team-ig-pill svg {
     flex-shrink: 0;
     color: #E3A834;
+    transition: transform 0.25s ease;
 }
 
 .team-card-visual:hover .team-ig-pill {
-    opacity: 1;
-    transform: translateY(0);
+    background: rgba(26, 32, 33, 0.96);
+    border-color: rgba(227, 168, 52, 0.6);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.55), 0 0 14px rgba(227, 168, 52, 0.25);
+}
+
+.team-card-visual:hover .team-ig-pill svg {
+    transform: scale(1.12);
 }
 
 /* Member-Specific Graphic Offsets & Padding */
