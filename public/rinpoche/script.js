@@ -1,9 +1,39 @@
 document.addEventListener('DOMContentLoaded', () => {
     const bgLayer = document.getElementById('bg-layer');
     const monkImg = document.querySelector('.monk-img');
-    
+
+    // Respect users who prefer reduced motion
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Viewport-aware parallax factors — calmer on mobile
+    const getParallaxFactors = () => {
+        const w = window.innerWidth;
+        if (w <= 768) {
+            return { hero: 0.15, monk: -0.04, monkScale: 0 };
+        }
+        return { hero: 0.3, monk: -0.09, monkScale: 0.00015 };
+    };
+
+    let factors = getParallaxFactors();
+    window.addEventListener('resize', () => { factors = getParallaxFactors(); });
+
     // Parallax & fading effect on scroll
     window.addEventListener('scroll', () => {
+        if (prefersReducedMotion) {
+            // Still allow fade-out even with reduced motion
+            const scrollPosition = window.scrollY;
+            const windowHeight = window.innerHeight;
+            const fadeStart = windowHeight * 0.1;
+            const fadeEnd = windowHeight * 0.6;
+            let opacity = 1;
+            if (scrollPosition > fadeStart) {
+                opacity = 1 - ((scrollPosition - fadeStart) / (fadeEnd - fadeStart));
+            }
+            opacity = Math.max(0, Math.min(1, opacity));
+            bgLayer.style.opacity = opacity;
+            return;
+        }
+
         const scrollPosition = window.scrollY;
         const windowHeight = window.innerHeight;
         
@@ -25,18 +55,20 @@ document.addEventListener('DOMContentLoaded', () => {
         bgLayer.style.opacity = opacity;
         
         // Optional: Add a slight upward parallax movement to the text
-        const translateY = scrollPosition * 0.3;
+        const translateY = scrollPosition * factors.hero;
         bgLayer.style.transform = `translateX(-50%) translateY(-${translateY}px)`;
 
         // Monk parallax effect
         if (monkImg) {
-            // Negative value moves the image UP vertically faster than the scroll, 
-            // making it come further on top of the mountain image.
-            const monkTranslateY = scrollPosition * -0.09; 
-            // Scale up slightly as we scroll
-            const monkScale = 1 + (scrollPosition * 0.00015);
-            
-            monkImg.style.transform = `translateY(${monkTranslateY}px) scale(${monkScale})`;
+            const monkTranslateY = scrollPosition * factors.monk;
+            if (factors.monkScale > 0) {
+                // Desktop: translate + scale
+                const monkScale = 1 + (scrollPosition * factors.monkScale);
+                monkImg.style.transform = `translateY(${monkTranslateY}px) scale(${monkScale})`;
+            } else {
+                // Mobile: translate only, no scale to prevent overflow
+                monkImg.style.transform = `translateY(${monkTranslateY}px)`;
+            }
         }
     });
 
@@ -83,4 +115,3 @@ document.addEventListener('DOMContentLoaded', () => {
         window.addEventListener('load', updateThumb);
     });
 });
-

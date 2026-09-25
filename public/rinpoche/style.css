@@ -235,6 +235,8 @@ h1 {
     }
     .content-section {
         flex-direction: column;
+        margin-top: -50px;
+        padding-top: 50px;
     }
     .monk-container {
         justify-content: center;
@@ -389,17 +391,48 @@ h1 {
     transform: rotate(6deg);
 }
 
-/* Make it somewhat responsive */
+/* Tablet & Medium Screens — Horizontal Scroll Gallery */
 @media (max-width: 1000px) {
+    .gallery-section {
+        margin-top: 2rem;
+        padding: 0 0 2rem 0;
+    }
+    .hanging-line-container {
+        height: auto;
+    }
     .gallery-cards {
-        flex-wrap: wrap;
-        padding-top: 150px; /* lower to start below a simplified curve */
+        position: relative;
+        top: auto;
+        left: auto;
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap !important;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 18px;
+        padding: 10px 2rem 24px 2rem;
+        box-sizing: border-box;
+        scrollbar-width: none;
+    }
+    .gallery-cards::-webkit-scrollbar {
+        display: none;
     }
     .gallery-card {
-        width: 40%;
-        margin-bottom: 2rem;
+        flex: 0 0 260px !important;
+        width: 260px !important;
+        max-width: 260px !important;
+        scroll-snap-align: center;
+        margin: 0 !important;
         transform: rotate(0) !important;
-        margin-top: 0 !important;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+    }
+    .gallery-card img {
+        height: 200px;
+        object-fit: cover;
     }
     .hanging-line {
         display: none; /* hide the complex curve on small screens for simplicity */
@@ -979,8 +1012,11 @@ h1 {
     }
 
     .team-section-title {
-        font-size: 2.2rem;
+        font-size: clamp(1.8rem, 6.5vw, 2.2rem);
+        line-height: 1.12;
+        letter-spacing: 1.5px;
         margin-bottom: 1.5rem;
+        text-wrap: balance;
     }
 
     .team-grid {
@@ -1000,9 +1036,9 @@ h1 {
     }
 
     .team-card--eksha .team-card-content {
-        width: 90%;
-        max-width: 100%;
-        padding: 135px 22px 34px 22px;
+        width: 92%;
+        max-width: 420px;
+        padding: 130px 20px 32px 20px;
     }
 
     .team-card--deepak .team-card-visual {
@@ -1010,23 +1046,32 @@ h1 {
     }
 
     .team-card--deepak .team-card-content {
-        width: 90%;
-        max-width: 100%;
-        padding: 95px 22px 34px 22px;
+        width: 92%;
+        max-width: 420px;
+        padding: 95px 20px 32px 20px;
     }
 
     .team-bio-text {
-        font-size: 0.95rem;
+        font-size: 0.92rem;
         line-height: 1.62;
+        text-wrap: pretty;
     }
 
     .team-ig-pill {
-        opacity: 0.9;
+        opacity: 0.95;
         transform: translateY(0);
-        top: 8px;
-        right: 8px;
-        font-size: 0.7rem;
-        padding: 4px 10px;
+        top: 10px;
+        right: 10px;
+        font-size: 0.72rem;
+        padding: 6px 12px;
+        min-height: 32px;
+        background: rgba(18, 16, 14, 0.78);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
     }
 }
 
@@ -1701,3 +1746,733 @@ h1 {
     }
 }
 
+/* ==========================================================================
+   RESPONSIVE — Mobile Phones (max-width: 768px)
+   Intentionally placed AFTER all existing section-specific breakpoints
+   so these rules cascade correctly. Does NOT duplicate team-section rules
+   (already handled in the inline 768px block above).
+   ========================================================================== */
+@media (max-width: 768px) {
+
+    /* --- Base Font Smoothing & Typographic Polish --- */
+    body, html {
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    h1, h2, h3, .day-main-title, .reservation-heading, .team-section-title {
+        text-wrap: balance;
+    }
+
+    /* --- Hero / Opening Experience ---
+       Recompose the header, reduce title size, let description
+       reflow naturally by hiding forced <br> breaks.
+       ---------------------------------------- */
+    .background-layer {
+        padding: 24px 20px;
+    }
+
+    header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+        width: 100%;
+        gap: 12px;
+        font-weight: 300;
+        letter-spacing: 0.3px;
+        opacity: 0.88;
+    }
+
+    .header-left {
+        font-size: clamp(0.68rem, 2.5vw, 0.80rem);
+        text-align: left;
+        line-height: 1.35;
+        white-space: nowrap;
+    }
+
+    .header-right {
+        font-size: clamp(0.64rem, 2.3vw, 0.76rem);
+        text-align: right;
+        line-height: 1.35;
+        opacity: 0.75;
+    }
+
+    .text-content {
+        flex-grow: 1;
+        justify-content: flex-start;
+        padding-top: 1rem;
+        margin-top: 0;
+        max-width: 100%;
+    }
+
+    .foreground-layer {
+        margin-top: 68vh;
+    }
+
+    .hero-kicker {
+        font-size: 0.72rem;
+        letter-spacing: 2.5px;
+        margin-bottom: 0.75rem;
+        font-weight: 600;
+    }
+
+    h1 {
+        font-size: clamp(2.0rem, 7.2vw, 2.75rem);
+        letter-spacing: 1px;
+        line-height: 1.08;
+        margin-bottom: 14px;
+        text-wrap: balance;
+    }
+
+    .description {
+        font-size: 0.88rem;
+        line-height: 1.6;
+        margin-bottom: 14px;
+        max-width: 440px;
+        text-wrap: pretty;
+    }
+
+    /* Remove forced line breaks so text reflows naturally on narrow viewports */
+    .description br {
+        display: none;
+    }
+
+    .highlight {
+        font-size: 0.88rem;
+        line-height: 1.48;
+        text-wrap: balance;
+    }
+
+    /* --- Monk / Rinpoche Section ---
+       Already stacked by the 900px breakpoint. Here we refine
+       image sizing, spacing, and typography for phone.
+       ---------------------------------------- */
+    .content-section {
+        margin-top: -30px;
+        padding-top: 30px;
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+        padding-bottom: 1rem;
+    }
+
+    .monk-container {
+        margin-top: -20px;
+    }
+
+    .monk-img {
+        width: 88%;
+        max-width: 370px;
+        margin: 0 auto;
+        display: block;
+    }
+
+    .text-container {
+        margin-top: 8px;
+        padding: 0;
+        text-align: center;
+    }
+
+    .text-container h2 {
+        font-size: clamp(1.8rem, 6.5vw, 2.2rem);
+        letter-spacing: 1.5px;
+        line-height: 1.12;
+        margin-bottom: 14px;
+        text-wrap: balance;
+    }
+
+    .text-container p {
+        font-size: 0.92rem;
+        line-height: 1.62;
+        max-width: 440px;
+        margin: 0 auto 14px auto;
+        color: #332b25;
+        text-wrap: pretty;
+    }
+
+    .text-container .monk-highlight {
+        font-size: 0.76rem;
+        letter-spacing: 2px;
+        line-height: 1.5;
+        margin-top: 0;
+        margin-bottom: 0;
+        color: #55483c;
+        text-wrap: balance;
+    }
+
+    /* --- Gallery Section (Horizontal Stacking on Mobile) ---
+       Stacks Rinpoche images horizontally with touch swipe and snap.
+       Zero margin-top ensures seamless join with monk section (NO orange line).
+       ---------------------------------------- */
+    .gallery-section {
+        margin-top: 0; /* SEAMLESS JOIN — NO ORANGE GAP */
+        padding: 0.75rem 0 2rem 0;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .gallery-section::after {
+        content: "SWIPE TO EXPLORE →";
+        display: block;
+        text-align: center;
+        font-family: 'Space Mono', monospace;
+        font-size: 0.64rem;
+        letter-spacing: 2.2px;
+        color: #8a7b6e;
+        margin-top: 8px;
+        margin-bottom: 0;
+        text-transform: uppercase;
+        opacity: 0.85;
+    }
+
+    .hanging-line-container {
+        height: auto;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .gallery-cards {
+        position: relative;
+        top: auto;
+        left: auto;
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap !important;
+        align-items: stretch;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 14px;
+        padding: 4px 1.25rem 14px 1.25rem;
+        box-sizing: border-box;
+        scrollbar-width: none;
+    }
+
+    .gallery-cards::-webkit-scrollbar {
+        display: none;
+    }
+
+    .gallery-card {
+        flex: 0 0 240px !important;
+        width: 240px !important;
+        max-width: 240px !important;
+        scroll-snap-align: start;
+        margin: 0 !important;
+        transform: none !important;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+        background: #fdf6ec;
+        border-radius: 8px;
+        padding: 0.85rem;
+        box-sizing: border-box;
+    }
+
+    .gallery-card img {
+        width: 100%;
+        height: 195px;
+        object-fit: cover;
+        border-radius: 5px;
+        display: block;
+    }
+
+    .gallery-card:hover {
+        transform: none !important;
+    }
+
+    .card-clip {
+        display: none;
+    }
+
+    .card-caption h3 {
+        font-size: 1.12rem;
+        letter-spacing: 1.5px;
+        line-height: 1.2;
+        margin-bottom: 4px;
+    }
+
+    .card-caption p {
+        font-size: 0.82rem;
+        line-height: 1.4;
+        color: #6e6155;
+    }
+
+    /* --- Frieze Divider --- */
+    .frieze-section-divider {
+        height: 16px;
+        background-size: 16px 16px;
+    }
+
+    /* --- Itinerary Cover ---
+       Harmonized heading scale, refined statement, responsive map.
+       ---------------------------------------- */
+    .itinerary-cover-section {
+        padding: 36px 0 2rem;
+    }
+
+    .journey-heading-container {
+        padding: 0 1.25rem;
+    }
+
+    .journey-heading-container h2 {
+        font-size: clamp(1.8rem, 6.5vw, 2.2rem);
+        line-height: 1.12;
+        margin-bottom: 14px;
+        letter-spacing: 2px;
+        text-wrap: balance;
+    }
+
+    .journey-intro {
+        font-size: 0.92rem;
+        line-height: 1.62;
+        margin-bottom: 16px;
+        max-width: 480px;
+        margin-left: auto;
+        margin-right: auto;
+        text-wrap: pretty;
+    }
+
+    .journey-statement {
+        font-size: 0.74rem;
+        letter-spacing: 1.8px;
+        line-height: 1.55;
+        margin-bottom: 24px;
+        max-width: 320px;
+        margin-left: auto;
+        margin-right: auto;
+        text-wrap: balance;
+    }
+
+    .journey-progress-indicator {
+        margin-bottom: 32px;
+        padding: 0 1rem;
+    }
+
+    .journey-map-cover {
+        width: 160vw;
+    }
+
+    /* --- Day Blocks ---
+       Reduce vertical gaps and tighten typography
+       for the stacked single-column layout.
+       ---------------------------------------- */
+    .editorial-itinerary {
+        padding-bottom: 4rem;
+    }
+
+    .itinerary-days-container {
+        padding: 0 1.25rem;
+        gap: 3.25rem;
+    }
+
+    .day-block {
+        gap: 16px;
+    }
+
+    .day-label {
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.6px;
+        padding: 4px 14px;
+        border-radius: 999px;
+        margin-bottom: 0.85rem;
+        display: inline-block;
+    }
+
+    .day-main-title {
+        font-size: 1.45rem;
+        line-height: 1.18;
+        margin-bottom: 0.45rem;
+        letter-spacing: 0.2px;
+        text-wrap: balance;
+    }
+
+    .day-hook {
+        font-size: 0.88rem;
+        line-height: 1.4;
+        margin-bottom: 0.65rem;
+        color: #C9522E;
+        font-weight: 600;
+    }
+
+    .day-paragraph {
+        font-size: 0.88rem;
+        line-height: 1.62;
+        margin-bottom: 1.15rem;
+        color: #3A322B;
+        text-wrap: pretty;
+    }
+
+    .day-stats-highlights {
+        margin-top: 0;
+        padding-top: 0;
+    }
+
+    .stats-label {
+        font-size: 0.74rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+        color: #786C60;
+        margin-bottom: 0.5rem;
+    }
+
+    .stats-pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .stat-pill {
+        font-size: 0.75rem;
+        padding: 5px 11px;
+        border-radius: 6px;
+        border: 1px solid rgba(74, 52, 35, 0.12);
+        background: rgba(255, 255, 255, 0.75);
+    }
+
+    .space-pause-box {
+        margin-top: 0.5rem;
+        padding: 0.7rem 0.95rem;
+        border-left: 3px solid #C9522E;
+        background: rgba(255, 255, 255, 0.65);
+        border-radius: 0 8px 8px 0;
+    }
+
+    .pause-tag {
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 1.2px;
+        text-transform: uppercase;
+        color: #C9522E;
+        margin-bottom: 3px;
+    }
+
+    .pause-desc {
+        font-size: 0.80rem;
+        line-height: 1.48;
+        color: #4A3F35;
+    }
+
+    .day-image-gallery {
+        margin-left: -1.25rem;
+        margin-right: -1.25rem;
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+        width: calc(100% + 2.5rem);
+        gap: 14px;
+        padding-top: 4px;
+        padding-bottom: 8px;
+    }
+
+    .day-card {
+        flex: 0 0 190px;
+        height: 265px;
+        border-radius: 12px;
+    }
+
+    .day-scroll-track {
+        height: 4px;
+        margin-top: 10px;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    /* --- Reservation Section ---
+       Tighter eyebrow, smaller card padding,
+       refined detail rows for narrow viewports.
+       ---------------------------------------- */
+    .reservation-section {
+        padding-bottom: 3.5rem;
+    }
+
+    .reservation-inner {
+        padding: 2.25rem 1.25rem 0;
+    }
+
+    .reservation-eyebrow {
+        gap: 8px;
+        margin-bottom: 1rem;
+    }
+
+    .reservation-eyebrow .eyebrow-text {
+        font-size: 0.64rem;
+        letter-spacing: 1.6px;
+        font-weight: 600;
+        text-align: center;
+        color: #E8D0BE;
+    }
+
+    .reservation-eyebrow .eyebrow-line {
+        width: 14px;
+    }
+
+    .reservation-heading {
+        font-size: clamp(1.8rem, 6.5vw, 2.25rem);
+        line-height: 1.15;
+        letter-spacing: -0.3px;
+        margin-bottom: 12px;
+        text-wrap: balance;
+    }
+
+    .reservation-subheading {
+        font-size: 0.80rem;
+        letter-spacing: 0.2px;
+        line-height: 1.55;
+        margin-bottom: 2.25rem;
+        max-width: 360px;
+        color: #F2E4D6;
+        text-wrap: balance;
+    }
+
+    .pricing-cards-container {
+        gap: 30px;
+    }
+
+    .pricing-card {
+        padding: 30px 20px 26px;
+        max-width: 100%;
+        border-radius: 16px;
+    }
+
+    .pricing-card-title {
+        font-size: 1.4rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .detail-label {
+        font-size: 0.80rem;
+    }
+
+    .detail-value {
+        font-size: 0.82rem;
+        font-weight: 500;
+    }
+
+    .pricing-detail-row {
+        padding: 10px 0;
+    }
+
+    .cost-value {
+        font-size: 1.75rem;
+        letter-spacing: -0.5px;
+    }
+
+    .booking-notice-item {
+        font-size: 0.74rem;
+        line-height: 1.55;
+    }
+
+    .reserve-cta-btn {
+        padding: 14px 20px;
+        font-size: 0.92rem;
+        border-radius: 10px;
+        font-weight: 700;
+        min-height: 48px;
+    }
+
+    .card-founding-badge {
+        font-size: 0.62rem;
+        letter-spacing: 1.5px;
+        padding: 5px 15px;
+        top: -13px;
+    }
+
+    /* --- Footer ---
+       Tighter typography and spacing for single-column layout
+       (already stacked by the 900px breakpoint).
+       ---------------------------------------- */
+    .footer-inner {
+        padding: 2.75rem 1.25rem 2rem;
+    }
+
+    .footer-logo {
+        font-size: 1.15rem;
+        letter-spacing: 2px;
+    }
+
+    .footer-desc {
+        font-size: 0.85rem;
+        line-height: 1.65;
+        max-width: 100%;
+        text-wrap: pretty;
+        color: #A5A39E;
+    }
+
+    .footer-coords {
+        font-size: 0.72rem;
+        letter-spacing: 1px;
+        flex-wrap: wrap;
+        color: #C9A87C;
+    }
+
+    .footer-heading {
+        font-size: 0.72rem;
+        letter-spacing: 2.5px;
+        color: #D8D4CC;
+    }
+
+    .footer-nav a {
+        font-size: 0.86rem;
+        padding: 4px 0;
+        color: #BDBAB2;
+    }
+
+    .footer-inquiry-text {
+        font-size: 0.82rem;
+    }
+
+    .footer-wa-link {
+        font-size: 0.84rem;
+        padding: 11px 18px;
+        min-height: 46px;
+        border-radius: 8px;
+        font-weight: 600;
+    }
+
+    .footer-batch-table {
+        font-size: 0.70rem;
+    }
+
+    .footer-motto {
+        font-size: 0.7rem;
+        letter-spacing: 1.5px;
+    }
+
+    .footer-copy {
+        font-size: 0.75rem;
+    }
+
+    .batch-row {
+        grid-template-columns: 125px 10px 1fr;
+    }
+
+    /* --- Deckle SVGs --- */
+    .deckle-svg {
+        height: 36px;
+    }
+}
+
+/* ==========================================================================
+   RESPONSIVE — Very Small Phones (max-width: 380px)
+   Handles 320px–375px edge cases where even the phone
+   breakpoint values are too generous.
+   ========================================================================== */
+@media (max-width: 380px) {
+    .background-layer {
+        padding: 20px 14px;
+    }
+
+    .header-left {
+        font-size: 0.65rem;
+    }
+
+    .header-right {
+        font-size: 0.62rem;
+    }
+
+    h1 {
+        font-size: 2.05rem;
+    }
+
+    .description,
+    .highlight {
+        font-size: 0.85rem;
+    }
+
+    .hero-kicker {
+        font-size: 0.65rem;
+        letter-spacing: 2px;
+    }
+
+    .gallery-card {
+        flex: 0 0 215px !important;
+        width: 215px !important;
+        max-width: 215px !important;
+    }
+
+    .day-card {
+        flex: 0 0 165px;
+        height: 235px;
+    }
+
+    .pricing-card {
+        padding: 26px 15px 22px;
+    }
+
+    .detail-label,
+    .detail-value {
+        font-size: 0.72rem;
+    }
+
+    .cost-value {
+        font-size: 1.55rem;
+    }
+
+    .batch-row {
+        grid-template-columns: 110px 8px 1fr;
+    }
+
+    .footer-batch-table {
+        font-size: 0.64rem;
+    }
+
+    .reservation-eyebrow .eyebrow-text {
+        font-size: 0.55rem;
+        letter-spacing: 1.2px;
+    }
+
+    .card-founding-badge {
+        font-size: 0.55rem;
+        padding: 4px 12px;
+        letter-spacing: 1.2px;
+    }
+
+    .monk-img {
+        width: 90%;
+        max-width: 320px;
+    }
+
+    .text-container h2 {
+        font-size: 1.65rem;
+    }
+
+    .journey-heading-container h2 {
+        font-size: 1.65rem;
+    }
+
+    .reservation-heading {
+        font-size: 1.65rem;
+    }
+
+    .team-section-title {
+        font-size: 1.65rem;
+    }
+}
+
+/* ==========================================================================
+   Accessibility — Reduced Motion
+   Disables transitions and animations for users who prefer reduced motion.
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+    .gallery-card,
+    .team-card-visual,
+    .pricing-card,
+    .reserve-cta-btn,
+    .day-card,
+    .day-card img,
+    .footer-nav a,
+    .footer-wa-link,
+    .team-graphic-img,
+    .team-ig-pill,
+    .team-ig-pill svg {
+        transition: none !important;
+    }
+
+    .hanging-line {
+        animation: none !important;
+    }
+}
