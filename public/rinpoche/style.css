@@ -840,11 +840,10 @@ h1 {
 
 .team-grid {
     display: flex;
-    justify-content: center;
-    align-items: stretch;
-    gap: 48px;
+    flex-direction: column;
+    align-items: center;
+    gap: 5.5rem;
     width: 100%;
-    flex-wrap: wrap;
 }
 
 .team-card {
@@ -861,22 +860,91 @@ h1 {
     max-width: 630px;
     position: relative;
     z-index: 4;
-    margin-bottom: -180px; /* Precise overlap with parchment card */
-    pointer-events: none;
+    display: block;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.team-card-visual:hover {
+    transform: translateY(-5px) scale(1.015);
 }
 
 .team-graphic-img {
     width: 100%;
     height: auto;
     display: block;
+    transition: filter 0.35s ease;
     filter: drop-shadow(0 18px 28px rgba(0, 0, 0, 0.55));
 }
 
-.team-card-content {
+.team-card-visual:hover .team-graphic-img {
+    filter: drop-shadow(0 26px 40px rgba(0, 0, 0, 0.72));
+}
+
+/* Floating Instagram Interaction Badge */
+.team-ig-pill {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: rgba(22, 26, 27, 0.88);
+    color: #FAF5EE;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    opacity: 0;
+    transform: translateY(-6px);
+    transition: opacity 0.3s ease, transform 0.3s ease, background 0.2s ease;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+    pointer-events: none;
+    z-index: 10;
+}
+
+.team-ig-pill svg {
+    flex-shrink: 0;
+    color: #E3A834;
+}
+
+.team-card-visual:hover .team-ig-pill {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Member-Specific Graphic Offsets & Padding */
+.team-card--eksha .team-card-visual {
+    margin-bottom: -180px; /* Overlaps lower bikes onto card */
+}
+
+.team-card--eksha .team-card-content {
     width: 82%;
     max-width: 520px;
-    background-color: #FAF6EF; /* Warm parchment matching mock */
-    padding: 200px 38px 46px 38px; /* Room for overlapping collage */
+    background-color: #FAF6EF;
+    padding: 200px 38px 46px 38px;
+    border-radius: 2px;
+    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.4);
+    position: relative;
+    z-index: 2;
+    box-sizing: border-box;
+}
+
+.team-card--deepak .team-card-visual {
+    margin-bottom: -115px; /* Overlaps compass badge onto card */
+}
+
+.team-card--deepak .team-card-content {
+    width: 82%;
+    max-width: 520px;
+    background-color: #FAF6EF;
+    padding: 135px 38px 46px 38px;
     border-radius: 2px;
     box-shadow: 0 20px 48px rgba(0, 0, 0, 0.4);
     position: relative;
@@ -909,24 +977,50 @@ h1 {
         margin-bottom: 1.5rem;
     }
 
+    .team-grid {
+        gap: 4rem;
+    }
+
     .team-card {
         max-width: 100%;
     }
 
     .team-card-visual {
         max-width: 100%;
+    }
+
+    .team-card--eksha .team-card-visual {
         margin-bottom: -120px;
     }
 
-    .team-card-content {
+    .team-card--eksha .team-card-content {
         width: 90%;
         max-width: 100%;
         padding: 135px 22px 34px 22px;
     }
 
+    .team-card--deepak .team-card-visual {
+        margin-bottom: -75px;
+    }
+
+    .team-card--deepak .team-card-content {
+        width: 90%;
+        max-width: 100%;
+        padding: 95px 22px 34px 22px;
+    }
+
     .team-bio-text {
         font-size: 0.95rem;
         line-height: 1.62;
+    }
+
+    .team-ig-pill {
+        opacity: 0.9;
+        transform: translateY(0);
+        top: 8px;
+        right: 8px;
+        font-size: 0.7rem;
+        padding: 4px 10px;
     }
 }
 
