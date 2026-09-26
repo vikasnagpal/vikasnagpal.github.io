@@ -452,104 +452,6 @@ h1 {
     padding-bottom: 8rem;
 }
 
-/* Day Blocks - 2 Column Editorial Layout matching Figma mock */
-
-.day-block {
-    display: grid;
-    grid-template-columns: 360px 1fr;
-    gap: 56px;
-    align-items: stretch;
-    position: relative;
-    min-height: 560px;
-}
-
-/* Left Column: Text & Stats */
-.day-text-container {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    height: 100%;
-}
-
-/* Right Column: Gallery & Scrollbar Track */
-.day-gallery-column {
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-}
-
-.day-image-gallery {
-    display: flex;
-    gap: 16px;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    padding: 2px 2px 6px 2px;
-    flex: 1;
-    min-height: 0;
-}
-
-.day-image-gallery::-webkit-scrollbar {
-    display: none;
-}
-
-.day-card {
-    flex: 0 0 265px;
-    height: 100%;
-    border-radius: 16px;
-    overflow: hidden;
-    scroll-snap-align: start;
-    position: relative;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-    transition: transform 0.35s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.35s ease;
-}
-
-.day-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.14);
-}
-
-.day-card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.6s ease;
-}
-
-.day-card:hover img {
-    transform: scale(1.05);
-}
-
-/* Custom scrollbar track matching Figma mock */
-.day-scroll-track {
-    width: 100%;
-    height: 5px;
-    background: #DFD5C8;
-    border-radius: 999px;
-    margin-top: 14px;
-    position: relative;
-    cursor: pointer;
-    flex-shrink: 0;
-}
-
-.day-scroll-thumb {
-    height: 100%;
-    width: 32%;
-    background: #787068;
-    border-radius: 999px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    transition: transform 0.1s ease-out;
-}
-
 /* UI Polish Updates */
 .journey-heading-container h2 {
     font-family: 'Oswald', sans-serif;
@@ -623,157 +525,1122 @@ h1 {
     opacity: 0.65;
 }
 
-.day-main-title {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    font-size: 1.85rem;
-    color: #1A1A1A;
-    margin: 0 0 0.85rem 0;
-    font-weight: 700;
-    letter-spacing: -0.4px;
-    line-height: 1.25;
-}
+/* ==========================================================================
+   Flipbook Itinerary Component (Handcrafted Digital Travel Journal)
+   ========================================================================== */
 
-.itinerary-days-container {
-    max-width: 1320px;
+.flipbook-container {
+    max-width: 1360px;
     margin: 0 auto;
-    padding: 0 3.5rem;
+    padding: 4.5rem 2rem 5rem;
+    position: relative;
+    background: linear-gradient(180deg, rgba(246, 241, 234, 0.88) 0%, rgba(246, 241, 234, 0.96) 100%), url('./Assets/flipbook/himalaya_mist_bg.jpg') center top / cover no-repeat;
+    border-radius: 24px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 20px 60px rgba(45, 30, 20, 0.05);
+    overflow: hidden;
+}
+
+/* --- 1. Header (matching reference) --- */
+.fb-header {
     display: flex;
-    flex-direction: column;
-    gap: 7rem;
+    justify-content: space-between;
+    align-items: flex-end;
+    max-width: 1200px;
+    margin: 0 auto 2.5rem;
+    padding: 0 0.5rem;
+    position: relative;
+    z-index: 2;
 }
 
-.day-label {
+.fb-header-left {
+    max-width: 600px;
+}
+
+.fb-eyebrow-wrap {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 12px;
+}
+
+.fb-eyebrow {
     font-family: 'Inter', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 600;
-    background: #FEECE7;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
     color: #C9522E;
-    padding: 6px 18px;
-    border-radius: 999px;
-    display: inline-block;
-    margin-bottom: 1.25rem;
-    letter-spacing: 0.3px;
-    border: 1px solid rgba(201, 82, 46, 0.15);
+    text-transform: uppercase;
 }
 
-.day-hook {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: #C9522E;
-    margin-bottom: 0.75rem;
-    letter-spacing: 0.3px;
+.fb-eyebrow-line {
+    width: 48px;
+    height: 1.5px;
+    background: #C9522E;
+    opacity: 0.6;
 }
 
-.day-paragraph {
+.fb-hero-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: clamp(2rem, 3.2vw, 2.75rem);
+    font-weight: 700;
+    color: #1E1A17;
+    margin: 0 0 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    line-height: 1.12;
+}
+
+.fb-hero-desc {
     font-family: 'Inter', sans-serif;
-    font-size: 0.95rem;
-    line-height: 1.65;
-    color: #374151;
-    margin-bottom: 1.75rem;
+    font-size: 15px;
+    line-height: 1.62;
+    color: #63574C;
+    margin: 0;
     font-weight: 400;
 }
 
-/* Stats / Highlights - Matching Figma Mock */
-.day-stats-highlights {
-    width: 100%;
-    margin-top: auto;
-    padding-top: 1.25rem;
-}
-
-.stats-label {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: #1E2525;
-    margin-bottom: 0.85rem;
-    letter-spacing: 0.2px;
-}
-
-.stats-pills {
+.fb-header-right {
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.6rem;
-    margin-bottom: 0.85rem;
+    align-items: center;
+    gap: 2.25rem;
+    padding-bottom: 6px;
 }
 
-.stat-pill {
+.fb-stat-pill {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.fb-stat-icon {
+    color: #7A695A;
+    flex-shrink: 0;
+}
+
+.fb-stat-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.fb-stat-val {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1E1A17;
+    line-height: 1.25;
+}
+
+.fb-stat-lbl {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: #8A7B6D;
+    line-height: 1.25;
+    margin-top: 2px;
+}
+
+.fb-header-separator {
+    width: 1px;
+    height: 38px;
+    background: #DDD2C5;
+    margin: 0 6px;
+}
+
+.fb-full-itinerary-btn {
     display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
-    background: rgba(255, 255, 255, 0.65);
-    border: 1px solid rgba(74, 52, 35, 0.12);
-    padding: 5px 12px;
-    border-radius: 6px;
-    font-size: 0.82rem;
-    color: #2D2520;
+    gap: 10px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    padding: 6px 4px;
+    transition: all 0.25s ease;
 }
 
-.stat-pill .stat-k {
+.fb-btn-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: #C9522E;
+    text-align: left;
+    line-height: 1.25;
+    text-transform: uppercase;
+}
+
+.fb-btn-arrow {
+    color: #C9522E;
+    transition: transform 0.25s ease;
+}
+
+.fb-full-itinerary-btn:hover .fb-btn-arrow {
+    transform: translateX(5px);
+}
+
+/* --- 2. 3D Cover Flow Viewport --- */
+.fb-viewport {
+    perspective: 1600px;
+    perspective-origin: 50% 50%;
+    width: 100%;
+    max-width: 1260px;
+    height: 560px;
+    margin: 1.5rem auto 1rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    -webkit-user-select: none;
+    outline: none;
+}
+
+.fb-stage {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* --- Spread (Card in Carousel) --- */
+.fb-spread {
+    position: absolute;
+    width: 880px;
+    height: 530px;
+    transition: transform 0.65s cubic-bezier(0.25, 1, 0.5, 1),
+                opacity 0.65s cubic-bezier(0.25, 1, 0.5, 1),
+                filter 0.65s cubic-bezier(0.25, 1, 0.5, 1);
+    will-change: transform, opacity;
+}
+
+/* Active Spread sits solidly in front of all stacked cards */
+.fb-spread.is-active {
+    z-index: 50 !important;
+}
+
+/* Spread Top Tab (Visible on inactive stacked cards, matching reference) */
+.fb-spread-tab {
+    position: absolute;
+    top: -24px;
+    padding: 5px 18px 3px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 11px;
     font-weight: 600;
-    color: #7E5F43;
+    letter-spacing: 1px;
+    color: #4A3E34;
+    background: #E8DDD0;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 -2px 6px rgba(45, 30, 20, 0.08);
+    border: 1px solid rgba(74, 52, 35, 0.12);
+    border-bottom: none;
+    transition: all 0.25s ease;
+    z-index: 35;
+    cursor: pointer;
+    white-space: nowrap;
 }
 
-.stat-pill .stat-v {
+/* When stacked on the LEFT, the outer visible edge is on the LEFT */
+.fb-spread.is-stacked-left .fb-spread-tab {
+    left: 28px;
+    right: auto;
+}
+
+/* When stacked on the RIGHT, the outer visible edge is on the RIGHT */
+.fb-spread.is-stacked-right .fb-spread-tab {
+    right: 28px;
+    left: auto;
+}
+
+/* When card is active in the center, hide the tab */
+.fb-spread.is-active .fb-spread-tab {
+    display: none !important;
+}
+
+.fb-spread:hover .fb-spread-tab {
+    background: #C9522E;
+    color: #FFFFFF;
+}
+
+/* Stacked Photographic Cover (Replaces raw body text on inactive cards with scenic photo slivers) */
+.fb-stack-cover {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    border-radius: 18px;
+    z-index: 25;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2), inset 0 0 40px rgba(35, 25, 18, 0.35);
+}
+
+.fb-spread.is-stacked-left .fb-stack-cover {
+    opacity: 1;
+    background-position: left center;
+}
+
+.fb-spread.is-stacked-right .fb-stack-cover {
+    opacity: 1;
+    background-position: right center;
+}
+
+.fb-spread.is-active .fb-stack-cover {
+    opacity: 0 !important;
+    display: none !important;
+    pointer-events: none !important;
+}
+
+/* Hover feedback on stacked cards */
+.fb-spread.is-stacked-left:hover {
+    transform: translateX(calc(var(--stack-x) - 10px)) translateZ(calc(var(--stack-z) + 15px)) rotateY(18deg) scale(calc(var(--stack-s) + 0.02)) !important;
+    filter: brightness(1.06) !important;
+}
+
+.fb-spread.is-stacked-right:hover {
+    transform: translateX(calc(var(--stack-x) + 10px)) translateZ(calc(var(--stack-z) + 15px)) rotateY(-18deg) scale(calc(var(--stack-s) + 0.02)) !important;
+    filter: brightness(1.06) !important;
+}
+
+/* --- The Book Spread Frame --- */
+.fb-book {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-radius: 18px;
+    position: relative;
+    box-shadow: 0 32px 72px -16px rgba(45, 30, 20, 0.24),
+                0 12px 28px -6px rgba(45, 30, 20, 0.14),
+                inset 0 0 0 1px rgba(74, 52, 35, 0.08);
+    overflow: hidden;
+    background: #FAF7F2;
+}
+
+/* Center Binding Spine Shadow */
+.fb-spine-shadow {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 32px;
+    transform: translateX(-50%);
+    pointer-events: none;
+    z-index: 10;
+    background: linear-gradient(to right, rgba(0,0,0,0.03) 0%, rgba(0,0,0,0.09) 48%, rgba(0,0,0,0.13) 50%, rgba(0,0,0,0.09) 52%, rgba(0,0,0,0.03) 100%);
+}
+
+/* --- Left Page (Structured Content) --- */
+.fb-page--left {
+    background: #FAF7F2;
+    padding: 2.75rem 2.5rem 2.25rem 2.75rem;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Subtle paper texture */
+.fb-page--left::before,
+.fb-page--right::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+}
+
+.fb-page-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.fb-day-badge {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    color: #C9522E;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.fb-day-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 34px;
+    font-weight: 700;
+    color: #1E1A17;
+    margin: 0 0 8px;
+    line-height: 1.15;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.fb-day-hook {
+    font-family: 'Inter', sans-serif;
+    font-style: italic;
+    font-size: 14.5px;
+    line-height: 1.5;
+    color: #C9522E;
+    margin: 0 0 16px;
     font-weight: 500;
 }
 
-.space-pause-box {
-    background: rgba(255, 255, 255, 0.6);
-    border-left: 3px solid #C9522E;
-    padding: 0.75rem 1rem;
-    border-radius: 0 8px 8px 0;
-    border-top: 1px solid rgba(74, 52, 35, 0.08);
-    border-right: 1px solid rgba(74, 52, 35, 0.08);
-    border-bottom: 1px solid rgba(74, 52, 35, 0.08);
+.fb-day-body {
+    font-family: 'Inter', sans-serif;
+    font-size: 13.5px;
+    line-height: 1.68;
+    color: #433930;
+    margin: 0 0 18px;
+    font-weight: 400;
 }
 
-.pause-tag {
-    display: block;
-    font-size: 0.72rem;
+.fb-meta-grid {
+    display: flex;
+    gap: 28px;
+    margin-bottom: 18px;
+    margin-top: auto;
+}
+
+.fb-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #7B6858;
+}
+
+.fb-meta-icon {
+    color: #7B6858;
+    flex-shrink: 0;
+}
+
+.fb-meta-text {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+}
+
+.fb-meta-k {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: #826E5C;
+}
+
+.fb-meta-v {
+    font-family: 'Inter', sans-serif;
+    font-size: 13.5px;
     font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: #C9522E;
-    margin-bottom: 3px;
+    color: #221C18;
 }
 
-.pause-desc {
-    font-size: 0.85rem;
-    line-height: 1.45;
-    color: #4A3F35;
+.fb-pause-box {
+    background: #F3ECE3;
+    border-left: 3.5px solid #C9522E;
+    padding: 12px 16px;
+    border-radius: 0 8px 8px 0;
+}
+
+.fb-pause-tag {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: #C9522E;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+}
+
+.fb-pause-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: #443B33;
     margin: 0;
 }
 
-/* Responsive adjustments */
-@media (max-width: 1100px) {
-    .day-block {
-        grid-template-columns: 320px 1fr;
-        gap: 36px;
-        min-height: 560px;
-    }
-    .day-card {
-        flex: 0 0 240px;
-        height: 100%;
-    }
+/* --- Right Page (Collage / Scrapbook) --- */
+.fb-page--right {
+    background: #FAF7F2;
+    position: relative;
+    overflow: hidden;
+    height: 100%;
 }
 
+.fb-collage-canvas {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    padding: 1.5rem;
+    z-index: 2;
+}
+
+/* Polaroid Frames */
+.fb-polaroid {
+    position: absolute;
+    background: #FFFFFF;
+    padding: 7px 7px 18px 7px;
+    border-radius: 2px;
+    box-shadow: 0 10px 24px -4px rgba(45, 30, 20, 0.16),
+                0 2px 6px -1px rgba(45, 30, 20, 0.08);
+    transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.4, 1),
+                box-shadow 0.35s ease;
+    cursor: pointer;
+}
+
+.fb-polaroid:hover {
+    transform: scale(1.05) translateY(-5px) !important;
+    box-shadow: 0 18px 36px -6px rgba(45, 30, 20, 0.25),
+                0 6px 12px -2px rgba(45, 30, 20, 0.12);
+    z-index: 15 !important;
+}
+
+.fb-polaroid img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 1px;
+}
+
+/* Day 4 Mockup Exact Collage Positions */
+.fb-polaroid--waterspouts {
+    width: 135px;
+    height: 135px;
+    top: 26px;
+    left: 20px;
+    transform: rotate(-4deg);
+    z-index: 2;
+}
+
+.fb-polaroid--temple {
+    width: 235px;
+    height: 250px;
+    top: 40px;
+    left: 160px;
+    transform: rotate(1.5deg);
+    z-index: 4;
+}
+
+.fb-polaroid--valley {
+    width: 180px;
+    height: 125px;
+    bottom: 54px;
+    left: 20px;
+    transform: rotate(-2.5deg);
+    z-index: 3;
+}
+
+.fb-polaroid--flags {
+    width: 130px;
+    height: 165px;
+    bottom: 44px;
+    right: 22px;
+    transform: rotate(3deg);
+    z-index: 5;
+}
+
+/* General Spread Collages */
+.fb-polaroid--main {
+    width: 255px;
+    height: 275px;
+    top: 42px;
+    left: 125px;
+    transform: rotate(1deg);
+    z-index: 4;
+}
+
+.fb-polaroid--sub1 {
+    width: 170px;
+    height: 155px;
+    bottom: 56px;
+    left: 30px;
+    transform: rotate(-3deg);
+    z-index: 3;
+}
+
+/* Handwritten Annotations */
+.fb-anno {
+    position: absolute;
+    z-index: 8;
+    pointer-events: none;
+    font-family: 'Caveat', cursive;
+    color: #221C18;
+}
+
+.fb-handwritten {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.1;
+    white-space: nowrap;
+}
+
+.fb-anno--temple {
+    top: 18px;
+    right: 36px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.fb-anno--valley {
+    bottom: 22px;
+    left: 28px;
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+}
+
+.fb-anno--flags {
+    bottom: 18px;
+    right: 36px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.fb-anno--top {
+    top: 22px;
+    right: 36px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+/* Color Swatches Palette Dots */
+.fb-swatches {
+    position: absolute;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 8;
+}
+
+.fb-swatch-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+
+/* --- 3. Navigation Controls (Centered Circles) --- */
+.fb-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin: 1.5rem 0 2.25rem;
+    position: relative;
+    z-index: 10;
+}
+
+.fb-ctrl-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    border: 1.5px solid rgba(80, 60, 45, 0.16);
+    color: #221C18;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(45, 30, 20, 0.08);
+    transition: all 0.25s cubic-bezier(0.2, 0.8, 0.4, 1);
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.fb-ctrl-btn:hover {
+    background: #FFFFFF;
+    border-color: #C9522E;
+    color: #C9522E;
+    transform: translateY(-2px) scale(1.08);
+    box-shadow: 0 8px 20px rgba(201, 82, 46, 0.18);
+}
+
+.fb-ctrl-btn:active {
+    transform: scale(0.96);
+}
+
+.fb-ctrl-btn:focus,
+.fb-ctrl-btn:focus-visible {
+    outline: none;
+    border-color: #C9522E;
+    box-shadow: 0 0 0 3px rgba(201, 82, 46, 0.2);
+}
+
+.fb-ctrl--play.is-paused .icon-pause { display: none; }
+.fb-ctrl--play.is-paused .icon-play { display: block !important; }
+
+/* --- 4. Linear Timeline Navigation (Pixel-Perfect Handcrafted Alignment) --- */
+.fb-timeline {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    padding: 1.5rem 1rem 0;
+}
+
+.fb-timeline-inner {
+    position: relative;
+    width: 100%;
+}
+
+/* The track line starts at the exact center of column 1 (1/26) and ends at column 13 (1/26) */
+.fb-timeline-track {
+    position: absolute;
+    top: 10px; /* Exactly vertical center of the 20px node marker */
+    left: calc(100% / 26);
+    right: calc(100% / 26);
+    height: 2px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.fb-timeline-line {
+    position: absolute;
+    inset: 0;
+    background: #DDD2C5;
+    border-radius: 1px;
+}
+
+.fb-timeline-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: #C9522E;
+    border-radius: 1px;
+    transition: width 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.fb-timeline-nodes {
+    display: flex;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+    margin: 0;
+    padding: 0;
+}
+
+.fb-timeline-node {
+    flex: 1 1 0;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    transition: transform 0.25s ease;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    box-sizing: border-box;
+}
+
+/* 20px x 20px centered square container for the marker */
+.fb-node-marker {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 0;
+    flex-shrink: 0;
+    line-height: 0;
+}
+
+/* Inactive dot: 8px solid circle with mask ring matching section background */
+.fb-node-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #BFAFA0;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 0 0 3px #F6F1EA; /* blends track line cleanly behind the dot */
+    display: block;
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+
+.fb-timeline-node:hover {
+    transform: translateY(-2px);
+}
+
+.fb-timeline-node:hover .fb-node-dot {
+    background: #C9522E;
+    transform: scale(1.25);
+}
+
+/* Active node: 8px terracotta dot surrounded by a crisp concentric outer ring */
+.fb-timeline-node.active .fb-node-dot {
+    width: 8px;
+    height: 8px;
+    background: #C9522E;
+    box-shadow: 0 0 0 3.5px #F6F1EA, 0 0 0 5px #C9522E;
+    transform: none;
+}
+
+.fb-node-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    margin-top: 8px;
+    text-align: center;
+    pointer-events: none;
+}
+
+.fb-node-day {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    color: #8A7B6D;
+    transition: color 0.3s ease;
+    white-space: nowrap;
+}
+
+.fb-node-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    color: #A59688;
+    transition: color 0.3s ease;
+    line-height: 1.25;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.fb-timeline-node.active .fb-node-day {
+    color: #C9522E;
+    font-weight: 700;
+}
+
+.fb-timeline-node.active .fb-node-title {
+    color: #C9522E;
+    font-weight: 600;
+}
+
+/* --- Full Itinerary Modal --- */
+.fb-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(30, 26, 23, 0.65);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+}
+
+.fb-modal-overlay.is-open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.fb-modal-card {
+    background: #FAF7F2;
+    border-radius: 20px;
+    max-width: 880px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 2.5rem;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+    position: relative;
+    transform: translateY(20px) scale(0.98);
+    transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.4, 1);
+}
+
+.fb-modal-overlay.is-open .fb-modal-card {
+    transform: translateY(0) scale(1);
+}
+
+.fb-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #E6DCD1;
+    padding-bottom: 1.25rem;
+}
+
+.fb-modal-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #C9522E;
+    text-transform: uppercase;
+}
+
+.fb-modal-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #1E1A17;
+    margin: 6px 0 0;
+}
+
+.fb-modal-close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #6E6257;
+    padding: 6px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.fb-modal-close:hover {
+    background: #EAE0D5;
+    color: #C9522E;
+}
+
+.fb-modal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+}
+
+.fb-modal-day {
+    display: flex;
+    gap: 14px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: #FFFFFF;
+    border: 1px solid #ECE3D8;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.fb-modal-day:hover {
+    border-color: #C9522E;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(201, 82, 46, 0.12);
+}
+
+.fb-mday-num {
+    font-family: 'Oswald', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: #C9522E;
+}
+
+.fb-mday-info h4 {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1E1A17;
+    margin: 0 0 4px;
+}
+
+.fb-mday-info p {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    line-height: 1.45;
+    color: #63574C;
+    margin: 0 0 6px;
+}
+
+.fb-mday-stat {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: #8C7B6D;
+}
+
+/* --- Responsive: Tablet (max-width: 1024px) --- */
+@media (max-width: 1024px) {
+    .fb-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+    }
+
+    .fb-header-right {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .fb-viewport {
+        height: 520px;
+    }
+
+    .fb-spread {
+        width: 760px;
+        height: 480px;
+    }
+
+    .fb-day-title {
+        font-size: 32px;
+    }
+
+    .fb-polaroid--waterspouts { width: 110px; height: 110px; }
+    .fb-polaroid--temple { width: 190px; height: 210px; left: 130px; }
+    .fb-polaroid--valley { width: 150px; height: 110px; }
+    .fb-polaroid--flags { width: 110px; height: 140px; }
+}
+
+/* --- Responsive: Mobile Adaptation Strategy (Single-Column Snap Scroll) --- */
 @media (max-width: 880px) {
-    .itinerary-days-container {
-        padding: 0 1.5rem;
-        gap: 4.5rem;
+    .flipbook-container {
+        padding: 3rem 1rem 3.5rem;
+        border-radius: 16px;
     }
-    .day-block {
+
+    .fb-header-right {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .fb-header-separator { display: none; }
+
+    .fb-hero-title {
+        font-size: 28px;
+    }
+
+    .fb-hero-desc {
+        font-size: 14px;
+    }
+
+    /* Degrading 3D to 2D Horizontal Snap-Scroll */
+    .fb-viewport {
+        perspective: none;
+        height: auto;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        display: flex;
+        justify-content: flex-start;
+        padding: 1rem 0;
+    }
+
+    .fb-stage {
+        display: flex;
+        align-items: stretch;
+        gap: 16px;
+        width: max-content;
+        transform-style: flat;
+        height: auto;
+    }
+
+    .fb-spread {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-self: stretch;
+        width: 84vw;
+        max-width: 420px;
+        height: auto;
+        scroll-snap-align: center;
+        flex: 0 0 min(84vw, 420px);
+        transform: none !important;
+        opacity: 1 !important;
+        filter: none !important;
+        box-sizing: border-box;
+    }
+
+    .fb-spread-tab { display: none !important; }
+    .fb-stack-cover { display: none !important; }
+
+    .fb-book {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        flex: 1 1 auto;
+        box-shadow: 0 12px 32px rgba(45, 30, 20, 0.12);
+        border-radius: 18px;
+        overflow: hidden;
+    }
+
+    .fb-spine-shadow { display: none; }
+
+    /* Right page (collage) sits on top */
+    .fb-page--right {
+        order: 1;
+        height: 240px;
+        flex-shrink: 0;
+        width: 100%;
+        position: relative;
+    }
+
+    .fb-page--left {
+        order: 2;
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 1.5rem 1.25rem;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .fb-page-content {
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 auto;
+        height: 100%;
+    }
+
+    .fb-day-title { font-size: 26px; }
+    .fb-day-hook { font-size: 14px; margin-bottom: 10px; }
+    .fb-day-body { font-size: 13px; line-height: 1.6; margin-bottom: 14px; }
+
+    .fb-meta-grid {
+        flex-direction: row;
+        gap: 16px;
+        margin-bottom: 14px;
+    }
+
+    /* In mobile collage, scale down polaroids */
+    .fb-polaroid--waterspouts { width: 80px; height: 80px; top: 12px; left: 12px; }
+    .fb-polaroid--temple { width: 140px; height: 160px; top: 20px; left: 95px; }
+    .fb-polaroid--valley { width: 110px; height: 80px; bottom: 18px; left: 12px; }
+    .fb-polaroid--flags { width: 85px; height: 110px; bottom: 12px; right: 12px; }
+
+    .fb-handwritten { font-size: 15px; }
+
+    /* Timeline becomes horizontally scrollable tab bar */
+    .fb-timeline {
+        overflow-x: auto;
+        padding-top: 1rem;
+    }
+
+    .fb-timeline-track {
+        display: none; /* In mobile scroll view, use standard node flow */
+    }
+
+    .fb-timeline-nodes {
+        gap: 16px;
+        min-width: 960px;
+    }
+
+    .fb-modal-grid {
         grid-template-columns: 1fr;
-        gap: 24px;
-        min-height: auto;
-    }
-    .day-text-container {
-        max-width: 100%;
-    }
-    .day-card {
-        flex: 0 0 220px;
-        height: 310px;
     }
 }
 
@@ -948,7 +1815,7 @@ h1 {
     border: 1px solid rgba(255, 255, 255, 0.18);
     padding: 6px 14px;
     border-radius: 999px;
-    font-family: 'Space Mono', monospace;
+    font-family: 'Inter', sans-serif;
     font-size: 0.76rem;
     font-weight: 700;
     letter-spacing: 0.04em;
@@ -1040,7 +1907,7 @@ h1 {
 }
 
 .cohort-eyebrow {
-    font-family: 'Space Mono', monospace;
+    font-family: 'Inter', sans-serif;
     font-size: 0.78rem;
     font-weight: 700;
     letter-spacing: 0.16em;
@@ -1199,7 +2066,7 @@ h1 {
     border: 1px solid rgba(30, 36, 36, 0.14);
     border-radius: 999px;
     padding: 5px 12px;
-    font-family: 'Space Mono', monospace;
+    font-family: 'Inter', sans-serif;
     font-size: 0.72rem;
     font-weight: 700;
     letter-spacing: 0.02em;
@@ -1234,7 +2101,7 @@ h1 {
     border: 1px solid rgba(201, 82, 46, 0.2);
     border-radius: 999px;
     padding: 4px 11px;
-    font-family: 'Space Mono', monospace;
+    font-family: 'Inter', sans-serif;
     font-size: 0.70rem;
     font-weight: 700;
     letter-spacing: 0.04em;
@@ -1616,8 +2483,8 @@ h1 {
 }
 
 .detail-label {
-    font-family: 'Space Mono', 'Courier New', monospace;
-    font-size: 0.86rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.88rem;
     color: #55483F;
     font-weight: 400;
     line-height: 1.4;
@@ -1633,7 +2500,7 @@ h1 {
 }
 
 .detail-value {
-    font-family: 'Space Mono', 'Courier New', monospace;
+    font-family: 'Inter', sans-serif;
     font-size: 0.92rem;
     color: #1F1813;
     font-weight: 700;
@@ -1652,10 +2519,12 @@ h1 {
 }
 
 .cost-label {
-    font-family: 'Space Mono', 'Courier New', monospace;
-    font-size: 0.86rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.88rem;
     color: #55483F;
-    font-weight: 400;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
     line-height: 1;
 }
 
@@ -1883,10 +2752,11 @@ h1 {
 }
 
 .footer-coords {
-    font-family: 'Space Mono', monospace;
+    font-family: 'Inter', sans-serif;
     font-size: 0.78rem;
+    font-weight: 600;
     color: #E3A834;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
     display: flex;
     align-items: center;
     gap: 6px;
@@ -1973,8 +2843,10 @@ h1 {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.74rem;
+    font-family: 'Inter', sans-serif;
+    font-feature-settings: 'tnum' 1;
+    font-size: 0.76rem;
+    letter-spacing: 0.2px;
     line-height: 1.5;
     margin-top: 0.4rem;
 }
@@ -2066,7 +2938,7 @@ h1 {
         -moz-osx-font-smoothing: grayscale;
     }
 
-    h1, h2, h3, .day-main-title, .reservation-heading, .team-section-title {
+    h1, h2, h3, .fb-title, .reservation-heading, .team-section-title {
         text-wrap: balance;
     }
 
@@ -2221,7 +3093,8 @@ h1 {
         content: "SWIPE TO EXPLORE →";
         display: block;
         text-align: center;
-        font-family: 'Space Mono', monospace;
+        font-family: 'Inter', sans-serif;
+        font-weight: 700;
         font-size: 0.64rem;
         letter-spacing: 2.2px;
         color: #8a7b6e;
@@ -2378,131 +3251,56 @@ h1 {
         display: block;
     }
 
-    /* --- Day Blocks ---
-       Reduce vertical gaps and tighten typography
-       for the stacked single-column layout.
+    /* --- Flipbook Mobile Overrides ---
+       Tighter padding and simplified layout
+       for single-column card view.
        ---------------------------------------- */
     .editorial-itinerary {
-        padding-bottom: 4rem;
+        padding-bottom: 3rem;
     }
 
-    .itinerary-days-container {
-        padding: 0 1.25rem;
-        gap: 3.25rem;
+    .flipbook-wrapper {
+        padding: 1rem 0.75rem 1.5rem 0.75rem;
     }
 
-    .day-block {
-        gap: 16px;
+    .fb-page-inner {
+        padding: 1.25rem 1rem 1rem 1rem;
     }
 
-    .day-label {
-        font-size: 0.75rem;
-        font-weight: 600;
-        letter-spacing: 0.6px;
-        padding: 4px 14px;
-        border-radius: 999px;
-        margin-bottom: 0.85rem;
-        display: inline-block;
+    .fb-day-num {
+        font-size: 2.5rem;
+        top: 0.75rem;
+        right: 0.75rem;
     }
 
-    .day-main-title {
-        font-size: 1.45rem;
-        line-height: 1.18;
-        margin-bottom: 0.45rem;
-        letter-spacing: 0.2px;
-        text-wrap: balance;
+    .fb-title {
+        font-size: 1.2rem;
     }
 
-    .day-hook {
-        font-size: 0.88rem;
-        line-height: 1.4;
-        margin-bottom: 0.65rem;
-        color: #C9522E;
-        font-weight: 600;
+    .fb-body {
+        font-size: 0.82rem;
+        line-height: 1.58;
     }
 
-    .day-paragraph {
-        font-size: 0.88rem;
-        line-height: 1.62;
-        margin-bottom: 1.15rem;
-        color: #3A322B;
-        text-wrap: pretty;
-    }
-
-    .day-stats-highlights {
-        margin-top: 0;
-        padding-top: 0;
-    }
-
-    .stats-label {
-        font-size: 0.74rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 1.2px;
-        color: #786C60;
-        margin-bottom: 0.5rem;
-    }
-
-    .stats-pills {
-        display: flex;
-        flex-wrap: wrap;
+    .fb-meta {
         gap: 0.5rem;
-        margin-bottom: 0.75rem;
     }
 
-    .stat-pill {
+    .fb-stat {
+        font-size: 0.72rem;
+        padding: 3px 8px;
+    }
+
+    .fb-pause {
+        padding: 0.5rem 0.7rem;
+    }
+
+    .fb-pause-tag {
+        font-size: 0.6rem;
+    }
+
+    .fb-pause p {
         font-size: 0.75rem;
-        padding: 5px 11px;
-        border-radius: 6px;
-        border: 1px solid rgba(74, 52, 35, 0.12);
-        background: rgba(255, 255, 255, 0.75);
-    }
-
-    .space-pause-box {
-        margin-top: 0.5rem;
-        padding: 0.7rem 0.95rem;
-        border-left: 3px solid #C9522E;
-        background: rgba(255, 255, 255, 0.65);
-        border-radius: 0 8px 8px 0;
-    }
-
-    .pause-tag {
-        font-size: 0.68rem;
-        font-weight: 700;
-        letter-spacing: 1.2px;
-        text-transform: uppercase;
-        color: #C9522E;
-        margin-bottom: 3px;
-    }
-
-    .pause-desc {
-        font-size: 0.80rem;
-        line-height: 1.48;
-        color: #4A3F35;
-    }
-
-    .day-image-gallery {
-        margin-left: -1.25rem;
-        margin-right: -1.25rem;
-        padding-left: 1.25rem;
-        padding-right: 1.25rem;
-        width: calc(100% + 2.5rem);
-        gap: 14px;
-        padding-top: 4px;
-        padding-bottom: 8px;
-    }
-
-    .day-card {
-        flex: 0 0 190px;
-        height: 265px;
-        border-radius: 12px;
-    }
-
-    .day-scroll-track {
-        height: 4px;
-        margin-top: 10px;
-        margin-left: 0;
-        margin-right: 0;
     }
 
     /* --- Reservation Section ---
@@ -2718,9 +3516,8 @@ h1 {
         max-width: 215px !important;
     }
 
-    .day-card {
-        flex: 0 0 165px;
-        height: 235px;
+    .fb-page--right {
+        min-height: 200px;
     }
 
     .pricing-card {
@@ -2786,8 +3583,8 @@ h1 {
     .team-card-visual,
     .pricing-card,
     .reserve-cta-btn,
-    .day-card,
-    .day-card img,
+    .fb-spread,
+    .fb-img,
     .footer-nav a,
     .footer-wa-link,
     .team-graphic-img,
