@@ -391,7 +391,7 @@ h1 {
     transform: rotate(6deg);
 }
 
-/* Tablet & Medium Screens — Horizontal Scroll Gallery */
+/* Tablet & Medium Screens: Horizontal Scroll Gallery */
 @media (max-width: 1000px) {
     .gallery-section {
         margin-top: 2rem;
@@ -779,36 +779,57 @@ h1 {
 
 /* Overrides for Cover Parallax - Cleaned up to standard layout */
 .itinerary-cover-section {
-    padding: 72px 0 4rem 0;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 72px 2rem 4rem 2rem;
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
+    box-sizing: border-box;
 }
 
 .journey-heading-container {
     text-align: center;
     max-width: 650px;
-    padding: 0 2rem;
+    width: 100%;
+    padding: 0 1rem;
     position: relative;
     z-index: 2;
     margin-bottom: 0;
+    box-sizing: border-box;
+}
+
+.journey-progress-indicator {
+    width: 100%;
+    max-width: 650px;
+    margin: 0 auto 2.5rem auto;
+    box-sizing: border-box;
 }
 
 .journey-map-cover {
-    width: 120vw; /* Massive cover */
-    max-width: 1800px;
+    width: 100%;
+    max-width: 760px;
     display: flex;
     justify-content: center;
+    align-items: center;
     position: relative;
     z-index: 1;
-    margin-top: 0; 
+    margin: 1.5rem auto 2.5rem auto;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 .journey-map-cover img {
     width: 100%;
+    max-width: 100%;
     height: auto;
+    display: block;
+    object-fit: contain;
     mix-blend-mode: multiply;
+    border-radius: 8px;
+    filter: contrast(1.02);
 }
 
 /* ==========================================================================
@@ -1002,6 +1023,224 @@ h1 {
     letter-spacing: -0.005em;
 }
 
+/* ==========================================================================
+   Expedition Cohort Cards (3-Participant Stack)
+   ========================================================================== */
+.team-cohort-container {
+    width: 100%;
+    max-width: 880px;
+    margin: 4.5rem auto 0 auto;
+    position: relative;
+    z-index: 3;
+}
+
+.team-cohort-header {
+    text-align: center;
+    margin-bottom: 2.2rem;
+}
+
+.cohort-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    color: #E3A834;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-bottom: 0.45rem;
+}
+
+.cohort-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 2.1rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: #FAF5EE;
+    margin: 0 0 0.5rem 0;
+    text-transform: none;
+}
+
+.cohort-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: rgba(250, 245, 238, 0.78);
+    max-width: 580px;
+    margin: 0 auto;
+}
+
+.team-cohort-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+    width: 100%;
+}
+
+.cohort-card {
+    background: #FAF6EF;
+    border: 1px solid rgba(139, 115, 85, 0.16);
+    border-radius: 18px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.38);
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    overflow: hidden;
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.cohort-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 24px 52px rgba(0, 0, 0, 0.52);
+    border-color: rgba(227, 168, 52, 0.35);
+}
+
+.cohort-card-media {
+    flex: 0 0 250px;
+    padding: 18px 0 18px 18px;
+    display: flex;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.cohort-card-img {
+    width: 100%;
+    height: 100%;
+    min-height: 230px;
+    object-fit: cover;
+    border-radius: 12px;
+    display: block;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+    transition: transform 0.35s ease;
+}
+
+.cohort-card:hover .cohort-card-img {
+    transform: scale(1.025);
+}
+
+.cohort-card-body {
+    flex: 1 1 auto;
+    padding: 24px 28px 22px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 14px;
+    box-sizing: border-box;
+}
+
+.cohort-card-quote {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    line-height: 1.38;
+    color: #1E2424;
+    letter-spacing: 0.01em;
+    margin: 0;
+    position: relative;
+}
+
+.cohort-card-quote .quote-mark {
+    color: #C9522E;
+    font-size: 1.35rem;
+    font-weight: 700;
+    line-height: 1;
+    display: inline;
+}
+
+.cohort-card-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.91rem;
+    line-height: 1.62;
+    color: #4A443C;
+    margin: 0;
+    font-weight: 450;
+}
+
+.cohort-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(74, 52, 35, 0.1);
+    flex-wrap: wrap;
+}
+
+.cohort-author-info {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.86rem;
+    color: #6E675F;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.cohort-author-name {
+    font-weight: 700;
+    color: #1E2424;
+    letter-spacing: -0.01em;
+}
+
+.cohort-author-sep {
+    color: rgba(74, 52, 35, 0.35);
+}
+
+.cohort-author-role {
+    font-weight: 500;
+    color: #5A534B;
+}
+
+.cohort-ig-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(30, 36, 36, 0.06);
+    color: #241D18;
+    border: 1px solid rgba(30, 36, 36, 0.14);
+    border-radius: 999px;
+    padding: 5px 12px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    transition: all 0.22s ease;
+}
+
+.cohort-ig-pill svg {
+    color: #C9522E;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+}
+
+.cohort-ig-pill:hover {
+    background: #1E2424;
+    color: #FAF5EE;
+    border-color: #1E2424;
+    transform: translateY(-1px);
+}
+
+.cohort-ig-pill:hover svg {
+    color: #E3A834;
+    transform: scale(1.1);
+}
+
+.cohort-badge-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(201, 82, 46, 0.08);
+    color: #A83B1E;
+    border: 1px solid rgba(201, 82, 46, 0.2);
+    border-radius: 999px;
+    padding: 4px 11px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.70rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
 @media (max-width: 768px) {
     .team-section {
         padding-bottom: 4rem;
@@ -1072,6 +1311,72 @@ h1 {
         display: inline-flex;
         align-items: center;
         gap: 6px;
+    }
+
+    /* Cohort Cards Mobile Adaptations */
+    .team-cohort-container {
+        margin-top: 3.5rem;
+        padding: 0 4px;
+        box-sizing: border-box;
+    }
+
+    .cohort-title {
+        font-size: clamp(1.6rem, 5.5vw, 1.85rem);
+    }
+
+    .cohort-subtitle {
+        font-size: 0.88rem;
+        padding: 0 8px;
+    }
+
+    .team-cohort-list {
+        gap: 1.35rem;
+    }
+
+    .cohort-card {
+        flex-direction: column;
+        border-radius: 16px;
+    }
+
+    .cohort-card-media {
+        flex: none;
+        width: 100%;
+        height: 220px;
+        padding: 12px 12px 0 12px;
+        box-sizing: border-box;
+    }
+
+    .cohort-card-img {
+        min-height: unset;
+        height: 100%;
+        width: 100%;
+        border-radius: 10px;
+    }
+
+    .cohort-card-body {
+        padding: 18px 16px 20px 16px;
+        gap: 12px;
+    }
+
+    .cohort-card-quote {
+        font-size: 1.05rem;
+        line-height: 1.35;
+    }
+
+    .cohort-card-text {
+        font-size: 0.86rem;
+        line-height: 1.58;
+    }
+
+    .cohort-card-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding-top: 12px;
+    }
+
+    .cohort-author-info {
+        font-size: 0.82rem;
     }
 }
 
@@ -1152,7 +1457,7 @@ h1 {
     text-align: center;
 }
 
-/* Eyebrow: — FOUNDING EXPEDITION PRICING — */
+/* Eyebrow: FOUNDING EXPEDITION PRICING */
 .reservation-eyebrow {
     display: inline-flex;
     align-items: center;
@@ -1747,7 +2052,7 @@ h1 {
 }
 
 /* ==========================================================================
-   RESPONSIVE — Mobile Phones (max-width: 768px)
+   RESPONSIVE: Mobile Phones (max-width: 768px)
    Intentionally placed AFTER all existing section-specific breakpoints
    so these rules cascade correctly. Does NOT duplicate team-section rules
    (already handled in the inline 768px block above).
@@ -1906,7 +2211,7 @@ h1 {
        Zero margin-top ensures seamless join with monk section (NO orange line).
        ---------------------------------------- */
     .gallery-section {
-        margin-top: 0; /* SEAMLESS JOIN — NO ORANGE GAP */
+        margin-top: 0; /* SEAMLESS JOIN: NO ORANGE GAP */
         padding: 0.75rem 0 2rem 0;
         width: 100%;
         overflow: hidden;
@@ -2009,11 +2314,16 @@ h1 {
        Harmonized heading scale, refined statement, responsive map.
        ---------------------------------------- */
     .itinerary-cover-section {
-        padding: 36px 0 2rem;
+        width: 100%;
+        max-width: 100%;
+        padding: 36px 1.25rem 2rem 1.25rem;
+        box-sizing: border-box;
+        overflow: hidden;
     }
 
     .journey-heading-container {
-        padding: 0 1.25rem;
+        padding: 0;
+        max-width: 100%;
     }
 
     .journey-heading-container h2 {
@@ -2047,11 +2357,25 @@ h1 {
 
     .journey-progress-indicator {
         margin-bottom: 32px;
-        padding: 0 1rem;
+        padding: 0;
+        max-width: 100%;
     }
 
     .journey-map-cover {
-        width: 160vw;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem auto 2rem auto;
+        padding: 0;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+
+    .journey-map-cover img {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        object-fit: contain;
+        display: block;
     }
 
     /* --- Day Blocks ---
@@ -2357,7 +2681,7 @@ h1 {
 }
 
 /* ==========================================================================
-   RESPONSIVE — Very Small Phones (max-width: 380px)
+   RESPONSIVE: Very Small Phones (max-width: 380px)
    Handles 320px–375px edge cases where even the phone
    breakpoint values are too generous.
    ========================================================================== */
@@ -2454,7 +2778,7 @@ h1 {
 }
 
 /* ==========================================================================
-   Accessibility — Reduced Motion
+   Accessibility: Reduced Motion
    Disables transitions and animations for users who prefer reduced motion.
    ========================================================================== */
 @media (prefers-reduced-motion: reduce) {
@@ -2468,7 +2792,10 @@ h1 {
     .footer-wa-link,
     .team-graphic-img,
     .team-ig-pill,
-    .team-ig-pill svg {
+    .team-ig-pill svg,
+    .cohort-card,
+    .cohort-card-img,
+    .cohort-ig-pill {
         transition: none !important;
     }
 
