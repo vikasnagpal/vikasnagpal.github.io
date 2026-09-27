@@ -1,7 +1,51 @@
+/* ==========================================================================
+   0. DESIGN SYSTEM TOKENS
+   Centralized variables for typography, palette, surfaces, and motion.
+   ========================================================================== */
 :root {
-    --primary-orange: #d1562b; /* Approximation of the background orange */
-    --content-bg: #ecd9c6; /* Approximation of the bottom content background */
-    --text-white: #ffffff;
+    /* --- Brand & Palette Tokens --- */
+    --color-terracotta: #C9522E;
+    --color-terracotta-dark: #A83B1E;
+    --color-terracotta-deep: #5E1512;
+    --color-saffron: #E3A834;
+    --color-saffron-muted: #C9A87C;
+    --color-bg-orange: #d1562b;
+    --color-bg-sand: #EAE0D5;
+    --color-bg-sand-warm: #ecd9c6;
+    --primary-orange: #d1562b;                /* Exact baseline color */
+    --content-bg: #ecd9c6;                    /* Exact baseline color */
+    --text-white: #ffffff;                    /* Exact baseline color */
+
+    /* --- Paper & Surface Tokens --- */
+    --color-paper-light: #FAF7F2;
+    --color-paper-warm: #FAF5EE;
+    --color-paper-cream: #FAF6EF;
+    --color-paper-border: rgba(74, 52, 35, 0.08);
+    --color-paper-border-strong: rgba(74, 52, 35, 0.16);
+
+    /* --- Ink & Neutral Colors --- */
+    --color-ink-black: #1E1A17;
+    --color-ink-charcoal: #202727;
+    --color-ink-deep: #161A1B;
+    --color-ink-body: #433930;
+    --color-ink-muted: #7B6858;
+    --color-ink-faint: #8C7B6D;
+
+    /* --- Typography Tokens --- */
+    --font-display: 'Oswald', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-script: 'Caveat', cursive;
+
+    /* --- Elevations & Shadows --- */
+    --shadow-subtle: 0 4px 16px rgba(0, 0, 0, 0.06);
+    --shadow-card: 0 12px 32px rgba(45, 30, 20, 0.12);
+    --shadow-polaroid: 0 10px 25px rgba(0, 0, 0, 0.12);
+    --shadow-book: 0 32px 72px -16px rgba(45, 30, 20, 0.24), 0 12px 28px -6px rgba(45, 30, 20, 0.14), inset 0 0 0 1px rgba(74, 52, 35, 0.08);
+
+    /* --- Transitions & Animations --- */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+    --transition-smooth: 0.65s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 * {
@@ -116,6 +160,7 @@ h1 {
     line-height: 1.55;
     margin-bottom: 25px;
     font-weight: 300;
+    text-wrap: balance;
 }
 
 .highlight {
@@ -526,34 +571,55 @@ h1 {
 }
 
 /* ==========================================================================
-   Flipbook Itinerary Component (Handcrafted Digital Travel Journal)
+   Expedition Field Journal Component (Crafted Tactile Book & Elevation Route)
    ========================================================================== */
+
+:root {
+    --fb-paper: #FAF7F2;
+    --fb-paper-warm: #F6F1EA;
+    --fb-paper-deckle: #EAE0D5;
+    --fb-paper-edge: #DFD3C6;
+    --fb-ink-dark: #1E1A17;
+    --fb-ink-sub: #4A3E34;
+    --fb-ink-muted: #7A6C5F;
+    --fb-terracotta: #C9522E;
+    --fb-terracotta-dark: #A53C1C;
+    --fb-gold: #B8860B;
+    --fb-border-subtle: rgba(74, 52, 35, 0.08);
+    --fb-shadow-ambient: 0 32px 76px -16px rgba(45, 30, 20, 0.20),
+                         0 12px 28px -6px rgba(45, 30, 20, 0.10);
+    --fb-book-width: 960px;
+    --fb-book-height: 570px;
+}
 
 .flipbook-container {
     max-width: 1360px;
     margin: 0 auto;
     padding: 4.5rem 2rem 5rem;
     position: relative;
-    background: linear-gradient(180deg, rgba(246, 241, 234, 0.88) 0%, rgba(246, 241, 234, 0.96) 100%), url('./Assets/flipbook/himalaya_mist_bg.jpg') center top / cover no-repeat;
+    background: linear-gradient(180deg, rgba(246, 241, 234, 0.91) 0%, rgba(246, 241, 234, 0.97) 100%),
+                url("data:image/svg+xml,%3Csvg width='300' height='300' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 75 Q75 45 150 75 T300 75 M0 150 Q75 120 150 150 T300 150 M0 225 Q75 195 150 225 T300 225' fill='none' stroke='%23C9522E' stroke-width='0.7' stroke-opacity='0.038'/%3E%3Cpath d='M0 40 Q80 80 160 40 T300 40 M0 110 Q80 160 160 110 T300 110 M0 190 Q80 230 160 190 T300 190' fill='none' stroke='%237A6C5F' stroke-width='0.6' stroke-opacity='0.032'/%3E%3C/svg%3E"),
+                url('./Assets/flipbook/himalaya_mist_bg.jpg') center top / cover no-repeat;
     border-radius: 24px;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 20px 60px rgba(45, 30, 20, 0.05);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 20px 60px rgba(45, 30, 20, 0.06);
     overflow: hidden;
+    transition: all 0.4s ease;
 }
 
-/* --- 1. Header (matching reference) --- */
+/* --- 1. Clean Editorial Masthead & Section Header with Icons --- */
 .fb-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    max-width: 1200px;
-    margin: 0 auto 2.5rem;
+    max-width: 1240px;
+    margin: 0 auto 2.25rem;
     padding: 0 0.5rem;
     position: relative;
-    z-index: 2;
+    z-index: 10;
 }
 
 .fb-header-left {
-    max-width: 600px;
+    max-width: 580px;
 }
 
 .fb-eyebrow-wrap {
@@ -573,7 +639,7 @@ h1 {
 }
 
 .fb-eyebrow-line {
-    width: 48px;
+    width: 44px;
     height: 1.5px;
     background: #C9522E;
     opacity: 0.6;
@@ -581,29 +647,31 @@ h1 {
 
 .fb-hero-title {
     font-family: 'Oswald', sans-serif;
-    font-size: clamp(2rem, 3.2vw, 2.75rem);
+    font-size: clamp(2.1rem, 3.2vw, 2.85rem);
     font-weight: 700;
     color: #1E1A17;
     margin: 0 0 12px;
-    letter-spacing: 1.5px;
+    letter-spacing: 1.4px;
     text-transform: uppercase;
-    line-height: 1.12;
+    line-height: 1.1;
 }
 
 .fb-hero-desc {
     font-family: 'Inter', sans-serif;
-    font-size: 15px;
-    line-height: 1.62;
+    font-size: 14.5px;
+    line-height: 1.58;
     color: #63574C;
     margin: 0;
     font-weight: 400;
 }
 
+/* Right Masthead (Clean Stats with Icons) */
 .fb-header-right {
     display: flex;
     align-items: center;
-    gap: 2.25rem;
+    gap: 2rem;
     padding-bottom: 6px;
+    flex-shrink: 0;
 }
 
 .fb-stat-pill {
@@ -622,10 +690,18 @@ h1 {
     flex-direction: column;
 }
 
+.fb-stat-upto {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: #8A7B6D;
+    line-height: 1.2;
+    font-weight: 500;
+}
+
 .fb-stat-val {
     font-family: 'Inter', sans-serif;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 700;
     color: #1E1A17;
     line-height: 1.25;
 }
@@ -638,52 +714,21 @@ h1 {
     margin-top: 2px;
 }
 
-.fb-header-separator {
-    width: 1px;
-    height: 38px;
-    background: #DDD2C5;
-    margin: 0 6px;
-}
 
-.fb-full-itinerary-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    text-decoration: none;
-    padding: 6px 4px;
-    transition: all 0.25s ease;
-}
 
-.fb-btn-label {
-    font-family: 'Inter', sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    color: #C9522E;
-    text-align: left;
-    line-height: 1.25;
-    text-transform: uppercase;
-}
+/* Sound button style in controls */
+.fb-ctrl--sound.is-muted .fb-icon-sound-on { display: none !important; }
+.fb-ctrl--sound.is-muted .fb-icon-sound-off { display: block !important; }
+.fb-ctrl--sound.is-active .fb-icon-sound-on { display: block !important; color: #C9522E; }
+.fb-ctrl--sound.is-active .fb-icon-sound-off { display: none !important; }
 
-.fb-btn-arrow {
-    color: #C9522E;
-    transition: transform 0.25s ease;
-}
-
-.fb-full-itinerary-btn:hover .fb-btn-arrow {
-    transform: translateX(5px);
-}
-
-/* --- 2. 3D Cover Flow Viewport --- */
+/* --- 2. 3D Book Viewport & Visible Page Stack Engine --- */
 .fb-viewport {
-    perspective: 1600px;
+    perspective: 1800px;
     perspective-origin: 50% 50%;
     width: 100%;
     max-width: 1260px;
-    height: 560px;
+    height: 600px;
     margin: 1.5rem auto 1rem;
     position: relative;
     display: flex;
@@ -695,314 +740,370 @@ h1 {
 }
 
 .fb-stage {
-    width: 100%;
-    height: 100%;
+    width: var(--fb-book-width);
+    height: var(--fb-book-height);
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
+    transform-style: preserve-3d;
 }
 
-/* --- Spread (Card in Carousel) --- */
+/* --- Spreads in 3D Stack Architecture --- */
 .fb-spread {
     position: absolute;
-    width: 880px;
-    height: 530px;
+    width: 100%;
+    height: 100%;
     transition: transform 0.65s cubic-bezier(0.25, 1, 0.5, 1),
                 opacity 0.65s cubic-bezier(0.25, 1, 0.5, 1),
                 filter 0.65s cubic-bezier(0.25, 1, 0.5, 1);
     will-change: transform, opacity;
+    transform-origin: center center;
 }
 
-/* Active Spread sits solidly in front of all stacked cards */
+/* Active Spread sits solidly in front */
 .fb-spread.is-active {
-    z-index: 50 !important;
+    z-index: 35 !important;
+    pointer-events: auto !important;
 }
 
-/* Spread Top Tab (Visible on inactive stacked cards, matching reference) */
-.fb-spread-tab {
-    position: absolute;
-    top: -24px;
-    padding: 5px 18px 3px;
-    font-family: 'Oswald', sans-serif;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    color: #4A3E34;
-    background: #E8DDD0;
-    border-radius: 8px 8px 0 0;
-    box-shadow: 0 -2px 6px rgba(45, 30, 20, 0.08);
-    border: 1px solid rgba(74, 52, 35, 0.12);
-    border-bottom: none;
-    transition: all 0.25s ease;
-    z-index: 35;
+/* Stacked Spreads on the LEFT (Preceding turned pages) */
+.fb-spread.is-stacked-left {
+    pointer-events: auto;
     cursor: pointer;
-    white-space: nowrap;
 }
 
-/* When stacked on the LEFT, the outer visible edge is on the LEFT */
-.fb-spread.is-stacked-left .fb-spread-tab {
-    left: 28px;
-    right: auto;
+.fb-spread.is-stacked-left .fb-book {
+    box-shadow: -8px 16px 36px -4px rgba(45, 30, 20, 0.18),
+                inset 1px 0 0 rgba(255, 255, 255, 0.7);
 }
 
-/* When stacked on the RIGHT, the outer visible edge is on the RIGHT */
-.fb-spread.is-stacked-right .fb-spread-tab {
-    right: 28px;
-    left: auto;
-}
-
-/* When card is active in the center, hide the tab */
-.fb-spread.is-active .fb-spread-tab {
-    display: none !important;
-}
-
-.fb-spread:hover .fb-spread-tab {
-    background: #C9522E;
-    color: #FFFFFF;
-}
-
-/* Stacked Photographic Cover (Replaces raw body text on inactive cards with scenic photo slivers) */
-.fb-stack-cover {
-    position: absolute;
-    inset: 0;
-    background-size: cover;
-    border-radius: 18px;
-    z-index: 25;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2), inset 0 0 40px rgba(35, 25, 18, 0.35);
-}
-
-.fb-spread.is-stacked-left .fb-stack-cover {
-    opacity: 1;
-    background-position: left center;
-}
-
-.fb-spread.is-stacked-right .fb-stack-cover {
-    opacity: 1;
-    background-position: right center;
-}
-
-.fb-spread.is-active .fb-stack-cover {
-    opacity: 0 !important;
-    display: none !important;
-    pointer-events: none !important;
-}
-
-/* Hover feedback on stacked cards */
 .fb-spread.is-stacked-left:hover {
-    transform: translateX(calc(var(--stack-x) - 10px)) translateZ(calc(var(--stack-z) + 15px)) rotateY(18deg) scale(calc(var(--stack-s) + 0.02)) !important;
-    filter: brightness(1.06) !important;
+    transform: translateX(calc(var(--stack-x) - 10px)) translateZ(calc(var(--stack-z) + 10px)) scale(calc(var(--stack-s) + 0.008)) !important;
+    filter: brightness(1.04) !important;
+    z-index: 34 !important;
+}
+
+/* Stacked Spreads on the RIGHT (Upcoming unread pages) */
+.fb-spread.is-stacked-right {
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+.fb-spread.is-stacked-right .fb-book {
+    box-shadow: 8px 16px 36px -4px rgba(45, 30, 20, 0.18),
+                inset -1px 0 0 rgba(255, 255, 255, 0.7);
 }
 
 .fb-spread.is-stacked-right:hover {
-    transform: translateX(calc(var(--stack-x) + 10px)) translateZ(calc(var(--stack-z) + 15px)) rotateY(-18deg) scale(calc(var(--stack-s) + 0.02)) !important;
-    filter: brightness(1.06) !important;
+    transform: translateX(calc(var(--stack-x) + 10px)) translateZ(calc(var(--stack-z) + 10px)) scale(calc(var(--stack-s) + 0.008)) !important;
+    filter: brightness(1.04) !important;
+    z-index: 34 !important;
 }
 
-/* --- The Book Spread Frame --- */
+/* Fore-Edge Stack Labels along the outer margins of stacked pages */
+.fb-stacked-edge {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 50px;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.fb-spread.is-stacked-left .fb-stacked-edge--left {
+    left: 0;
+    opacity: 1;
+    background: linear-gradient(to right, rgba(250, 247, 242, 0.96) 0%, rgba(250, 247, 242, 0.85) 60%, transparent 100%);
+    border-right: 1px solid rgba(74, 52, 35, 0.08);
+}
+
+.fb-spread.is-stacked-right .fb-stacked-edge--right {
+    right: 0;
+    opacity: 1;
+    background: linear-gradient(to left, rgba(250, 247, 242, 0.96) 0%, rgba(250, 247, 242, 0.85) 60%, transparent 100%);
+    border-left: 1px solid rgba(74, 52, 35, 0.08);
+}
+
+.fb-spread.is-active .fb-stacked-edge {
+    display: none !important;
+    opacity: 0 !important;
+}
+
+.fb-edge-day-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 8.5px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #8C7563;
+    text-transform: uppercase;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+}
+
+/* The Book Frame with paper texture and multi-layered ambient shadow */
 .fb-book {
     width: 100%;
     height: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    border-radius: 18px;
+    border-radius: 14px;
     position: relative;
-    box-shadow: 0 32px 72px -16px rgba(45, 30, 20, 0.24),
-                0 12px 28px -6px rgba(45, 30, 20, 0.14),
-                inset 0 0 0 1px rgba(74, 52, 35, 0.08);
+    background: var(--fb-paper);
+    box-shadow: var(--fb-shadow-ambient), inset 0 0 0 1px var(--fb-border-subtle);
     overflow: hidden;
-    background: #FAF7F2;
 }
 
-/* Center Binding Spine Shadow */
-.fb-spine-shadow {
+/* Subtle paper texture */
+.fb-book::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='120' height='120' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.022'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 15;
+}
+
+/* Center Binding Spine Gutter: page -> slight compression -> shadow -> page */
+.fb-spine-gutter {
     position: absolute;
     top: 0;
     bottom: 0;
     left: 50%;
-    width: 32px;
+    width: 38px;
     transform: translateX(-50%);
     pointer-events: none;
-    z-index: 10;
-    background: linear-gradient(to right, rgba(0,0,0,0.03) 0%, rgba(0,0,0,0.09) 48%, rgba(0,0,0,0.13) 50%, rgba(0,0,0,0.09) 52%, rgba(0,0,0,0.03) 100%);
+    z-index: 12;
+    background: linear-gradient(to right,
+        rgba(35, 24, 18, 0) 0%,
+        rgba(35, 24, 18, 0.03) 30%,
+        rgba(35, 24, 18, 0.12) 48%,
+        rgba(25, 16, 12, 0.18) 50%,
+        rgba(35, 24, 18, 0.12) 52%,
+        rgba(35, 24, 18, 0.03) 70%,
+        rgba(35, 24, 18, 0) 100%
+    );
+    border-left: 1px solid rgba(255, 255, 255, 0.25);
+    border-right: 1px solid rgba(255, 255, 255, 0.25);
 }
 
-/* --- Left Page (Structured Content) --- */
+/* --- Left Page (Structured Field Story & Reflection) --- */
 .fb-page--left {
-    background: #FAF7F2;
+    background: var(--fb-paper);
     padding: 2.75rem 2.5rem 2.25rem 2.75rem;
     position: relative;
-    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    background-image: linear-gradient(to right, transparent 86%, rgba(35, 24, 18, 0.05) 100%);
+    transform-origin: right center;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.fb-page-inner {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+    z-index: 2;
+}
+
+.fb-day-header {
+    margin-bottom: 14px;
+}
+
+/* Voice 01: Factual Navigation */
+.fb-day-kicker {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 2.2px;
+    color: var(--fb-terracotta);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.fb-kicker-dot {
+    opacity: 0.5;
+}
+
+/* Voice 02: Destination (Large, refined, editorial serif) */
+.fb-destination-title {
+    font-family: 'Cormorant Garamond', 'Oswald', Georgia, serif;
+    font-size: clamp(28px, 2.6vw, 36px);
+    font-weight: 600;
+    letter-spacing: 1.8px;
+    color: var(--fb-ink-dark);
+    margin: 0 0 6px;
+    line-height: 1.15;
+    text-transform: uppercase;
+}
+
+/* Voice 03: Editorial Voice / Expressive Poetic Hook */
+.fb-editorial-hook {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-style: italic;
+    font-size: 17.5px;
+    font-weight: 500;
+    color: #8A4325;
+    line-height: 1.45;
+    margin: 0;
+}
+
+.fb-day-story {
+    margin-bottom: 12px;
+}
+
+.fb-story-body {
+    font-family: 'Inter', sans-serif;
+    font-size: 13.5px;
+    line-height: 1.68;
+    color: var(--fb-ink-sub);
+    margin: 0;
+    font-weight: 400;
+}
+
+/* Understated Editorial Space to Pause (Vertical Line, No Box Container) */
+.fb-pause-editorial {
+    padding-left: 14px;
+    border-left: 1.5px solid var(--fb-terracotta);
+    margin: 12px 0;
+}
+
+.fb-pause-label {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-size: 9.5px;
+    font-weight: 800;
+    letter-spacing: 1.8px;
+    color: var(--fb-terracotta);
+    text-transform: uppercase;
+    margin-bottom: 3px;
+}
+
+.fb-pause-quote {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-style: italic;
+    font-size: 14.5px;
+    line-height: 1.45;
+    color: #55473B;
+    margin: 0;
+}
+
+/* Authentic Handwritten Field Note Layer */
+.fb-field-note {
+    padding: 8px 12px;
+    background: rgba(238, 230, 220, 0.45);
+    border-radius: 4px;
+    margin-top: auto;
+    margin-bottom: 14px;
+    border: 1px dashed rgba(120, 95, 75, 0.18);
+}
+
+.fb-field-note-label {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-size: 8.5px;
+    font-weight: 700;
+    letter-spacing: 1.6px;
+    color: #8C7563;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+}
+
+.fb-field-note-entry {
+    font-family: 'Caveat', cursive;
+    font-size: 16.5px;
+    color: #2D231C;
+    margin: 0;
+    line-height: 1.35;
+}
+
+/* Page Folios (Editorial Signatures at Bottom) */
+.fb-folio {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 9.5px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    color: #9C8C7D;
+    text-transform: uppercase;
+    margin-top: 4px;
+}
+
+.fb-folio-sep {
+    opacity: 0.5;
+}
+
+/* Turn Hint on Hover */
+.fb-page-turn-hint {
+    position: absolute;
+    bottom: 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--fb-terracotta);
+    text-transform: uppercase;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: all 0.25s ease;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.fb-turn-hint--left { left: 2.75rem; }
+.fb-turn-hint--right { right: 2.5rem; }
+
+.fb-page:hover .fb-page-turn-hint {
+    opacity: 0.85;
+    transform: translateY(0);
+}
+
+/* --- Right Page (Curated Photography by Rhythm) --- */
+.fb-page--right {
+    background: var(--fb-paper);
+    padding: 2.25rem 2.5rem 2.25rem 2.5rem;
+    position: relative;
+    cursor: pointer;
+    background-image: linear-gradient(to left, transparent 86%, rgba(35, 24, 18, 0.05) 100%);
+    transform-origin: left center;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.fb-gallery-canvas {
+    width: 100%;
+    height: 100%;
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
-/* Subtle paper texture */
-.fb-page--left::before,
-.fb-page--right::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 1;
-}
-
-.fb-page-content {
+/* Base Photo Card (Sitting physically on paper with restrained ambient shadow) */
+.fb-photo-card {
     position: relative;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-
-.fb-day-badge {
-    font-family: 'Inter', sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 2.5px;
-    color: #C9522E;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-    display: block;
-}
-
-.fb-day-title {
-    font-family: 'Oswald', sans-serif;
-    font-size: 34px;
-    font-weight: 700;
-    color: #1E1A17;
-    margin: 0 0 8px;
-    line-height: 1.15;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-}
-
-.fb-day-hook {
-    font-family: 'Inter', sans-serif;
-    font-style: italic;
-    font-size: 14.5px;
-    line-height: 1.5;
-    color: #C9522E;
-    margin: 0 0 16px;
-    font-weight: 500;
-}
-
-.fb-day-body {
-    font-family: 'Inter', sans-serif;
-    font-size: 13.5px;
-    line-height: 1.68;
-    color: #433930;
-    margin: 0 0 18px;
-    font-weight: 400;
-}
-
-.fb-meta-grid {
-    display: flex;
-    gap: 28px;
-    margin-bottom: 18px;
-    margin-top: auto;
-}
-
-.fb-meta-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: #7B6858;
-}
-
-.fb-meta-icon {
-    color: #7B6858;
-    flex-shrink: 0;
-}
-
-.fb-meta-text {
-    display: flex;
-    align-items: baseline;
-    gap: 6px;
-}
-
-.fb-meta-k {
-    font-family: 'Inter', sans-serif;
-    font-size: 12px;
-    font-weight: 600;
-    color: #826E5C;
-}
-
-.fb-meta-v {
-    font-family: 'Inter', sans-serif;
-    font-size: 13.5px;
-    font-weight: 700;
-    color: #221C18;
-}
-
-.fb-pause-box {
-    background: #F3ECE3;
-    border-left: 3.5px solid #C9522E;
-    padding: 12px 16px;
-    border-radius: 0 8px 8px 0;
-}
-
-.fb-pause-tag {
-    display: block;
-    font-family: 'Inter', sans-serif;
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 1.5px;
-    color: #C9522E;
-    margin-bottom: 4px;
-    text-transform: uppercase;
-}
-
-.fb-pause-desc {
-    font-family: 'Inter', sans-serif;
-    font-size: 12.5px;
-    line-height: 1.5;
-    color: #443B33;
-    margin: 0;
-}
-
-/* --- Right Page (Collage / Scrapbook) --- */
-.fb-page--right {
-    background: #FAF7F2;
-    position: relative;
-    overflow: hidden;
-    height: 100%;
-}
-
-.fb-collage-canvas {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    padding: 1.5rem;
-    z-index: 2;
-}
-
-/* Polaroid Frames */
-.fb-polaroid {
-    position: absolute;
     background: #FFFFFF;
-    padding: 7px 7px 18px 7px;
+    padding: 6px;
     border-radius: 2px;
-    box-shadow: 0 10px 24px -4px rgba(45, 30, 20, 0.16),
+    box-shadow: 0 8px 22px -4px rgba(45, 30, 20, 0.16),
                 0 2px 6px -1px rgba(45, 30, 20, 0.08);
     transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.4, 1),
                 box-shadow 0.35s ease;
-    cursor: pointer;
 }
 
-.fb-polaroid:hover {
-    transform: scale(1.05) translateY(-5px) !important;
-    box-shadow: 0 18px 36px -6px rgba(45, 30, 20, 0.25),
-                0 6px 12px -2px rgba(45, 30, 20, 0.12);
-    z-index: 15 !important;
-}
-
-.fb-polaroid img {
+.fb-photo-card img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -1010,234 +1111,399 @@ h1 {
     border-radius: 1px;
 }
 
-/* Day 4 Mockup Exact Collage Positions */
-.fb-polaroid--waterspouts {
-    width: 135px;
-    height: 135px;
-    top: 26px;
-    left: 20px;
-    transform: rotate(-4deg);
-    z-index: 2;
+.fb-photo-card:hover {
+    transform: scale(1.025) translateY(-3px) !important;
+    box-shadow: 0 16px 36px -6px rgba(45, 30, 20, 0.24);
+    z-index: 10;
 }
 
-.fb-polaroid--temple {
-    width: 235px;
-    height: 250px;
-    top: 40px;
-    left: 160px;
+/* First-Time Gentle Page Peel Animation (Subtle Affordance) */
+@keyframes fbFirstUsePeel {
+    0% { transform: rotateY(0deg) translateZ(0); }
+    35% { transform: rotateY(-6deg) translateZ(12px); box-shadow: 6px 14px 32px rgba(45, 30, 20, 0.18); }
+    70% { transform: rotateY(-1.5deg) translateZ(3px); }
+    100% { transform: rotateY(0deg) translateZ(0); }
+}
+
+.fb-spread.is-active.fb-first-peek .fb-page--right {
+    animation: fbFirstUsePeel 0.9s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+/* Desktop Page Edge Hover Affordance */
+@media (min-width: 769px) {
+    .fb-spread.is-active .fb-page--right:hover {
+        transform: rotateY(-3.5deg) translateZ(6px);
+        box-shadow: 6px 16px 36px rgba(45, 30, 20, 0.16);
+    }
+    .fb-spread.is-active .fb-page--left:hover {
+        transform: rotateY(3.5deg) translateZ(6px);
+        box-shadow: -6px 16px 36px rgba(45, 30, 20, 0.16);
+    }
+}
+
+/* --- 5 Editorial Layout Rhythms --- */
+
+/* Type A — The Journal */
+.fb-spread--type-a .fb-photo--hero {
+    width: 100%;
+    height: 380px;
+    margin-top: 10px;
+    transform: rotate(0.4deg);
+}
+
+.fb-spread--type-a .fb-photo--portrait-stamp {
+    position: absolute;
+    bottom: 50px;
+    right: 20px;
+    width: 130px;
+    height: 145px;
+    transform: rotate(-2deg);
+    z-index: 4;
+}
+
+/* Type B — The Landscape */
+.fb-spread--type-b .fb-photo--landscape-hero {
+    width: 100%;
+    height: 290px;
+    margin-top: 6px;
+}
+
+.fb-spread--type-b .fb-photo--landscape-accent {
+    position: absolute;
+    bottom: 46px;
+    left: 24px;
+    width: 170px;
+    height: 125px;
+    transform: rotate(-1.5deg);
+    z-index: 4;
+}
+
+/* Type C — The Documentary */
+.fb-spread--type-c .fb-photo--doc-main {
+    width: 82%;
+    height: 275px;
+    margin-top: 8px;
+    margin-left: auto;
+    transform: rotate(1deg);
+}
+
+.fb-spread--type-c .fb-photo--doc-sub {
+    position: absolute;
+    bottom: 46px;
+    left: 12px;
+    width: 195px;
+    height: 175px;
+    transform: rotate(-2.5deg);
+    z-index: 4;
+}
+
+/* Type D — The Sacred */
+.fb-spread--type-d .fb-photo--sacred-main {
+    width: 78%;
+    height: 310px;
+    margin-top: 6px;
+    margin-left: 20px;
+    transform: rotate(1deg);
+}
+
+.fb-spread--type-d .fb-photo--sacred-sub {
+    position: absolute;
+    bottom: 48px;
+    right: 18px;
+    width: 160px;
+    height: 140px;
+    transform: rotate(-2deg);
+    z-index: 4;
+}
+
+.fb-spread--type-d .fb-photo--sacred-flags {
+    position: absolute;
+    top: 24px;
+    right: 16px;
+    width: 115px;
+    height: 130px;
+    transform: rotate(3deg);
+    z-index: 3;
+}
+
+/* Type E — The Passage */
+.fb-spread--type-e .fb-photo--passage-top {
+    width: 85%;
+    height: 220px;
+    margin-top: 8px;
+    transform: rotate(-1deg);
+}
+
+.fb-spread--type-e .fb-photo--passage-bottom {
+    position: absolute;
+    bottom: 46px;
+    right: 16px;
+    width: 230px;
+    height: 185px;
     transform: rotate(1.5deg);
     z-index: 4;
 }
 
-.fb-polaroid--valley {
-    width: 180px;
-    height: 125px;
-    bottom: 54px;
-    left: 20px;
-    transform: rotate(-2.5deg);
-    z-index: 3;
+/* Type E Climax (Day 7 - Lo Manthang Hero) */
+.fb-spread--type-e-climax .fb-book {
+    box-shadow: 0 32px 80px -16px rgba(45, 30, 20, 0.28),
+                0 0 0 1px rgba(184, 134, 11, 0.25);
 }
 
-.fb-polaroid--flags {
-    width: 130px;
-    height: 165px;
-    bottom: 44px;
-    right: 22px;
-    transform: rotate(3deg);
-    z-index: 5;
-}
-
-/* General Spread Collages */
-.fb-polaroid--main {
-    width: 255px;
+.fb-spread--type-e-climax .fb-photo--climax-hero {
+    width: 100%;
     height: 275px;
-    top: 42px;
-    left: 125px;
-    transform: rotate(1deg);
+    margin-top: 6px;
+    border: 1px solid rgba(184, 134, 11, 0.2);
+}
+
+.fb-spread--type-e-climax .fb-photo--climax-sub1 {
+    position: absolute;
+    bottom: 46px;
+    left: 10px;
+    width: 175px;
+    height: 145px;
+    transform: rotate(-2deg);
     z-index: 4;
 }
 
-.fb-polaroid--sub1 {
-    width: 170px;
-    height: 155px;
-    bottom: 56px;
-    left: 30px;
-    transform: rotate(-3deg);
-    z-index: 3;
+.fb-spread--type-e-climax .fb-photo--climax-sub2 {
+    position: absolute;
+    bottom: 46px;
+    right: 14px;
+    width: 165px;
+    height: 145px;
+    transform: rotate(1.8deg);
+    z-index: 4;
 }
 
-/* Handwritten Annotations */
-.fb-anno {
+.fb-climax-seal {
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    background: #FAF7F2;
+    padding: 4px 10px;
+    border-radius: 20px;
+    border: 1px solid rgba(184, 134, 11, 0.35);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    z-index: 8;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.fb-seal-star {
+    color: var(--fb-gold);
+    font-size: 11px;
+}
+
+.fb-seal-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 8.5px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--fb-gold);
+    text-transform: uppercase;
+}
+
+/* Handwritten Ink Annotations */
+.fb-ink-annotation {
     position: absolute;
     z-index: 8;
     pointer-events: none;
     font-family: 'Caveat', cursive;
-    color: #221C18;
+    color: #2B2118;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    bottom: 24px;
+    left: 20px;
 }
 
 .fb-handwritten {
-    font-size: 20px;
+    font-size: 18.5px;
     font-weight: 600;
     line-height: 1.1;
     white-space: nowrap;
 }
 
-.fb-anno--temple {
-    top: 18px;
-    right: 36px;
+.fb-ink-arrow {
+    flex-shrink: 0;
+}
+
+.fb-folio--right {
+    margin-left: auto;
+    margin-top: auto;
+}
+
+/* --- 3. Navigation Controls (Simple, Discoverable 46px Circles) --- */
+.fb-controls-bar {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
-}
-
-.fb-anno--valley {
-    bottom: 22px;
-    left: 28px;
-    display: flex;
-    align-items: flex-end;
-    gap: 4px;
-}
-
-.fb-anno--flags {
-    bottom: 18px;
-    right: 36px;
-    display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 10px;
+    margin: 1.5rem 0 2rem;
+    position: relative;
+    z-index: 10;
 }
 
-.fb-anno--top {
-    top: 22px;
-    right: 36px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-}
-
-/* Color Swatches Palette Dots */
-.fb-swatches {
-    position: absolute;
-    bottom: 18px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 8px;
-    z-index: 8;
-}
-
-.fb-swatch-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
-}
-
-/* --- 3. Navigation Controls (Centered Circles) --- */
 .fb-controls {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 16px;
-    margin: 1.5rem 0 2.25rem;
-    position: relative;
-    z-index: 10;
 }
 
 .fb-ctrl-btn {
-    width: 44px;
-    height: 44px;
+    width: 46px;
+    height: 46px;
     border-radius: 50%;
-    background: #FFFFFF;
-    border: 1.5px solid rgba(80, 60, 45, 0.16);
-    color: #221C18;
+    background: #FAF7F2;
+    border: 1px solid rgba(80, 60, 45, 0.18);
+    color: var(--fb-ink-dark);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: 0 4px 14px rgba(45, 30, 20, 0.08);
+    box-shadow: 0 4px 12px rgba(45, 30, 20, 0.06);
     transition: all 0.25s cubic-bezier(0.2, 0.8, 0.4, 1);
     outline: none;
     -webkit-tap-highlight-color: transparent;
 }
 
-.fb-ctrl-btn:hover {
+.fb-ctrl-btn:hover:not(:disabled) {
     background: #FFFFFF;
-    border-color: #C9522E;
-    color: #C9522E;
-    transform: translateY(-2px) scale(1.08);
-    box-shadow: 0 8px 20px rgba(201, 82, 46, 0.18);
+    border-color: var(--fb-terracotta);
+    color: var(--fb-terracotta);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(201, 82, 46, 0.16);
 }
 
-.fb-ctrl-btn:active {
+.fb-ctrl-btn:active:not(:disabled) {
     transform: scale(0.96);
 }
 
-.fb-ctrl-btn:focus,
-.fb-ctrl-btn:focus-visible {
-    outline: none;
-    border-color: #C9522E;
-    box-shadow: 0 0 0 3px rgba(201, 82, 46, 0.2);
+.fb-ctrl-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    box-shadow: none;
 }
 
-.fb-ctrl--play.is-paused .icon-pause { display: none; }
-.fb-ctrl--play.is-paused .icon-play { display: block !important; }
+.fb-ctrl--play.is-playing .icon-play { display: none !important; }
+.fb-ctrl--play.is-playing .icon-pause { display: block !important; color: var(--fb-terracotta); }
 
-/* --- 4. Linear Timeline Navigation (Pixel-Perfect Handcrafted Alignment) --- */
-.fb-timeline {
-    max-width: 1200px;
+.fb-controls-folio {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    color: var(--fb-ink-muted);
+    text-transform: uppercase;
+}
+
+.fb-folio-current {
+    font-weight: 800;
+    color: var(--fb-terracotta);
+}
+
+.fb-folio-sep {
+    color: #BFAEA0;
+}
+
+.fb-folio-dot {
+    color: #BFAEA0;
+    margin: 0 2px;
+}
+
+.fb-folio-dest {
+    color: var(--fb-ink-dark);
+    font-weight: 700;
+}
+
+/* --- 4. Expedition Route & Elevation Profile Timeline --- */
+.fb-route-timeline {
+    max-width: 1220px;
     margin: 0 auto;
     position: relative;
-    padding: 1.5rem 1rem 0;
+    padding: 1.25rem 1rem 0;
+    background: rgba(255, 255, 255, 0.45);
+    border-radius: 16px;
+    border: 1px solid rgba(120, 95, 75, 0.10);
 }
 
-.fb-timeline-inner {
+.fb-route-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    padding: 0 0.5rem;
+}
+
+.fb-route-tag {
+    font-family: 'Inter', sans-serif;
+    font-size: 9.5px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: var(--fb-terracotta);
+    text-transform: uppercase;
+}
+
+.fb-route-ascent-meta {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.4px;
+    color: var(--fb-ink-muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.fb-route-arrow {
+    color: var(--fb-terracotta);
+    font-weight: 700;
+}
+
+.fb-route-peak {
+    color: var(--fb-terracotta);
+    font-weight: 700;
+}
+
+.fb-elevation-wrap {
     position: relative;
     width: 100%;
+    padding-bottom: 6px;
 }
 
-/* The track line starts at the exact center of column 1 (1/26) and ends at column 13 (1/26) */
-.fb-timeline-track {
-    position: absolute;
-    top: 10px; /* Exactly vertical center of the 20px node marker */
-    left: calc(100% / 26);
-    right: calc(100% / 26);
-    height: 2px;
-    transform: translateY(-50%);
-    pointer-events: none;
-    z-index: 1;
+.fb-elevation-svg {
+    width: 100%;
+    height: 52px;
+    display: block;
+    overflow: visible;
 }
 
-.fb-timeline-line {
-    position: absolute;
-    inset: 0;
-    background: #DDD2C5;
-    border-radius: 1px;
+.fb-elevation-indicator {
+    transition: cx 0.55s cubic-bezier(0.25, 1, 0.5, 1),
+                cy 0.55s cubic-bezier(0.25, 1, 0.5, 1);
+    filter: drop-shadow(0 2px 4px rgba(201, 82, 46, 0.35));
 }
 
-.fb-timeline-fill {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    background: #C9522E;
-    border-radius: 1px;
-    transition: width 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-.fb-timeline-nodes {
+.fb-route-nodes {
     display: flex;
     width: 100%;
     position: relative;
-    z-index: 2;
-    margin: 0;
-    padding: 0;
+    z-index: 5;
+    margin-top: -12px;
 }
 
-.fb-timeline-node {
+.fb-route-node {
     flex: 1 1 0;
     min-width: 0;
     margin: 0;
-    padding: 0;
+    padding: 8px 4px 6px;
     background: transparent;
     border: none;
     cursor: pointer;
@@ -1248,401 +1514,411 @@ h1 {
     transition: transform 0.25s ease;
     outline: none;
     -webkit-tap-highlight-color: transparent;
-    box-sizing: border-box;
+    border-radius: 8px;
 }
 
-/* 20px x 20px centered square container for the marker */
 .fb-node-marker {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
-    box-sizing: border-box;
-    margin: 0 auto;
-    padding: 0;
-    flex-shrink: 0;
-    line-height: 0;
+    margin-bottom: 6px;
 }
 
-/* Inactive dot: 8px solid circle with mask ring matching section background */
 .fb-node-dot {
     width: 8px;
     height: 8px;
     border-radius: 50%;
     background: #BFAFA0;
     transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-    box-shadow: 0 0 0 3px #F6F1EA; /* blends track line cleanly behind the dot */
-    display: block;
-    box-sizing: border-box;
-    flex-shrink: 0;
+    box-shadow: 0 0 0 2px #FAF7F2;
 }
 
-.fb-timeline-node:hover {
-    transform: translateY(-2px);
+.fb-route-node:hover .fb-node-dot {
+    background: var(--fb-terracotta);
+    transform: scale(1.3);
 }
 
-.fb-timeline-node:hover .fb-node-dot {
-    background: #C9522E;
-    transform: scale(1.25);
+.fb-route-node.active .fb-node-dot {
+    background: var(--fb-terracotta);
+    box-shadow: 0 0 0 3px #FAF7F2, 0 0 0 5px var(--fb-terracotta);
 }
 
-/* Active node: 8px terracotta dot surrounded by a crisp concentric outer ring */
-.fb-timeline-node.active .fb-node-dot {
-    width: 8px;
-    height: 8px;
-    background: #C9522E;
-    box-shadow: 0 0 0 3.5px #F6F1EA, 0 0 0 5px #C9522E;
-    transform: none;
-}
-
-.fb-node-text {
+.fb-node-info {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 3px;
-    margin-top: 8px;
     text-align: center;
     pointer-events: none;
 }
 
 .fb-node-day {
     font-family: 'Inter', sans-serif;
-    font-size: 11px;
-    font-weight: 500;
-    color: #8A7B6D;
-    transition: color 0.3s ease;
-    white-space: nowrap;
-}
-
-.fb-node-title {
-    font-family: 'Inter', sans-serif;
     font-size: 10px;
-    color: #A59688;
-    transition: color 0.3s ease;
-    line-height: 1.25;
-    text-align: center;
+    font-weight: 700;
+    color: var(--fb-ink-dark);
+    line-height: 1.2;
     white-space: nowrap;
 }
 
-.fb-timeline-node.active .fb-node-day {
-    color: #C9522E;
-    font-weight: 700;
+.fb-route-node.active .fb-node-day {
+    color: var(--fb-terracotta);
+    font-weight: 800;
 }
 
-.fb-timeline-node.active .fb-node-title {
-    color: #C9522E;
+.fb-node-location {
+    font-family: 'Inter', sans-serif;
+    font-size: 9.5px;
+    color: var(--fb-ink-muted);
+    line-height: 1.2;
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.fb-route-node.active .fb-node-location {
+    color: var(--fb-ink-dark);
     font-weight: 600;
 }
 
-/* --- Full Itinerary Modal --- */
-.fb-modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(30, 26, 23, 0.65);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    z-index: 1000;
+.fb-node-alt {
+    font-family: 'Inter', sans-serif;
+    font-size: 8.5px;
+    color: #9C8C7D;
+    line-height: 1.1;
+    margin-top: 2px;
+    font-weight: 500;
+}
+
+.fb-route-node.active .fb-node-alt {
+    color: var(--fb-terracotta-dark);
+    font-weight: 700;
+}
+
+/* Timeline Floating Hover Tooltip Preview */
+.fb-node-tooltip {
+    position: absolute;
+    bottom: 64px;
+    left: 0;
+    transform: translateX(-50%) translateY(8px);
+    background: #FAF7F2;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(45, 30, 20, 0.18);
+    border: 1px solid rgba(80, 60, 45, 0.14);
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding: 2rem;
-    opacity: 0;
+    gap: 10px;
+    padding: 6px 10px 6px 6px;
     pointer-events: none;
-    transition: opacity 0.35s ease;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+    z-index: 25;
+    white-space: nowrap;
 }
 
-.fb-modal-overlay.is-open {
+.fb-node-tooltip.is-visible {
     opacity: 1;
-    pointer-events: auto;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
 }
 
-.fb-modal-card {
+.fb-node-tooltip::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10px;
+    height: 6px;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
     background: #FAF7F2;
-    border-radius: 20px;
-    max-width: 880px;
+}
+
+.fb-tooltip-thumb-wrap {
+    width: 48px;
+    height: 36px;
+    border-radius: 4px;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: #E8DDD0;
+}
+
+.fb-tooltip-thumb-wrap img {
     width: 100%;
-    max-height: 85vh;
-    overflow-y: auto;
-    padding: 2.5rem;
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
-    position: relative;
-    transform: translateY(20px) scale(0.98);
-    transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.4, 1);
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
-.fb-modal-overlay.is-open .fb-modal-card {
-    transform: translateY(0) scale(1);
-}
-
-.fb-modal-header {
+.fb-tooltip-details {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 2rem;
-    border-bottom: 1px solid #E6DCD1;
-    padding-bottom: 1.25rem;
+    flex-direction: column;
+    gap: 1px;
 }
 
-.fb-modal-eyebrow {
+.fb-tooltip-day {
     font-family: 'Inter', sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    color: #C9522E;
-    text-transform: uppercase;
-}
-
-.fb-modal-title {
-    font-family: 'Oswald', sans-serif;
-    font-size: 26px;
-    font-weight: 700;
+    font-size: 8.5px;
+    font-weight: 800;
     letter-spacing: 1.5px;
+    color: var(--fb-terracotta);
     text-transform: uppercase;
-    color: #1E1A17;
-    margin: 6px 0 0;
 }
 
-.fb-modal-close {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #6E6257;
-    padding: 6px;
-    border-radius: 50%;
-    transition: all 0.2s ease;
-}
-
-.fb-modal-close:hover {
-    background: #EAE0D5;
-    color: #C9522E;
-}
-
-.fb-modal-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.25rem;
-}
-
-.fb-modal-day {
-    display: flex;
-    gap: 14px;
-    padding: 12px 14px;
-    border-radius: 10px;
-    background: #FFFFFF;
-    border: 1px solid #ECE3D8;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.fb-modal-day:hover {
-    border-color: #C9522E;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(201, 82, 46, 0.12);
-}
-
-.fb-mday-num {
-    font-family: 'Oswald', sans-serif;
-    font-size: 20px;
+.fb-tooltip-loc {
+    font-family: 'Cormorant Garamond', 'Oswald', serif;
+    font-size: 13px;
     font-weight: 600;
-    color: #C9522E;
+    color: var(--fb-ink-dark);
+    line-height: 1.1;
+    text-transform: uppercase;
 }
 
-.fb-mday-info h4 {
+.fb-tooltip-alt {
     font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    color: #1E1A17;
-    margin: 0 0 4px;
+    font-size: 9px;
+    color: var(--fb-ink-muted);
+    font-weight: 500;
 }
 
-.fb-mday-info p {
-    font-family: 'Inter', sans-serif;
-    font-size: 12px;
-    line-height: 1.45;
-    color: #63574C;
-    margin: 0 0 6px;
-}
 
-.fb-mday-stat {
-    font-family: 'Inter', sans-serif;
-    font-size: 11px;
-    font-weight: 600;
-    color: #8C7B6D;
-}
 
-/* --- Responsive: Tablet (max-width: 1024px) --- */
-@media (max-width: 1024px) {
-    .fb-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1.5rem;
+/* --- Responsive Media Queries --- */
+
+/* Large Desktop (1440px+) */
+@media (min-width: 1440px) {
+    :root {
+        --fb-book-width: 1020px;
+        --fb-book-height: 610px;
     }
+    .fb-viewport {
+        height: 630px;
+    }
+}
 
-    .fb-header-right {
-        width: 100%;
-        justify-content: space-between;
+/* Tablet & Laptop (768px - 1199px) */
+@media (max-width: 1199px) {
+    :root {
+        --fb-book-width: 760px;
+        --fb-book-height: 520px;
     }
 
     .fb-viewport {
-        height: 520px;
+        height: 540px;
     }
 
-    .fb-spread {
-        width: 760px;
-        height: 480px;
+    .fb-page--left {
+        padding: 2rem 1.75rem 1.75rem 2rem;
     }
 
-    .fb-day-title {
-        font-size: 32px;
+    .fb-page--right {
+        padding: 1.75rem 2rem;
     }
 
-    .fb-polaroid--waterspouts { width: 110px; height: 110px; }
-    .fb-polaroid--temple { width: 190px; height: 210px; left: 130px; }
-    .fb-polaroid--valley { width: 150px; height: 110px; }
-    .fb-polaroid--flags { width: 110px; height: 140px; }
+    .fb-destination-title {
+        font-size: 26px;
+    }
+
+    .fb-editorial-hook {
+        font-size: 15.5px;
+        margin-bottom: 10px;
+    }
+
+    .fb-story-body {
+        font-size: 12.5px;
+        line-height: 1.6;
+    }
+
+    .fb-field-note-entry {
+        font-size: 15px;
+    }
 }
 
-/* --- Responsive: Mobile Adaptation Strategy (Single-Column Snap Scroll) --- */
-@media (max-width: 880px) {
+/* Mobile & Small Tablet (<768px) - Vertical Field Journal Adaptation */
+@media (max-width: 768px) {
     .flipbook-container {
-        padding: 3rem 1rem 3.5rem;
+        padding: 2.5rem 1rem 3rem;
         border-radius: 16px;
     }
 
+    .fb-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        margin-bottom: 1.5rem;
+    }
+
     .fb-header-right {
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    .fb-masthead-meta {
+        font-size: 9.5px;
+        letter-spacing: 1px;
         flex-wrap: wrap;
-        gap: 1rem;
+        width: 100%;
+        box-sizing: border-box;
     }
 
-    .fb-header-separator { display: none; }
-
-    .fb-hero-title {
-        font-size: 28px;
+    .fb-masthead-actions {
+        width: 100%;
+        justify-content: flex-start;
+        flex-wrap: wrap;
     }
 
-    .fb-hero-desc {
-        font-size: 14px;
-    }
-
-    /* Degrading 3D to 2D Horizontal Snap-Scroll */
     .fb-viewport {
         perspective: none;
         height: auto;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch;
-        display: flex;
-        justify-content: flex-start;
-        padding: 1rem 0;
+        min-height: auto;
+        margin: 1rem 0;
     }
 
     .fb-stage {
-        display: flex;
-        align-items: stretch;
-        gap: 16px;
-        width: max-content;
-        transform-style: flat;
+        width: 100%;
         height: auto;
+        transform: none !important;
     }
 
     .fb-spread {
         position: relative;
-        display: flex;
-        flex-direction: column;
-        align-self: stretch;
-        width: 84vw;
-        max-width: 420px;
+        inset: auto;
+        width: 100%;
         height: auto;
-        scroll-snap-align: center;
-        flex: 0 0 min(84vw, 420px);
+        display: none;
         transform: none !important;
         opacity: 1 !important;
         filter: none !important;
-        box-sizing: border-box;
     }
 
-    .fb-spread-tab { display: none !important; }
-    .fb-stack-cover { display: none !important; }
+    .fb-spread.is-active {
+        display: block !important;
+    }
 
     .fb-book {
         display: flex;
         flex-direction: column;
         width: 100%;
-        height: 100%;
-        flex: 1 1 auto;
+        height: auto;
+        border-radius: 14px;
         box-shadow: 0 12px 32px rgba(45, 30, 20, 0.12);
-        border-radius: 18px;
-        overflow: hidden;
     }
 
-    .fb-spine-shadow { display: none; }
+    .fb-spine-gutter {
+        display: none !important;
+    }
 
-    /* Right page (collage) sits on top */
+    /* Right page (photography) displays at the top on mobile */
     .fb-page--right {
         order: 1;
-        height: 240px;
-        flex-shrink: 0;
         width: 100%;
-        position: relative;
+        height: 250px;
+        padding: 1.25rem;
+        box-sizing: border-box;
+        background-image: none;
     }
 
     .fb-page--left {
         order: 2;
-        flex: 1 1 auto;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        padding: 1.5rem 1.25rem;
         width: 100%;
+        height: auto;
+        padding: 1.5rem 1.25rem 1.75rem;
         box-sizing: border-box;
+        background-image: none;
     }
 
-    .fb-page-content {
-        display: flex;
-        flex-direction: column;
-        flex: 1 1 auto;
-        height: 100%;
+    .fb-day-kicker {
+        font-size: 9.5px !important;
+        letter-spacing: 1.5px !important;
+        flex-wrap: wrap !important;
+        gap: 5px !important;
+        margin-bottom: 6px !important;
     }
 
-    .fb-day-title { font-size: 26px; }
-    .fb-day-hook { font-size: 14px; margin-bottom: 10px; }
-    .fb-day-body { font-size: 13px; line-height: 1.6; margin-bottom: 14px; }
-
-    .fb-meta-grid {
-        flex-direction: row;
-        gap: 16px;
-        margin-bottom: 14px;
+    .fb-day-num {
+        font-size: 9.5px !important;
+        font-weight: 800 !important;
+        color: var(--fb-terracotta) !important;
+        position: static !important;
     }
 
-    /* In mobile collage, scale down polaroids */
-    .fb-polaroid--waterspouts { width: 80px; height: 80px; top: 12px; left: 12px; }
-    .fb-polaroid--temple { width: 140px; height: 160px; top: 20px; left: 95px; }
-    .fb-polaroid--valley { width: 110px; height: 80px; bottom: 18px; left: 12px; }
-    .fb-polaroid--flags { width: 85px; height: 110px; bottom: 12px; right: 12px; }
+    .fb-destination-title {
+        font-size: 24px;
+    }
 
-    .fb-handwritten { font-size: 15px; }
+    .fb-editorial-hook {
+        font-size: 15px;
+        margin-bottom: 10px;
+    }
 
-    /* Timeline becomes horizontally scrollable tab bar */
-    .fb-timeline {
+    .fb-story-body {
+        font-size: 13px;
+        line-height: 1.6;
+    }
+
+    /* Mobile Photography Scales */
+    .fb-spread--type-a .fb-photo--hero { height: 210px; }
+    .fb-spread--type-a .fb-photo--portrait-stamp { width: 90px; height: 100px; bottom: 20px; right: 15px; }
+
+    .fb-spread--type-b .fb-photo--landscape-hero { height: 190px; }
+    .fb-spread--type-b .fb-photo--landscape-accent { width: 110px; height: 85px; bottom: 20px; left: 15px; }
+
+    .fb-spread--type-c .fb-photo--doc-main { width: 75%; height: 175px; }
+    .fb-spread--type-c .fb-photo--doc-sub { width: 130px; height: 115px; bottom: 20px; left: 10px; }
+
+    .fb-spread--type-d .fb-photo--sacred-main { width: 72%; height: 185px; margin-left: 10px; }
+    .fb-spread--type-d .fb-photo--sacred-sub { width: 110px; height: 95px; bottom: 20px; right: 10px; }
+    .fb-spread--type-d .fb-photo--sacred-flags { width: 80px; height: 90px; top: 15px; right: 10px; }
+
+    .fb-spread--type-e .fb-photo--passage-top { width: 75%; height: 150px; }
+    .fb-spread--type-e .fb-photo--passage-bottom { width: 150px; height: 120px; bottom: 20px; right: 10px; }
+
+    .fb-spread--type-e-climax .fb-photo--climax-hero { height: 175px; }
+    .fb-spread--type-e-climax .fb-photo--climax-sub1 { width: 115px; height: 95px; bottom: 20px; left: 10px; }
+    .fb-spread--type-e-climax .fb-photo--climax-sub2 { width: 110px; height: 95px; bottom: 20px; right: 10px; }
+
+    .fb-handwritten { font-size: 14px; }
+
+    .fb-ink-annotation {
+        bottom: 8px !important;
+        left: 12px !important;
+        background: rgba(250, 247, 242, 0.88);
+        padding: 2px 8px;
+        border-radius: 4px;
+        backdrop-filter: blur(3px);
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Timeline becomes horizontally scrollable on mobile */
+    .fb-route-timeline {
+        padding: 1rem 0.75rem 0.5rem;
+    }
+
+    .fb-route-ascent-meta {
+        display: none;
+    }
+
+    .fb-elevation-wrap {
         overflow-x: auto;
-        padding-top: 1rem;
+        -webkit-overflow-scrolling: touch;
     }
 
-    .fb-timeline-track {
-        display: none; /* In mobile scroll view, use standard node flow */
+    .fb-elevation-svg {
+        min-width: 680px;
     }
 
-    .fb-timeline-nodes {
-        gap: 16px;
-        min-width: 960px;
+    .fb-route-nodes {
+        min-width: 680px;
     }
 
-    .fb-modal-grid {
-        grid-template-columns: 1fr;
-    }
+
 }
+
 
 /* Overrides for Cover Parallax - Cleaned up to standard layout */
 .itinerary-cover-section {
@@ -2057,7 +2333,8 @@ h1 {
     color: #5A534B;
 }
 
-.cohort-ig-pill {
+.cohort-ig-pill,
+.cohort-li-pill {
     display: inline-flex;
     align-items: center;
     gap: 6px;
@@ -2080,7 +2357,14 @@ h1 {
     transition: transform 0.2s ease;
 }
 
-.cohort-ig-pill:hover {
+.cohort-li-pill svg {
+    color: #0A66C2;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+}
+
+.cohort-ig-pill:hover,
+.cohort-li-pill:hover {
     background: #1E2424;
     color: #FAF5EE;
     border-color: #1E2424;
@@ -2089,6 +2373,11 @@ h1 {
 
 .cohort-ig-pill:hover svg {
     color: #E3A834;
+    transform: scale(1.1);
+}
+
+.cohort-li-pill:hover svg {
+    color: #00A0DC;
     transform: scale(1.1);
 }
 
@@ -3249,58 +3538,6 @@ h1 {
         height: auto;
         object-fit: contain;
         display: block;
-    }
-
-    /* --- Flipbook Mobile Overrides ---
-       Tighter padding and simplified layout
-       for single-column card view.
-       ---------------------------------------- */
-    .editorial-itinerary {
-        padding-bottom: 3rem;
-    }
-
-    .flipbook-wrapper {
-        padding: 1rem 0.75rem 1.5rem 0.75rem;
-    }
-
-    .fb-page-inner {
-        padding: 1.25rem 1rem 1rem 1rem;
-    }
-
-    .fb-day-num {
-        font-size: 2.5rem;
-        top: 0.75rem;
-        right: 0.75rem;
-    }
-
-    .fb-title {
-        font-size: 1.2rem;
-    }
-
-    .fb-body {
-        font-size: 0.82rem;
-        line-height: 1.58;
-    }
-
-    .fb-meta {
-        gap: 0.5rem;
-    }
-
-    .fb-stat {
-        font-size: 0.72rem;
-        padding: 3px 8px;
-    }
-
-    .fb-pause {
-        padding: 0.5rem 0.7rem;
-    }
-
-    .fb-pause-tag {
-        font-size: 0.6rem;
-    }
-
-    .fb-pause p {
-        font-size: 0.75rem;
     }
 
     /* --- Reservation Section ---
