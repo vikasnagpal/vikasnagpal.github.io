@@ -2712,7 +2712,7 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 12px;
+    gap: 10px;
     margin-bottom: 1.25rem;
 }
 
@@ -2744,16 +2744,17 @@ h1 {
 
 .inclusion-badge {
     font-family: 'Inter', sans-serif;
-    font-size: 0.65rem;
+    font-size: 0.62rem;
     font-weight: 700;
-    letter-spacing: 1.2px;
+    letter-spacing: 1px;
     text-transform: uppercase;
     color: #F0D3C0;
     background: rgba(255, 255, 255, 0.07);
     border: 1px solid rgba(255, 255, 255, 0.12);
-    padding: 4px 10px;
+    padding: 4px 9px;
     border-radius: 999px;
     white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .inclusion-card--featured .inclusion-badge {
@@ -2770,6 +2771,7 @@ h1 {
     margin-bottom: 0.65rem;
     line-height: 1.35;
     letter-spacing: -0.2px;
+    text-wrap: balance;
 }
 
 .inclusion-desc {
