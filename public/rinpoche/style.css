@@ -2604,13 +2604,264 @@ h1 {
 .reservation-inner {
     position: relative;
     z-index: 3;
-    max-width: 1000px;
+    max-width: 1220px;
     margin: 0 auto;
     padding: 3.25rem 2rem 0 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
+}
+
+/* ==========================================================================
+   Expedition Inclusions Module (What Is Included)
+   ========================================================================== */
+.inclusions-module {
+    width: 100%;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.inclusions-header {
+    max-width: 820px;
+    margin: 0 auto 3rem auto;
+}
+
+.inclusions-heading {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(2.2rem, 3.6vw, 3.2rem);
+    font-weight: 800;
+    line-height: 1.15;
+    color: #FFFFFF;
+    letter-spacing: -0.5px;
+    margin-bottom: 1.1rem;
+    text-shadow: 0 2px 20px rgba(25, 6, 5, 0.5);
+}
+
+.inclusions-subheading {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.02rem, 1.25vw, 1.18rem);
+    font-weight: 300;
+    line-height: 1.65;
+    color: #F4E7DA;
+    max-width: 720px;
+    margin: 0 auto;
+    text-shadow: 0 1px 8px rgba(25, 6, 5, 0.45);
+}
+
+/* Inclusions Grid: 4 columns on large desktop, 2 on tablet, 1 on mobile */
+.inclusions-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    width: 100%;
+    margin-bottom: 2.5rem;
+}
+
+/* Individual Inclusion Card */
+.inclusion-card {
+    background: rgba(28, 12, 10, 0.72);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(245, 215, 195, 0.16);
+    border-radius: 18px;
+    padding: 26px 22px;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    transition: transform 0.35s cubic-bezier(0.165, 0.84, 0.44, 1), 
+                border-color 0.35s ease, 
+                box-shadow 0.35s ease, 
+                background 0.35s ease;
+    box-shadow: 0 12px 28px -6px rgba(18, 4, 3, 0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+.inclusion-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(248, 229, 214, 0.3), transparent);
+}
+
+.inclusion-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(245, 215, 195, 0.38);
+    background: rgba(42, 18, 15, 0.84);
+    box-shadow: 0 20px 40px -8px rgba(18, 4, 3, 0.65), 0 0 20px rgba(220, 160, 120, 0.12);
+}
+
+/* Featured Card: Riding with Guruji */
+.inclusion-card--featured {
+    background: linear-gradient(145deg, rgba(72, 24, 19, 0.88) 0%, rgba(35, 12, 10, 0.82) 100%);
+    border: 1px solid rgba(255, 215, 170, 0.38);
+    box-shadow: 0 16px 36px -6px rgba(18, 4, 3, 0.55), 0 0 28px rgba(235, 165, 110, 0.16);
+}
+
+.inclusion-card--featured:hover {
+    border-color: rgba(255, 220, 180, 0.6);
+    box-shadow: 0 22px 46px -8px rgba(18, 4, 3, 0.7), 0 0 32px rgba(240, 180, 130, 0.24);
+}
+
+/* Top Row: Icon + Badge */
+.inclusion-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 1.25rem;
+}
+
+.inclusion-icon-wrap {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #F8E5D6;
+    flex-shrink: 0;
+    transition: background 0.3s ease, transform 0.3s ease, color 0.3s ease;
+}
+
+.inclusion-card:hover .inclusion-icon-wrap {
+    background: rgba(255, 255, 255, 0.14);
+    transform: scale(1.06);
+    color: #FFFFFF;
+}
+
+.inclusion-card--featured .inclusion-icon-wrap {
+    background: rgba(255, 225, 195, 0.18);
+    border-color: rgba(255, 225, 195, 0.32);
+    color: #FFE6D0;
+}
+
+.inclusion-badge {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: #F0D3C0;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 4px 10px;
+    border-radius: 999px;
+    white-space: nowrap;
+}
+
+.inclusion-card--featured .inclusion-badge {
+    color: #FFEBD6;
+    background: rgba(235, 150, 90, 0.22);
+    border-color: rgba(255, 210, 160, 0.38);
+}
+
+.inclusion-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin-bottom: 0.65rem;
+    line-height: 1.35;
+    letter-spacing: -0.2px;
+}
+
+.inclusion-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 350;
+    line-height: 1.6;
+    color: #E2D3C7;
+    margin: 0;
+}
+
+/* Footer Banner */
+.inclusions-footer-banner {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 24px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 999px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.92rem;
+    color: #F8E7D8;
+    margin: 0 auto;
+    text-shadow: 0 1px 6px rgba(18, 4, 3, 0.3);
+}
+
+.inclusions-footer-banner .banner-bullet {
+    color: #F5B982;
+    font-size: 0.95rem;
+}
+
+.inclusions-footer-banner strong {
+    color: #FFFFFF;
+    font-weight: 700;
+}
+
+/* Pricing Tier Section Divider */
+.pricing-tier-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 860px;
+    margin: 3.5rem auto 3rem auto;
+    gap: 18px;
+}
+
+.pricing-divider-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(248, 229, 214, 0.35), transparent);
+}
+
+.pricing-divider-badge {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 2.2px;
+    color: #F8E5D6;
+    text-transform: uppercase;
+    padding: 6px 18px;
+    border-radius: 999px;
+    background: rgba(35, 12, 10, 0.65);
+    border: 1px solid rgba(245, 215, 195, 0.22);
+    white-space: nowrap;
+}
+
+/* Responsive adjustments for Inclusions */
+@media (max-width: 1100px) {
+    .inclusions-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+    }
+}
+
+@media (max-width: 640px) {
+    .inclusions-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    .inclusions-footer-banner {
+        border-radius: 16px;
+        padding: 12px 18px;
+        font-size: 0.85rem;
+        text-align: left;
+    }
+    .pricing-tier-divider {
+        margin: 2.5rem auto 2rem auto;
+    }
 }
 
 /* Eyebrow: FOUNDING EXPEDITION PRICING */
