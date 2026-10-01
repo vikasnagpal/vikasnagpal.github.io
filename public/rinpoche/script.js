@@ -1,45 +1,99 @@
 /**
- * Journey Beyond - Expedition Interaction Controller
- * 
+ * The Journey Within — Interaction Layer
+ *
  * Modules:
- * 1. Parallax & Hero Motion Engine (RAF-throttled, passive scroll, viewport-capped)
- * 2. 3D Flipbook & Responsive Itinerary Controller (Coverflow desktop, snap-cards mobile)
- * 3. Modal Overview Controller (Keyboard traps, ARIA sync, scroll locking)
+ * 1. Quiet reveals & photographic fade-in (content arrives, it is never thrown at you)
+ * 2. Hero parallax (RAF-throttled, passive scroll)
+ * 3. Expedition field journal
+ *    - Desktop: a physical book. Pages turn around the spine (click, drag or arrow keys),
+ *      the page block thickens on the side you have read, a ribbon marks the place.
+ *    - Mobile: the same journal as a swipeable run of pages (native scroll-snap).
  */
 
 document.addEventListener('DOMContentLoaded', () => {
     'use strict';
 
-    // Respect user reduced-motion preference
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const root = document.documentElement;
+    const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const mobileQuery = window.matchMedia('(max-width: 768px)');
+    const prefersReducedMotion = () => reducedMotionQuery.matches;
+    const isMobile = () => mobileQuery.matches;
+    const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
+
+    root.classList.add('js');
 
     // =======================================================================
-    //  1. Parallax & Scroll Motion Engine
+    //  1. Quiet Reveals & Photographic Fade-in
+    // =======================================================================
+    const REVEAL_GROUPS = [
+        { selector: '.text-container > *' },
+        { selector: '.gallery-card', variant: 'reveal--pin' },
+        { selector: '.journey-heading-container > *' },
+        { selector: '.journey-progress-indicator, .journey-map-cover' },
+        { selector: '.fb-header-left, .fb-header-right' },
+        { selector: '.team-section-title, .team-card-content' },
+        { selector: '.team-cohort-header > *' },
+        { selector: '.cohort-card' },
+        { selector: '.inclusions-header > *' },
+        { selector: '.inclusion-card', perRow: 4 },
+        { selector: '.inclusions-footer-banner, .pricing-tier-divider, .reservation-heading, .reservation-subheading' },
+        { selector: '.pricing-card' },
+        { selector: '.footer-grid > *' }
+    ];
+
+    if ('IntersectionObserver' in window && !prefersReducedMotion()) {
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('is-in');
+                revealObserver.unobserve(entry.target);
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+
+        REVEAL_GROUPS.forEach(({ selector, variant, perRow }) => {
+            const items = Array.from(document.querySelectorAll(selector));
+            items.forEach((el) => {
+                // Stagger siblings gently; never more than ~0.4s behind the first
+                const siblings = items.filter((other) => other.parentElement === el.parentElement);
+                let order = siblings.indexOf(el);
+                if (perRow) order %= perRow;
+                el.style.setProperty('--reveal-delay', `${Math.min(order, 4) * 90}ms`);
+                el.classList.add('reveal');
+                if (variant) el.classList.add(variant);
+                revealObserver.observe(el);
+            });
+        });
+    }
+
+    // Photography arrives slowly rather than popping in
+    document.querySelectorAll('img[loading="lazy"]').forEach((img) => {
+        if (img.complete && img.naturalWidth) return;
+        img.classList.add('img-fade');
+        const done = () => img.classList.add('is-loaded');
+        img.addEventListener('load', done, { once: true });
+        img.addEventListener('error', done, { once: true });
+    });
+
+    // =======================================================================
+    //  2. Hero Parallax
     // =======================================================================
     const bgLayer = document.getElementById('bg-layer');
     const monkImg = document.querySelector('.monk-img');
 
-    // Viewport-aware parallax factors
-    const getParallaxFactors = () => {
-        const w = window.innerWidth;
-        if (w <= 768) {
-            return { hero: 0.15, monk: -0.04, monkScale: 0 };
-        }
-        return { hero: 0.3, monk: -0.09, monkScale: 0.00015 };
-    };
+    const getParallaxFactors = () => (window.innerWidth <= 768)
+        ? { hero: 0.15, monk: -0.03 }
+        : { hero: 0.3, monk: -0.08 };
 
     let factors = getParallaxFactors();
     let isScrollTicking = false;
-    let latestScrollY = window.scrollY;
 
     function renderParallax() {
         isScrollTicking = false;
         if (!bgLayer) return;
 
-        const scrollPosition = latestScrollY;
+        const scrollPosition = window.scrollY;
         const windowHeight = window.innerHeight;
 
-        // At top of page, let pure CSS dictate rendering with zero inline overhead
         if (scrollPosition <= 0) {
             bgLayer.style.opacity = '';
             bgLayer.style.transform = '';
@@ -47,7 +101,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Skip calculations when hero is completely past viewport
         if (scrollPosition > windowHeight * 1.6) {
             bgLayer.style.opacity = '0';
             return;
@@ -55,46 +108,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const fadeStart = windowHeight * 0.1;
         const fadeEnd = windowHeight * 0.6;
-
-        let opacity = 1;
-        if (scrollPosition > fadeStart) {
-            opacity = 1 - ((scrollPosition - fadeStart) / (fadeEnd - fadeStart));
-        }
-        opacity = Math.max(0, Math.min(1, opacity));
+        const opacity = clamp(1 - ((scrollPosition - fadeStart) / (fadeEnd - fadeStart)), 0, 1);
         bgLayer.style.opacity = opacity;
 
-        if (prefersReducedMotion) return;
+        if (prefersReducedMotion()) return;
 
-        const translateY = scrollPosition * factors.hero;
-        bgLayer.style.transform = `translateX(-50%) translateY(-${translateY}px)`;
-
-        if (monkImg) {
-            const monkTranslateY = scrollPosition * factors.monk;
-            if (factors.monkScale > 0) {
-                const monkScale = 1 + (scrollPosition * factors.monkScale);
-                monkImg.style.transform = `translateY(${monkTranslateY}px) scale(${monkScale})`;
-            } else {
-                monkImg.style.transform = `translateY(${monkTranslateY}px)`;
-            }
-        }
+        bgLayer.style.transform = `translateX(-50%) translateY(-${scrollPosition * factors.hero}px)`;
+        if (monkImg) monkImg.style.transform = `translateY(${scrollPosition * factors.monk}px)`;
     }
 
     window.addEventListener('scroll', () => {
-        latestScrollY = window.scrollY;
         if (!isScrollTicking) {
             window.requestAnimationFrame(renderParallax);
             isScrollTicking = true;
         }
     }, { passive: true });
 
-    // Initial check only if page was reloaded mid-scroll
-    if (window.scrollY > 0) {
-        renderParallax();
-    }
+    if (window.scrollY > 0) renderParallax();
 
-
-            // =======================================================================
-    //  2. Expedition Field Journal Controller (Tactile Book & Single Source)
+    // =======================================================================
+    //  3. Expedition Field Journal
     // =======================================================================
     const flipbook = document.getElementById('flipbook');
     if (!flipbook) return;
@@ -106,10 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
             title: "POKHARA",
             fullLocation: "Pokhara",
             altitude: 822,
-            overnight: "Pokhara (822 m)",
-            hook: "Lakeside calm before the high plateau.",
-            summary: "Lakeside arrival, gear inspection, and orientation for the high plateau beyond the Annapurnas.",
-            thumb: "./Assets/flipbook/day1_pokhara_lake.jpg",
+            thumb: "./Assets/flipbook/day1_pokhara_lake.webp",
             coord: { x: 46, y: 58 }
         },
         {
@@ -117,10 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
             title: "BRIEFING",
             fullLocation: "Pokhara Briefing",
             altitude: 822,
-            overnight: "Pokhara (822 m)",
-            hook: "Monastic lineage and inner alignment.",
-            summary: "Morning lineage introduction with HE Palga Rinpoche. Expedition briefing and packing sacred texts.",
-            thumb: "./Assets/flipbook/day2_expedition_briefing.jpg",
+            thumb: "./Assets/flipbook/day2_expedition_briefing.webp",
             coord: { x: 138, y: 58 }
         },
         {
@@ -128,10 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
             title: "MARPHA",
             fullLocation: "Marpha Village",
             altitude: 2670,
-            overnight: "Marpha (2,670 m)",
-            hook: "Apple orchards and stone-paved alleys.",
-            summary: "Ascending into the Kali Gandaki canyon. Whitewashed Thakali houses and canal-lined alleys.",
-            thumb: "./Assets/flipbook/day3_marpha_village.jpg",
+            thumb: "./Assets/flipbook/day3_marpha_village.webp",
             coord: { x: 230, y: 40 }
         },
         {
@@ -139,10 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
             title: "MUKTINATH",
             fullLocation: "Muktinath",
             altitude: 3760,
-            overnight: "Muktinath (3,760 m)",
-            hook: "Fire and water in the same place.",
-            summary: "Arriving at the sacred threshold where natural flame burns across stone spring waters beneath Thorong La.",
-            thumb: "./Assets/flipbook/muktinath_temple.jpg",
+            thumb: "./Assets/flipbook/muktinath_temple.webp",
             coord: { x: 323, y: 20 }
         },
         {
@@ -150,9 +171,6 @@ document.addEventListener('DOMContentLoaded', () => {
             title: "UPPER MUSTANG",
             fullLocation: "Syangboche",
             altitude: 3800,
-            overnight: "Syangboche (3,800 m)",
-            hook: "Crossing into the rain-shadow desert.",
-            summary: "Permit checkpoint at Kagbeni passed. Deep ochre cliffs, wind-sculpted towers, and silent passes.",
             thumb: "./Assets/flipbook/day5_mustang_canyon.jpg",
             coord: { x: 415, y: 19 }
         },
@@ -161,10 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
             title: "LO MANTHANG",
             fullLocation: "Lo Manthang",
             altitude: 3840,
-            overnight: "Lo Manthang (3,840 m)",
-            hook: "The walled city at the edge of the world.",
-            summary: "Riding across the desert horizon into the ancient fortified capital of the Kingdom of Lo.",
-            thumb: "./Assets/flipbook/lomanthang_walled.jpg",
+            thumb: "./Assets/flipbook/lomanthang_walled.webp",
             coord: { x: 507, y: 18 }
         },
         {
@@ -172,20 +187,14 @@ document.addEventListener('DOMContentLoaded', () => {
             title: "WALLED CITY",
             fullLocation: "Lo Manthang Stay",
             altitude: 3840,
-            overnight: "Lo Manthang (3,840 m)",
-            hook: "Monasteries, frescoes and ancient alleys.",
-            summary: "Full day inside the four-gated city. Private teaching with HE Palga Rinpoche in the royal monastery.",
-            thumb: "./Assets/flipbook/tiji_festival.jpg",
+            thumb: "./Assets/flipbook/tiji_festival.webp",
             coord: { x: 600, y: 18 }
         },
         {
             day: 8,
             title: "CHHOSER CAVES",
             fullLocation: "Chhoser Sky Caves",
-            altitude: 3840, // Canonical max elevation aligned across site
-            overnight: "Lo Manthang (3,840 m)",
-            hook: "Five stories carved into stone cliffs.",
-            summary: "Exploring the mysterious Jhong cave complex, hollowed out thousands of years ago by ancient troglodytes.",
+            altitude: 3840,
             thumb: "./Assets/flipbook/day8_jhong_caves.jpg",
             coord: { x: 692, y: 18 }
         },
@@ -194,9 +203,6 @@ document.addEventListener('DOMContentLoaded', () => {
             title: "LURI GOMPA",
             fullLocation: "Chhusang",
             altitude: 2980,
-            overnight: "Chhusang (2,980 m)",
-            hook: "Cliff-perched red stupa and sacred hermitage.",
-            summary: "Visiting the cave temple of Luri Gompa, housing exquisite 13th-century Kagyu Tantric mandalas.",
             thumb: "./Assets/flipbook/day9_luri_gompa.jpg",
             coord: { x: 784, y: 34 }
         },
@@ -205,9 +211,6 @@ document.addEventListener('DOMContentLoaded', () => {
             title: "KAGBENI",
             fullLocation: "Kagbeni",
             altitude: 2800,
-            overnight: "Kagbeni (2,800 m)",
-            hook: "Ancient gateway of red clay and mud brick.",
-            summary: "Medieval mud-brick town at the confluence of rivers. Old fortress and sacred prayer wheels.",
             thumb: "./Assets/flipbook/day10_kagbeni_village.jpg",
             coord: { x: 876, y: 38 }
         },
@@ -216,9 +219,6 @@ document.addEventListener('DOMContentLoaded', () => {
             title: "LETE PINES",
             fullLocation: "Lete",
             altitude: 2480,
-            overnight: "Lete (2,480 m)",
-            hook: "Descent into pine forests under Dhaulagiri.",
-            summary: "Dropping down the gorge into fragrant pine needles and roaring river cascades.",
             thumb: "./Assets/flipbook/day11_lete_valley.jpg",
             coord: { x: 969, y: 43 }
         },
@@ -227,9 +227,6 @@ document.addEventListener('DOMContentLoaded', () => {
             title: "TATOPANI",
             fullLocation: "Tatopani",
             altitude: 1190,
-            overnight: "Tatopani / Pokhara",
-            hook: "Natural mineral springs and Thakali feast.",
-            summary: "Resting muscles in natural hot springs surrounded by subtropical terraces. Traditional Thakali feast.",
             thumb: "./Assets/flipbook/day12_tatopani_hotspring.jpg",
             coord: { x: 1061, y: 58 }
         },
@@ -238,10 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
             title: "DEPARTURE",
             fullLocation: "Pokhara / Kathmandu",
             altitude: 822,
-            overnight: "Return Home",
-            hook: "Closing reflection and journey home.",
-            summary: "Morning reflection by Phewa Lake. Flight back to Kathmandu with renewed inner clarity.",
-            thumb: "./Assets/flipbook/day1_pokhara_lake.jpg",
+            thumb: "./Assets/flipbook/day1_pokhara_lake.webp",
             coord: { x: 1154, y: 58 }
         }
     ];
@@ -250,30 +244,45 @@ document.addEventListener('DOMContentLoaded', () => {
     const nodes = Array.from(flipbook.querySelectorAll('.fb-route-node'));
     const prevBtn = document.getElementById('fb-prev');
     const nextBtn = document.getElementById('fb-next');
-    const playBtn = document.getElementById('fb-play');
     const viewport = document.getElementById('fb-viewport');
     const stage = document.getElementById('fb-stage');
     const folioCurr = document.getElementById('fb-folio-curr');
     const folioDest = document.getElementById('fb-folio-dest');
-    const elevIndicator = document.getElementById('fb-elev-indicator');
+    const elevMarker = document.getElementById('fb-elev-indicator');
+    const elevGuide = document.getElementById('fb-elev-guide');
     const soundToggle = document.getElementById('fb-sound-toggle');
-    const soundLabel = document.querySelector('.fb-sound-lbl');
-
     const tooltip = document.getElementById('fb-node-tooltip');
     const tooltipImg = document.getElementById('fb-tooltip-img');
     const tooltipDay = document.getElementById('fb-tooltip-day');
     const tooltipLoc = document.getElementById('fb-tooltip-loc');
     const tooltipAlt = document.getElementById('fb-tooltip-alt');
     const elevationWrap = document.querySelector('.fb-elevation-wrap');
+    const elevationSvg = document.querySelector('.fb-elevation-svg');
 
+    const SVG_W = 1200;
+    const SVG_H = 68;
     const totalDays = spreads.length;
+    const pad = (n) => (n < 10 ? `0${n}` : `${n}`);
+
     // Default to Day 4 (index 3: Muktinath)
     let currentIndex = 3;
-    let autoTimer = null;
-    let isPlaying = false;
+    let turning = null;      // the leaf currently in motion
+    let queuedIndex = null;  // where the reader asked to go while a page was still turning
     let isSoundEnabled = false;
 
-    // --- Web Audio Tactile Paper Turn Sound (Synthesized on Demand) ---
+    // --- Book furniture: page block (read / unread) and a ribbon marker ---
+    const furniture = document.createElement('div');
+    furniture.className = 'fb-book-furniture';
+    furniture.setAttribute('aria-hidden', 'true');
+    furniture.innerHTML = '<span class="fb-block fb-block--left"></span><span class="fb-block fb-block--right"></span>';
+    stage.prepend(furniture);
+
+    const ribbon = document.createElement('span');
+    ribbon.className = 'fb-ribbon';
+    ribbon.setAttribute('aria-hidden', 'true');
+    stage.append(ribbon);
+
+    // --- Web Audio: soft paper turn (synthesised on demand, off by default) ---
     let audioCtx = null;
     function playPageTurnSound() {
         if (!isSoundEnabled) return;
@@ -282,39 +291,39 @@ document.addEventListener('DOMContentLoaded', () => {
                 const AudioContextClass = window.AudioContext || window.webkitAudioContext;
                 if (AudioContextClass) audioCtx = new AudioContextClass();
             }
-            if (audioCtx && audioCtx.state === 'suspended') {
-                audioCtx.resume();
-            }
             if (!audioCtx) return;
+            if (audioCtx.state === 'suspended') audioCtx.resume();
 
-            // Generate soft noise burst shaped like real tactile paper flutter
-            const duration = 0.22;
+            const now = audioCtx.currentTime;
+            const duration = 0.42;
             const bufferSize = Math.floor(audioCtx.sampleRate * duration);
             const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
             const channel = buffer.getChannelData(0);
             for (let i = 0; i < bufferSize; i++) {
-                channel[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufferSize * 0.30));
+                // A lift (swell) followed by the page settling (short tail)
+                const t = i / bufferSize;
+                const envelope = t < 0.55 ? Math.sin((t / 0.55) * Math.PI * 0.5) : Math.exp(-(t - 0.55) * 9);
+                channel[i] = (Math.random() * 2 - 1) * envelope;
             }
 
-            const noiseSource = audioCtx.createBufferSource();
-            noiseSource.buffer = buffer;
+            const source = audioCtx.createBufferSource();
+            source.buffer = buffer;
 
-            // Warm bandpass filter around 750Hz
             const filter = audioCtx.createBiquadFilter();
             filter.type = 'bandpass';
-            filter.frequency.setValueAtTime(750, audioCtx.currentTime);
-            filter.frequency.exponentialRampToValueAtTime(340, audioCtx.currentTime + duration);
-            filter.Q.value = 1.8;
+            filter.frequency.setValueAtTime(1400, now);
+            filter.frequency.exponentialRampToValueAtTime(420, now + duration);
+            filter.Q.value = 0.9;
 
             const gain = audioCtx.createGain();
-            gain.gain.setValueAtTime(0.09, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+            gain.gain.setValueAtTime(0.0001, now);
+            gain.gain.exponentialRampToValueAtTime(0.06, now + 0.12);
+            gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
 
-            noiseSource.connect(filter);
+            source.connect(filter);
             filter.connect(gain);
             gain.connect(audioCtx.destination);
-
-            noiseSource.start();
+            source.start(now);
         } catch (e) {
             // Audio policy gracefully handled
         }
@@ -325,368 +334,499 @@ document.addEventListener('DOMContentLoaded', () => {
             isSoundEnabled = !isSoundEnabled;
             soundToggle.classList.toggle('is-active', isSoundEnabled);
             soundToggle.classList.toggle('is-muted', !isSoundEnabled);
-            if (soundLabel) {
-                soundLabel.textContent = isSoundEnabled ? 'SOUND · ON' : 'SOUND · OFF';
-            }
+            soundToggle.setAttribute('aria-pressed', String(isSoundEnabled));
             if (isSoundEnabled) playPageTurnSound();
         });
     }
 
-    // --- Update Journal View & 3D Tactile Stack Coordination ---
-    function updateJournalView(direction = 0) {
-        const isDesktop = window.innerWidth > 768;
+    // --- Which spread is on the table ---
+    // Photos on closed pages are lazy; the pages either side of the open one are fetched
+    // ahead so a turn or swipe never lands on an empty frame
+    let journalIsNear = !('IntersectionObserver' in window);
+    function warmNeighbours(index) {
+        if (!journalIsNear) return;
+        [index - 1, index + 1].forEach((idx) => {
+            const spread = spreads[idx];
+            if (!spread) return;
+            spread.querySelectorAll('img[loading="lazy"]').forEach((img) => { img.loading = 'eager'; });
+        });
+    }
 
-        if (isDesktop) {
-            // Desktop: Full 3D Stack Coordination (2–3 visible layers on each side)
-            spreads.forEach((spread, idx) => {
-                spread.classList.remove('is-active', 'is-stacked-left', 'is-stacked-right');
-
-                if (idx === currentIndex) {
-                    // Active Spread: crisp, centered, full opacity
-                    spread.classList.add('is-active');
-                    spread.style.transform = 'translateX(0px) translateZ(0px) rotateY(0deg) scale(1)';
-                    spread.style.opacity = '1';
-                    spread.style.zIndex = '35';
-                    spread.style.pointerEvents = 'auto';
-                    spread.style.filter = 'none';
-                    spread.style.setProperty('--stack-x', '0px');
-                    spread.style.setProperty('--stack-z', '0px');
-                    spread.style.setProperty('--stack-s', '1');
-                } else if (idx < currentIndex) {
-                    // Preceding spreads: stacked on the LEFT (2–3 visible paper layers)
-                    const diff = currentIndex - idx;
-                    if (diff <= 3) {
-                        spread.classList.add('is-stacked-left');
-                        const tx = -18 - (diff - 1) * 14;
-                        const tz = -24 * diff;
-                        const sc = 1 - (diff * 0.012);
-                        const op = 1 - (diff - 1) * 0.22;
-                        const zi = 30 - diff;
-
-                        spread.style.transform = `translateX(${tx}px) translateZ(${tz}px) scale(${sc})`;
-                        spread.style.opacity = `${op}`;
-                        spread.style.zIndex = `${zi}`;
-                        spread.style.pointerEvents = 'auto';
-                        spread.style.filter = `brightness(${1 - diff * 0.03})`;
-                        spread.style.setProperty('--stack-x', `${tx}px`);
-                        spread.style.setProperty('--stack-z', `${tz}px`);
-                        spread.style.setProperty('--stack-s', `${sc}`);
-                    } else {
-                        spread.style.opacity = '0';
-                        spread.style.pointerEvents = 'none';
-                        spread.style.zIndex = '1';
-                        spread.style.transform = 'translateX(-60px) translateZ(-100px) scale(0.95)';
-                    }
-                } else {
-                    // Upcoming spreads: stacked on the RIGHT (2–3 visible paper layers)
-                    const diff = idx - currentIndex;
-                    if (diff <= 3) {
-                        spread.classList.add('is-stacked-right');
-                        const tx = 18 + (diff - 1) * 14;
-                        const tz = -24 * diff;
-                        const sc = 1 - (diff * 0.012);
-                        const op = 1 - (diff - 1) * 0.22;
-                        const zi = 30 - diff;
-
-                        spread.style.transform = `translateX(${tx}px) translateZ(${tz}px) scale(${sc})`;
-                        spread.style.opacity = `${op}`;
-                        spread.style.zIndex = `${zi}`;
-                        spread.style.pointerEvents = 'auto';
-                        spread.style.filter = `brightness(${1 - diff * 0.03})`;
-                        spread.style.setProperty('--stack-x', `${tx}px`);
-                        spread.style.setProperty('--stack-z', `${tz}px`);
-                        spread.style.setProperty('--stack-s', `${sc}`);
-                    } else {
-                        spread.style.opacity = '0';
-                        spread.style.pointerEvents = 'none';
-                        spread.style.zIndex = '1';
-                        spread.style.transform = 'translateX(60px) translateZ(-100px) scale(0.95)';
-                    }
-                }
-            });
-        } else {
-            // Mobile: Editorial Single-Page Flow
-            spreads.forEach((spread, idx) => {
-                spread.classList.remove('is-stacked-left', 'is-stacked-right');
-                spread.style.transform = '';
-                spread.style.filter = '';
-                spread.style.zIndex = '';
-                if (idx === currentIndex) {
-                    spread.classList.add('is-active');
-                    spread.style.display = 'block';
-                    spread.style.opacity = '1';
-                    spread.style.pointerEvents = 'auto';
-                } else {
-                    spread.classList.remove('is-active');
-                    spread.style.display = 'none';
-                    spread.style.opacity = '0';
-                    spread.style.pointerEvents = 'none';
-                }
-            });
-        }
-
-        // Play paper flutter sound on manual page turns
-        if (direction !== 0) {
-            playPageTurnSound();
-        }
-
-        // Update Folio & Destination
-        const currentData = ITINERARY_DATA[currentIndex] || ITINERARY_DATA[0];
-        if (folioCurr) {
-            const dNum = currentData.day;
-            folioCurr.textContent = `DAY ${dNum < 10 ? '0' + dNum : dNum}`;
-        }
-        if (folioDest) {
-            folioDest.textContent = currentData.title;
-        }
-
-        // Update Route Timeline Nodes
-        nodes.forEach((node, idx) => {
-            const isActive = idx === currentIndex;
-            node.classList.toggle('active', isActive);
-            if (isActive && !isDesktop) {
-                node.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    function showSpread(index) {
+        warmNeighbours(index);
+        const mobile = isMobile();
+        spreads.forEach((spread, idx) => {
+            const active = idx === index;
+            spread.classList.toggle('is-active', active);
+            // On desktop only one spread exists for the reader; on mobile all pages are in the run
+            if (!mobile && !active) {
+                spread.setAttribute('inert', '');
+                spread.setAttribute('aria-hidden', 'true');
+            } else {
+                spread.removeAttribute('inert');
+                spread.removeAttribute('aria-hidden');
             }
         });
+    }
 
-        // Update Mountain Elevation Dot Position
-        if (elevIndicator && currentData.coord) {
-            elevIndicator.setAttribute('cx', currentData.coord.x);
-            elevIndicator.setAttribute('cy', currentData.coord.y);
+    // --- Everything that reflects the current day ---
+    function updateChrome() {
+        const data = ITINERARY_DATA[currentIndex] || ITINERARY_DATA[0];
+
+        if (folioCurr) folioCurr.textContent = `DAY ${pad(data.day)}`;
+        if (folioDest) folioDest.textContent = data.title;
+
+        nodes.forEach((node, idx) => {
+            const active = idx === currentIndex;
+            node.classList.toggle('active', active);
+            if (active) node.setAttribute('aria-current', 'step');
+            else node.removeAttribute('aria-current');
+        });
+
+        positionElevationMarker();
+
+        // Keep the active waypoint in view when the route is scrollable (mobile)
+        const activeNode = nodes[currentIndex];
+        if (elevationWrap && activeNode && elevationWrap.scrollWidth > elevationWrap.clientWidth + 2) {
+            const left = activeNode.offsetLeft - (elevationWrap.clientWidth - activeNode.offsetWidth) / 2;
+            elevationWrap.scrollTo({ left, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
         }
 
-        // Update Nav Controls Disabled State
+        // Page block: pages already read sit on the left, the rest on the right
+        stage.style.setProperty('--pages-read', currentIndex);
+        stage.style.setProperty('--pages-left', totalDays - 1 - currentIndex);
+
         if (prevBtn) prevBtn.disabled = currentIndex === 0;
         if (nextBtn) nextBtn.disabled = currentIndex === totalDays - 1;
     }
 
-    // Go to Specific Day
-    function goToDay(index, direction = 0) {
-        if (index < 0 || index >= totalDays || index === currentIndex) return;
-        currentIndex = index;
-        updateJournalView(direction);
+    function svgPoint(coord) {
+        const width = elevationSvg ? elevationSvg.clientWidth : 0;
+        const height = elevationSvg ? elevationSvg.clientHeight : 0;
+        return { x: (coord.x / SVG_W) * width, y: (coord.y / SVG_H) * height };
     }
 
-    // --- Interactive Page & Stack Clicks ---
-    spreads.forEach((spread, index) => {
+    function positionElevationMarker() {
+        const data = ITINERARY_DATA[currentIndex];
+        if (!elevMarker || !data || !data.coord) return;
+        const { x, y } = svgPoint(data.coord);
+        elevMarker.style.transform = `translate(${x}px, ${y}px)`;
+    }
+
+    // =======================================================================
+    //  Desktop: the page leaf
+    //  A leaf has a front face (lies on the right) and a back face (lies on the left).
+    //  theta: 0 = lying on the right, 1 = lying on the left.
+    // =======================================================================
+    const cubicBezier = (x1, y1, x2, y2) => {
+        const cx = 3 * x1, bx = 3 * (x2 - x1) - cx, ax = 1 - cx - bx;
+        const cy = 3 * y1, by = 3 * (y2 - y1) - cy, ay = 1 - cy - by;
+        const sampleX = (t) => ((ax * t + bx) * t + cx) * t;
+        const sampleY = (t) => ((ay * t + by) * t + cy) * t;
+        const slopeX = (t) => (3 * ax * t + 2 * bx) * t + cx;
+        return (x) => {
+            let t = x;
+            for (let i = 0; i < 6; i++) {
+                const d = sampleX(t) - x;
+                const s = slopeX(t);
+                if (Math.abs(d) < 1e-4 || Math.abs(s) < 1e-6) break;
+                t -= d / s;
+            }
+            return sampleY(clamp(t, 0, 1));
+        };
+    };
+
+    // Paper has a little inertia: a slow lift, an even carry, a soft landing
+    const easePage = cubicBezier(0.55, 0.02, 0.28, 1);
+    const easeSettle = cubicBezier(0.22, 1, 0.36, 1);
+
+    // A cloned page keeps its spread's layout rhythm (type A–E) by carrying the type class
+    function pageClone(spread, side) {
+        const page = spread.querySelector(side === 'left' ? '.fb-page--left' : '.fb-page--right');
+        const clone = page.cloneNode(true);
+        const holder = document.createElement('div');
+        holder.className = 'fb-page-holder';
+        spread.classList.forEach((cls) => {
+            if (cls.startsWith('fb-spread--type-')) holder.classList.add(cls);
+        });
+        clone.classList.add('fb-page--clone');
+        holder.append(clone);
+        return holder;
+    }
+
+    function buildLeaf(from, to) {
+        const dir = to > from ? 1 : -1;
+        const layer = document.createElement('div');
+        layer.className = 'fb-turn-layer';
+        layer.setAttribute('aria-hidden', 'true');
+
+        // The half of the old spread that stays visible until the leaf lands on it
+        const cover = document.createElement('div');
+        cover.className = `fb-leaf-cover fb-leaf-cover--${dir > 0 ? 'left' : 'right'}`;
+        cover.append(pageClone(spreads[from], dir > 0 ? 'left' : 'right'));
+
+        const castLeft = document.createElement('div');
+        castLeft.className = 'fb-leaf-cast fb-leaf-cast--left';
+        const castRight = document.createElement('div');
+        castRight.className = 'fb-leaf-cast fb-leaf-cast--right';
+
+        const leaf = document.createElement('div');
+        leaf.className = 'fb-leaf';
+
+        const front = document.createElement('div');
+        front.className = 'fb-leaf-face fb-leaf-face--front';
+        front.append(pageClone(dir > 0 ? spreads[from] : spreads[to], 'right'));
+        const frontShade = document.createElement('span');
+        frontShade.className = 'fb-leaf-shade';
+        front.append(frontShade);
+
+        const back = document.createElement('div');
+        back.className = 'fb-leaf-face fb-leaf-face--back';
+        back.append(pageClone(dir > 0 ? spreads[to] : spreads[from], 'left'));
+        const backShade = document.createElement('span');
+        backShade.className = 'fb-leaf-shade';
+        back.append(backShade);
+
+        leaf.append(front, back);
+        layer.append(cover, castLeft, castRight, leaf);
+        stage.append(layer);
+
+        const state = { layer, leaf, frontShade, backShade, castLeft, castRight, dir, from, to, raf: 0, theta: dir > 0 ? 0 : 1 };
+        renderLeaf(state);
+        return state;
+    }
+
+    function renderLeaf(state) {
+        const t = clamp(state.theta, 0, 1);
+        const lift = Math.sin(t * Math.PI); // 0 flat, 1 upright
+        state.leaf.style.transform = `rotateY(${-180 * t}deg) translateZ(${lift * 1.5}px)`;
+        // Faces darken as they turn away from the light
+        state.frontShade.style.opacity = (Math.min(t, 0.5) * 2 * 0.22).toFixed(3);
+        state.backShade.style.opacity = (Math.min(1 - t, 0.5) * 2 * 0.22).toFixed(3);
+        // The leaf casts a soft shadow onto whichever page it is travelling over
+        const castRight = t <= 0.5 ? lift : (1 - t) * 2;
+        const castLeft = t >= 0.5 ? lift : t * 2;
+        state.castRight.style.opacity = (castRight * 0.55).toFixed(3);
+        state.castLeft.style.opacity = (castLeft * 0.55).toFixed(3);
+        state.castRight.style.setProperty('--cast-reach', `${Math.round((1 - t) * 100)}%`);
+        state.castLeft.style.setProperty('--cast-reach', `${Math.round(t * 100)}%`);
+    }
+
+    function animateLeaf(state, targetTheta, duration, ease, onDone) {
+        const startTheta = state.theta;
+        const startTime = performance.now();
+        cancelAnimationFrame(state.raf);
+        const step = (now) => {
+            const k = clamp((now - startTime) / duration, 0, 1);
+            state.theta = startTheta + (targetTheta - startTheta) * ease(k);
+            renderLeaf(state);
+            if (k < 1) state.raf = requestAnimationFrame(step);
+            else if (onDone) onDone();
+        };
+        state.raf = requestAnimationFrame(step);
+    }
+
+    function swayRibbon() {
+        ribbon.classList.remove('is-swaying');
+        void ribbon.offsetWidth; // restart the animation
+        ribbon.classList.add('is-swaying');
+    }
+
+    function releaseLeaf(state) {
+        cancelAnimationFrame(state.raf);
+        state.layer.remove();
+        if (turning === state) turning = null;
+        flipbook.classList.remove('is-turning');
+        if (queuedIndex !== null) {
+            const next = queuedIndex;
+            queuedIndex = null;
+            if (next !== currentIndex) turnTo(next, { hurried: true });
+        }
+    }
+
+    function commitTurn(state, fromTheta) {
+        currentIndex = state.to;
+        updateChrome();
+        playPageTurnSound();
+        swayRibbon();
+        const target = state.dir > 0 ? 1 : 0;
+        const remaining = Math.abs(target - fromTheta);
+        return { target, remaining };
+    }
+
+    // Where the reader is heading (accounts for a turn still in motion)
+    const targetIndex = () => (queuedIndex !== null ? queuedIndex : currentIndex);
+
+    function turnTo(index, { hurried = false } = {}) {
+        index = clamp(index, 0, totalDays - 1);
+
+        if (isMobile()) {
+            scrollToSpread(index);
+            return;
+        }
+
+        if (turning) {
+            queuedIndex = index;
+            return;
+        }
+        if (index === currentIndex) return;
+
+        if (prefersReducedMotion()) {
+            currentIndex = index;
+            showSpread(currentIndex);
+            updateChrome();
+            return;
+        }
+
+        const state = buildLeaf(currentIndex, index);
+        turning = state;
+        flipbook.classList.add('is-turning');
+        showSpread(index);
+        commitTurn(state, state.theta);
+
+        // One deliberate turn, whether the reader moves one day or jumps across the trip
+        const jump = Math.abs(state.to - state.from);
+        const duration = hurried ? 620 : (jump > 1 ? 1050 : 920);
+        animateLeaf(state, state.dir > 0 ? 1 : 0, duration, easePage, () => releaseLeaf(state));
+    }
+
+    // --- First sight: the page corner lifts once, just enough to show there is more ---
+    function peek() {
+        if (turning || isMobile() || prefersReducedMotion() || currentIndex >= totalDays - 1) return;
+        const state = buildLeaf(currentIndex, currentIndex + 1);
+        turning = state;
+        showSpread(currentIndex + 1);
+        animateLeaf(state, 0.09, 700, easeSettle, () => {
+            setTimeout(() => {
+                animateLeaf(state, 0, 760, easePage, () => {
+                    showSpread(currentIndex);
+                    releaseLeaf(state);
+                });
+            }, 160);
+        });
+    }
+
+    if ('IntersectionObserver' in window) {
+        const nearObserver = new IntersectionObserver((entries) => {
+            if (!entries.some((entry) => entry.isIntersecting)) return;
+            nearObserver.disconnect();
+            journalIsNear = true;
+            warmNeighbours(currentIndex);
+        }, { rootMargin: '900px 0px' });
+        nearObserver.observe(viewport);
+
+        const peekObserver = new IntersectionObserver((entries) => {
+            if (!entries.some((entry) => entry.isIntersecting)) return;
+            peekObserver.disconnect();
+            setTimeout(peek, 650);
+        }, { threshold: 0.55 });
+        peekObserver.observe(viewport);
+    }
+
+    // --- Pointer: click a page to turn it, or take hold of it and drag ---
+    let drag = null;
+    let suppressClick = false;
+
+    viewport.addEventListener('pointerdown', (e) => {
+        if (isMobile() || turning || e.button !== 0 || e.pointerType === 'touch') return;
+        if (e.target.closest('a, button')) return;
+        const page = e.target.closest('.fb-spread.is-active .fb-page');
+        if (!page) return;
+        const dir = page.classList.contains('fb-page--right') ? 1 : -1;
+        const to = currentIndex + dir;
+        if (to < 0 || to >= totalDays) return;
+        drag = { dir, to, x0: e.clientX, lastX: e.clientX, lastT: performance.now(), velocity: 0, state: null, pointerId: e.pointerId };
+    });
+
+    window.addEventListener('pointermove', (e) => {
+        if (!drag || e.pointerId !== drag.pointerId) return;
+        const dx = e.clientX - drag.x0;
+        drag.moved = drag.moved || Math.abs(dx) > 8;
+
+        if (!drag.state) {
+            // Only a deliberate pull (towards the spine) becomes a drag
+            if (Math.abs(dx) < 8 || Math.sign(dx) !== -drag.dir) return;
+            drag.state = buildLeaf(currentIndex, drag.to);
+            turning = drag.state;
+            showSpread(drag.to);
+            flipbook.classList.add('is-dragging', 'is-turning');
+        }
+
+        const now = performance.now();
+        drag.velocity = (e.clientX - drag.lastX) / Math.max(1, now - drag.lastT);
+        drag.lastX = e.clientX;
+        drag.lastT = now;
+
+        const bookWidth = stage.clientWidth || 960;
+        const pull = clamp((-dx * drag.dir) / (bookWidth * 0.82), 0, 1);
+        // A touch of resistance at the start, like lifting a real page
+        const progress = Math.pow(pull, 1.18);
+        drag.state.theta = drag.dir > 0 ? progress : 1 - progress;
+        renderLeaf(drag.state);
+    });
+
+    const endDrag = (e) => {
+        if (!drag || (e && e.pointerId !== drag.pointerId)) return;
+        const { state, dir, velocity, moved } = drag;
+        drag = null;
+        if (!state) {
+            // A plain click turns the page (handled below); a stray drag the wrong way does nothing
+            if (moved) suppressClick = true;
+            return;
+        }
+        suppressClick = true;
+        flipbook.classList.remove('is-dragging');
+
+        const progress = dir > 0 ? state.theta : 1 - state.theta;
+        const flicked = (-velocity * dir) > 0.45;
+        if (progress > 0.32 || flicked) {
+            const { target, remaining } = commitTurn(state, state.theta);
+            animateLeaf(state, target, 260 + remaining * 520, easeSettle, () => releaseLeaf(state));
+        } else {
+            // Let go too early: the page falls back into place
+            animateLeaf(state, dir > 0 ? 0 : 1, 240 + progress * 420, easeSettle, () => {
+                showSpread(currentIndex);
+                releaseLeaf(state);
+            });
+        }
+    };
+    window.addEventListener('pointerup', endDrag);
+    // Photographs must not start a native image drag mid-turn
+    viewport.addEventListener('dragstart', (e) => e.preventDefault());
+    window.addEventListener('pointercancel', endDrag);
+
+    spreads.forEach((spread) => {
         spread.addEventListener('click', (e) => {
-            // Clicking a stacked spread directly turns to that spread
-            if (spread.classList.contains('is-stacked-left') || spread.classList.contains('is-stacked-right')) {
-                e.stopPropagation();
-                stopAutoPlay();
-                const dir = index > currentIndex ? 1 : -1;
-                goToDay(index, dir);
+            if (suppressClick) {
+                suppressClick = false;
                 return;
             }
+            if (isMobile() || !spread.classList.contains('is-active')) return;
+            if (e.target.closest('button, a')) return;
+            if (e.target.closest('.fb-page--left')) turnTo(targetIndex() - 1);
+            else if (e.target.closest('.fb-page--right')) turnTo(targetIndex() + 1);
+        });
+    });
 
-            // Clicking on active spread: left page turns back, right page turns forward
-            if (spread.classList.contains('is-active')) {
-                if (e.target.closest('button, a')) return;
-                const leftPage = spread.querySelector('.fb-page--left');
-                const rightPage = spread.querySelector('.fb-page--right');
+    if (prevBtn) prevBtn.addEventListener('click', () => turnTo(targetIndex() - 1));
+    if (nextBtn) nextBtn.addEventListener('click', () => turnTo(targetIndex() + 1));
 
-                if (leftPage && leftPage.contains(e.target)) {
-                    stopAutoPlay();
-                    if (currentIndex > 0) goToDay(currentIndex - 1, -1);
-                } else if (rightPage && rightPage.contains(e.target)) {
-                    stopAutoPlay();
-                    if (currentIndex < totalDays - 1) goToDay(currentIndex + 1, 1);
+    // --- Keyboard: arrows turn pages whenever focus is inside the journal ---
+    flipbook.addEventListener('keydown', (e) => {
+        if (e.altKey || e.ctrlKey || e.metaKey) return;
+        const keyMap = { ArrowRight: targetIndex() + 1, ArrowLeft: targetIndex() - 1, Home: 0, End: totalDays - 1 };
+        if (!(e.key in keyMap)) return;
+        // Leave the route timeline's own horizontal scrolling alone on mobile
+        if (isMobile() && e.target.closest('.fb-elevation-wrap')) return;
+        e.preventDefault();
+        turnTo(keyMap[e.key]);
+    });
+
+    // =======================================================================
+    //  Mobile: a swipeable run of journal pages (native scroll-snap)
+    // =======================================================================
+    function scrollToSpread(index, behavior = 'smooth') {
+        const spread = spreads[index];
+        if (!spread) return;
+        const left = spread.offsetLeft - (stage.clientWidth - spread.offsetWidth) / 2;
+        stage.scrollTo({ left, behavior: prefersReducedMotion() ? 'auto' : behavior });
+    }
+
+    let stageScrollTicking = false;
+    stage.addEventListener('scroll', () => {
+        if (!isMobile() || stageScrollTicking) return;
+        stageScrollTicking = true;
+        requestAnimationFrame(() => {
+            stageScrollTicking = false;
+            const center = stage.scrollLeft + stage.clientWidth / 2;
+            let nearest = currentIndex;
+            let best = Infinity;
+            spreads.forEach((spread, idx) => {
+                const distance = Math.abs(spread.offsetLeft + spread.offsetWidth / 2 - center);
+                if (distance < best) {
+                    best = distance;
+                    nearest = idx;
                 }
+            });
+            if (nearest !== currentIndex) {
+                currentIndex = nearest;
+                showSpread(currentIndex);
+                updateChrome();
             }
         });
-    });
+    }, { passive: true });
 
-    // --- Simple Circular Navigation Controls ---
-    if (prevBtn) {
-        prevBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            stopAutoPlay();
-            if (currentIndex > 0) goToDay(currentIndex - 1, -1);
-        });
-    }
-
-    if (nextBtn) {
-        nextBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            stopAutoPlay();
-            if (currentIndex < totalDays - 1) goToDay(currentIndex + 1, 1);
-        });
-    }
-
-    function startAutoPlay() {
-        isPlaying = true;
-        if (playBtn) playBtn.classList.add('is-playing');
-        if (autoTimer) clearInterval(autoTimer);
-        autoTimer = setInterval(() => {
-            if (currentIndex < totalDays - 1) {
-                goToDay(currentIndex + 1, 1);
-            } else {
-                goToDay(0, -1);
-            }
-        }, 5800);
-    }
-
-    function stopAutoPlay() {
-        isPlaying = false;
-        if (playBtn) playBtn.classList.remove('is-playing');
-        if (autoTimer) {
-            clearInterval(autoTimer);
-            autoTimer = null;
-        }
-    }
-
-    if (playBtn) {
-        playBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            if (isPlaying) {
-                stopAutoPlay();
-            } else {
-                startAutoPlay();
-            }
-        });
-    }
-
-    // Pause autoplay when reading
-    flipbook.addEventListener('mouseenter', () => {
-        if (isPlaying && autoTimer) {
-            clearInterval(autoTimer);
-        }
-    });
-
-    flipbook.addEventListener('mouseleave', () => {
-        if (isPlaying && !autoTimer) {
-            startAutoPlay();
-        }
-    });
-
-    // --- Timeline Waypoint Interaction & Hover Previews ---
+    // =======================================================================
+    //  Route timeline: waypoints, hover preview, altitude guide
+    // =======================================================================
     nodes.forEach((node, idx) => {
-        node.addEventListener('click', () => {
-            stopAutoPlay();
-            const dir = idx > currentIndex ? 1 : -1;
-            goToDay(idx, dir);
-        });
+        node.addEventListener('click', () => turnTo(idx));
 
-        // Hover tooltip preview
         node.addEventListener('mouseenter', () => {
-            if (!tooltip || window.innerWidth <= 768) return;
+            if (isMobile() || !elevationWrap) return;
             const dayData = ITINERARY_DATA[idx];
             if (!dayData) return;
 
-            if (tooltipImg) tooltipImg.src = dayData.thumb;
-            if (tooltipDay) tooltipDay.textContent = `DAY ${dayData.day < 10 ? '0' + dayData.day : dayData.day}`;
-            if (tooltipLoc) tooltipLoc.textContent = dayData.fullLocation;
-            if (tooltipAlt) tooltipAlt.textContent = `${dayData.altitude.toLocaleString()} m`;
+            const wrapRect = elevationWrap.getBoundingClientRect();
+            const nodeRect = node.getBoundingClientRect();
+            const centerX = (nodeRect.left + nodeRect.width / 2) - wrapRect.left;
 
-            if (elevationWrap) {
-                const wrapRect = elevationWrap.getBoundingClientRect();
-                const nodeRect = node.getBoundingClientRect();
-                const centerOffset = (nodeRect.left + nodeRect.width / 2) - wrapRect.left;
-                tooltip.style.left = `${centerOffset}px`;
+            if (tooltip) {
+                if (tooltipImg) tooltipImg.src = dayData.thumb;
+                if (tooltipDay) tooltipDay.textContent = `DAY ${pad(dayData.day)}`;
+                if (tooltipLoc) tooltipLoc.textContent = dayData.fullLocation;
+                if (tooltipAlt) tooltipAlt.textContent = `${dayData.altitude.toLocaleString()} m`;
+                // Float the preview just above the day's point on the profile
+                const pointY = dayData.coord ? svgPoint(dayData.coord).y : 0;
+                tooltip.style.left = `${centerX}px`;
+                tooltip.style.top = `${pointY - 12}px`;
+                tooltip.classList.add('is-visible');
             }
-            tooltip.classList.add('is-visible');
+
+            // A hairline drops from the elevation curve to the waypoint
+            if (elevGuide && dayData.coord) {
+                const { y } = svgPoint(dayData.coord);
+                const marker = node.querySelector('.fb-node-marker');
+                const markerRect = marker ? marker.getBoundingClientRect() : nodeRect;
+                const bottom = (markerRect.top + markerRect.height / 2) - wrapRect.top;
+                elevGuide.style.transform = `translate(${centerX}px, ${y}px)`;
+                elevGuide.style.height = `${Math.max(0, bottom - y)}px`;
+                elevGuide.classList.add('is-visible');
+            }
         });
 
         node.addEventListener('mouseleave', () => {
             if (tooltip) tooltip.classList.remove('is-visible');
+            if (elevGuide) elevGuide.classList.remove('is-visible');
         });
     });
 
-    // --- Subtle First-Time Page Peel Affordance ---
-    let hasPeeked = false;
-    const peekObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting && !hasPeeked) {
-                hasPeeked = true;
-                const activeSpread = spreads[currentIndex];
-                if (activeSpread) {
-                    activeSpread.classList.add('fb-first-peek');
-                    setTimeout(() => {
-                        activeSpread.classList.remove('fb-first-peek');
-                    }, 1800);
-                }
-                peekObserver.disconnect();
-            }
-        });
-    }, { threshold: 0.35 });
-
-    peekObserver.observe(flipbook);
-
-    // --- Desktop Micro-Parallax: Gentle, Restrained Tilt on Viewport ---
-    if (viewport && stage) {
-        viewport.addEventListener('mousemove', (e) => {
-            if (window.innerWidth <= 1024) return;
-            const rect = viewport.getBoundingClientRect();
-            const x = (e.clientX - rect.left) / rect.width - 0.5;
-            const y = (e.clientY - rect.top) / rect.height - 0.5;
-            const rotX = -y * 2.0; // max 1.0 deg
-            const rotY = x * 2.5;  // max 1.25 deg
-            stage.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
-        });
-
-        viewport.addEventListener('mouseleave', () => {
-            stage.style.transform = 'rotateX(0deg) rotateY(0deg)';
-        });
+    // =======================================================================
+    //  Layout changes
+    // =======================================================================
+    function applyMode() {
+        queuedIndex = null;
+        if (turning) releaseLeaf(turning);
+        drag = null;
+        flipbook.classList.remove('is-dragging', 'is-turning');
+        showSpread(currentIndex);
+        updateChrome();
+        if (isMobile()) requestAnimationFrame(() => scrollToSpread(currentIndex, 'auto'));
+        else stage.scrollLeft = 0;
     }
 
-    // --- Keyboard Navigation: Left/Right arrows, Space for Auto ---
-    document.addEventListener('keydown', (e) => {
-        const rect = flipbook.getBoundingClientRect();
-        const inView = rect.top < window.innerHeight && rect.bottom > 0;
-        if (!inView) return;
+    if (mobileQuery.addEventListener) mobileQuery.addEventListener('change', applyMode);
+    else if (mobileQuery.addListener) mobileQuery.addListener(applyMode);
 
-        if (e.key === 'ArrowRight') {
-            e.preventDefault();
-            stopAutoPlay();
-            if (currentIndex < totalDays - 1) goToDay(currentIndex + 1, 1);
-        } else if (e.key === 'ArrowLeft') {
-            e.preventDefault();
-            stopAutoPlay();
-            if (currentIndex > 0) goToDay(currentIndex - 1, -1);
-        } else if (e.key === ' ' && e.target.tagName !== 'BUTTON' && e.target.tagName !== 'INPUT') {
-            e.preventDefault();
-            if (isPlaying) stopAutoPlay();
-            else startAutoPlay();
-        }
-    });
-
-    // --- Touch Swiping for Mobile ---
-    let touchStartX = 0;
-    let touchStartY = 0;
-
-    if (viewport) {
-        viewport.addEventListener('touchstart', (e) => {
-            touchStartX = e.touches[0].clientX;
-            touchStartY = e.touches[0].clientY;
-            stopAutoPlay();
-        }, { passive: true });
-
-        viewport.addEventListener('touchend', (e) => {
-            const dx = e.changedTouches[0].clientX - touchStartX;
-            const dy = e.changedTouches[0].clientY - touchStartY;
-            if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 42) {
-                if (dx < 0 && currentIndex < totalDays - 1) {
-                    goToDay(currentIndex + 1, 1);
-                } else if (dx > 0 && currentIndex > 0) {
-                    goToDay(currentIndex - 1, -1);
-                }
-            }
-        }, { passive: true });
-    }
-
-
-    // =======================================================================
-    //  Unified Resize Engine (Debounced RAF)
-    // =======================================================================
-    let resizeTimer = null;
+    let resizeFrame = null;
     window.addEventListener('resize', () => {
-        if (resizeTimer) cancelAnimationFrame(resizeTimer);
-        resizeTimer = requestAnimationFrame(() => {
+        if (resizeFrame) cancelAnimationFrame(resizeFrame);
+        resizeFrame = requestAnimationFrame(() => {
             factors = getParallaxFactors();
-            updateJournalView();
+            positionElevationMarker();
         });
     }, { passive: true });
 
     // Initial render
-    updateJournalView();
+    applyMode();
 });
