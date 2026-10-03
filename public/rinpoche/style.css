@@ -11,26 +11,24 @@
     --text-white: #ffffff;
 
     /* --- Typography Tokens ---
-       Four voices, each with one job:
-       display (Oswald) for chapter titles, body (Inter) for reading and labels,
-       serif (Cormorant) for the editorial voice, script (Caveat) for the hand. */
+       Modular Scale (1.250 Major Third) & Refined Monographic System */
     --font-display: 'Oswald', sans-serif;
-    --font-body: 'Inter', sans-serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-serif: 'Cormorant Garamond', Georgia, serif;
     --font-script: 'Caveat', cursive;
 
-    --type-title: clamp(2.4rem, 3.8vw, 3.4rem);   /* chapter titles */
-    --type-voice: clamp(1.3rem, 1.6vw, 1.55rem);  /* serif editorial lines */
-    --type-body: 17px;
+    --type-title: clamp(2.2rem, 3.2vw, 3rem);     /* chapter titles */
+    --type-voice: clamp(1.25rem, 1.5vw, 1.5rem);  /* serif editorial lines */
+    --type-body: 16px;
     --type-label: 11px;
-    --track-title: 0.06em;
-    --track-label: 0.24em;
+    --track-title: 0.04em;
+    --track-label: 0.16em;
 
-    /* --- Surfaces & Ink (roles, not shades) --- */
-    --ink: #1E1A17;
-    --ink-body: #433930;
-    --ink-muted: #7A6C5F;
-    --ink-faint: #9C8C7D;
+    /* --- Surfaces & Ink (warm charcoal & bone) --- */
+    --ink: #1C1A17;
+    --ink-body: #3F3730;
+    --ink-muted: #75685D;
+    --ink-faint: #968677;
     --ink-voice: #8A4325;          /* the serif editorial voice on paper */
     --paper: #FAF7F2;
     --paper-on-dark: #FAF3EA;
@@ -196,15 +194,15 @@ html.js .text-content > :nth-child(4) { animation-delay: 0.75s; }
     justify-content: space-between;
     width: 100%;
     font-weight: 500;
-    font-size: 0.72rem;
-    letter-spacing: 0.24em;
+    font-size: 11px;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    opacity: 0.82;
+    opacity: 0.75;
 }
 
 .header-x {
     font-weight: 300;
-    margin: 0 0.2em;
+    margin: 0 0.35em;
     opacity: 0.7;
 }
 
@@ -221,30 +219,30 @@ html.js .text-content > :nth-child(4) { animation-delay: 0.75s; }
 }
 
 .hero-kicker {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.3em;
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
     color: #F8E5D6;
     text-transform: uppercase;
     margin-bottom: 1.75rem;
-    opacity: 0.92;
+    opacity: 0.75;
 }
 
 h1 {
-    font-family: 'Oswald', sans-serif;
-    font-size: clamp(3.8rem, 6.4vw, 6.4rem);
-    line-height: 1;
+    font-family: var(--font-display);
+    font-size: clamp(3.6rem, 6.2vw, 6.2rem);
+    line-height: 1.05;
     text-transform: uppercase;
     font-weight: 600;
     margin-bottom: 2rem;
-    letter-spacing: 0.035em;
+    letter-spacing: 0.02em;
 }
 
 .description {
-    font-size: 1.1rem;
-    line-height: 1.7;
-    max-width: 38rem;
+    font-size: clamp(1.1rem, 1.25vw, 1.2rem);
+    line-height: 1.65;
+    max-width: 60ch;
     margin: 0 auto 1.75rem;
     font-weight: 300;
     text-wrap: pretty;
@@ -254,10 +252,12 @@ h1 {
 .highlight {
     font-family: var(--font-serif);
     font-style: italic;
-    font-size: 1.5rem;
-    line-height: 1.35;
+    font-size: clamp(1.35rem, 1.55vw, 1.55rem);
+    line-height: 1.5;
     font-weight: 500;
     color: #FFF3E8;
+    max-width: 58ch;
+    margin: 0 auto;
 }
 
 .foreground-layer {
@@ -329,24 +329,24 @@ h1 {
 }
 
 .text-container h2 {
-    font-family: 'Oswald', sans-serif;
-    font-size: clamp(2.4rem, 3.2vw, 3.2rem);
-    font-weight: 400;
-    color: #C9522E;
-    text-transform: uppercase;
-    letter-spacing: var(--track-title);
-    line-height: 1.08;
-    margin-bottom: 1.75rem;
+    font-family: var(--font-serif);
+    font-size: clamp(2.4rem, 3.4vw, 3.5rem);
+    font-weight: 600;
+    color: #9E3E1F;
+    text-transform: none;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
 }
 
 .text-container p {
-    font-family: 'Inter', sans-serif;
-    font-size: var(--type-body);
-    line-height: 1.8;
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.7;
     color: var(--ink-body);
     margin-bottom: 1.5rem;
-    font-weight: 300;
-    max-width: 30rem;
+    font-weight: 400;
+    max-width: 60ch;
 }
 
 .text-container .monk-highlight {
@@ -585,41 +585,41 @@ h1 {
 
 /* UI Polish Updates */
 .journey-heading-container h2 {
-    font-family: 'Oswald', sans-serif;
+    font-family: var(--font-display);
     font-size: var(--type-title);
-    font-weight: 400;
+    font-weight: 500;
     color: #C9522E;
     text-transform: uppercase;
-    line-height: 1.08;
+    line-height: 1.1;
     margin-bottom: 1.75rem;
     letter-spacing: var(--track-title);
 }
 
 .journey-intro {
-    font-family: 'Inter', sans-serif;
-    font-size: var(--type-body);
-    line-height: 1.8;
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.7;
     color: var(--ink-body);
-    max-width: 34rem;
+    max-width: 60ch;
     margin: 0 auto 2rem;
-    font-weight: 300;
+    font-weight: 400;
 }
 
 .journey-statement {
-    font-family: 'Inter', sans-serif;
-    font-size: var(--type-label);
-    letter-spacing: var(--track-label);
+    font-family: var(--font-body);
+    font-size: 11px;
+    letter-spacing: 0.16em;
     line-height: 1.8;
     color: var(--ink-muted);
     font-weight: 500;
     text-transform: uppercase;
-    margin-bottom: 4.5rem;
+    margin-bottom: 4rem;
 }
 
 /* Journey Progress Indicator */
 .journey-progress-indicator {
     width: 100%;
-    max-width: 800px;
+    max-width: 720px;
     margin: 0 auto 64px auto;
     padding: 0 2rem;
     display: flex;
@@ -632,23 +632,26 @@ h1 {
 .progress-labels {
     display: flex;
     justify-content: space-between;
-    font-family: 'Oswald', sans-serif;
-    font-size: 13px;
-    letter-spacing: 0.08em;
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
     color: var(--ink-faint);
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     font-variant-numeric: tabular-nums;
+    text-transform: uppercase;
 }
 
 .progress-bar-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    font-family: 'Inter', sans-serif;
-    font-size: var(--type-label);
+    font-family: var(--font-body);
+    font-size: 11px;
     font-weight: 500;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.18em;
     color: var(--ink);
+    text-transform: uppercase;
 }
 
 .progress-line {
@@ -744,7 +747,7 @@ h1 {
     font-weight: 500;
     color: var(--fb-ink-dark);
     margin: 0 0 0.85rem;
-    letter-spacing: -0.01em;
+    letter-spacing: 0.01em;
     text-transform: none;
     line-height: 1.15;
 }
@@ -756,7 +759,7 @@ h1 {
     color: var(--fb-ink-muted);
     margin: 0;
     font-weight: 300;
-    max-width: 48ch;
+    max-width: 58ch;
 }
 
 .fb-header-right {
@@ -789,9 +792,9 @@ h1 {
 .fb-stat-upto,
 .fb-stat-lbl {
     font-family: var(--font-body);
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 500;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--fb-ink-faint);
     line-height: 1.45;
@@ -803,12 +806,19 @@ h1 {
 
 .fb-stat-val {
     font-family: var(--font-body);
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 600;
     color: var(--fb-ink-dark);
     line-height: 1.3;
     font-variant-numeric: tabular-nums;
     margin-bottom: 3px;
+}
+
+.fb-stat-val .unit {
+    font-size: 0.75em;
+    vertical-align: baseline;
+    opacity: 0.8;
+    font-weight: 500;
 }
 
 .fb-stat-lbl {
@@ -1054,11 +1064,11 @@ h1 {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 4px;
     font-family: var(--font-body);
-    font-size: 10.5px;
-    font-weight: 600;
-    letter-spacing: 0.18em;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
     color: var(--fb-terracotta);
     text-transform: uppercase;
     margin-bottom: 0.85rem;
@@ -1067,6 +1077,7 @@ h1 {
 
 .fb-kicker-dot {
     opacity: 0.45;
+    padding: 0 4px;
 }
 
 /* Voice 02: Destination */
@@ -1074,7 +1085,7 @@ h1 {
     font-family: var(--font-serif);
     font-size: clamp(28px, 2.6vw, 36px);
     font-weight: 600;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.04em;
     color: var(--fb-ink-dark);
     margin: 0 0 0.35rem;
     line-height: 1.1;
@@ -1099,11 +1110,11 @@ h1 {
 .fb-story-body {
     font-family: var(--font-body);
     font-size: 13.5px;
-    line-height: 1.72;
+    line-height: 1.7;
     color: var(--fb-ink-sub);
     margin: 0;
     font-weight: 400;
-    max-width: 44ch;
+    max-width: 52ch;
 }
 
 /* Space to pause: a rule and a line, no box */
@@ -1117,11 +1128,11 @@ h1 {
 .fb-field-note-label {
     display: block;
     font-family: var(--font-body);
-    font-size: 9px;
+    font-size: 10.5px;
     font-weight: 600;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.15em;
     text-transform: uppercase;
-    margin-bottom: 4px;
+    margin-bottom: 5px;
 }
 
 .fb-pause-label {
@@ -1131,10 +1142,11 @@ h1 {
 .fb-pause-quote {
     font-family: var(--font-serif);
     font-style: italic;
-    font-size: 15px;
-    line-height: 1.45;
-    color: #55473B;
+    font-size: 15.5px;
+    line-height: 1.5;
+    color: #4A3E34;
     margin: 0;
+    max-width: 50ch;
 }
 
 /* Field note: a slip of paper tucked into the page */
@@ -1154,11 +1166,16 @@ h1 {
 }
 
 .fb-field-note-entry {
-    font-family: var(--font-script);
-    font-size: 17px;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 16px;
     color: #2D231C;
     margin: 0;
-    line-height: 1.3;
+    line-height: 1.45;
+    letter-spacing: 0.01em;
+    hanging-punctuation: first;
+    text-indent: -0.38em;
+    margin-left: 0.38em;
 }
 
 /* Folios */
@@ -1218,7 +1235,7 @@ h1 {
 
 /* --- Five editorial rhythms --- */
 
-/* Type A — The Journal */
+/* Type A: The Journal */
 .fb-spread--type-a .fb-photo--hero {
     width: 100%;
     height: 380px;
@@ -1236,7 +1253,7 @@ h1 {
     z-index: 4;
 }
 
-/* Type B — The Landscape */
+/* Type B: The Landscape */
 .fb-spread--type-b .fb-photo--landscape-hero {
     width: 100%;
     height: 290px;
@@ -1253,7 +1270,7 @@ h1 {
     z-index: 4;
 }
 
-/* Type C — The Documentary */
+/* Type C: The Documentary */
 .fb-spread--type-c .fb-photo--doc-main {
     width: 82%;
     height: 275px;
@@ -1272,7 +1289,7 @@ h1 {
     z-index: 4;
 }
 
-/* Type D — The Sacred */
+/* Type D: The Sacred */
 .fb-spread--type-d .fb-photo--sacred-main {
     width: 78%;
     height: 310px;
@@ -1301,7 +1318,7 @@ h1 {
     z-index: 3;
 }
 
-/* Type E — The Passage */
+/* Type E: The Passage */
 .fb-spread--type-e .fb-photo--passage-top {
     width: 85%;
     height: 220px;
@@ -1319,7 +1336,7 @@ h1 {
     z-index: 4;
 }
 
-/* Type E Climax (Day 7 — Lo Manthang): a hairline of gold, nothing louder */
+/* Type E Climax (Day 7: Lo Manthang): a hairline of gold, nothing louder */
 .fb-spread--type-e-climax .fb-book {
     --fb-book-shadow: 0 1px 1px rgba(45, 30, 20, 0.06), 0 26px 50px -24px rgba(45, 30, 20, 0.5), 0 60px 90px -50px rgba(45, 30, 20, 0.38), inset 0 0 0 1px rgba(160, 122, 44, 0.22);
 }
@@ -2367,10 +2384,10 @@ h1 {
 .team-section-intro {
     font-family: 'Inter', sans-serif;
     font-size: 1rem;
-    font-weight: 300;
+    font-weight: 400;
     line-height: 1.7;
-    color: rgba(250, 245, 238, 0.78);
-    max-width: 640px;
+    color: rgba(250, 245, 238, 0.82);
+    max-width: 60ch;
     margin: 0 auto 3.5rem auto;
     text-align: center;
 }
@@ -2534,10 +2551,10 @@ h1 {
 .cohort-subtitle {
     font-family: 'Inter', sans-serif;
     font-size: 0.95rem;
-    font-weight: 300;
+    font-weight: 400;
     line-height: 1.65;
-    color: rgba(250, 245, 238, 0.72);
-    max-width: 520px;
+    color: rgba(250, 245, 238, 0.76);
+    max-width: 58ch;
     margin: 0;
     text-align: left;
 }
@@ -2944,10 +2961,10 @@ h1 {
 .inclusions-subheading {
     font-family: 'Inter', sans-serif;
     font-size: 0.95rem;
-    font-weight: 300;
+    font-weight: 400;
     line-height: 1.65;
     color: #F1E2D4;
-    max-width: 520px;
+    max-width: 60ch;
     margin: 0;
     text-align: left;
     text-shadow: 0 1px 8px rgba(25, 6, 5, 0.45);
@@ -2994,7 +3011,7 @@ h1 {
     background-color: rgba(36, 15, 12, 0.78);
 }
 
-/* Featured Card: Riding with Guruji — set apart by a finer gold rule, not a glow */
+/* Featured Card: Riding with Guruji: set apart by a finer gold rule, not a glow */
 .inclusion-card--featured {
     background: rgba(58, 20, 16, 0.8);
     border: 1px solid rgba(217, 168, 90, 0.42);
@@ -3187,9 +3204,9 @@ h1 {
     font-style: italic;
     font-size: var(--type-voice);
     font-weight: 500;
-    line-height: 1.4;
+    line-height: 1.5;
     color: #F1E2D4;
-    max-width: 660px;
+    max-width: 60ch;
     margin: 0 auto 4rem auto;
 }
 
@@ -3699,9 +3716,10 @@ h1 {
 }
 
 .footer-motto {
-    font-family: 'Oswald', sans-serif;
-    letter-spacing: 2.5px;
-    font-size: 0.82rem;
+    font-family: var(--font-body);
+    letter-spacing: 0.16em;
+    font-size: 11px;
+    font-weight: 500;
     line-height: 1.4;
     color: #E3A834;
     text-transform: uppercase;

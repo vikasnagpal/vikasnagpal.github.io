@@ -1,5 +1,5 @@
 /**
- * The Journey Within — Interaction Layer
+ * The Journey Within: Interaction Layer
  *
  * Modules:
  * 1. Quiet reveals & photographic fade-in (content arrives, it is never thrown at you)
