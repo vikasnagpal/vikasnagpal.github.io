@@ -892,6 +892,37 @@ html, body {
     text-transform: uppercase;
 }
 
+.tier-anchor-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 10px;
+    border-radius: var(--r-pill);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    width: fit-content;
+}
+
+.tier-anchor-tag--full {
+    background: rgba(184, 134, 11, 0.12);
+    color: #8C6200;
+    border: 1px solid rgba(184, 134, 11, 0.32);
+}
+
+.tier-anchor-tag--sub {
+    background: rgba(199, 107, 75, 0.1);
+    color: var(--color-terracotta);
+    border: 1px solid rgba(199, 107, 75, 0.28);
+}
+
+.tier-anchor-tag--open {
+    background: rgba(45, 30, 20, 0.05);
+    color: var(--ink-faint);
+    border: 1px solid var(--border-subtle);
+}
+
 .tier-header {
     margin-bottom: 18px;
     padding-bottom: 16px;
@@ -935,36 +966,44 @@ html, body {
     letter-spacing: 0.04em;
 }
 
-/* Tier Deliverable Rows */
+/* Tier Deliverable Rows (Clean Scannable Feature List) */
 .tier-specs {
     list-style: none;
-    font-size: 13.5px;
-    line-height: 1.5;
+    font-size: 13px;
+    line-height: 1.45;
     margin-bottom: 24px;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 11px;
 }
 
 .tier-spec-item {
     display: flex;
-    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    color: var(--ink-body);
 }
 
-.spec-lbl {
-    font-size: 10.5px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--ink-faint);
-    margin-bottom: 2px;
+.tier-spec-icon {
+    flex-shrink: 0;
+    width: 14px;
+    height: 14px;
+    margin-top: 3px;
+    color: var(--color-terracotta);
 }
 
-.spec-val {
-    font-size: 13.5px;
+.tier-card--founding .tier-spec-icon {
+    color: var(--color-gold);
+}
+
+.tier-spec-text {
+    flex-grow: 1;
+}
+
+.tier-spec-text strong {
     color: var(--ink);
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .tier-cta-btn {
@@ -1002,6 +1041,180 @@ html, body {
     color: var(--color-terracotta);
 }
 
+/* Comparison Matrix Section */
+.tier-matrix-section {
+    margin-top: 52px;
+    padding-top: 40px;
+    border-top: 1px solid var(--border-card);
+}
+
+.matrix-head {
+    margin-bottom: 24px;
+    text-align: left;
+}
+
+.matrix-kicker {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-terracotta);
+    display: block;
+    margin-bottom: 6px;
+}
+
+.matrix-title {
+    font-family: var(--font-display);
+    font-size: clamp(22px, 2.4vw, 28px);
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: 0.02em;
+    margin-bottom: 8px;
+}
+
+.matrix-desc {
+    font-size: 14px;
+    color: var(--ink-faint);
+    max-width: 720px;
+    line-height: 1.55;
+}
+
+.matrix-table-wrap {
+    overflow-x: auto;
+    border-radius: var(--r-card);
+    border: 1px solid var(--border-subtle);
+    background: #FFFFFF;
+    box-shadow: 0 4px 16px rgba(45, 30, 20, 0.04);
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 24px;
+}
+
+.tier-matrix-table {
+    width: 100%;
+    min-width: 780px;
+    border-collapse: collapse;
+    font-size: 13px;
+    text-align: left;
+}
+
+.tier-matrix-table thead th {
+    padding: 18px 18px;
+    border-bottom: 1px solid var(--border-subtle);
+    vertical-align: bottom;
+}
+
+.tier-matrix-table thead .col-dim {
+    width: 25%;
+    font-family: var(--font-display);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    background: #FAF7F2;
+}
+
+.tier-matrix-table thead .col-tier {
+    width: 25%;
+}
+
+.tier-matrix-table thead .col-tier--t1 {
+    background: #FFFDF5;
+    border-left: 2px solid var(--color-gold);
+    border-right: 2px solid var(--color-gold);
+    border-top: 3px solid var(--color-gold);
+}
+
+.tier-matrix-table thead .col-tier--t2 {
+    background: #FAF7F2;
+}
+
+.tier-matrix-table thead .col-tier--t3 {
+    background: #FAF7F2;
+}
+
+.m-badge {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-terracotta);
+    margin-bottom: 3px;
+}
+
+.col-tier--t1 .m-badge {
+    color: #8C6200;
+}
+
+.m-name {
+    font-family: var(--font-display);
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: 0.02em;
+    margin-bottom: 3px;
+}
+
+.m-price {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--ink);
+}
+
+.tier-matrix-table tbody tr {
+    border-bottom: 1px solid rgba(45, 30, 20, 0.06);
+    transition: background 0.15s ease;
+}
+
+.tier-matrix-table tbody tr:hover {
+    background: rgba(250, 244, 235, 0.35);
+}
+
+.tier-matrix-table tbody td {
+    padding: 15px 18px;
+    vertical-align: top;
+    line-height: 1.45;
+}
+
+.tier-matrix-table .dim-name {
+    font-weight: 600;
+    color: var(--ink);
+    background: #FAF7F2;
+    border-right: 1px solid var(--border-subtle);
+    font-size: 12.5px;
+    letter-spacing: 0.01em;
+}
+
+.tier-matrix-table .cell-t1 {
+    background: #FFFDF5;
+    border-left: 2px solid var(--color-gold);
+    border-right: 2px solid var(--color-gold);
+}
+
+.tier-matrix-table .dim-detail {
+    display: block;
+    font-size: 11.5px;
+    color: var(--ink-faint);
+    margin-top: 3px;
+    line-height: 1.4;
+}
+
+.dim-badge-subtle {
+    display: inline-block;
+    padding: 2px 8px;
+    background: rgba(45, 30, 20, 0.06);
+    border-radius: var(--r-pill);
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--ink-faint);
+}
+
+.dim-not-included {
+    display: inline-block;
+    font-size: 12px;
+    color: var(--ink-faint);
+    font-style: italic;
+}
+
 /* Usage Rights Note */
 .usage-rights-clarity-box {
     background: #FFFFFF;
@@ -1009,8 +1222,7 @@ html, body {
     border-left: 3px solid var(--color-terracotta);
     border-radius: var(--r-card);
     padding: 18px 22px;
-    margin-top: 28px;
-    font-size: 13.5px;
+    font-size: 13px;
     color: var(--ink-body);
     line-height: 1.6;
 }
