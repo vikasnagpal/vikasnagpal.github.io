@@ -3,960 +3,902 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Internal Sponsorship Strategy & Playbook · The Journey Within</title>
+    <title>Internal Sponsorship Strategy &amp; Playbook · The Journey Within</title>
+    <meta name="robots" content="noindex, nofollow">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,600&family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="sponsordoc.css">
-    <style>
-        /* Inlined safety fallbacks for standalone loading */
-        .toast-copied {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            background: #1C1A17;
-            color: #FAF7F2;
-            padding: 12px 20px;
-            border-radius: 6px;
-            font-size: 13px;
-            font-weight: 500;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.25);
-            border-left: 4px solid #C9522E;
-            transform: translateY(100px);
-            opacity: 0;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            z-index: 9999;
-        }
-        .toast-copied.show {
-            transform: translateY(0);
-            opacity: 1;
-        }
-    </style>
 </head>
 <body>
 
-    <!-- Internal Confidential Bar -->
-    <div class="internal-badge-bar">
-        <div>TOTEMTOU · EXPEDITION ARCHITECTURE · INTERNAL MEMO</div>
-        <div class="badge-tag">CONFIDENTIAL · TEAM USE ONLY</div>
+    <!-- Top Frieze Border -->
+    <div class="top-tibetan-frieze" style="background-image: url('Assets/tibetan_border.svg');"></div>
+
+    <!-- I7: Access Restriction Gate Modal -->
+    <div id="access-gate-modal">
+        <div class="gate-card">
+            <span class="gate-badge">INTERNAL OPERATIONS</span>
+            <h2 class="gate-title">Totemtou Team Access</h2>
+            <p class="gate-desc">
+                This operating playbook contains commercial targets, prospect data, and confidential outreach templates. Please enter the team passcode to continue.
+            </p>
+            <form id="gate-form" onsubmit="handleGateUnlock(event);">
+                <div class="gate-input-group">
+                    <input type="password" id="gate-password" class="gate-input" placeholder="Enter team passcode" autocomplete="off" autofocus>
+                    <button type="submit" class="gate-submit-btn">Unlock Playbook</button>
+                </div>
+            </form>
+            <div id="gate-error-msg" class="gate-error">Incorrect passcode. Please check with Vikas.</div>
+            <div class="gate-hint">Authorized expedition team access only</div>
+        </div>
     </div>
 
-    <!-- Header Block -->
-    <header class="doc-header">
-        <div class="doc-header-inner">
-            <div class="doc-kicker">COMMERCIAL STRATEGY &amp; OUTREACH PLAYBOOK</div>
-            <h1 class="doc-title">Upper Mustang Sponsorship Architecture</h1>
-            <p class="doc-subtitle">
-                Strategic shift from ticketed passenger sales to brand-funded expedition underwriting. Raising ₹6 to 8 Lakhs across four founding partners to fully capitalize the inaugural journey of our Himalayan meditation and overland ecosystem.
-            </p>
+    <!-- Copy Feedback Toast Notification -->
+    <div id="copy-toast" class="copy-toast">✓ Copied to clipboard!</div>
 
-            <div class="doc-meta-grid">
-                <div class="meta-box">
-                    <div class="meta-label">Total Funding Target</div>
-                    <div class="meta-value">₹7,00,000</div>
-                    <div class="meta-sub">Range: ₹6L – ₹8L (4 Cash Sponsors)</div>
-                </div>
-                <div class="meta-box">
-                    <div class="meta-label">Expedition Route</div>
-                    <div class="meta-value">Pokhara ↔ Lo Manthang</div>
-                    <div class="meta-sub">13 Days · 3,840m Elevation Peak</div>
-                </div>
-                <div class="meta-box">
-                    <div class="meta-label">Target Departure</div>
-                    <div class="meta-value">20th November 2026</div>
-                    <div class="meta-sub">Sprint Window: 6 Weeks from Today</div>
-                </div>
-                <div class="meta-box">
-                    <div class="meta-label">External Sponsor Link</div>
-                    <div class="meta-value" style="font-size: 13px; word-break: break-all;">
-                        <a href="sponsorpitch/" target="_blank" style="color: var(--color-terracotta); text-decoration: underline;">/rinpoche/sponsorpitch</a>
-                    </div>
-                    <div class="meta-sub">Universal pitch page for brands</div>
-                </div>
+    <!-- Internal Top Bar -->
+    <header class="doc-top-bar">
+        <div class="doc-top-bar-inner">
+            <div class="doc-badge-group">
+                <span class="confidential-tag">CONFIDENTIAL</span>
+                <span class="doc-brand-title">THE JOURNEY WITHIN · EXPEDITION PLAYBOOK</span>
             </div>
+            <nav class="doc-nav-links">
+                <a href="#dashboard">Dashboard</a>
+                <a href="#operating-rules">Rules</a>
+                <a href="#prospect-pipeline">Prospects</a>
+                <a href="#budget-tracker">Budget</a>
+                <a href="#guardrails">Guardrails</a>
+                <a href="https://vikasnagpal.com/rinpoche/sponsorpitch" target="_blank" rel="noopener" class="public-pitch-link">View Public Pitch ↗</a>
+                <button type="button" class="btn-lock-page" onclick="lockPlaybook();">Lock Page</button>
+            </nav>
         </div>
     </header>
 
-    <!-- Main Container -->
     <main class="doc-container">
+        <!-- Document Title Header -->
+        <div class="doc-header-block">
+            <span class="doc-kicker">TEAM OPERATING TOOL · UPPER MUSTANG EXPEDITION 2026</span>
+            <h1 class="doc-main-title">Sponsorship Strategy &amp; Pipeline</h1>
+            <p class="doc-main-desc">
+                An actionable operating tool for the Totemtou expedition team to track funding gaps, prioritize brand prospects, copy verified pitch emails, and manage partner deliverables.
+            </p>
+        </div>
 
-        <!-- 1. Unified Strategic Framework & Master Positioning -->
-        <section class="section-block">
+        <!-- I1: Compact Operating Dashboard -->
+        <section class="dashboard-block" id="dashboard">
+            <div class="dashboard-title-row">
+                <div class="dashboard-title">OPERATING DASHBOARD · OVERVIEW</div>
+                <div class="dashboard-status-tag">Status: Active Outreach Sprint</div>
+            </div>
+
+            <div class="dashboard-metrics-grid">
+                <!-- Metric 1: Target -->
+                <div class="dash-card">
+                    <div class="dash-card-lbl">Funding Target</div>
+                    <div class="dash-card-val">₹7,00,000</div>
+                    <div class="dash-card-sub">Working range: <strong>₹6L to ₹8L</strong></div>
+                </div>
+
+                <!-- Metric 2: Gap -->
+                <div class="dash-card">
+                    <div class="dash-card-lbl">Cash Funding Gap</div>
+                    <div class="dash-card-val" style="color: var(--color-terracotta);">₹7,00,000</div>
+                    <div class="dash-card-sub">Committed: <strong>₹0</strong> · Received: <strong>₹0</strong></div>
+                </div>
+
+                <!-- Metric 3: Slots -->
+                <div class="dash-card">
+                    <div class="dash-card-lbl">Sponsor Slots</div>
+                    <div class="dash-card-val">0 / 4</div>
+                    <div class="dash-card-sub">1 Founding · 2 Expedition · 1 Field</div>
+                </div>
+
+                <!-- Metric 4: Pipeline -->
+                <div class="dash-card">
+                    <div class="dash-card-lbl">Prospect Pipeline</div>
+                    <div class="dash-card-val">8 Brands</div>
+                    <div class="dash-card-sub">8 Not contacted · 0 Contacted · 0 Won</div>
+                </div>
+            </div>
+
+            <!-- Next Milestone Banner -->
+            <div class="milestone-banner">
+                <div class="milestone-text">
+                    <strong>Next Critical Milestone:</strong> 25 October 2026 · Lock initial 2 partner commitments for permit processing and media pre-production lead times.
+                </div>
+                <div class="milestone-owner">Owner: Vikas Nagpal</div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="quick-links-bar">
+                <a href="#operating-rules" class="quick-link-chip">Four Operating Rules</a>
+                <a href="#prospect-pipeline" class="quick-link-chip">Sortable Prospect Pipeline (8)</a>
+                <a href="#budget-tracker" class="quick-link-chip">Budget &amp; Gap Reconciliation</a>
+                <a href="#guardrails" class="quick-link-chip">Talent &amp; Spiritual Guardrails</a>
+                <a href="https://vikasnagpal.com/rinpoche/sponsorpitch" target="_blank" rel="noopener" class="quick-link-chip">Public Sponsor Pitch ↗</a>
+            </div>
+        </section>
+
+        <!-- I2: Four Operating Rules -->
+        <section class="section-block" id="operating-rules">
             <div class="section-head">
-                <span class="section-num">Section 01</span>
-                <h2 class="section-title">Strategic Framework &amp; Commercial Positioning</h2>
+                <span class="section-kicker">OPERATIONAL DISCIPLINE</span>
+                <h2 class="section-title">Four Operating Rules</h2>
                 <p class="section-lead">
-                    A unified commercial playbook designed to raise our ₹6 to 8 Lakh expedition budget by positioning Totemtou as a turnkey high-altitude content production studio and co-creator of genuine Himalayan storytelling.
+                    Every member of the outreach team must follow these four core rules when communicating with potential sponsors:
                 </p>
             </div>
 
-            <!-- Core Executive Architecture Cards -->
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-bottom: 24px;">
-                <div class="card card--accent">
-                    <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-terracotta); margin-bottom: 6px;">Pillar 01 · Commercial Frame</div>
-                    <h3 style="font-size: 18px; font-weight: 600; color: var(--ink); margin-bottom: 10px;">Turnkey Production Studio</h3>
-                    <p style="font-size: 14px; line-height: 1.6; color: var(--ink-body);">
-                        Rather than asking brands for generic travel donations or minor logo placement, we position Totemtou as their specialized high-altitude production unit. Staging an independent commercial shoot at 3,840m in Upper Mustang with backup 4x4s, high-wind drones, and mountain DoPs typically costs brands ₹10 to 15 Lakhs. We deliver that exact asset suite (4K cinematic master, dedicated 45s/30s brand reels, and high-res photo libraries) at a fraction of the cost.
+            <div class="rules-grid">
+                <div class="rule-card">
+                    <div class="rule-num">Rule 01</div>
+                    <h3 class="rule-name">Sell the story and the assets</h3>
+                    <p class="rule-behavior">
+                        Lead with original content and authentic product integration, not generic exposure or charity framing. Sponsors are backing high-production field storytelling in an unrepeatable landscape.
                     </p>
                 </div>
 
-                <div class="card card--gold">
-                    <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-gold); margin-bottom: 6px;">Pillar 02 · Capitalization Model</div>
-                    <h3 style="font-size: 18px; font-weight: 600; color: var(--ink); margin-bottom: 10px;">The ₹7 Lakh 4-Partner Target</h3>
-                    <p style="font-size: 14px; line-height: 1.6; color: var(--ink-body);">
-                        We fund the entire expedition through exactly four non-competing cash partners: one Founding Partner (₹3,00,000), two Expedition Partners (₹1,50,000 each = ₹3,00,000), and one Field Partner (₹1,00,000). A four-sponsor limit prevents motorcycle and apparel visual clutter, keeps the expedition intimate, and establishes asking prices that fall within brand managers' quick discretionary spend limits for rapid sign-off.
+                <div class="rule-card">
+                    <div class="rule-num">Rule 02</div>
+                    <h3 class="rule-name">Protect the meaning of the journey</h3>
+                    <p class="rule-behavior">
+                        Rinpoche's role is contemplative and cultural, not a product endorsement. Never promise commercial testimonials, scripted product plugs, or brand endorsements from Rinpoche.
                     </p>
                 </div>
 
-                <div class="card" style="border-left: 4px solid #8A4325;">
-                    <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #8A4325; margin-bottom: 6px;">Pillar 03 · Dual-Archetype Reach</div>
-                    <h3 style="font-size: 18px; font-weight: 600; color: var(--ink); margin-bottom: 10px;">Stillness Meets High-Altitude Grit</h3>
-                    <p style="font-size: 14px; line-height: 1.6; color: var(--ink-body);">
-                        We deploy two complementary, non-competing archetypes: HE Palga Rinpoche anchors the philosophical and contemplative narrative (dialogue on mindfulness, focus, and detachment; strictly zero product placements to preserve spiritual sanctity). Eksha Kerung anchors the physical vanguard (active motorcycle riding, gear stress-testing, and high-energy endurance). Together, they deliver organic distribution across 500,000+ targeted followers.
+                <div class="rule-card">
+                    <div class="rule-num">Rule 03</div>
+                    <h3 class="rule-name">Promise only what can be delivered</h3>
+                    <p class="rule-behavior">
+                        Confirm talent, accounts, production capacity, rights, and posting commitments before presenting them as guaranteed. Treat talent posts as proposed until mutually approved.
                     </p>
                 </div>
 
-                <div class="card" style="border-left: 4px solid var(--color-forest);">
-                    <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-forest); margin-bottom: 6px;">Pillar 04 · Ecosystem Continuity</div>
-                    <h3 style="font-size: 18px; font-weight: 600; color: var(--ink); margin-bottom: 10px;">Founding Multi-Trip Lock-In</h3>
-                    <p style="font-size: 14px; line-height: 1.6; color: var(--ink-body);">
-                        Upper Mustang is positioned as Chapter One of Totemtou's permanent experiential travel ecosystem. Brands that sponsor this inaugural journey receive exclusive Right of First Refusal (ROFR) and locked foundational rates across our next three scheduled expeditions (Spiti Valley, Zanskar &amp; Ladakh, Kingdom of Bhutan), transforming inaugural sponsors into long-term institutional partners without giving away free inventory.
+                <div class="rule-card">
+                    <div class="rule-num">Rule 04</div>
+                    <h3 class="rule-name">Protect future value</h3>
+                    <p class="rule-behavior">
+                        Offer a defined first opportunity on future trips, not perpetual free equity. Negotiate the scope, deliverables, and fees of each subsequent expedition separately.
                     </p>
                 </div>
             </div>
+        </section>
 
-            <!-- Master Strategic Directives -->
-            <div class="synthesis-card" style="margin-top: 0;">
-                <h3>Core Commercial Principles for Team Outreach</h3>
-                <p style="margin-bottom: 14px; font-size: 14.5px;">
-                    Keep these four foundational rules in mind during all sponsor conversations and pitch meetings:
+        <!-- I3, I4 & I5: Sortable Prospect Pipeline & Expandable Emails -->
+        <section class="section-block" id="prospect-pipeline">
+            <div class="section-head">
+                <span class="section-kicker">OUTREACH EXECUTION</span>
+                <h2 class="section-title">Prospect Pipeline &amp; Tailored Emails</h2>
+                <p class="section-lead">
+                    Click any brand row to reveal the tailored 100-150 word pitch email, specific angle, and single-click copy buttons.
                 </p>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px;">
-                    <div style="background: #FFFFFF; padding: 16px; border-radius: var(--r-sm); border: 1px solid var(--border-subtle);">
-                        <strong style="color: var(--color-terracotta); display: block; margin-bottom: 6px;">1. Sell Content ROI, Not Charity</strong>
-                        Frame the proposition around the tangible value of the assets brands receive: 4K video master, dedicated social cutdowns, high-res commercial photography, and perpetual digital marketing rights.
+            </div>
+
+            <!-- Filter Tabs -->
+            <div class="pipeline-filter-tabs">
+                <button type="button" class="tab-btn active" onclick="filterPipeline('all', this);">All Prospects (8)</button>
+                <button type="button" class="tab-btn" onclick="filterPipeline('wave1', this);">Wave 1: Gear &amp; Tech (4)</button>
+                <button type="button" class="tab-btn" onclick="filterPipeline('wave2', this);">Wave 2: Apparel, Wellness &amp; Travel (4)</button>
+            </div>
+
+            <!-- Pipeline Table / Cards Container -->
+            <div class="prospect-table-wrap">
+                <!-- Prospect 1: Royal Enfield -->
+                <div class="prospect-item-card" data-wave="wave1">
+                    <div class="prospect-row-main" onclick="toggleEmailPanel('email-re');">
+                        <div class="col-priority priority-wave1">Wave 1</div>
+                        <div>
+                            <div class="col-brand">Royal Enfield</div>
+                            <div class="col-brand-category">Motorcycles &amp; Gear</div>
+                        </div>
+                        <div>
+                            <div class="col-ask">₹3,00,000</div>
+                            <div class="col-ask-sub">+ Support Bike</div>
+                        </div>
+                        <div class="col-angle">
+                            Field-story of preparation, technical riverbed navigation, and Himalayan endurance.
+                        </div>
+                        <div class="col-contact">
+                            <div>Vikas Nagpal</div>
+                            <div style="font-size: 11px; color: var(--ink-faint);">Direct Warm Contact</div>
+                        </div>
+                        <div>
+                            <span class="status-badge status-not-contacted">Not Contacted</span>
+                        </div>
+                        <div>
+                            <div class="col-toggle-btn">View Email ▾</div>
+                        </div>
                     </div>
-                    <div style="background: #FFFFFF; padding: 16px; border-radius: var(--r-sm); border: 1px solid var(--border-subtle);">
-                        <strong style="color: var(--color-terracotta); display: block; margin-bottom: 6px;">2. Protect Spiritual Reverence</strong>
-                        Never pitch Palga Rinpoche as a commercial endorser or product model. His association elevates the expedition's intellectual and spiritual gravity, which is vastly more prestigious for brands.
+
+                    <!-- Expandable Panel -->
+                    <div class="prospect-email-panel" id="email-re">
+                        <div class="email-meta-strip">
+                            <div class="email-next-action">
+                                <strong>Next Action:</strong> Send tailored note to brand partnerships lead by 12 October. Category: Founding Partner (Exclusive OEM).
+                            </div>
+                            <div class="email-actions-group">
+                                <button type="button" class="btn-copy-subject" onclick="copySubject('sub-re');">Copy Subject</button>
+                                <button type="button" class="btn-copy-email" onclick="copyFullEmail('sub-re', 'body-re');">Copy Full Email</button>
+                            </div>
+                        </div>
+
+                        <div class="email-content-box">
+                            <div class="email-subject-line" id="sub-re">
+                                <span>Subject:</span> The Journey Within: Royal Enfield × HE Palga Rinpoche in Upper Mustang
+                            </div>
+                            <div class="email-body-text" id="body-re">Hi [First Name],
+
+I am writing to share an expedition taking place this November: The Journey Within, an intensive 13-day overland motorcycle journey across Upper Mustang, Nepal (20 November 2026).
+
+The expedition brings together two distinct figures: HE Palga Rinpoche (8th Choekyong Palga Rinpoche, recognized spiritual teacher and avid adventure rider) and Eksha Kerung (Sikkim Police Officer, national boxer, and adventure motorcyclist). Together, their verified reach exceeds 510,000 engaged followers across mindfulness, riding culture, and mountain athletics.
+
+We are inviting Royal Enfield to partner as our sole Founding Partner. A dedicated field documentary unit will capture a bespoke 60-90 second expedition film and 12 high-resolution editorial stills documenting the motorcycles navigating the Kali Gandaki riverbed and high passes up to 3,950 m.
+
+You can review the full visual proposal and tier specifications here:
+https://vikasnagpal.com/rinpoche/sponsorpitch
+
+Would you have ten minutes this week for a brief introductory call?
+
+Warm regards,
+Vikas Nagpal
+Expedition Lead & Producer, Totemtou
+vikas@totemtou.com</div>
+                        </div>
                     </div>
-                    <div style="background: #FFFFFF; padding: 16px; border-radius: var(--r-sm); border: 1px solid var(--border-subtle);">
-                        <strong style="color: var(--color-terracotta); display: block; margin-bottom: 6px;">3. Preserve Future Valuation</strong>
-                        Offer Right of First Refusal (ROFR) and rate locks for future chapters, never guaranteed free rides. Each future expedition has its own production and logistical budget.
+                </div>
+
+                <!-- Prospect 2: Rynox Gears -->
+                <div class="prospect-item-card" data-wave="wave1">
+                    <div class="prospect-row-main" onclick="toggleEmailPanel('email-rynox');">
+                        <div class="col-priority priority-wave1">Wave 1</div>
+                        <div>
+                            <div class="col-brand">Rynox Gears</div>
+                            <div class="col-brand-category">Riding Armor &amp; Apparel</div>
+                        </div>
+                        <div>
+                            <div class="col-ask">₹1,50,000</div>
+                            <div class="col-ask-sub">+ Co-lead suits</div>
+                        </div>
+                        <div class="col-angle">
+                            Stress testing all-weather jackets and armor across sub-zero mornings and technical trails.
+                        </div>
+                        <div class="col-contact">
+                            <div>Vikas Nagpal</div>
+                            <div style="font-size: 11px; color: var(--ink-faint);">LinkedIn Outreach</div>
+                        </div>
+                        <div>
+                            <span class="status-badge status-not-contacted">Not Contacted</span>
+                        </div>
+                        <div>
+                            <div class="col-toggle-btn">View Email ▾</div>
+                        </div>
                     </div>
-                    <div style="background: #FFFFFF; padding: 16px; border-radius: var(--r-sm); border: 1px solid var(--border-subtle);">
-                        <strong style="color: var(--color-terracotta); display: block; margin-bottom: 6px;">4. Enforce Category Exclusivity</strong>
-                        Do not pitch competing brands simultaneously. Once a riding gear or luggage partner is locked, close that category immediately to preserve partner trust.
+
+                    <div class="prospect-email-panel" id="email-rynox">
+                        <div class="email-meta-strip">
+                            <div class="email-next-action">
+                                <strong>Next Action:</strong> Direct message to Rynox brand marketing manager. Category: Expedition Partner (Riding Gear).
+                            </div>
+                            <div class="email-actions-group">
+                                <button type="button" class="btn-copy-subject" onclick="copySubject('sub-rynox');">Copy Subject</button>
+                                <button type="button" class="btn-copy-email" onclick="copyFullEmail('sub-rynox', 'body-rynox');">Copy Full Email</button>
+                            </div>
+                        </div>
+
+                        <div class="email-content-box">
+                            <div class="email-subject-line" id="sub-rynox">
+                                <span>Subject:</span> High-Altitude Riding Gear Integration: The Journey Within (Upper Mustang)
+                            </div>
+                            <div class="email-body-text" id="body-rynox">Hi [First Name],
+
+I wanted to reach out regarding an authentic high-altitude motorcycle expedition departing 20 November 2026: The Journey Within, crossing the high desert of Upper Mustang, Nepal.
+
+The ride is co-led by HE Palga Rinpoche (internationally revered Buddhist teacher and passionate adventure rider) and Eksha Kerung (serving Sikkim Police Officer, national boxer, and endurance rider with 396K+ followers). 
+
+Rather than staged studio photography, we are offering Rynox an Expedition Partner slot to document your adventure jackets, pants, and gloves in genuine field use across freezing river crossings, rocky passes at 3,950 m, and 13 demanding days on the road. Deliverables include a dedicated 30-60 second field reel, 6 edited editorial photographs, and agreed organic channels exposure.
+
+Review the full partnership overview here:
+https://vikasnagpal.com/rinpoche/sponsorpitch
+
+Could we schedule a quick 10-minute conversation this week to discuss product sizing and asset scope?
+
+Best regards,
+Vikas Nagpal
+Totemtou Expeditions
+vikas@totemtou.com</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prospect 3: GoPro / Insta360 -->
+                <div class="prospect-item-card" data-wave="wave1">
+                    <div class="prospect-row-main" onclick="toggleEmailPanel('email-camera');">
+                        <div class="col-priority priority-wave1">Wave 1</div>
+                        <div>
+                            <div class="col-brand">GoPro / Insta360</div>
+                            <div class="col-brand-category">Action Cameras &amp; Tech</div>
+                        </div>
+                        <div>
+                            <div class="col-ask">₹1,50,000</div>
+                            <div class="col-ask-sub">+ Camera kits</div>
+                        </div>
+                        <div class="col-angle">
+                            Capturing an expansive, moving Himalayan landscape from handlebar, helmet, and drone perspectives.
+                        </div>
+                        <div class="col-contact">
+                            <div>Vikas Nagpal</div>
+                            <div style="font-size: 11px; color: var(--ink-faint);">Creator Relations</div>
+                        </div>
+                        <div>
+                            <span class="status-badge status-not-contacted">Not Contacted</span>
+                        </div>
+                        <div>
+                            <div class="col-toggle-btn">View Email ▾</div>
+                        </div>
+                    </div>
+
+                    <div class="prospect-email-panel" id="email-camera">
+                        <div class="email-meta-strip">
+                            <div class="email-next-action">
+                                <strong>Next Action:</strong> Connect with India Creator Partnerships lead. Category: Expedition Partner (Imaging Technology).
+                            </div>
+                            <div class="email-actions-group">
+                                <button type="button" class="btn-copy-subject" onclick="copySubject('sub-camera');">Copy Subject</button>
+                                <button type="button" class="btn-copy-email" onclick="copyFullEmail('sub-camera', 'body-camera');">Copy Full Email</button>
+                            </div>
+                        </div>
+
+                        <div class="email-content-box">
+                            <div class="email-subject-line" id="sub-camera">
+                                <span>Subject:</span> Capturing Upper Mustang on Two Wheels: Collaboration with HE Palga Rinpoche &amp; Eksha
+                            </div>
+                            <div class="email-body-text" id="body-camera">Hi [First Name],
+
+We are producing The Journey Within, a 13-day overland motorcycle expedition through Upper Mustang, Nepal departing 20 November 2026.
+
+The journey brings together HE Palga Rinpoche (revered Buddhist teacher and adventure motorcyclist) and Eksha Kerung (Sikkim Police Officer and athlete with 396K followers). 
+
+The visual challenge of capturing moving riders against the dramatic Kali Gandaki gorge and ancient cliffside monasteries is a perfect showcase for your camera technology. As an Expedition Partner, we will deliver a high-octane short-form reel showing camera setups in real trail use, 6 high-resolution stills, and raw POV clips for your channels.
+
+Detailed overview and tier structure:
+https://vikasnagpal.com/rinpoche/sponsorpitch
+
+Let me know if you would be open to a short chat this week to explore this collaboration.
+
+Best regards,
+Vikas Nagpal
+Totemtou Expeditions
+vikas@totemtou.com</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prospect 4: Viaterra Gear -->
+                <div class="prospect-item-card" data-wave="wave1">
+                    <div class="prospect-row-main" onclick="toggleEmailPanel('email-viaterra');">
+                        <div class="col-priority priority-wave1">Wave 1</div>
+                        <div>
+                            <div class="col-brand">Viaterra Gear</div>
+                            <div class="col-brand-category">Motorcycle Luggage</div>
+                        </div>
+                        <div>
+                            <div class="col-ask">₹1,00,000</div>
+                            <div class="col-ask-sub">+ Dry bag sets</div>
+                        </div>
+                        <div class="col-angle">
+                            How the luggage setup fits into an intensive 13-day mountain journey without failure.
+                        </div>
+                        <div class="col-contact">
+                            <div>Vikas Nagpal</div>
+                            <div style="font-size: 11px; color: var(--ink-faint);">Brand Direct</div>
+                        </div>
+                        <div>
+                            <span class="status-badge status-not-contacted">Not Contacted</span>
+                        </div>
+                        <div>
+                            <div class="col-toggle-btn">View Email ▾</div>
+                        </div>
+                    </div>
+
+                    <div class="prospect-email-panel" id="email-viaterra">
+                        <div class="email-meta-strip">
+                            <div class="email-next-action">
+                                <strong>Next Action:</strong> Pitch Viaterra marketing director. Category: Field Partner (Luggage & Packs).
+                            </div>
+                            <div class="email-actions-group">
+                                <button type="button" class="btn-copy-subject" onclick="copySubject('sub-viaterra');">Copy Subject</button>
+                                <button type="button" class="btn-copy-email" onclick="copyFullEmail('sub-viaterra', 'body-viaterra');">Copy Full Email</button>
+                            </div>
+                        </div>
+
+                        <div class="email-content-box">
+                            <div class="email-subject-line" id="sub-viaterra">
+                                <span>Subject:</span> Field Testing Viaterra Luggage: The Journey Within (Upper Mustang Expedition)
+                            </div>
+                            <div class="email-body-text" id="body-viaterra">Hi [First Name],
+
+I am organizing The Journey Within, a 13-day motorcycle expedition through the remote trails of Upper Mustang, Nepal (departure 20 November 2026).
+
+The ride is co-led by HE Palga Rinpoche and Eksha Kerung (Sikkim Police Officer and adventure athlete with 396K followers). 
+
+Thirteen days of dust, river crossings, and sub-zero nights require dependable, waterproof luggage. As a Field Partner, Viaterra luggage will be featured in daily expedition use, documented in tactile photographs (3 edited high-res images) and integrated naturally into our recap content, along with organic story coverage.
+
+You can inspect the full deck and logistics here:
+https://vikasnagpal.com/rinpoche/sponsorpitch
+
+Could we discuss a collaboration for the upcoming November ride?
+
+Best regards,
+Vikas Nagpal
+Totemtou Expeditions
+vikas@totemtou.com</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prospect 5: Columbia Sportswear / Decathlon -->
+                <div class="prospect-item-card" data-wave="wave2">
+                    <div class="prospect-row-main" onclick="toggleEmailPanel('email-apparel');">
+                        <div class="col-priority priority-wave2">Wave 2</div>
+                        <div>
+                            <div class="col-brand">Columbia / Decathlon</div>
+                            <div class="col-brand-category">Outdoor Apparel &amp; Down</div>
+                        </div>
+                        <div>
+                            <div class="col-ask">₹1,50,000</div>
+                            <div class="col-ask-sub">+ Thermal layers</div>
+                        </div>
+                        <div class="col-angle">
+                            High-altitude warmth, wind protection, and camp comfort after 8 hours of riding.
+                        </div>
+                        <div class="col-contact">
+                            <div>Vikas Nagpal</div>
+                            <div style="font-size: 11px; color: var(--ink-faint);">Brand Marketing</div>
+                        </div>
+                        <div>
+                            <span class="status-badge status-not-contacted">Not Contacted</span>
+                        </div>
+                        <div>
+                            <div class="col-toggle-btn">View Email ▾</div>
+                        </div>
+                    </div>
+
+                    <div class="prospect-email-panel" id="email-apparel">
+                        <div class="email-meta-strip">
+                            <div class="email-next-action">
+                                <strong>Next Action:</strong> Pitch outdoor apparel lead. Category: Expedition Partner (Outdoor Apparel).
+                            </div>
+                            <div class="email-actions-group">
+                                <button type="button" class="btn-copy-subject" onclick="copySubject('sub-apparel');">Copy Subject</button>
+                                <button type="button" class="btn-copy-email" onclick="copyFullEmail('sub-apparel', 'body-apparel');">Copy Full Email</button>
+                            </div>
+                        </div>
+
+                        <div class="email-content-box">
+                            <div class="email-subject-line" id="sub-apparel">
+                                <span>Subject:</span> Himalayan Thermal Layering: The Journey Within (Upper Mustang Expedition)
+                            </div>
+                            <div class="email-body-text" id="body-apparel">Hi [First Name],
+
+I wanted to share details on an upcoming overland expedition through Upper Mustang, Nepal: The Journey Within, departing 20 November 2026.
+
+Led by HE Palga Rinpoche and Eksha Kerung (Sikkim Police Officer and endurance athlete with 396K followers), our cohort faces sub-zero Himalayan evenings and harsh wind at 3,840 m in Lo Manthang.
+
+We are inviting your brand to join as an Expedition Partner. We will capture your technical down jackets, fleeces, and base layers in unhurried morning breathwork sessions and campfire village scenes. Deliverables include a dedicated 30-60 second field reel and 6 high-resolution edited stills for your brand channels.
+
+Complete project details:
+https://vikasnagpal.com/rinpoche/sponsorpitch
+
+Would you be open to a short call this week?
+
+Warmly,
+Vikas Nagpal
+Totemtou Expeditions
+vikas@totemtou.com</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prospect 6: Fast&Up / Hydration -->
+                <div class="prospect-item-card" data-wave="wave2">
+                    <div class="prospect-row-main" onclick="toggleEmailPanel('email-nutrition');">
+                        <div class="col-priority priority-wave2">Wave 2</div>
+                        <div>
+                            <div class="col-brand">Fast&amp;Up Nutrition</div>
+                            <div class="col-brand-category">Hydration &amp; Recovery</div>
+                        </div>
+                        <div>
+                            <div class="col-ask">₹1,00,000</div>
+                            <div class="col-ask-sub">+ Electrolyte supply</div>
+                        </div>
+                        <div class="col-angle">
+                            Practical hydration and physical routines for sustained focus at 3,840 m (no medical claims).
+                        </div>
+                        <div class="col-contact">
+                            <div>Vikas Nagpal</div>
+                            <div style="font-size: 11px; color: var(--ink-faint);">Sports Marketing</div>
+                        </div>
+                        <div>
+                            <span class="status-badge status-not-contacted">Not Contacted</span>
+                        </div>
+                        <div>
+                            <div class="col-toggle-btn">View Email ▾</div>
+                        </div>
+                    </div>
+
+                    <div class="prospect-email-panel" id="email-nutrition">
+                        <div class="email-meta-strip">
+                            <div class="email-next-action">
+                                <strong>Next Action:</strong> Email sports nutrition marketing head. Category: Field Partner (Hydration).
+                            </div>
+                            <div class="email-actions-group">
+                                <button type="button" class="btn-copy-subject" onclick="copySubject('sub-nutrition');">Copy Subject</button>
+                                <button type="button" class="btn-copy-email" onclick="copyFullEmail('sub-nutrition', 'body-nutrition');">Copy Full Email</button>
+                            </div>
+                        </div>
+
+                        <div class="email-content-box">
+                            <div class="email-subject-line" id="sub-nutrition">
+                                <span>Subject:</span> High-Altitude Hydration Routines: The Journey Within (Upper Mustang)
+                            </div>
+                            <div class="email-body-text" id="body-nutrition">Hi [First Name],
+
+I am organizing The Journey Within, a 13-day motorcycle expedition through the high-altitude desert of Upper Mustang, Nepal (departure 20 November 2026).
+
+The ride is co-led by HE Palga Rinpoche and Eksha Kerung (Sikkim Police Officer and national boxer with 396K followers). 
+
+Riding 6 to 8 hours daily at altitudes between 2,800 m and 3,950 m requires disciplined hydration and recovery. As a Field Partner, Fast&Up electrolytes will feature in daily rider preparation routines, documented in tactile photography (3 edited stills) and natural recap integration.
+
+Review the full partnership proposal here:
+https://vikasnagpal.com/rinpoche/sponsorpitch
+
+Let me know if we can set up a quick 10-minute introductory call.
+
+Best regards,
+Vikas Nagpal
+Totemtou Expeditions
+vikas@totemtou.com</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prospect 7: Nepal Tourism Board -->
+                <div class="prospect-item-card" data-wave="wave2">
+                    <div class="prospect-row-main" onclick="toggleEmailPanel('email-ntb');">
+                        <div class="col-priority priority-wave2">Wave 2</div>
+                        <div>
+                            <div class="col-brand">Nepal Tourism Board</div>
+                            <div class="col-brand-category">Destination &amp; Heritage</div>
+                        </div>
+                        <div>
+                            <div class="col-ask">₹1,50,000</div>
+                            <div class="col-ask-sub">+ Permit support</div>
+                        </div>
+                        <div class="col-angle">
+                            Culturally respectful destination storytelling elevating Upper Mustang's heritage beyond mass tourism.
+                        </div>
+                        <div class="col-contact">
+                            <div>Vikas Nagpal</div>
+                            <div style="font-size: 11px; color: var(--ink-faint);">Official Tourism Channel</div>
+                        </div>
+                        <div>
+                            <span class="status-badge status-not-contacted">Not Contacted</span>
+                        </div>
+                        <div>
+                            <div class="col-toggle-btn">View Email ▾</div>
+                        </div>
+                    </div>
+
+                    <div class="prospect-email-panel" id="email-ntb">
+                        <div class="email-meta-strip">
+                            <div class="email-next-action">
+                                <strong>Next Action:</strong> Submit official expedition docket to NTB PR &amp; Communications desk.
+                            </div>
+                            <div class="email-actions-group">
+                                <button type="button" class="btn-copy-subject" onclick="copySubject('sub-ntb');">Copy Subject</button>
+                                <button type="button" class="btn-copy-email" onclick="copyFullEmail('sub-ntb', 'body-ntb');">Copy Full Email</button>
+                            </div>
+                        </div>
+
+                        <div class="email-content-box">
+                            <div class="email-subject-line" id="sub-ntb">
+                                <span>Subject:</span> Respectful Destination Storytelling: The Journey Within (Upper Mustang)
+                            </div>
+                            <div class="email-body-text" id="body-ntb">Respected Officers,
+
+Totemtou is conducting a high-standard, culturally respectful 13-day overland expedition through Upper Mustang: The Journey Within (20 November 2026).
+
+Co-led by HE Palga Rinpoche (revered Tibetan Buddhist master) and Eksha Kerung (Sikkim Police Officer and athlete), our journey highlights mindful travel, monastery heritage, and environmental care across Lo Manthang and Luri Gompa.
+
+We welcome partnership with the Nepal Tourism Board as an Expedition Partner. Deliverables include an authentic short-form destination film showcasing Nepal's responsible overland travel, 6 licensed high-resolution photographs, and positive regional publicity across our combined direct audience of 510,000+ followers.
+
+Official brief and route schedule:
+https://vikasnagpal.com/rinpoche/sponsorpitch
+
+We would be honored to discuss this initiative at your convenience.
+
+With sincere regards,
+Vikas Nagpal
+Totemtou Expeditions
+vikas@totemtou.com</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prospect 8: Yeti Airlines / Hospitality -->
+                <div class="prospect-item-card" data-wave="wave2">
+                    <div class="prospect-row-main" onclick="toggleEmailPanel('email-hospitality');">
+                        <div class="col-priority priority-wave2">Wave 2</div>
+                        <div>
+                            <div class="col-brand">Yeti Airlines / Barahi</div>
+                            <div class="col-brand-category">Aviation &amp; Hospitality</div>
+                        </div>
+                        <div>
+                            <div class="col-ask">₹1,00,000</div>
+                            <div class="col-ask-sub">In-kind flight/stay offset</div>
+                        </div>
+                        <div class="col-angle">
+                            Defined reduction in flight or lodge expenses in exchange for premium travel feature.
+                        </div>
+                        <div class="col-contact">
+                            <div>Vikas Nagpal</div>
+                            <div style="font-size: 11px; color: var(--ink-faint);">Regional Director</div>
+                        </div>
+                        <div>
+                            <span class="status-badge status-not-contacted">Not Contacted</span>
+                        </div>
+                        <div>
+                            <div class="col-toggle-btn">View Email ▾</div>
+                        </div>
+                    </div>
+
+                    <div class="prospect-email-panel" id="email-hospitality">
+                        <div class="email-meta-strip">
+                            <div class="email-next-action">
+                                <strong>Next Action:</strong> Present logistical partnership proposal for Pokhara transfers and lodge stays.
+                            </div>
+                            <div class="email-actions-group">
+                                <button type="button" class="btn-copy-subject" onclick="copySubject('sub-hospitality');">Copy Subject</button>
+                                <button type="button" class="btn-copy-email" onclick="copyFullEmail('sub-hospitality', 'body-hospitality');">Copy Full Email</button>
+                            </div>
+                        </div>
+
+                        <div class="email-content-box">
+                            <div class="email-subject-line" id="sub-hospitality">
+                                <span>Subject:</span> Travel &amp; Hospitality Partnership: The Journey Within (Upper Mustang)
+                            </div>
+                            <div class="email-body-text" id="body-hospitality">Hi [First Name],
+
+I am leading The Journey Within, a 13-day motorcycle expedition through Upper Mustang departing 20 November 2026, featuring HE Palga Rinpoche and Eksha Kerung (396K followers).
+
+We are seeking a hospitality and logistics partner to support our team's transit through Pokhara. In return for flight sector support or lodge accommodations, we offer a dedicated travel spotlight in our recap content, 3 high-resolution hospitality stills, and prominent social mentions across our expedition channels.
+
+Full overview and expedition details:
+https://vikasnagpal.com/rinpoche/sponsorpitch
+
+Let me know if we can discuss this mutual arrangement over a brief call.
+
+Warm regards,
+Vikas Nagpal
+Totemtou Expeditions
+vikas@totemtou.com</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 2. Final Capitalization Goal -->
-        <section class="section-block">
+        <!-- I6: Budget & Commitment Tracking -->
+        <section class="section-block" id="budget-tracker">
             <div class="section-head">
-                <span class="section-num">Section 02</span>
-                <h2 class="section-title">The Capitalization Goal: ₹7,00,000 Total Funding</h2>
+                <span class="section-kicker">FINANCIAL RECONCILIATION</span>
+                <h2 class="section-title">Budget Lines &amp; Commitment Tracking</h2>
                 <p class="section-lead">
-                    Our objective is to raise a total capitalization pool of ₹7 Lakhs (range ₹6L to ₹8L) across four founding brand partners. This fully underwrites the 13-day expedition, high-altitude logistics, safety fleet, and dedicated cinematic content production.
+                    Reconciles total trip cost, content-production costs, safety support, contingency, and sponsor commitments:
                 </p>
             </div>
 
-            <!-- Goal Summary Dashboard -->
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 24px;">
-                <div class="card card--accent">
-                    <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-terracotta); margin-bottom: 6px;">Target Capitalization</div>
-                    <div style="font-family: var(--font-display); font-size: 2.4rem; font-weight: 600; color: var(--ink); line-height: 1.1; margin-bottom: 8px; font-variant-numeric: tabular-nums;">
-                        ₹7,00,000
-                    </div>
-                    <p style="font-size: 13.5px; line-height: 1.55; color: var(--ink-muted);">
-                        Total budget required to fully finance the entire 13-day Upper Mustang overland route, permits, fuel, lodging, and dedicated field cinema crew.
-                    </p>
-                </div>
-
-                <div class="card card--gold">
-                    <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-gold); margin-bottom: 6px;">Partner Composition</div>
-                    <div style="font-family: var(--font-display); font-size: 2.4rem; font-weight: 600; color: var(--ink); line-height: 1.1; margin-bottom: 8px; font-variant-numeric: tabular-nums;">
-                        4 Cash Sponsors
-                    </div>
-                    <p style="font-size: 13.5px; line-height: 1.55; color: var(--ink-muted);">
-                        1 Founding Partner (₹3L) + 2 Expedition Partners (₹1.5L each) + 1 Field Partner (₹1L). Plus optional in-kind equipment and technical gear support.
-                    </p>
-                </div>
-
-                <div class="card" style="border-left: 4px solid var(--color-forest);">
-                    <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-forest); margin-bottom: 6px;">Closing Timeline</div>
-                    <div style="font-family: var(--font-display); font-size: 2.4rem; font-weight: 600; color: var(--ink); line-height: 1.1; margin-bottom: 8px; font-variant-numeric: tabular-nums;">
-                        3-Week Window
-                    </div>
-                    <p style="font-size: 13.5px; line-height: 1.55; color: var(--ink-muted);">
-                        Outreach blitz and partner closures across October 2026, locking commercial commitments ahead of our 20th November 2026 wheels-roll date.
-                    </p>
-                </div>
+            <!-- Budget Breakdown Table -->
+            <div class="budget-table-wrap">
+                <table class="budget-table">
+                    <thead>
+                        <tr>
+                            <th>Budget Line</th>
+                            <th>Cost Scope &amp; Deliverable</th>
+                            <th>Working Estimate</th>
+                            <th>Confirmed Quote</th>
+                            <th>Funding Gap</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Permits &amp; Local Logistics</strong></td>
+                            <td>Upper Mustang ACAP &amp; Restricted Area Permits (10 days restricted window)</td>
+                            <td class="budget-val">₹2,20,000</td>
+                            <td>In Progress</td>
+                            <td class="budget-val" style="color: var(--color-terracotta);">₹2,20,000</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Transport, Fuel &amp; Stays</strong></td>
+                            <td>Motorcycle preparation, fuel, support vehicle, and mountain teahouse stays</td>
+                            <td class="budget-val">₹2,60,000</td>
+                            <td>In Progress</td>
+                            <td class="budget-val" style="color: var(--color-terracotta);">₹2,60,000</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Safety &amp; Field Support</strong></td>
+                            <td>Expedition mechanic, high-altitude trail guide, emergency oxygen &amp; first aid</td>
+                            <td class="budget-val">₹90,000</td>
+                            <td>Quoted</td>
+                            <td class="budget-val" style="color: var(--color-terracotta);">₹90,000</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Filming &amp; Field Production</strong></td>
+                            <td>2-person nimble crew, field sound recording, drone operations, and camera kits</td>
+                            <td class="budget-val">₹1,20,000</td>
+                            <td>Quoted</td>
+                            <td class="budget-val" style="color: var(--color-terracotta);">₹1,20,000</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Post-Production &amp; Contingency</strong></td>
+                            <td>Fast editorial turnaround, sound mix, color grade, and emergency backup reserve</td>
+                            <td class="budget-val">₹60,000</td>
+                            <td>Estimated</td>
+                            <td class="budget-val" style="color: var(--color-terracotta);">₹60,000</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td><strong>Total Working Cost Target</strong></td>
+                            <td><strong>Working Target Range: ₹6,00,000 to ₹8,00,000</strong></td>
+                            <td class="budget-val"><strong>₹7,50,000</strong></td>
+                            <td>Pending Quotes</td>
+                            <td class="budget-val" style="color: var(--color-terracotta);"><strong>₹7,00,000 (Cash Gap)</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
-            <!-- What This Goal Accomplishes -->
-            <div class="card card--tint" style="padding: 24px;">
-                <h3 style="font-size: 16px; font-weight: 600; color: var(--ink); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.04em;">
-                    What Reaching This Goal Accomplishes
+            <!-- Sponsor Commitments Tracking Table -->
+            <div style="margin-top: 24px;">
+                <h3 style="font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink); margin-bottom: 8px;">
+                    Confirmed Sponsor Commitments
                 </h3>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px;">
-                    <div style="background: #FFFFFF; border: 1px solid var(--border-subtle); padding: 16px; border-radius: var(--r-sm);">
-                        <strong style="color: var(--color-terracotta); display: block; font-size: 13.5px; margin-bottom: 4px;">1. Operational Independence</strong>
-                        <span style="font-size: 13px; color: var(--ink-body); line-height: 1.5; display: block;">
-                            Eliminates all dependence on passenger ticket sales, allowing the journey to remain an intimate, sacred, and contemplative expedition.
-                        </span>
-                    </div>
-                    <div style="background: #FFFFFF; border: 1px solid var(--border-subtle); padding: 16px; border-radius: var(--r-sm);">
-                        <strong style="color: var(--color-terracotta); display: block; font-size: 13.5px; margin-bottom: 4px;">2. World-Class Content Delivery</strong>
-                        <span style="font-size: 13px; color: var(--ink-body); line-height: 1.5; display: block;">
-                            Fully capitalizes high-altitude cinema cameras, FPV drone pilots, and post-production color grading to fulfill every sponsor deliverable to luxury standards.
-                        </span>
-                    </div>
-                    <div style="background: #FFFFFF; border: 1px solid var(--border-subtle); padding: 16px; border-radius: var(--r-sm);">
-                        <strong style="color: var(--color-terracotta); display: block; font-size: 13.5px; margin-bottom: 4px;">3. Founding Ecosystem Seed</strong>
-                        <span style="font-size: 13px; color: var(--ink-body); line-height: 1.5; display: block;">
-                            Transforms our initial brand backers into long-term institutional partners with Right of First Refusal on future expeditions across Spiti, Ladakh, and Bhutan.
-                        </span>
-                    </div>
+                <div class="commitments-empty-box">
+                    No confirmed sponsor contracts signed yet. Currently in active outreach stage. Confirmed agreements will record cash amount, payment date, products received, deliverables, publishing accounts, rights scope, and final delivery dates here.
                 </div>
             </div>
         </section>
 
-        <!-- 3. Sponsorship Brackets & Deliverables Matrix -->
-        <section class="section-block">
+        <!-- Guardrails Section -->
+        <section class="section-block" id="guardrails">
             <div class="section-head">
-                <span class="section-num">Section 03</span>
-                <h2 class="section-title">The Three Sponsorship Brackets</h2>
+                <span class="section-kicker">TALENT GUIDELINES</span>
+                <h2 class="section-title">Talent &amp; Spiritual Guardrails</h2>
                 <p class="section-lead">
-                    Structured to hit our ₹7L target through exactly 4 cash partners. Each tier offers clear, measurable content deliverables without cluttering the journey.
-                </p>
-            </div>
-
-            <div class="tiers-grid">
-                <!-- Tier 1 -->
-                <div class="tier-box tier--title">
-                    <div class="tier-header">
-                        <span class="tier-slots">Only 1 Slot · Presenting Partner</span>
-                        <h3 style="font-size: 20px; font-weight: 600; color: var(--ink); margin-top: 4px;">Tier 1: Founding Partner</h3>
-                        <div class="tier-price">₹3,00,000</div>
-                        <div style="font-size: 12.5px; color: var(--ink-muted);">Target: Motorcycle manufacturer, Global Outdoor Brand, or Destination Tourism Board</div>
-                    </div>
-                    <ul class="tier-deliverables">
-                        <li><strong>Top Billing:</strong> "The Journey Within, Presented by [Brand]" on official portals, documentary intro, and press releases.</li>
-                        <li><strong>Dedicated Cinematic Film:</strong> One 45–60 second hero film featuring the brand's product/ethos woven organically into Upper Mustang.</li>
-                        <li><strong>Eksha-Led Social Feature:</strong> Dedicated reel or carousel published via agreed channels highlighting real mountain use.</li>
-                        <li><strong>Full Commercial Photo Library:</strong> 12 edited high-res commercial photographs with perpetual digital &amp; website usage rights.</li>
-                        <li><strong>Physical Placement:</strong> Premium placement on support 4x4 SUV and expedition jackets.</li>
-                        <li><strong>Category Exclusivity:</strong> 100% locked category exclusivity for the entire expedition.</li>
-                        <li><strong>Multi-Trip Charter:</strong> Right of First Refusal (ROFR) for the next 3 Totemtou journeys with locked founding rates.</li>
-                    </ul>
-                </div>
-
-                <!-- Tier 2 -->
-                <div class="tier-box">
-                    <div class="tier-header">
-                        <span class="tier-slots">2 Slots Available · Powered By</span>
-                        <h3 style="font-size: 20px; font-weight: 600; color: var(--ink); margin-top: 4px;">Tier 2: Expedition Partner</h3>
-                        <div class="tier-price">₹1,50,000 <span style="font-size: 14px; color: var(--ink-muted); font-weight: 400;">each</span></div>
-                        <div style="font-size: 12.5px; color: var(--ink-muted);">Target: Riding gear (Rynox), Luggage (ViaTerra), Outdoor Apparel (Columbia/Chogori), Wearables (Ultrahuman/Garmin)</div>
-                    </div>
-                    <ul class="tier-deliverables">
-                        <li><strong>Secondary Billing:</strong> "Powered by [Brand]" in closing documentary credits, expedition webpage, and field dispatches.</li>
-                        <li><strong>Dedicated Field Reel:</strong> One 30–45 second product-in-action video clip filmed against dramatic riverbed or pass terrain.</li>
-                        <li><strong>Natural Product Integration:</strong> Real-world stress testing throughout 13 days of dirt, cold, and altitude.</li>
-                        <li><strong>Commercial Photo Pack:</strong> 6 edited high-res images showing product in alpine context for brand social and PR.</li>
-                        <li><strong>Usage Rights:</strong> 6 months of agreed digital organic usage rights across brand channels.</li>
-                        <li><strong>Category Protection:</strong> Exclusivity within agreed sub-category (e.g. exclusive protective jackets or luggage).</li>
-                        <li><strong>Multi-Trip Charter:</strong> Priority booking rights for the next 2 Totemtou chapters.</li>
-                    </ul>
-                </div>
-
-                <!-- Tier 3 -->
-                <div class="tier-box">
-                    <div class="tier-header">
-                        <span class="tier-slots">1 Slot Available · Field Provision</span>
-                        <h3 style="font-size: 20px; font-weight: 600; color: var(--ink); margin-top: 4px;">Tier 3: Field Partner</h3>
-                        <div class="tier-price">₹1,00,000 <span style="font-size: 14px; color: var(--ink-muted); font-weight: 400;">(+ in-kind)</span></div>
-                        <div style="font-size: 12.5px; color: var(--ink-muted);">Target: Hydration/Nutrition (Fast&amp;Up), Helmets (Axor), Action Cameras (Insta360)</div>
-                    </div>
-                    <ul class="tier-deliverables">
-                        <li><strong>Expedition Credit:</strong> Field Partner listing in documentary end credits and official sponsor webpage.</li>
-                        <li><strong>In-Field Use Integration:</strong> Product utilized during daily rider briefings, morning tea, or acclimatization stops.</li>
-                        <li><strong>Commercial Photo Pack:</strong> 3 high-res commercial product stills in authentic Himalayan lodge/trail setting.</li>
-                        <li><strong>Social Story Mentions:</strong> Tagged mentions across expedition field dispatches and packing breakdowns.</li>
-                        <li><strong>Usage Rights:</strong> 3 months of organic digital usage rights on brand social channels.</li>
-                        <li><strong>Multi-Trip Charter:</strong> Early invitation to partner on future expedition provisions.</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- 4. Talent Guardrails & Operating Boundaries -->
-        <section class="section-block">
-            <div class="section-head">
-                <span class="section-num">Section 04</span>
-                <h2 class="section-title">Talent Guidelines &amp; Spiritual Guardrails</h2>
-                <p class="section-lead">
-                    To maintain unshakeable authenticity and brand prestige, we enforce clear boundaries for how our two protagonists are integrated.
+                    Strict non-negotiable boundaries to protect the spiritual integrity and athletic authenticity of the expedition:
                 </p>
             </div>
 
             <div class="guardrails-grid">
-                <div class="guardrail-card" style="border-left: 3px solid #8A4325;">
-                    <div class="guardrail-title">
-                        <span>📿 HE Palga Rinpoche (Spiritual Anchor)</span>
-                    </div>
-                    <div class="guardrail-text">
-                        <strong>Rule: Zero commercial endorsements.</strong> Rinpoche does not hold sponsor products to the camera, deliver scripted ad lines, or wear commercial branding patches on monastic robes. His role is purely philosophical: dialogue on stillness, attention, detachment, and the mindful nature of overland journeys. Sponsors gain association with this high-altitude contemplative narrative, never an unverified commercial endorsement.
+                <div class="guardrail-card">
+                    <div class="guardrail-title">Rinpoche's Philosophical Dignity</div>
+                    <div class="guardrail-desc">
+                        No product holding, commercial endorsements, scripted advert lines, or commercial testimonials. Rinpoche's presence is strictly contemplative, cultural, and spiritual.
                     </div>
                 </div>
 
-                <div class="guardrail-card" style="border-left: 3px solid #C9522E;">
-                    <div class="guardrail-title">
-                        <span>🥊 Eksha Kerung (Endurance &amp; Gear Vanguard)</span>
-                    </div>
-                    <div class="guardrail-text">
-                        <strong>Rule: Authentic field utility.</strong> Eksha tests equipment in genuine action: riding through rocky riverbeds, managing cold morning starts, and wearing protective gear. Her deliverables must feel natural and rugged, not staged studio ads. Any personal account posting commitments must be confirmed in writing with agreed deliverables and timelines.
+                <div class="guardrail-card">
+                    <div class="guardrail-title">Eksha's Athletic Authenticity</div>
+                    <div class="guardrail-desc">
+                        Products are integrated through authentic trail use during riding and campsite moments. No fake staged studio poses; focus on real mountain competence.
                     </div>
                 </div>
 
-                <div class="guardrail-card" style="border-left: 3px solid var(--color-forest);">
-                    <div class="guardrail-title">
-                        <span>🏔️ Cultural &amp; Sacred Sensitivity</span>
-                    </div>
-                    <div class="guardrail-text">
-                        <strong>Rule: No product staging in sacred spaces.</strong> Absolutely no commercial gear shoots or brand banners inside monasteries, gompas, chortens, or during traditional Buddhist rituals. Filming in sacred sites is strictly documentary and respectful, adhering to local Mustang monastic customs.
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 5. Target Sponsor Pipeline & Outreach Directory -->
-        <section class="section-block">
-            <div class="section-head">
-                <span class="section-num">Section 05</span>
-                <h2 class="section-title">Priority Sponsor Pipeline &amp; Approach Angles</h2>
-                <p class="section-lead">
-                    Target brands categorized by category synergy, recommended ask, and exact conversational hook.
-                </p>
-            </div>
-
-            <div class="sponsor-pipeline">
-
-                <!-- Wave 1: Immediate Outreach (Days 1–5) -->
-                <div class="category-group">
-                    <div class="category-header">
-                        <span>Wave 1: High-Synergy Cash Targets (Immediate Outreach)</span>
-                        <span class="badge-tag-sm badge-green">Priority Wave 1</span>
-                    </div>
-
-                    <!-- Rynox -->
-                    <div class="brand-row">
-                        <div>
-                            <div class="brand-name">Rynox Gears</div>
-                            <div class="brand-desc">Protective Riding Apparel &amp; Luggage</div>
-                        </div>
-                        <div class="brand-ask">₹1.5 Lakh<br><span style="font-size: 11px; color: var(--ink-faint); font-weight: normal;">Expedition Partner</span></div>
-                        <div class="brand-angle">
-                            <strong>Angle: "The Kit That Earns Its Place"</strong>. Stress-testing jackets and gloves through sub-zero high-altitude winds and shale. Direct link on Rynox's portal for sponsorship proposals.
-                        </div>
-                        <div class="brand-action">
-                            <a href="#email-rynox">View Pitch Email ↓</a>
-                        </div>
-                    </div>
-
-                    <!-- ViaTerra -->
-                    <div class="brand-row">
-                        <div>
-                            <div class="brand-name">ViaTerra Gear</div>
-                            <div class="brand-desc">Motorcycle Luggage &amp; Waterproof Packs</div>
-                        </div>
-                        <div class="brand-ask">₹1.5 Lakh<br><span style="font-size: 11px; color: var(--ink-faint); font-weight: normal;">Expedition Partner</span></div>
-                        <div class="brand-angle">
-                            <strong>Angle: "Thirteen Days, One Touring Setup"</strong>. Waterproof luggage testing through Kali Gandaki river crossings and dust storms.
-                        </div>
-                        <div class="brand-action">
-                            <a href="#email-viaterra">View Pitch Email ↓</a>
-                        </div>
-                    </div>
-
-                    <!-- Royal Enfield -->
-                    <div class="brand-row">
-                        <div>
-                            <div class="brand-name">Royal Enfield / Himalayan Gear</div>
-                            <div class="brand-desc">Motorcycles &amp; Apparel (MotoCulture)</div>
-                        </div>
-                        <div class="brand-ask">₹3.0 Lakh<br><span style="font-size: 11px; color: var(--ink-faint); font-weight: normal;">Founding Partner</span></div>
-                        <div class="brand-angle">
-                            <strong>Angle: "The Journey Beyond the Road"</strong>. Pure storytelling focused on riding culture and mindful overland travel, distinct from RE's commercial marquee rides.
-                        </div>
-                        <div class="brand-action">
-                            <a href="#email-royalenfield">View Pitch Email ↓</a>
-                        </div>
-                    </div>
-
-                    <!-- Chogori / Columbia -->
-                    <div class="brand-row">
-                        <div>
-                            <div class="brand-name">Chogori India Retail</div>
-                            <div class="brand-desc">Columbia, Black Diamond, LOWA, Julbo</div>
-                        </div>
-                        <div class="brand-ask">₹1.5 Lakh<br><span style="font-size: 11px; color: var(--ink-faint); font-weight: normal;">Expedition Partner</span></div>
-                        <div class="brand-angle">
-                            <strong>Angle: "Prepared for the Elements"</strong>. Technical alpine layers and eyewear performing across cold desert extremes at 3,840m.
-                        </div>
-                        <div class="brand-action">
-                            <a href="#email-chogori">View Pitch Email ↓</a>
-                        </div>
-                    </div>
-
-                    <!-- Fast&Up -->
-                    <div class="brand-row">
-                        <div>
-                            <div class="brand-name">Fast&amp;Up India</div>
-                            <div class="brand-desc">Hydration, Electrolytes &amp; Recovery</div>
-                        </div>
-                        <div class="brand-ask">₹1.0 Lakh<br><span style="font-size: 11px; color: var(--ink-faint); font-weight: normal;">Field Partner + Product</span></div>
-                        <div class="brand-angle">
-                            <strong>Angle: "The Ritual Before the Ascent"</strong>. Morning hydration routines and active stamina at high altitudes without medical exaggeration. Dedicated partnerships page.
-                        </div>
-                        <div class="brand-action">
-                            <a href="#email-fastup">View Pitch Email ↓</a>
-                        </div>
-                    </div>
-
-                    <!-- Nepal Tourism Board -->
-                    <div class="brand-row">
-                        <div>
-                            <div class="brand-name">Nepal Tourism Board (NTB)</div>
-                            <div class="brand-desc">National Destination Marketing</div>
-                        </div>
-                        <div class="brand-ask">₹3.0 Lakh<br><span style="font-size: 11px; color: var(--ink-faint); font-weight: normal;">Founding Partner</span></div>
-                        <div class="brand-angle">
-                            <strong>Angle: "A Different Side of Nepal"</strong>. Editorial content showcasing Upper Mustang's spiritual heritage and overland beauty for high-value Indian travelers.
-                        </div>
-                        <div class="brand-action">
-                            <a href="#email-ntb">View Pitch Email ↓</a>
-                        </div>
+                <div class="guardrail-card">
+                    <div class="guardrail-title">Transparent Social Deliverables</div>
+                    <div class="guardrail-desc">
+                        Talent account posts and mentions are treated as proposed until explicitly signed off by talent management. Never guarantee talent feed posts without prior written consent.
                     </div>
                 </div>
 
-                <!-- Wave 2: Tech, Wearables & Optics -->
-                <div class="category-group">
-                    <div class="category-header">
-                        <span>Wave 2: Wearables, Action Cameras &amp; Protection (Days 6–10)</span>
-                        <span class="badge-tag-sm badge-gold">Priority Wave 2</span>
-                    </div>
-
-                    <!-- Ultrahuman -->
-                    <div class="brand-row">
-                        <div>
-                            <div class="brand-name">Ultrahuman</div>
-                            <div class="brand-desc">Smart Ring &amp; Physiological Tracking</div>
-                        </div>
-                        <div class="brand-ask">₹1.5 Lakh<br><span style="font-size: 11px; color: var(--ink-faint); font-weight: normal;">Expedition Partner</span></div>
-                        <div class="brand-angle">
-                            <strong>Angle: "Nervous System Resilience at 3,840m"</strong>. Tracking sleep, HRV, and circadian recovery during active meditation in extreme conditions.
-                        </div>
-                        <div class="brand-action">
-                            <a href="#email-ultrahuman">View Pitch Email ↓</a>
-                        </div>
-                    </div>
-
-                    <!-- Garmin India -->
-                    <div class="brand-row">
-                        <div>
-                            <div class="brand-name">Garmin India</div>
-                            <div class="brand-desc">Outdoor GPS, inReach &amp; Solar Watches</div>
-                        </div>
-                        <div class="brand-ask">₹1.5 Lakh<br><span style="font-size: 11px; color: var(--ink-faint); font-weight: normal;">Expedition Partner</span></div>
-                        <div class="brand-angle">
-                            <strong>Angle: "Beyond Cell Service"</strong>. Satellite connectivity and topographical navigation through isolated Himalayan canyons.
-                        </div>
-                        <div class="brand-action">
-                            <a href="#email-garmin">View Pitch Email ↓</a>
-                        </div>
-                    </div>
-
-                    <!-- Insta360 India -->
-                    <div class="brand-row">
-                        <div>
-                            <div class="brand-name">Insta360 India</div>
-                            <div class="brand-desc">Action &amp; 360-Degree Motorcycle Cameras</div>
-                        </div>
-                        <div class="brand-ask">₹1.0 Lakh<br><span style="font-size: 11px; color: var(--ink-faint); font-weight: normal;">Field Partner + Kit</span></div>
-                        <div class="brand-angle">
-                            <strong>Angle: "The Moving Canvas"</strong>. Capturing third-person motorcycle perspective shots across winding cliffside tracks and ancient villages.
-                        </div>
-                        <div class="brand-action">
-                            <a href="#email-insta360">View Pitch Email ↓</a>
-                        </div>
-                    </div>
-
-                    <!-- Axor Helmets -->
-                    <div class="brand-row">
-                        <div>
-                            <div class="brand-name">Axor Helmets (Vega)</div>
-                            <div class="brand-desc">Motorcycle Helmets &amp; Protective Optics</div>
-                        </div>
-                        <div class="brand-ask">₹1.0 Lakh<br><span style="font-size: 11px; color: var(--ink-faint); font-weight: normal;">Field Partner + Kit</span></div>
-                        <div class="brand-angle">
-                            <strong>Angle: "Clarity Through the Dust"</strong>. Protective gear facing the ferocious afternoon winds and blowing grit of the Kali Gandaki. Direct PR contact.
-                        </div>
-                        <div class="brand-action">
-                            <a href="#email-axor">View Pitch Email ↓</a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- 6. Ready-to-Send Custom Pitch Email Templates -->
-        <section class="section-block" id="email-vault">
-            <div class="section-head">
-                <span class="section-num">Section 06</span>
-                <h2 class="section-title">Custom Pitch Email Templates</h2>
-                <p class="section-lead">
-                    Pre-drafted, highly customized email outreach notes for each target brand. Each email includes the universal pitch deck link (<code style="font-size: 12px; background: #EFE6DC; padding: 2px 5px; border-radius: 3px;">https://vikasnagpal.com/rinpoche/sponsorpitch</code>). Click "Copy Email" to copy text to clipboard with one click.
-                </p>
-            </div>
-
-            <div class="email-vault">
-
-                <!-- 1. Rynox -->
-                <div class="email-card" id="email-rynox">
-                    <div class="email-card-header">
-                        <div class="email-target">
-                            <span class="badge-tag-sm badge-blue">Riding Gear</span>
-                            <strong>Rynox Gears · Outreach Pitch</strong>
-                        </div>
-                        <button class="copy-btn" onclick="copyEmailText('body-rynox')">📋 Copy Email</button>
-                    </div>
-                    <div class="email-body" id="body-rynox"><div class="email-subject">Subject: Founding Brand Partnership | The Journey Within: Upper Mustang with HE Palga Rinpoche &amp; Eksha</div>Hi [Name],
-
-I am reaching out regarding The Journey Within, an independent 13-day Himalayan expedition we are leading into the high desert of Upper Mustang, Nepal, scheduled for 20th November 2026.
-
-Over thirteen days, we follow the Kali Gandaki from Pokhara to the walled kingdom of Lo Manthang at 3,840 metres. The journey brings together demanding mountain motorcycle riding, extraordinary landscapes, and a deeper exploration of active meditation and mental clarity, led by Buddhist spiritual leader HE Palga Rinpoche alongside endurance rider and national athlete Eksha Kerung.
-
-We are inviting a select group of founding brand partners to help underwrite this inaugural expedition.
-
-Rather than conventional logo placement or generic social promotion, we are producing a collection of high-altitude cinematic films and commercial photography showcasing equipment in genuine alpine conditions. We thought this would be exceptionally relevant to Rynox: Upper Mustang offers sub-zero morning temperatures, extreme dust, and rocky riverbeds where protective jackets and gear genuinely earn their place.
-
-Eksha will be riding through the terrain in your equipment, and our field cinema crew will capture high-production video and photography for Rynox's owned marketing channels.
-
-We have structured a focused ₹1.5 Lakh Expedition Partner package that includes a dedicated 30–45s product-in-action field reel, high-res commercial imagery, category exclusivity, and priority partner status across our future expeditions.
-
-You can view the full expedition outline, protagonist profiles, and partnership deliverables on our sponsor deck here:
-https://vikasnagpal.com/rinpoche/sponsorpitch
-
-Would you be open to a brief 10-minute call this week to explore how we can tailor this for Rynox?
-
-Warm regards,
-
-Vikas Nagpal
-Experience Design · Totemtou
-+91 8851831103 · vikasnagpal.com/rinpoche</div>
-                </div>
-
-                <!-- 2. ViaTerra -->
-                <div class="email-card" id="email-viaterra">
-                    <div class="email-card-header">
-                        <div class="email-target">
-                            <span class="badge-tag-sm badge-blue">Luggage</span>
-                            <strong>ViaTerra Gear · Outreach Pitch</strong>
-                        </div>
-                        <button class="copy-btn" onclick="copyEmailText('body-viaterra')">📋 Copy Email</button>
-                    </div>
-                    <div class="email-body" id="body-viaterra"><div class="email-subject">Subject: Founding Expedition Partnership | The Journey Within (Upper Mustang Overland)</div>Hi [Name],
-
-I am writing to you regarding The Journey Within, an overland motorcycle expedition through Upper Mustang, Nepal, departing 20th November 2026.
-
-Led by Buddhist teacher HE Palga Rinpoche and endurance rider Eksha Kerung, our small team is crossing 13 days of rugged terrain up to 3,840 metres: moving from subtropical valleys through deep riverbed crossings, shale gorges, and high-desert passes.
-
-We are looking to partner with ViaTerra as our Official Luggage Partner under a ₹1.5 Lakh Expedition Partner tier.
-
-Rather than asking for typical sponsorship, our goal is to capture your luggage systems being subjected to genuine Himalayan endurance: packed for 13 days, lashed to bikes across unpaved riverbeds, and tested against cold rain shadow dust. Our cine crew will produce a dedicated 30–45 second field-use reel and commercial still photographs for ViaTerra's digital marketing and owned channels.
-
-You can inspect the full expedition details, route coordinates, and deliverable tiers here:
-https://vikasnagpal.com/rinpoche/sponsorpitch
-
-Would you have 10 minutes next week to discuss outfitting the team?
-
-Best regards,
-
-Vikas Nagpal
-Totemtou · The Journey Within
-+91 8851831103</div>
-                </div>
-
-                <!-- 3. Royal Enfield -->
-                <div class="email-card" id="email-royalenfield">
-                    <div class="email-card-header">
-                        <div class="email-target">
-                            <span class="badge-tag-sm badge-gold">Motorcycles &amp; Apparel</span>
-                            <strong>Royal Enfield (MotoCulture &amp; Brand Experience)</strong>
-                        </div>
-                        <button class="copy-btn" onclick="copyEmailText('body-royalenfield')">📋 Copy Email</button>
-                    </div>
-                    <div class="email-body" id="body-royalenfield"><div class="email-subject">Subject: Founding Brand Partnership | The Journey Within: A Mindful Himalayan Crossing</div>Hi [Name],
-
-I am reaching out regarding The Journey Within, an independent 13-day overland motorcycle expedition through Upper Mustang, Nepal, departing 20th November 2026 with HE Palga Rinpoche and adventure rider Eksha Kerung.
-
-Royal Enfield has deep roots in Himalayan motorcycling. What makes this journey distinct from commercial rides is its philosophical character: it unites technical high-altitude riding with active meditation, stillness, and Buddhist perspective, led by an authentic Rinpoche who is himself a devoted motorcycle rider.
-
-We are offering Royal Enfield an exclusive ₹3,00,000 Founding Partner opportunity. 
-
-This is not a generic sponsorship: we act as an agile, high-production adventure studio delivering a dedicated 45–60s cinematic brand film set against Lo Manthang's 3,840m sandstone cliffs, 12 high-res commercial photographs, and top-tier co-branding across our expedition assets. Furthermore, backing this inaugural route establishes Royal Enfield as the charter partner across our upcoming multi-trip ecosystem.
-
-Our full expedition deck and partner deliverables are accessible here:
-https://vikasnagpal.com/rinpoche/sponsorpitch
-
-I would welcome the opportunity to share a short visual preview and discuss how this aligns with Royal Enfield's pure motorcycling storytelling.
-
-Warm regards,
-
-Vikas Nagpal
-Founder &amp; Experience Designer · Totemtou
-+91 8851831103 · vikasnagpal.com/rinpoche</div>
-                </div>
-
-                <!-- 4. Chogori / Columbia -->
-                <div class="email-card" id="email-chogori">
-                    <div class="email-card-header">
-                        <div class="email-target">
-                            <span class="badge-tag-sm badge-blue">Outdoor Apparel</span>
-                            <strong>Chogori India (Columbia Sportswear)</strong>
-                        </div>
-                        <button class="copy-btn" onclick="copyEmailText('body-chogori')">📋 Copy Email</button>
-                    </div>
-                    <div class="email-body" id="body-chogori"><div class="email-subject">Subject: High-Altitude Field Partnership | Upper Mustang Expedition with Palga Rinpoche &amp; Eksha Kerung</div>Hi [Name],
-
-I am contacting you regarding The Journey Within, an overland expedition into the high desert of Upper Mustang, Nepal, scheduled for 20th November 2026.
-
-Over thirteen days, our team travels from Pokhara to Lo Manthang at 3,840m elevation alongside Buddhist teacher HE Palga Rinpoche and national athlete Eksha Kerung. The landscape presents radical micro-climates: chilly riverbed mornings, high alpine winds, and harsh high-altitude UV radiation.
-
-We would love to collaborate with Chogori India / Columbia Sportswear as our Official Outdoor Apparel Partner under a ₹1.5 Lakh Expedition Partner arrangement.
-
-In return, we will deliver:
-1. A dedicated 30–45 second cinematic field-story video highlighting your thermal, windproof, and outdoor gear in demanding alpine conditions.
-2. A commercial suite of 6 high-res photographs featuring Eksha in Columbia equipment for your owned digital channels.
-3. Category exclusivity and multi-trip continuity charter for our future expeditions.
-
-Please take a look at the full expedition presentation here:
-https://vikasnagpal.com/rinpoche/sponsorpitch
-
-Could we schedule a short conversation next week to explore this?
-
-Best regards,
-
-Vikas Nagpal
-Totemtou · Experience Design
-+91 8851831103</div>
-                </div>
-
-                <!-- 5. Fast&Up -->
-                <div class="email-card" id="email-fastup">
-                    <div class="email-card-header">
-                        <div class="email-target">
-                            <span class="badge-tag-sm badge-green">Nutrition &amp; Hydration</span>
-                            <strong>Fast&amp;Up India · Outreach Pitch</strong>
-                        </div>
-                        <button class="copy-btn" onclick="copyEmailText('body-fastup')">📋 Copy Email</button>
-                    </div>
-                    <div class="email-body" id="body-fastup"><div class="email-subject">Subject: Official Hydration Partnership | The Journey Within: Upper Mustang Expedition</div>Hi [Name],
-
-I am writing regarding The Journey Within, a 13-day overland journey across Upper Mustang, Nepal, taking place 20th November 2026, led by HE Palga Rinpoche and endurance rider Eksha Kerung.
-
-Climbing to 3,840 metres in the cold, dry rain shadow of the Annapurna range creates intense physiological demands where daily hydration and electrolyte replenishment are vital to rider safety and focus.
-
-We are proposing Fast&amp;Up as our Official Hydration Partner under a ₹1,00,000 Field Partner bracket (+ product supply).
-
-We will capture authentic trail preparation: morning electrolyte routines before hitting mountain passes, hydration pauses along riverbeds, and rider stamina. You will receive 3 high-res commercial product stills in raw mountain light, tagged social coverage, and documentary credits.
-
-The full expedition outline is live at:
-https://vikasnagpal.com/rinpoche/sponsorpitch
-
-Would you be open to a 10-minute chat to review how we can integrate Fast&amp;Up on this route?
-
-Warmly,
-
-Vikas Nagpal
-Totemtou · The Journey Within
-+91 8851831103</div>
-                </div>
-
-                <!-- 6. Nepal Tourism Board -->
-                <div class="email-card" id="email-ntb">
-                    <div class="email-card-header">
-                        <div class="email-target">
-                            <span class="badge-tag-sm badge-gold">Destination Tourism</span>
-                            <strong>Nepal Tourism Board (NTB) · Strategic Pitch</strong>
-                        </div>
-                        <button class="copy-btn" onclick="copyEmailText('body-ntb')">📋 Copy Email</button>
-                    </div>
-                    <div class="email-body" id="body-ntb"><div class="email-subject">Subject: Destination Content Partnership: The Journey Within Upper Mustang with HE Palga Rinpoche</div>Dear [Name/Director],
-
-I am writing to share an upcoming high-value cultural and adventure initiative: The Journey Within, taking place across Upper Mustang from 20th November 2026.
-
-This 13-day journey travels from Pokhara through the Kali Gandaki to Lo Manthang at 3,840m. What sets this apart is its cultural leadership: it is led by revered Buddhist spiritual teacher HE Palga Rinpoche alongside prominent Indian endurance athlete and Sikkim police officer Eksha Kerung.
-
-We would be honored to invite the Nepal Tourism Board as our Founding Destination Partner (₹3,00,000).
-
-In collaboration with NTB, we will produce an editorial-grade cinematic short film and photography series celebrating Upper Mustang's protected heritage, Thakali hospitality, and mindful overland travel, directly targeting discerning, high-yield Indian cultural and adventure travelers.
-
-Our complete project deck and creative direction can be reviewed here:
-https://vikasnagpal.com/rinpoche/sponsorpitch
-
-We would be grateful to schedule a brief formal presentation with the NTB marketing team.
-
-Respectfully,
-
-Vikas Nagpal
-Founder · Totemtou
-+91 8851831103 · vikasnagpal.com/rinpoche</div>
-                </div>
-
-                <!-- 7. Ultrahuman -->
-                <div class="email-card" id="email-ultrahuman">
-                    <div class="email-card-header">
-                        <div class="email-target">
-                            <span class="badge-tag-sm badge-blue">Wearables &amp; Health</span>
-                            <strong>Ultrahuman · Outreach Pitch</strong>
-                        </div>
-                        <button class="copy-btn" onclick="copyEmailText('body-ultrahuman')">📋 Copy Email</button>
-                    </div>
-                    <div class="email-body" id="body-ultrahuman"><div class="email-subject">Subject: High-Altitude Physiological Case Study &amp; Partnership | The Journey Within</div>Hi [Name],
-
-I am reaching out regarding The Journey Within, an expedition traversing Upper Mustang, Nepal, up to 3,840 metres from 20th November 2026.
-
-The expedition unites two fascinating physiological case studies: Buddhist spiritual master HE Palga Rinpoche (deep autonomic nervous system regulation through meditation and breathwork) and Eksha Kerung (elite combat sports endurance and motorcycle riding).
-
-We would love to partner with Ultrahuman as our Official Physiology &amp; Recovery Partner under a ₹1.5 Lakh Expedition Partner tier.
-
-We envision tracking HRV, sleep architecture, and stress recovery as the group moves from Pokhara's low altitudes into the harsh oxygen-thin air of Lo Manthang. We will deliver a dedicated 30–45s field story video and commercial stills showing the Ring in action against ancient monasteries and high passes.
-
-You can view the full expedition vision and protagonist profiles here:
-https://vikasnagpal.com/rinpoche/sponsorpitch
-
-Would you be open to exploring this collaboration over a brief call next week?
-
-Best,
-
-Vikas Nagpal
-Totemtou · The Journey Within
-+91 8851831103</div>
-                </div>
-
-                <!-- 8. Garmin India -->
-                <div class="email-card" id="email-garmin">
-                    <div class="email-card-header">
-                        <div class="email-target">
-                            <span class="badge-tag-sm badge-blue">Navigation &amp; Sat-Com</span>
-                            <strong>Garmin India · Outreach Pitch</strong>
-                        </div>
-                        <button class="copy-btn" onclick="copyEmailText('body-garmin')">📋 Copy Email</button>
-                    </div>
-                    <div class="email-body" id="body-garmin"><div class="email-subject">Subject: Field Partnership: Navigation Beyond Cell Service in Upper Mustang | The Journey Within</div>Hi [Name],
-
-I am writing regarding The Journey Within, an overland motorcycle journey into the isolated mountain enclaves of Upper Mustang, Nepal, departing 20th November 2026.
-
-Our route moves through deep Himalayan rain-shadow valleys reaching 3,840m elevation where cellular reception drops and rugged navigation and satellite communication are mandatory.
-
-We would be thrilled to invite Garmin India as an Expedition Partner (₹1.5 Lakh) to showcase your outdoor navigation and inReach satellite systems. We will produce a dedicated 30–45 second field video demonstrating real-time navigation across unmarked mountain trails, along with high-res commercial imagery for your digital channels.
-
-Details on the expedition and protagonists can be found here:
-https://vikasnagpal.com/rinpoche/sponsorpitch
-
-Could we set up a brief introductory call to discuss this?
-
-Warmly,
-
-Vikas Nagpal
-Totemtou
-+91 8851831103</div>
-                </div>
-
-                <!-- 9. Insta360 -->
-                <div class="email-card" id="email-insta360">
-                    <div class="email-card-header">
-                        <div class="email-target">
-                            <span class="badge-tag-sm badge-blue">Action Cameras</span>
-                            <strong>Insta360 India · Content Partnership</strong>
-                        </div>
-                        <button class="copy-btn" onclick="copyEmailText('body-insta360')">📋 Copy Email</button>
-                    </div>
-                    <div class="email-body" id="body-insta360"><div class="email-subject">Subject: Action Camera Content Partnership | The Journey Within: Upper Mustang on Two Wheels</div>Hi [Name],
-
-I am reaching out regarding The Journey Within, a 13-day motorcycle expedition through the dramatic canyons of Upper Mustang, Nepal, departing 20th November 2026.
-
-Led by HE Palga Rinpoche and adventure rider Eksha Kerung, the route traverses narrow cliffside trails, riverbed crossings, and high-altitude mountain passes at 3,840 metres: tailor-made terrain for 360-degree third-person motorcycle shots.
-
-We are proposing Insta360 as our Official Action Camera Partner under a ₹1.0 Lakh Field Partner agreement (+ camera equipment loan).
-
-Our cinema crew will rig Insta360 cameras across the bikes to capture dynamic perspectives of Eksha and the team, providing you with edited short reels and raw high-res footage for Insta360 India's social channels.
-
-You can preview the route and visual aesthetic here:
-https://vikasnagpal.com/rinpoche/sponsorpitch
-
-Would you be open to chatting this week?
-
-Best regards,
-
-Vikas Nagpal
-Totemtou
-+91 8851831103</div>
-                </div>
-
-                <!-- 10. Axor Helmets -->
-                <div class="email-card" id="email-axor">
-                    <div class="email-card-header">
-                        <div class="email-target">
-                            <span class="badge-tag-sm badge-blue">Helmets</span>
-                            <strong>Axor Helmets (Vega Auto)</strong>
-                        </div>
-                        <button class="copy-btn" onclick="copyEmailText('body-axor')">📋 Copy Email</button>
-                    </div>
-                    <div class="email-body" id="body-axor"><div class="email-subject">Subject: Protective Helmet Partnership | The Journey Within: Upper Mustang Overland</div>Hi [Name],
-
-I am writing regarding The Journey Within, a 13-day motorcycle expedition crossing Upper Mustang, Nepal, departing 20th November 2026.
-
-With terrain rising to 3,840m through the wind-sculpted Kali Gandaki canyon, rider protection and optical clarity are paramount. We are inviting Axor to partner with us as our Official Helmet Partner under a ₹1.0 Lakh Field Partner arrangement (+ helmets for the lead team).
-
-We will capture authentic riding footage and 3 high-res commercial product stills of your helmets in real high-altitude dust and cold, delivered with agreed digital usage rights for your marketing.
-
-Please take a look at our full expedition deck:
-https://vikasnagpal.com/rinpoche/sponsorpitch
-
-Would you have 10 minutes next week to discuss this?
-
-Warm regards,
-
-Vikas Nagpal
-Totemtou · The Journey Within
-+91 8851831103</div>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- 7. The Founding Partner Multi-Trip Ecosystem Charter -->
-        <section class="section-block">
-            <div class="section-head">
-                <span class="section-num">Section 07</span>
-                <h2 class="section-title">Founding Partner Continuity Charter</h2>
-                <p class="section-lead">
-                    How we position future trips to sponsors without giving away free inventory or diluting Totemtou's long-term valuation.
-                </p>
-            </div>
-
-            <div class="card card--gold">
-                <h3 style="font-family: var(--font-display); font-size: 1.3rem; text-transform: uppercase; color: #8A4325; margin-bottom: 8px;">
-                    The Multi-Trip Mechanism: Equity Without Freebies
-                </h3>
-                <p style="margin-bottom: 14px;">
-                    The Upper Mustang maiden voyage is the foundation of a long-term experiential ecosystem. Totemtou is designing a recurring series of high-altitude contemplative journeys bridging active meditation and remote overland travel (upcoming: Spiti Valley, Zanskar &amp; Ladakh, Hidden Valleys of Bhutan, Western Tibet circuit).
-                </p>
-                <div style="background: #FFFFFF; border: 1px solid var(--border-subtle); padding: 18px; border-radius: var(--r-sm); margin-bottom: 14px;">
-                    <strong style="color: var(--ink); display: block; margin-bottom: 6px;">How We Pitch Future Trip Benefits:</strong>
-                    <ul style="list-style: none; font-size: 14px; line-height: 1.6;">
-                        <li style="margin-bottom: 8px;">✦ <strong>Right of First Refusal (ROFR):</strong> Founding partners receive an exclusive 14-day window to lock their category-exclusive slot on each of the next three announced Totemtou expeditions before slots are offered to competitors.</li>
-                        <li style="margin-bottom: 8px;">✦ <strong>Rate Protection / Founding Tier Lock:</strong> They are shielded from platform fee inflation as our global audience and production scale expand.</li>
-                        <li style="margin-bottom: 8px;">✦ <strong>Ecosystem Continuity:</strong> Their brand remains credited as an early founding patron in all future documentary trailers and expedition retrospectives.</li>
-                        <li>⚠️ <strong>Strict Rule:</strong> Never promise guaranteed free future trips. Each future expedition has its own distinct production budget and operational costs.</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- 8. 6-Week Outreach Sprint Schedule -->
-        <section class="section-block">
-            <div class="section-head">
-                <span class="section-num">Section 08</span>
-                <h2 class="section-title">6-Week Countdown Execution Plan</h2>
-                <p class="section-lead">
-                    Target departure is 20th November 2026. A disciplined weekly sprint to close all 4 partners and finalize production logistics.
-                </p>
-            </div>
-
-            <div class="sprint-timeline">
-                <div class="sprint-step">
-                    <div class="sprint-time">Week 1 · Oct 9 to Oct 15</div>
-                    <div class="sprint-desc">
-                        <strong>Outreach Wave 1 Blitz:</strong> Deploy personalized emails to priority targets (Rynox, ViaTerra, Royal Enfield, Columbia/Chogori, Fast&amp;Up, Nepal Tourism Board). Use warm founder/influencer introductions where available; log responses in CRM.
-                    </div>
-                </div>
-
-                <div class="sprint-step">
-                    <div class="sprint-time">Week 2 · Oct 16 to Oct 22</div>
-                    <div class="sprint-desc">
-                        <strong>Discovery Calls &amp; Proposal Tailoring:</strong> Conduct 15-minute alignment calls. Tailor specific content hooks to each interested brand. Close 2 commitments (1 Founding or 2 Expedition Partners).
-                    </div>
-                </div>
-
-                <div class="sprint-step">
-                    <div class="sprint-time">Week 3 · Oct 23 to Oct 29</div>
-                    <div class="sprint-desc">
-                        <strong>Contract Execution &amp; Category Lock:</strong> Sign formal agreements outlining talent boundaries, usage rights, and payment terms (50% advance upon signing). Enforce category exclusivity register.
-                    </div>
-                </div>
-
-                <div class="sprint-step">
-                    <div class="sprint-time">Week 4 · Oct 30 to Nov 5</div>
-                    <div class="sprint-desc">
-                        <strong>Gear Ingestion &amp; Shot Listing:</strong> Receive test equipment, luggage, and apparel. DoP and drone team map specific shot lists to itinerary waypoints (Kagbeni, Chele Gorge, Lo Manthang, Luri Gompa).
-                    </div>
-                </div>
-
-                <div class="sprint-step">
-                    <div class="sprint-time">Week 5 · Nov 6 to Nov 12</div>
-                    <div class="sprint-desc">
-                        <strong>Permit Finalization &amp; Technical Staging:</strong> Process Upper Mustang Inner-Line clearances ($500/pax), finalize satellite comms and high-altitude medical oxygen packs. Pre-expedition brand social teaser.
-                    </div>
-                </div>
-
-                <div class="sprint-step">
-                    <div class="sprint-time">Week 6 · Nov 13 to Nov 19</div>
-                    <div class="sprint-desc">
-                        <strong>Arrival in Pokhara &amp; Shakedown:</strong> Fleet preparation, bike decals applied, equipment fitting, rider briefing with Rinpoche and Eksha.
-                    </div>
-                </div>
-
-                <div class="sprint-step" style="margin-bottom: 0;">
-                    <div class="sprint-time" style="color: #276749;">Departure · 20th November 2026</div>
-                    <div class="sprint-desc" style="font-weight: 600; color: var(--ink);">
-                        Wheels Roll from Pokhara along the Kali Gandaki toward Lo Manthang.
+                <div class="guardrail-card">
+                    <div class="guardrail-title">Sacred Site Sensitivity</div>
+                    <div class="guardrail-desc">
+                        Filming is strictly restricted or silenced within active monastic prayer chambers, chortens, and sacred cave shrines per Tibetan Buddhist protocol.
                     </div>
                 </div>
             </div>
         </section>
-
     </main>
 
-    <!-- Interactive Copy Script -->
-    <div id="toast" class="toast-copied">Copied email to clipboard!</div>
-
+    <!-- Interactive JavaScript -->
     <script>
-        function copyEmailText(elementId) {
-            const el = document.getElementById(elementId);
-            if (!el) return;
-            const text = el.innerText || el.textContent;
-            navigator.clipboard.writeText(text).then(() => {
-                showToast('Email template copied to clipboard!');
-            }).catch(err => {
-                console.error('Copy failed: ', err);
+        // Access Gate Authentication per I7
+        const PASSCODE = 'totemtou2026';
+
+        function checkGate() {
+            if (sessionStorage.getItem('totemtou_unlocked') === 'true') {
+                document.getElementById('access-gate-modal').style.display = 'none';
+            } else {
+                document.getElementById('access-gate-modal').style.display = 'flex';
+            }
+        }
+
+        function handleGateUnlock(e) {
+            e.preventDefault();
+            const input = document.getElementById('gate-password').value.trim();
+            const errorMsg = document.getElementById('gate-error-msg');
+            if (input === PASSCODE || input.toLowerCase() === 'totemtou') {
+                sessionStorage.setItem('totemtou_unlocked', 'true');
+                document.getElementById('access-gate-modal').style.display = 'none';
+            } else {
+                errorMsg.style.display = 'block';
+            }
+        }
+
+        function lockPlaybook() {
+            sessionStorage.removeItem('totemtou_unlocked');
+            document.getElementById('access-gate-modal').style.display = 'flex';
+            document.getElementById('gate-password').value = '';
+            document.getElementById('gate-error-msg').style.display = 'none';
+        }
+
+        // Filter Pipeline by Wave
+        function filterPipeline(filter, btn) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            document.querySelectorAll('.prospect-item-card').forEach(card => {
+                if (filter === 'all' || card.getAttribute('data-wave') === filter) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
             });
         }
 
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            toast.textContent = msg;
-            toast.classList.add('show');
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
+        // Toggle Expandable Email Panel
+        function toggleEmailPanel(panelId) {
+            const panel = document.getElementById(panelId);
+            if (panel) {
+                panel.classList.toggle('open');
+            }
         }
+
+        // Copy Subject Line
+        function copySubject(subId) {
+            const el = document.getElementById(subId);
+            if (!el) return;
+            const fullText = el.innerText.replace(/^Subject:\s*/, '');
+            navigator.clipboard.writeText(fullText).then(() => {
+                showToast('✓ Subject line copied!');
+            });
+        }
+
+        // Copy Full Email (Subject + Body with clean formatting)
+        function copyFullEmail(subId, bodyId) {
+            const subEl = document.getElementById(subId);
+            const bodyEl = document.getElementById(bodyId);
+            if (!subEl || !bodyEl) return;
+            const fullText = subEl.innerText + '\n\n' + bodyEl.innerText;
+            navigator.clipboard.writeText(fullText).then(() => {
+                showToast('✓ Full email copied to clipboard!');
+            });
+        }
+
+        // Toast feedback
+        function showToast(msg) {
+            const toast = document.getElementById('copy-toast');
+            toast.innerText = msg;
+            toast.style.display = 'block';
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 2500);
+        }
+
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', checkGate);
     </script>
 </body>
 </html>
