@@ -78,7 +78,7 @@
                 <div class="dash-card">
                     <div class="dash-card-lbl">Funding Target</div>
                     <div class="dash-card-val">₹12,00,000</div>
-                    <div class="dash-card-sub">Total target: <strong>₹12L</strong> (Operating &amp; Media)</div>
+                    <div class="dash-card-sub">Base cost: <strong>₹10,53,543</strong> · Target: <strong>₹12L</strong></div>
                 </div>
 
                 <!-- Metric 2: Gap -->
@@ -690,13 +690,13 @@ vikas@totemtou.com</div>
             </div>
         </section>
 
-        <!-- I6: Funding Goal & Commitment Tracking -->
+        <!-- I6: Funding Goal & Cost Breakdown -->
         <section class="section-block" id="budget-tracker">
             <div class="section-head">
-                <span class="section-kicker">FINANCIAL GOAL &amp; CAPITALIZATION</span>
-                <h2 class="section-title">Expedition Funding Goal · ₹12,00,000</h2>
+                <span class="section-kicker">EXPEDITION COST SHEET &amp; FUNDING TARGET</span>
+                <h2 class="section-title">Cost Breakdown &amp; Funding Target · ₹12,00,000</h2>
                 <p class="section-lead">
-                    Target funding required to fully produce, operate, and document the 13-day Upper Mustang expedition:
+                    Reconciled operational budget from the Upper Mustang Recce Cost Sheet (v2.1) in INR, establishing our 12L target:
                 </p>
             </div>
 
@@ -705,7 +705,7 @@ vikas@totemtou.com</div>
                 <div class="goal-highlight-card">
                     <div class="goal-lbl">Total Funding Target</div>
                     <div class="goal-val">₹12,00,000</div>
-                    <div class="goal-sub">12L all-inclusive operating, safety, permits, and media production</div>
+                    <div class="goal-sub">12L target covering overland logistics (₹10.54L) + media production (₹1.46L)</div>
                 </div>
                 <div class="goal-highlight-card">
                     <div class="goal-lbl">Total Sponsorship Capacity</div>
@@ -716,6 +716,103 @@ vikas@totemtou.com</div>
                     <div class="goal-lbl">Current Cash Gap</div>
                     <div class="goal-val" style="color: var(--color-terracotta);">₹12,00,000</div>
                     <div class="goal-sub">Committed: ₹0 · Closed: 0 / 7 partners</div>
+                </div>
+            </div>
+
+            <!-- Cost by Category Table (Single Currency: INR) -->
+            <div style="margin-bottom: 28px;">
+                <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
+                    <h3 style="font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink);">
+                        Cost by Category (Upper Mustang Recce Cost Sheet v2.1)
+                    </h3>
+                    <span style="font-size: 12px; color: var(--ink-faint);">Single Currency Base: INR</span>
+                </div>
+
+                <div class="budget-table-wrap">
+                    <table class="budget-table">
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Amount (INR)</th>
+                                <th>% of Total</th>
+                                <th>Basis / Calculation Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Permits &amp; Fees</strong></td>
+                                <td class="budget-val">₹3,22,314</td>
+                                <td>30.6%</td>
+                                <td>SAARC × (RAP days × $/day + ACAP + processing). Nepali = $0</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Fuel</strong></td>
+                                <td class="budget-val">₹33,467</td>
+                                <td>3.2%</td>
+                                <td>∑(count × per-unit fuel) across bikes and cars</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Vehicles (rent)</strong></td>
+                                <td class="budget-val">₹1,24,306</td>
+                                <td>11.8%</td>
+                                <td>∑(count × trip rent) - personal vehicles at $0</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Accommodation</strong></td>
+                                <td class="budget-val">₹1,17,047</td>
+                                <td>11.1%</td>
+                                <td>Headcount × nights × $/person/night</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Meals</strong></td>
+                                <td class="budget-val">₹3,12,823</td>
+                                <td>29.7%</td>
+                                <td>Headcount × days × $/person/day</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Other</strong></td>
+                                <td class="budget-val">₹47,810</td>
+                                <td>4.5%</td>
+                                <td>Placeholder: headcount × $/person</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Guide (Deepak - licensed)</strong></td>
+                                <td class="budget-val">₹0</td>
+                                <td>0.0%</td>
+                                <td>Deepak holds a Nepali trekking-guide license</td>
+                            </tr>
+                            <tr style="background: #FDFBF7; font-weight: 600;">
+                                <td><strong>Subtotal (pre-contingency)</strong></td>
+                                <td class="budget-val">₹9,57,766</td>
+                                <td>90.9%</td>
+                                <td>Direct operational base subtotal</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Contingency</strong></td>
+                                <td class="budget-val">₹95,777</td>
+                                <td>10.0%</td>
+                                <td>Subtotal × contingency % (10%)</td>
+                            </tr>
+                            <tr class="total-row">
+                                <td><strong>Base Expedition Grand Total</strong></td>
+                                <td class="budget-val"><strong>₹10,53,543</strong></td>
+                                <td><strong>100.0%</strong></td>
+                                <td><strong>Base recce &amp; overland expedition logistics total</strong></td>
+                            </tr>
+                            <tr style="background: #FAF4EB;">
+                                <td><strong>Media Production &amp; Contingency Buffer</strong></td>
+                                <td class="budget-val">₹1,46,457</td>
+                                <td>-</td>
+                                <td>Documentary field unit, post-production audio/color &amp; reserve</td>
+                            </tr>
+                            <tr class="total-row" style="background: #F4EBE1; border-top: 2px solid var(--color-terracotta);">
+                                <td><strong>Total Funding Target Required</strong></td>
+                                <td class="budget-val" style="color: var(--color-terracotta-dark);"><strong>₹12,00,000</strong></td>
+                                <td><strong>Target</strong></td>
+                                <td><strong>All-inclusive sponsorship funding target (12L)</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
