@@ -978,7 +978,7 @@ html, body {
 }
 
 /* ==========================================================================
-   RESPONSIVE DESIGN (Table to Cards on Mobile)
+   RESPONSIVE DESIGN (Table to Cards on Mobile & Header Refinement)
    ========================================================================== */
 @media (max-width: 900px) {
     .prospect-row-main {
@@ -996,13 +996,110 @@ html, body {
     }
 }
 
-@media (max-width: 600px) {
-    .dashboard-metrics-grid {
-        grid-template-columns: 1fr;
+@media (max-width: 820px) {
+    .doc-top-bar {
+        position: static; /* Prevent sticky bar from eating screen height on mobile */
+        padding: 12px 16px;
     }
 
     .doc-top-bar-inner {
         flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .doc-brand {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+    }
+
+    .doc-title-text {
+        font-size: 12px;
+    }
+
+    .doc-quick-nav {
+        display: flex;
+        gap: 12px;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding: 4px 0;
+    }
+
+    .doc-quick-nav::-webkit-scrollbar {
+        display: none;
+    }
+
+    .doc-top-actions {
+        display: flex;
+        gap: 8px;
+        width: 100%;
+    }
+
+    .btn-pitch-link, .btn-lock-doc {
+        flex: 1;
+        text-align: center;
+        justify-content: center;
+        padding: 8px 12px;
+        font-size: 11px;
+    }
+
+    .doc-container {
+        padding: 24px 16px 60px;
+    }
+
+    .page-title {
+        font-size: clamp(26px, 6vw, 36px);
+    }
+
+    .pipeline-filter-tabs {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding-bottom: 6px;
+    }
+
+    .pipeline-filter-tabs::-webkit-scrollbar {
+        display: none;
+    }
+
+    .tab-btn {
+        flex-shrink: 0;
+    }
+
+    .email-meta-strip {
+        flex-direction: column;
         align-items: flex-start;
+        gap: 12px;
+    }
+
+    .email-actions-group {
+        width: 100%;
+        display: flex;
+        gap: 8px;
+    }
+
+    .btn-copy-email, .btn-copy-subject {
+        flex: 1;
+        justify-content: center;
+        font-size: 11px;
+        padding: 8px 10px;
+    }
+
+    .budget-table th, .budget-table td {
+        padding: 10px 12px;
+        font-size: 12.5px;
+        white-space: nowrap;
+    }
+}
+
+@media (max-width: 600px) {
+    .dashboard-metrics-grid {
+        grid-template-columns: 1fr;
     }
 }
