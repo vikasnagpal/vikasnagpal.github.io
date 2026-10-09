@@ -1345,6 +1345,14 @@ strong, b {
     margin-bottom: 34px;
 }
 
+.contact-text strong,
+.contact-text b,
+.pitch-contact strong,
+.pitch-contact b {
+    color: #FAF5EE;
+    font-weight: 600;
+}
+
 .contact-btn-row {
     display: flex;
     justify-content: center;
