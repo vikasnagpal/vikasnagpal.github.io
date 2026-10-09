@@ -179,17 +179,18 @@
             <!-- Filter Tabs -->
             <div class="pipeline-filter-tabs">
                 <button type="button" class="tab-btn active" onclick="filterPipeline('all', this);">All Prospects (14)</button>
-                <button type="button" class="tab-btn" onclick="filterPipeline('wave1', this);">Wave 1: Bikes, Gear &amp; Tech (4)</button>
-                <button type="button" class="tab-btn" onclick="filterPipeline('wave2', this);">Wave 2: Aligned Startups &amp; Wellness (6)</button>
-                <button type="button" class="tab-btn" onclick="filterPipeline('wave3', this);">Wave 3: Apparel, Travel &amp; Institutions (4)</button>
+                <button type="button" class="tab-btn" onclick="filterPipeline('moto', this);">Motorcycles &amp; Gear (4)</button>
+                <button type="button" class="tab-btn" onclick="filterPipeline('wellness', this);">Health, Wellness &amp; Nutrition (5)</button>
+                <button type="button" class="tab-btn" onclick="filterPipeline('apparel', this);">Apparel &amp; Tech (3)</button>
+                <button type="button" class="tab-btn" onclick="filterPipeline('travel', this);">Travel &amp; Tourism (2)</button>
             </div>
 
             <!-- Pipeline Table / Cards Container -->
             <div class="prospect-table-wrap">
                 <!-- Prospect 1: Royal Enfield -->
-                <div class="prospect-item-card" data-wave="wave1">
+                <div class="prospect-item-card" data-category="moto">
                     <div class="prospect-row-main" onclick="toggleEmailPanel('email-re');">
-                        <div class="col-priority priority-wave1">Wave 1</div>
+                        <div class="col-category-tag cat-moto">Moto &amp; Gear</div>
                         <div>
                             <div class="col-brand">Royal Enfield</div>
                             <div class="col-brand-category">Motorcycles &amp; Gear</div>
@@ -251,9 +252,9 @@ Partner@totemtou.com</div>
                 </div>
 
                 <!-- Prospect 2: Rynox Gears -->
-                <div class="prospect-item-card" data-wave="wave1">
+                <div class="prospect-item-card" data-category="moto">
                     <div class="prospect-row-main" onclick="toggleEmailPanel('email-rynox');">
-                        <div class="col-priority priority-wave1">Wave 1</div>
+                        <div class="col-category-tag cat-moto">Moto &amp; Gear</div>
                         <div>
                             <div class="col-brand">Rynox Gears</div>
                             <div class="col-brand-category">Riding Armor &amp; Apparel</div>
@@ -314,9 +315,9 @@ Partner@totemtou.com</div>
                 </div>
 
                 <!-- Prospect 3: GoPro / Insta360 -->
-                <div class="prospect-item-card" data-wave="wave1">
+                <div class="prospect-item-card" data-category="apparel">
                     <div class="prospect-row-main" onclick="toggleEmailPanel('email-camera');">
-                        <div class="col-priority priority-wave1">Wave 1</div>
+                        <div class="col-category-tag cat-apparel">Apparel &amp; Tech</div>
                         <div>
                             <div class="col-brand">GoPro / Insta360</div>
                             <div class="col-brand-category">Action Cameras &amp; Tech</div>
@@ -377,9 +378,9 @@ Partner@totemtou.com</div>
                 </div>
 
                 <!-- Prospect 4: Viaterra Gear -->
-                <div class="prospect-item-card" data-wave="wave1">
+                <div class="prospect-item-card" data-category="moto">
                     <div class="prospect-row-main" onclick="toggleEmailPanel('email-viaterra');">
-                        <div class="col-priority priority-wave1">Wave 1</div>
+                        <div class="col-category-tag cat-moto">Moto &amp; Gear</div>
                         <div>
                             <div class="col-brand">Viaterra Gear</div>
                             <div class="col-brand-category">Motorcycle Luggage</div>
@@ -440,9 +441,9 @@ Partner@totemtou.com</div>
                 </div>
 
                 <!-- Prospect 5: Ultrahuman -->
-                <div class="prospect-item-card" data-wave="wave2">
+                <div class="prospect-item-card" data-category="wellness">
                     <div class="prospect-row-main" onclick="toggleEmailPanel('email-ultrahuman');">
-                        <div class="col-priority priority-wave2">Wave 2</div>
+                        <div class="col-category-tag cat-wellness">Wellness</div>
                         <div>
                             <div class="col-brand">Ultrahuman</div>
                             <div class="col-brand-category">HealthTech &amp; Biometrics</div>
@@ -503,9 +504,9 @@ Partner@totemtou.com</div>
                 </div>
 
                 <!-- Prospect 6: The Whole Truth Foods -->
-                <div class="prospect-item-card" data-wave="wave2">
+                <div class="prospect-item-card" data-category="wellness">
                     <div class="prospect-row-main" onclick="toggleEmailPanel('email-wholetruth');">
-                        <div class="col-priority priority-wave2">Wave 2</div>
+                        <div class="col-category-tag cat-wellness">Wellness</div>
                         <div>
                             <div class="col-brand">The Whole Truth Foods</div>
                             <div class="col-brand-category">Clean Energy &amp; Nutrition</div>
@@ -566,9 +567,9 @@ Partner@totemtou.com</div>
                 </div>
 
                 <!-- Prospect 7: Gokyo Outdoor Clothing -->
-                <div class="prospect-item-card" data-wave="wave2">
+                <div class="prospect-item-card" data-category="apparel">
                     <div class="prospect-row-main" onclick="toggleEmailPanel('email-gokyo');">
-                        <div class="col-priority priority-wave2">Wave 2</div>
+                        <div class="col-category-tag cat-apparel">Apparel &amp; Tech</div>
                         <div>
                             <div class="col-brand">Gokyo Outdoor Clothing</div>
                             <div class="col-brand-category">Technical Mountain Apparel</div>
@@ -629,9 +630,9 @@ Partner@totemtou.com</div>
                 </div>
 
                 <!-- Prospect 8: BluArmor -->
-                <div class="prospect-item-card" data-wave="wave2">
+                <div class="prospect-item-card" data-category="moto">
                     <div class="prospect-row-main" onclick="toggleEmailPanel('email-bluarmor');">
-                        <div class="col-priority priority-wave2">Wave 2</div>
+                        <div class="col-category-tag cat-moto">Moto &amp; Gear</div>
                         <div>
                             <div class="col-brand">BluArmor</div>
                             <div class="col-brand-category">Helmet Tech &amp; Rider Comms</div>
@@ -692,9 +693,9 @@ Partner@totemtou.com</div>
                 </div>
 
                 <!-- Prospect 9: Pahadi Local -->
-                <div class="prospect-item-card" data-wave="wave2">
+                <div class="prospect-item-card" data-category="wellness">
                     <div class="prospect-row-main" onclick="toggleEmailPanel('email-pahadi');">
-                        <div class="col-priority priority-wave2">Wave 2</div>
+                        <div class="col-category-tag cat-wellness">Wellness</div>
                         <div>
                             <div class="col-brand">Pahadi Local</div>
                             <div class="col-brand-category">Himalayan Wellness &amp; Skin Care</div>
@@ -755,9 +756,9 @@ Partner@totemtou.com</div>
                 </div>
 
                 <!-- Prospect 10: Blue Tokai Coffee Roasters -->
-                <div class="prospect-item-card" data-wave="wave2">
+                <div class="prospect-item-card" data-category="wellness">
                     <div class="prospect-row-main" onclick="toggleEmailPanel('email-bluetokai');">
-                        <div class="col-priority priority-wave2">Wave 2</div>
+                        <div class="col-category-tag cat-wellness">Wellness</div>
                         <div>
                             <div class="col-brand">Blue Tokai Coffee</div>
                             <div class="col-brand-category">Specialty Camp Brews &amp; Rituals</div>
@@ -818,9 +819,9 @@ Partner@totemtou.com</div>
                 </div>
 
                 <!-- Prospect 11: Columbia Sportswear / Decathlon -->
-                <div class="prospect-item-card" data-wave="wave3">
+                <div class="prospect-item-card" data-category="apparel">
                     <div class="prospect-row-main" onclick="toggleEmailPanel('email-apparel');">
-                        <div class="col-priority priority-wave3">Wave 3</div>
+                        <div class="col-category-tag cat-apparel">Apparel &amp; Tech</div>
                         <div>
                             <div class="col-brand">Columbia / Decathlon</div>
                             <div class="col-brand-category">Outdoor Apparel &amp; Down</div>
@@ -881,9 +882,9 @@ Partner@totemtou.com</div>
                 </div>
 
                 <!-- Prospect 12: Fast&Up / Hydration -->
-                <div class="prospect-item-card" data-wave="wave3">
+                <div class="prospect-item-card" data-category="wellness">
                     <div class="prospect-row-main" onclick="toggleEmailPanel('email-nutrition');">
-                        <div class="col-priority priority-wave3">Wave 3</div>
+                        <div class="col-category-tag cat-wellness">Wellness</div>
                         <div>
                             <div class="col-brand">Fast&amp;Up Nutrition</div>
                             <div class="col-brand-category">Hydration &amp; Recovery</div>
@@ -944,9 +945,9 @@ Partner@totemtou.com</div>
                 </div>
 
                 <!-- Prospect 13: Nepal Tourism Board -->
-                <div class="prospect-item-card" data-wave="wave3">
+                <div class="prospect-item-card" data-category="travel">
                     <div class="prospect-row-main" onclick="toggleEmailPanel('email-ntb');">
-                        <div class="col-priority priority-wave3">Wave 3</div>
+                        <div class="col-category-tag cat-travel">Travel</div>
                         <div>
                             <div class="col-brand">Nepal Tourism Board</div>
                             <div class="col-brand-category">Destination &amp; Heritage</div>
@@ -1007,9 +1008,9 @@ Partner@totemtou.com</div>
                 </div>
 
                 <!-- Prospect 14: Yeti Airlines / Hospitality -->
-                <div class="prospect-item-card" data-wave="wave3">
+                <div class="prospect-item-card" data-category="travel">
                     <div class="prospect-row-main" onclick="toggleEmailPanel('email-hospitality');">
-                        <div class="col-priority priority-wave3">Wave 3</div>
+                        <div class="col-category-tag cat-travel">Travel</div>
                         <div>
                             <div class="col-brand">Yeti Airlines / Barahi</div>
                             <div class="col-brand-category">Aviation &amp; Hospitality</div>
@@ -1298,13 +1299,13 @@ Partner@totemtou.com</div>
             document.getElementById('gate-error-msg').style.display = 'none';
         }
 
-        // Filter Pipeline by Wave
+        // Filter Pipeline by Category
         function filterPipeline(filter, btn) {
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
 
             document.querySelectorAll('.prospect-item-card').forEach(card => {
-                if (filter === 'all' || card.getAttribute('data-wave') === filter) {
+                if (filter === 'all' || card.getAttribute('data-category') === filter) {
                     card.style.display = 'block';
                 } else {
                     card.style.display = 'none';
