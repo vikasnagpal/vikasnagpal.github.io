@@ -609,6 +609,10 @@ html, body {
     color: var(--color-gold);
 }
 
+.priority-wave3 {
+    color: #4A6B5B;
+}
+
 .col-brand {
     font-weight: 600;
     font-size: 14px;

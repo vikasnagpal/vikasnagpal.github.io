@@ -98,8 +98,8 @@
                 <!-- Metric 4: Pipeline -->
                 <div class="dash-card">
                     <div class="dash-card-lbl">Prospect Pipeline</div>
-                    <div class="dash-card-val">8 Brands</div>
-                    <div class="dash-card-sub">8 Not contacted · 0 Contacted · 0 Won</div>
+                    <div class="dash-card-val">14 Brands</div>
+                    <div class="dash-card-sub">14 Not contacted · 0 Contacted · 0 Won</div>
                 </div>
             </div>
 
@@ -114,8 +114,8 @@
             <!-- Quick Links -->
             <div class="quick-links-bar">
                 <a href="#operating-rules" class="quick-link-chip">Four Operating Rules</a>
-                <a href="#prospect-pipeline" class="quick-link-chip">Sortable Prospect Pipeline (8)</a>
-                <a href="#budget-tracker" class="quick-link-chip">Funding Goal (₹12L) &amp; Commitments</a>
+                <a href="#prospect-pipeline" class="quick-link-chip">Sortable Prospect Pipeline (14)</a>
+                <a href="#budget-tracker" class="quick-link-chip">Funding Goal (₹12L) &amp; Cost Sheet</a>
                 <a href="#guardrails" class="quick-link-chip">Talent &amp; Spiritual Guardrails</a>
                 <a href="https://vikasnagpal.com/rinpoche/sponsorpitch" target="_blank" rel="noopener" class="quick-link-chip">Public Sponsor Pitch ↗</a>
             </div>
@@ -178,9 +178,10 @@
 
             <!-- Filter Tabs -->
             <div class="pipeline-filter-tabs">
-                <button type="button" class="tab-btn active" onclick="filterPipeline('all', this);">All Prospects (8)</button>
-                <button type="button" class="tab-btn" onclick="filterPipeline('wave1', this);">Wave 1: Gear &amp; Tech (4)</button>
-                <button type="button" class="tab-btn" onclick="filterPipeline('wave2', this);">Wave 2: Apparel, Wellness &amp; Travel (4)</button>
+                <button type="button" class="tab-btn active" onclick="filterPipeline('all', this);">All Prospects (14)</button>
+                <button type="button" class="tab-btn" onclick="filterPipeline('wave1', this);">Wave 1: Bikes, Gear &amp; Tech (4)</button>
+                <button type="button" class="tab-btn" onclick="filterPipeline('wave2', this);">Wave 2: Aligned Startups &amp; Wellness (6)</button>
+                <button type="button" class="tab-btn" onclick="filterPipeline('wave3', this);">Wave 3: Apparel, Travel &amp; Institutions (4)</button>
             </div>
 
             <!-- Pipeline Table / Cards Container -->
@@ -438,10 +439,388 @@ vikas@totemtou.com</div>
                     </div>
                 </div>
 
-                <!-- Prospect 5: Columbia Sportswear / Decathlon -->
+                <!-- Prospect 5: Ultrahuman -->
                 <div class="prospect-item-card" data-wave="wave2">
-                    <div class="prospect-row-main" onclick="toggleEmailPanel('email-apparel');">
+                    <div class="prospect-row-main" onclick="toggleEmailPanel('email-ultrahuman');">
                         <div class="col-priority priority-wave2">Wave 2</div>
+                        <div>
+                            <div class="col-brand">Ultrahuman</div>
+                            <div class="col-brand-category">HealthTech &amp; Biometrics</div>
+                        </div>
+                        <div>
+                            <div class="col-ask">₹1,50,000</div>
+                            <div class="col-ask-sub">Field Partner</div>
+                        </div>
+                        <div class="col-angle">
+                            Real-time biometric case study: HRV, nervous system resilience, and sleep architecture at 3,840 m.
+                        </div>
+                        <div class="col-contact">
+                            <div>Vikas Nagpal</div>
+                            <div style="font-size: 11px; color: var(--ink-faint);">Founders &amp; Partnerships</div>
+                        </div>
+                        <div>
+                            <span class="status-badge status-not-contacted">Not Contacted</span>
+                        </div>
+                        <div>
+                            <div class="col-toggle-btn">View Email ▾</div>
+                        </div>
+                    </div>
+
+                    <div class="prospect-email-panel" id="email-ultrahuman">
+                        <div class="email-meta-strip">
+                            <div class="email-next-action">
+                                <strong>Next Action:</strong> Pitch Ultrahuman partnerships team. Category: Field Partner (HealthTech &amp; Physiology, ₹1.5L).
+                            </div>
+                            <div class="email-actions-group">
+                                <button type="button" class="btn-copy-subject" onclick="copySubject('sub-ultrahuman');">Copy Subject</button>
+                                <button type="button" class="btn-copy-email" onclick="copyFullEmail('sub-ultrahuman', 'body-ultrahuman');">Copy Full Email</button>
+                            </div>
+                        </div>
+
+                        <div class="email-content-box">
+                            <div class="email-subject-line" id="sub-ultrahuman">
+                                <span>Subject:</span> Nervous System Resilience at 3,840m: Ultrahuman × The Journey Within (Upper Mustang)
+                            </div>
+                            <div class="email-body-text" id="body-ultrahuman">Hi [First Name],
+
+I am reaching out regarding The Journey Within, an intensive 13-day overland motorcycle expedition crossing Upper Mustang, Nepal departing 20 November 2026.
+
+The journey unites two distinct physiological profiles: Buddhist spiritual teacher HE Palga Rinpoche (deep autonomic nervous system regulation via breathwork and meditation) and Eksha Kerung (Sikkim Police Officer and endurance athlete with 396K followers).
+
+We are inviting Ultrahuman to partner as our Official Physiology &amp; Recovery Partner (₹1,50,000 Field Partner tier). We envision tracking HRV, sleep architecture, and stress recovery as the cohort moves from low valleys into the sub-zero, oxygen-thin air of Lo Manthang at 3,840 m. Deliverables include a dedicated 10-20 second bespoke brand film, 5 edited images, 1 indirect organic video each across Rinpoche's and Eksha's social channels, and 3-month digital rights.
+
+Complete expedition overview:
+https://vikasnagpal.com/rinpoche/sponsorpitch
+
+Would you be open to a 10-minute introductory call this week?
+
+Warm regards,
+Vikas Nagpal
+Totemtou Expeditions
+vikas@totemtou.com</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prospect 6: The Whole Truth Foods -->
+                <div class="prospect-item-card" data-wave="wave2">
+                    <div class="prospect-row-main" onclick="toggleEmailPanel('email-wholetruth');">
+                        <div class="col-priority priority-wave2">Wave 2</div>
+                        <div>
+                            <div class="col-brand">The Whole Truth Foods</div>
+                            <div class="col-brand-category">Clean Energy &amp; Nutrition</div>
+                        </div>
+                        <div>
+                            <div class="col-ask">₹1,50,000</div>
+                            <div class="col-ask-sub">Field Partner</div>
+                        </div>
+                        <div class="col-angle">
+                            100% clean-label fuel for 6-8 continuous hours on high-altitude riverbeds without sugar crashes.
+                        </div>
+                        <div class="col-contact">
+                            <div>Vikas Nagpal</div>
+                            <div style="font-size: 11px; color: var(--ink-faint);">Brand Marketing</div>
+                        </div>
+                        <div>
+                            <span class="status-badge status-not-contacted">Not Contacted</span>
+                        </div>
+                        <div>
+                            <div class="col-toggle-btn">View Email ▾</div>
+                        </div>
+                    </div>
+
+                    <div class="prospect-email-panel" id="email-wholetruth">
+                        <div class="email-meta-strip">
+                            <div class="email-next-action">
+                                <strong>Next Action:</strong> Outreach to The Whole Truth brand marketing team. Category: Field Partner (Clean Nutrition, ₹1.5L).
+                            </div>
+                            <div class="email-actions-group">
+                                <button type="button" class="btn-copy-subject" onclick="copySubject('sub-wholetruth');">Copy Subject</button>
+                                <button type="button" class="btn-copy-email" onclick="copyFullEmail('sub-wholetruth', 'body-wholetruth');">Copy Full Email</button>
+                            </div>
+                        </div>
+
+                        <div class="email-content-box">
+                            <div class="email-subject-line" id="sub-wholetruth">
+                                <span>Subject:</span> Clean Himalayan Fuel: The Whole Truth × The Journey Within (Upper Mustang)
+                            </div>
+                            <div class="email-body-text" id="body-wholetruth">Hi [First Name],
+
+I wanted to share details on The Journey Within, a 13-day overland motorcycle expedition through Upper Mustang, Nepal departing 20 November 2026, co-led by HE Palga Rinpoche and Eksha Kerung (396K followers).
+
+Riding 6 to 8 hours daily over high Himalayan passes demands sustained, clean fuel without artificial additives or sugar spikes. We would love to feature The Whole Truth as our Official Clean Nutrition Partner under our ₹1,50,000 Field Partner tier.
+
+Deliverables include integrating your protein bars and nut butters into daily rider trail routines, documented in a dedicated 10-20 second bespoke brand reel, 5 edited editorial stills, 1 indirect organic video each across Rinpoche's and Eksha's social channels, and 3-month digital rights.
+
+Deck &amp; route brief:
+https://vikasnagpal.com/rinpoche/sponsorpitch
+
+Could we schedule a short 10-minute call this week?
+
+Best regards,
+Vikas Nagpal
+Totemtou Expeditions
+vikas@totemtou.com</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prospect 7: Gokyo Outdoor Clothing -->
+                <div class="prospect-item-card" data-wave="wave2">
+                    <div class="prospect-row-main" onclick="toggleEmailPanel('email-gokyo');">
+                        <div class="col-priority priority-wave2">Wave 2</div>
+                        <div>
+                            <div class="col-brand">Gokyo Outdoor Clothing</div>
+                            <div class="col-brand-category">Technical Mountain Apparel</div>
+                        </div>
+                        <div>
+                            <div class="col-ask">₹1,50,000</div>
+                            <div class="col-ask-sub">Field Partner</div>
+                        </div>
+                        <div class="col-angle">
+                            Indian technical alpine outerwear stress-tested across 3,950 m passes, dust storms, and sub-zero nights.
+                        </div>
+                        <div class="col-contact">
+                            <div>Vikas Nagpal</div>
+                            <div style="font-size: 11px; color: var(--ink-faint);">Founder Outreach</div>
+                        </div>
+                        <div>
+                            <span class="status-badge status-not-contacted">Not Contacted</span>
+                        </div>
+                        <div>
+                            <div class="col-toggle-btn">View Email ▾</div>
+                        </div>
+                    </div>
+
+                    <div class="prospect-email-panel" id="email-gokyo">
+                        <div class="email-meta-strip">
+                            <div class="email-next-action">
+                                <strong>Next Action:</strong> Direct message to Gokyo Outdoor leadership. Category: Field Partner (Technical Apparel, ₹1.5L).
+                            </div>
+                            <div class="email-actions-group">
+                                <button type="button" class="btn-copy-subject" onclick="copySubject('sub-gokyo');">Copy Subject</button>
+                                <button type="button" class="btn-copy-email" onclick="copyFullEmail('sub-gokyo', 'body-gokyo');">Copy Full Email</button>
+                            </div>
+                        </div>
+
+                        <div class="email-content-box">
+                            <div class="email-subject-line" id="sub-gokyo">
+                                <span>Subject:</span> Himalayan Field Testing: Gokyo Outdoor × The Journey Within (Upper Mustang)
+                            </div>
+                            <div class="email-body-text" id="body-gokyo">Hi [First Name],
+
+I am organizing The Journey Within, a 13-day high-altitude overland expedition crossing Upper Mustang, Nepal (departing 20 November 2026), co-led by HE Palga Rinpoche and Eksha Kerung (Sikkim Police Officer and athlete with 396K followers).
+
+As an Indian outdoor apparel brand named after the sacred Gokyo region, your technical fleeces, windshells, and down layers belong on this rugged trans-Himalayan trail. We are inviting Gokyo Outdoor to join as a Field Partner (₹1,50,000 investment).
+
+Deliverables include genuine field-use documentation during sub-zero mornings and pass ascents up to 3,950 m, captured in a dedicated 10-20 second bespoke film, 5 edited stills, 1 indirect organic video each across Rinpoche's and Eksha's channels, and 3-month digital rights.
+
+Full partnership brief:
+https://vikasnagpal.com/rinpoche/sponsorpitch
+
+Let me know if we can connect for a brief 10-minute call.
+
+Warmly,
+Vikas Nagpal
+Totemtou Expeditions
+vikas@totemtou.com</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prospect 8: BluArmor -->
+                <div class="prospect-item-card" data-wave="wave2">
+                    <div class="prospect-row-main" onclick="toggleEmailPanel('email-bluarmor');">
+                        <div class="col-priority priority-wave2">Wave 2</div>
+                        <div>
+                            <div class="col-brand">BluArmor</div>
+                            <div class="col-brand-category">Helmet Tech &amp; Rider Comms</div>
+                        </div>
+                        <div>
+                            <div class="col-ask">₹1,50,000</div>
+                            <div class="col-ask-sub">Field Partner</div>
+                        </div>
+                        <div class="col-angle">
+                            Intercom and audio navigation connectivity in remote Himalayan gorges with zero cellular reception.
+                        </div>
+                        <div class="col-contact">
+                            <div>Vikas Nagpal</div>
+                            <div style="font-size: 11px; color: var(--ink-faint);">Product Marketing</div>
+                        </div>
+                        <div>
+                            <span class="status-badge status-not-contacted">Not Contacted</span>
+                        </div>
+                        <div>
+                            <div class="col-toggle-btn">View Email ▾</div>
+                        </div>
+                    </div>
+
+                    <div class="prospect-email-panel" id="email-bluarmor">
+                        <div class="email-meta-strip">
+                            <div class="email-next-action">
+                                <strong>Next Action:</strong> Pitch BluArmor product marketing lead. Category: Field Partner (Motorcycle Tech, ₹1.5L).
+                            </div>
+                            <div class="email-actions-group">
+                                <button type="button" class="btn-copy-subject" onclick="copySubject('sub-bluarmor');">Copy Subject</button>
+                                <button type="button" class="btn-copy-email" onclick="copyFullEmail('sub-bluarmor', 'body-bluarmor');">Copy Full Email</button>
+                            </div>
+                        </div>
+
+                        <div class="email-content-box">
+                            <div class="email-subject-line" id="sub-bluarmor">
+                                <span>Subject:</span> Trans-Himalayan Trail Comms: BluArmor × The Journey Within (Upper Mustang)
+                            </div>
+                            <div class="email-body-text" id="body-bluarmor">Hi [First Name],
+
+I wanted to share details on The Journey Within, a 13-day overland motorcycle expedition crossing Upper Mustang, Nepal departing 20 November 2026.
+
+Led by HE Palga Rinpoche and Eksha Kerung (Sikkim Police Officer and adventure athlete with 396K followers), our convoy tackles technical riverbeds and cliffside trails with zero cellular coverage. We would love to feature BluArmor as our Motorcycle Tech Partner under our ₹1,50,000 Field Partner tier.
+
+Deliverables include integrating BluArmor helmet comms and navigation audio into real-time trail scouting, documented in a dedicated 10-20 second bespoke brand reel, 5 edited action stills, 1 indirect organic video each across Rinpoche's and Eksha's channels, and 3-month digital rights.
+
+Deck &amp; route brief:
+https://vikasnagpal.com/rinpoche/sponsorpitch
+
+Let me know if we can schedule a quick 10-minute call this week.
+
+Best regards,
+Vikas Nagpal
+Totemtou Expeditions
+vikas@totemtou.com</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prospect 9: Pahadi Local -->
+                <div class="prospect-item-card" data-wave="wave2">
+                    <div class="prospect-row-main" onclick="toggleEmailPanel('email-pahadi');">
+                        <div class="col-priority priority-wave2">Wave 2</div>
+                        <div>
+                            <div class="col-brand">Pahadi Local</div>
+                            <div class="col-brand-category">Himalayan Wellness &amp; Skin Care</div>
+                        </div>
+                        <div>
+                            <div class="col-ask">₹1,50,000</div>
+                            <div class="col-ask-sub">Field Partner</div>
+                        </div>
+                        <div class="col-angle">
+                            Traditional trans-Himalayan botanical care: cold-pressed Gutti Ka Tel for biting sub-zero wind protection.
+                        </div>
+                        <div class="col-contact">
+                            <div>Vikas Nagpal</div>
+                            <div style="font-size: 11px; color: var(--ink-faint);">Brand Direct</div>
+                        </div>
+                        <div>
+                            <span class="status-badge status-not-contacted">Not Contacted</span>
+                        </div>
+                        <div>
+                            <div class="col-toggle-btn">View Email ▾</div>
+                        </div>
+                    </div>
+
+                    <div class="prospect-email-panel" id="email-pahadi">
+                        <div class="email-meta-strip">
+                            <div class="email-next-action">
+                                <strong>Next Action:</strong> Email Pahadi Local brand team. Category: Field Partner (Himalayan Wellness, ₹1.5L).
+                            </div>
+                            <div class="email-actions-group">
+                                <button type="button" class="btn-copy-subject" onclick="copySubject('sub-pahadi');">Copy Subject</button>
+                                <button type="button" class="btn-copy-email" onclick="copyFullEmail('sub-pahadi', 'body-pahadi');">Copy Full Email</button>
+                            </div>
+                        </div>
+
+                        <div class="email-content-box">
+                            <div class="email-subject-line" id="sub-pahadi">
+                                <span>Subject:</span> Himalayan Botanical Care: Pahadi Local × The Journey Within (Upper Mustang)
+                            </div>
+                            <div class="email-body-text" id="body-pahadi">Hi [First Name],
+
+I am producing The Journey Within, an authentic 13-day motorcycle expedition crossing Upper Mustang, Nepal this November (departure 20 November 2026), led by HE Palga Rinpoche and Eksha Kerung (396K followers).
+
+Riding against biting Kali Gandaki winds and high-altitude arid air requires respectful, traditional mountain skin care. We are inviting Pahadi Local to join as our Himalayan Wellness Partner (₹1,50,000 Field Partner tier).
+
+We will weave your pure apricot oils and mountain wellness essentials into unhurried dawn and evening recovery rituals. Deliverables include a dedicated 10-20 second bespoke narrative film, 5 high-resolution editorial stills, 1 indirect organic video each across Rinpoche's and Eksha's channels, and 3-month digital rights.
+
+Complete proposal:
+https://vikasnagpal.com/rinpoche/sponsorpitch
+
+Could we set up a brief conversation this week?
+
+Warm regards,
+Vikas Nagpal
+Totemtou Expeditions
+vikas@totemtou.com</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prospect 10: Blue Tokai Coffee Roasters -->
+                <div class="prospect-item-card" data-wave="wave2">
+                    <div class="prospect-row-main" onclick="toggleEmailPanel('email-bluetokai');">
+                        <div class="col-priority priority-wave2">Wave 2</div>
+                        <div>
+                            <div class="col-brand">Blue Tokai Coffee</div>
+                            <div class="col-brand-category">Specialty Camp Brews &amp; Rituals</div>
+                        </div>
+                        <div>
+                            <div class="col-ask">₹1,50,000</div>
+                            <div class="col-ask-sub">Field Partner</div>
+                        </div>
+                        <div class="col-angle">
+                            Grounding dawn pour-over rituals and campfire brewing before firing up engines at 3,840 m.
+                        </div>
+                        <div class="col-contact">
+                            <div>Vikas Nagpal</div>
+                            <div style="font-size: 11px; color: var(--ink-faint);">Brand Partnerships</div>
+                        </div>
+                        <div>
+                            <span class="status-badge status-not-contacted">Not Contacted</span>
+                        </div>
+                        <div>
+                            <div class="col-toggle-btn">View Email ▾</div>
+                        </div>
+                    </div>
+
+                    <div class="prospect-email-panel" id="email-bluetokai">
+                        <div class="email-meta-strip">
+                            <div class="email-next-action">
+                                <strong>Next Action:</strong> Pitch Blue Tokai marketing lead. Category: Field Partner (Specialty Coffee, ₹1.5L).
+                            </div>
+                            <div class="email-actions-group">
+                                <button type="button" class="btn-copy-subject" onclick="copySubject('sub-bluetokai');">Copy Subject</button>
+                                <button type="button" class="btn-copy-email" onclick="copyFullEmail('sub-bluetokai', 'body-bluetokai');">Copy Full Email</button>
+                            </div>
+                        </div>
+
+                        <div class="email-content-box">
+                            <div class="email-subject-line" id="sub-bluetokai">
+                                <span>Subject:</span> Dawn Mountain Brews: Blue Tokai × The Journey Within (Upper Mustang)
+                            </div>
+                            <div class="email-body-text" id="body-bluetokai">Hi [First Name],
+
+I am organizing The Journey Within, a 13-day high-altitude overland expedition through Upper Mustang, Nepal (departure 20 November 2026), led by HE Palga Rinpoche and Eksha Kerung (396K followers).
+
+Each morning begins in quiet sub-zero mountain villages with intentional breathwork and grounding routines before 8 hours on the road. We are inviting Blue Tokai to join as our Camp Coffee Partner under our ₹1,50,000 Field Partner tier.
+
+We will feature your Easy Pour drip bags and specialty coffees in tactile campfire preparation scenes, captured in a dedicated 10-20 second bespoke film, 5 high-resolution stills, 1 indirect organic placement video each across Rinpoche's and Eksha's channels, and 3-month digital rights.
+
+Full expedition deck:
+https://vikasnagpal.com/rinpoche/sponsorpitch
+
+Would you have 10 minutes this week for a brief introductory chat?
+
+Warmly,
+Vikas Nagpal
+Totemtou Expeditions
+vikas@totemtou.com</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prospect 11: Columbia Sportswear / Decathlon -->
+                <div class="prospect-item-card" data-wave="wave3">
+                    <div class="prospect-row-main" onclick="toggleEmailPanel('email-apparel');">
+                        <div class="col-priority priority-wave3">Wave 3</div>
                         <div>
                             <div class="col-brand">Columbia / Decathlon</div>
                             <div class="col-brand-category">Outdoor Apparel &amp; Down</div>
@@ -501,10 +880,10 @@ vikas@totemtou.com</div>
                     </div>
                 </div>
 
-                <!-- Prospect 6: Fast&Up / Hydration -->
-                <div class="prospect-item-card" data-wave="wave2">
+                <!-- Prospect 12: Fast&Up / Hydration -->
+                <div class="prospect-item-card" data-wave="wave3">
                     <div class="prospect-row-main" onclick="toggleEmailPanel('email-nutrition');">
-                        <div class="col-priority priority-wave2">Wave 2</div>
+                        <div class="col-priority priority-wave3">Wave 3</div>
                         <div>
                             <div class="col-brand">Fast&amp;Up Nutrition</div>
                             <div class="col-brand-category">Hydration &amp; Recovery</div>
@@ -564,10 +943,10 @@ vikas@totemtou.com</div>
                     </div>
                 </div>
 
-                <!-- Prospect 7: Nepal Tourism Board -->
-                <div class="prospect-item-card" data-wave="wave2">
+                <!-- Prospect 13: Nepal Tourism Board -->
+                <div class="prospect-item-card" data-wave="wave3">
                     <div class="prospect-row-main" onclick="toggleEmailPanel('email-ntb');">
-                        <div class="col-priority priority-wave2">Wave 2</div>
+                        <div class="col-priority priority-wave3">Wave 3</div>
                         <div>
                             <div class="col-brand">Nepal Tourism Board</div>
                             <div class="col-brand-category">Destination &amp; Heritage</div>
@@ -627,10 +1006,10 @@ vikas@totemtou.com</div>
                     </div>
                 </div>
 
-                <!-- Prospect 8: Yeti Airlines / Hospitality -->
-                <div class="prospect-item-card" data-wave="wave2">
+                <!-- Prospect 14: Yeti Airlines / Hospitality -->
+                <div class="prospect-item-card" data-wave="wave3">
                     <div class="prospect-row-main" onclick="toggleEmailPanel('email-hospitality');">
-                        <div class="col-priority priority-wave2">Wave 2</div>
+                        <div class="col-priority priority-wave3">Wave 3</div>
                         <div>
                             <div class="col-brand">Yeti Airlines / Barahi</div>
                             <div class="col-brand-category">Aviation &amp; Hospitality</div>
